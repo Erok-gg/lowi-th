@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projets — LOWI</title>
+  <meta name="description" content="Tous les projets immobiliers disponibles sur LOWI — investissement fractionné en Thaïlande." />
+  <style>
+    @font-face {
+      font-family: 'MCTen';
+      src: url('mc-ten-lowercase-alt.ttf') format('truetype');
+      font-display: swap;
+    }
+
+    :root {
+      --gold:    #C9A84C;
+      --gold-lt: #E8C97A;
+      --teal:    #0D7C6E;
+      --teal-dk: #095448;
+      --cream:   #FAF6EE;
+      --ink:     #1A1A2E;
+      --ink2:    #2E2E4A;
+      --muted:   #6B7280;
+      --white:   #FFFFFF;
+      --r-xl:    2rem;
+      --r-lg:    1.25rem;
+      --shadow:  0 8px 40px rgba(0,0,0,.14);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── NAVBAR ─────────────────────────────────────────────── */
+    .navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(26, 26, 46, 0.96);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(201,168,76,.18);
+      height: 64px;
+      display: flex;
+      align-items: center;
+      padding: 0 2rem;
+      gap: 2rem;
+    }
+
+    .nav-logo {
+      font-family: 'MCTen', serif;
+      font-size: 1.6rem;
+      color: var(--gold);
+      text-decoration: none;
+      letter-spacing: .04em;
+      flex-shrink: 0;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.75rem;
+      list-style: none;
+      margin-left: .5rem;
+    }
+
+    .nav-links a {
+      color: rgba(255,255,255,.78);
+      text-decoration: none;
+      font-size: .93rem;
+      font-weight: 500;
+      letter-spacing: .02em;
+      transition: color .2s;
+    }
+
+    .nav-links a:hover { color: var(--white); }
+    .nav-links a.active { color: var(--gold); }
+
+    .nav-spacer { flex: 1; }
+
+    #lang-btn {
+      background: transparent;
+      border: 1.5px solid rgba(201,168,76,.45);
+      color: var(--gold-lt);
+      border-radius: 6px;
+      padding: .3rem .75rem;
+      font-size: .82rem;
+      font-weight: 600;
+      cursor: pointer;
+      letter-spacing: .06em;
+      transition: background .2s, border-color .2s;
+    }
+    #lang-btn:hover {
+      background: rgba(201,168,76,.12);
+      border-color: var(--gold);
+    }
+
+    .nav-cta {
+      background: var(--gold);
+      color: var(--ink);
+      border: none;
+      border-radius: .6rem;
+      padding: .5rem 1.25rem;
+      font-size: .9rem;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background .2s, transform .15s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .nav-cta:hover { background: var(--gold-lt); transform: translateY(-1px); }
+
+    /* ── PAGE HERO ──────────────────────────────────────────── */
+    .page-hero {
+      background: var(--ink);
+      padding: 7rem 2rem 3.5rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 50% 110%, rgba(13,124,110,.28) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-label {
+      display: inline-block;
+      background: rgba(201,168,76,.15);
+      border: 1px solid rgba(201,168,76,.35);
+      color: var(--gold);
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: .35rem 1rem;
+      border-radius: 2rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .page-hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -.01em;
+      line-height: 1.15;
+      margin-bottom: .9rem;
+    }
+
+    .page-hero h1 span { color: var(--gold); }
+
+    .hero-subtitle {
+      color: rgba(255,255,255,.62);
+      font-size: 1.05rem;
+      max-width: 560px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* ── FILTER BAR ─────────────────────────────────────────── */
+    .filter-bar {
+      position: sticky;
+      top: 64px;
+      z-index: 90;
+      background: var(--cream);
+      border-bottom: 1px solid rgba(0,0,0,.08);
+      padding: .9rem 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: .75rem 1.5rem;
+      align-items: center;
+    }
+
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: .45rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-label {
+      font-size: .78rem;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      margin-right: .1rem;
+    }
+
+    .filter-pill {
+      background: var(--white);
+      border: 1.5px solid rgba(0,0,0,.11);
+      color: var(--ink2);
+      border-radius: 2rem;
+      padding: .32rem .85rem;
+      font-size: .82rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background .18s, border-color .18s, color .18s;
+      white-space: nowrap;
+    }
+    .filter-pill:hover {
+      border-color: var(--teal);
+      color: var(--teal);
+    }
+    .filter-pill.active {
+      background: var(--teal);
+      border-color: var(--teal);
+      color: var(--white);
+      font-weight: 600;
+    }
+
+    .filter-select {
+      appearance: none;
+      -webkit-appearance: none;
+      background: var(--white) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%236B7280'/%3E%3C/svg%3E") no-repeat right .75rem center;
+      border: 1.5px solid rgba(0,0,0,.11);
+      color: var(--ink2);
+      border-radius: 2rem;
+      padding: .32rem 2.2rem .32rem .9rem;
+      font-size: .82rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: border-color .18s;
+      font-family: inherit;
+    }
+    .filter-select:focus { outline: none; border-color: var(--teal); }
+
+    .filter-divider {
+      width: 1px;
+      height: 24px;
+      background: rgba(0,0,0,.1);
+      align-self: center;
+    }
+
+    /* ── MAIN CONTENT ───────────────────────────────────────── */
+    .main-content {
+      flex: 1;
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 2rem 2rem 3rem;
+    }
+
+    .results-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+
+    .results-count {
+      font-size: .9rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .results-count strong {
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    /* ── PROJECT GRID ───────────────────────────────────────── */
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    /* ── PROJECT CARD ───────────────────────────────────────── */
+    .project-card {
+      background: var(--white);
+      border-radius: var(--r-xl);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform .22s, box-shadow .22s;
+    }
+    .project-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 56px rgba(0,0,0,.18);
+    }
+
+    /* Card image wrapper */
+    .card-image-wrap {
+      position: relative;
+      height: 200px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .card-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .35s;
+    }
+    .project-card:hover .card-image-wrap img { transform: scale(1.04); }
+
+    .card-type-tag {
+      position: absolute;
+      top: .75rem;
+      left: .75rem;
+      background: rgba(26,26,46,.72);
+      backdrop-filter: blur(6px);
+      color: var(--white);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      padding: .28rem .65rem;
+      border-radius: 1rem;
+    }
+
+    .card-status-badge {
+      position: absolute;
+      top: .75rem;
+      right: .75rem;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: .28rem .7rem;
+      border-radius: 1rem;
+    }
+    .badge-open  { background: var(--teal);    color: var(--white); }
+    .badge-full  { background: var(--muted);   color: var(--white); }
+    .badge-soon  { background: var(--gold);    color: var(--ink);   }
+
+    /* Gold progress bar at bottom of image */
+    .card-img-bar {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 4px;
+      background: rgba(255,255,255,.22);
+    }
+    .card-img-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold), var(--gold-lt));
+      border-radius: 0 2px 2px 0;
+      transition: width .5s ease;
+    }
+
+    /* Card body */
+    .card-body {
+      padding: 1.1rem 1.25rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      gap: .75rem;
+    }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.3;
+      margin: 0;
+    }
+
+    .card-city {
+      font-size: .8rem;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: .3rem;
+      margin-top: .15rem;
+    }
+
+    /* 3 metrics grid */
+    .card-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: .5rem;
+      background: var(--cream);
+      border-radius: var(--r-lg);
+      padding: .75rem .6rem;
+    }
+
+    .metric-item {
+      text-align: center;
+    }
+
+    .metric-label {
+      font-size: .67rem;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: block;
+      margin-bottom: .2rem;
+    }
+
+    .metric-value {
+      font-size: .97rem;
+      font-weight: 800;
+      color: var(--teal);
+      display: block;
+      line-height: 1.2;
+    }
+
+    .metric-value.gold { color: var(--gold); }
+
+    .metric-sub {
+      font-size: .68rem;
+      color: var(--muted);
+      display: block;
+      margin-top: .15rem;
+      line-height: 1.2;
+    }
+
+    .metric-divider {
+      width: 1px;
+      background: rgba(0,0,0,.07);
+      margin: .1rem 0;
+    }
+
+    /* Funding progress */
+    .card-funding {
+      display: flex;
+      flex-direction: column;
+      gap: .35rem;
+    }
+
+    .funding-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .funding-label {
+      font-size: .75rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .funding-pct {
+      font-size: .78rem;
+      font-weight: 700;
+      color: var(--teal);
+    }
+    .funding-pct.full { color: var(--muted); }
+
+    .funding-bar-track {
+      height: 6px;
+      background: rgba(0,0,0,.07);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .funding-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--teal), #1AAF9E);
+      border-radius: 3px;
+      transition: width .5s ease;
+    }
+    .funding-bar-fill.full  { background: var(--muted); }
+    .funding-bar-fill.soon  { background: linear-gradient(90deg, var(--gold), var(--gold-lt)); }
+
+    /* Card button */
+    .card-btn {
+      display: block;
+      width: 100%;
+      padding: .65rem 1rem;
+      border-radius: var(--r-lg);
+      font-size: .88rem;
+      font-weight: 700;
+      text-align: center;
+      cursor: pointer;
+      border: none;
+      transition: background .2s, transform .15s, box-shadow .2s;
+      letter-spacing: .02em;
+      margin-top: auto;
+      text-decoration: none;
+    }
+
+    .btn-invest {
+      background: var(--teal);
+      color: var(--white);
+    }
+    .btn-invest:hover {
+      background: var(--teal-dk);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(13,124,110,.28);
+    }
+
+    .btn-waitlist {
+      background: rgba(107,114,128,.12);
+      color: var(--muted);
+      cursor: default;
+    }
+
+    .btn-soon {
+      background: transparent;
+      color: var(--gold);
+      border: 2px solid var(--gold);
+    }
+    .btn-soon:hover {
+      background: rgba(201,168,76,.1);
+    }
+
+    /* ── NO RESULTS ─────────────────────────────────────────── */
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--muted);
+    }
+    .no-results-icon { font-size: 3rem; margin-bottom: 1rem; }
+    .no-results h3 { font-size: 1.2rem; color: var(--ink2); margin-bottom: .5rem; }
+
+    /* ── PAGINATION ─────────────────────────────────────────── */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: .5rem;
+      margin-top: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .page-btn {
+      background: var(--white);
+      border: 1.5px solid rgba(0,0,0,.11);
+      color: var(--ink2);
+      border-radius: .65rem;
+      padding: .45rem .85rem;
+      font-size: .88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .18s, border-color .18s, color .18s;
+      font-family: inherit;
+      min-width: 2.4rem;
+      text-align: center;
+    }
+    .page-btn:hover:not(:disabled) {
+      border-color: var(--teal);
+      color: var(--teal);
+    }
+    .page-btn.active {
+      background: var(--teal);
+      border-color: var(--teal);
+      color: var(--white);
+    }
+    .page-btn:disabled {
+      opacity: .4;
+      cursor: not-allowed;
+    }
+    .page-ellipsis {
+      color: var(--muted);
+      font-size: .9rem;
+      padding: .45rem .3rem;
+    }
+
+    /* ── FOOTER ─────────────────────────────────────────────── */
+    footer {
+      background: var(--ink);
+      color: rgba(255,255,255,.55);
+      padding: 2.25rem 2rem;
+      text-align: center;
+      font-size: .85rem;
+      border-top: 1px solid rgba(201,168,76,.15);
+    }
+
+    .footer-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: .9rem;
+    }
+
+    .footer-logo {
+      font-family: 'MCTen', serif;
+      font-size: 1.4rem;
+      color: var(--gold);
+      text-decoration: none;
+      letter-spacing: .04em;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .footer-links a {
+      color: rgba(255,255,255,.5);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .footer-links a:hover { color: var(--white); }
+
+    /* ── RESPONSIVE ─────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .project-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .navbar { padding: 0 1.2rem; gap: 1rem; }
+      .nav-links { gap: 1.1rem; }
+      .nav-links li:nth-child(1),
+      .nav-links li:nth-child(2) { display: none; }
+      .page-hero { padding: 6rem 1.25rem 2.75rem; }
+      .filter-bar { padding: .75rem 1.25rem; top: 64px; }
+      .main-content { padding: 1.5rem 1.25rem 2.5rem; }
+      .project-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+    }
+
+    @media (max-width: 480px) {
+      .nav-links { display: none; }
+      .filter-group { gap: .35rem; }
+      .filter-pill { padding: .28rem .65rem; font-size: .78rem; }
+    }
+
+    /* ── SKELETON LOADING ───────────────────────────────────── */
+    @keyframes shimmer {
+      0%   { background-position: -600px 0; }
+      100% { background-position:  600px 0; }
+    }
+    .skeleton {
+      background: linear-gradient(90deg, #ede8df 25%, #e0dbd2 50%, #ede8df 75%);
+      background-size: 600px 100%;
+      animation: shimmer 1.4s infinite;
+      border-radius: .5rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════ NAVBAR ═══════════ -->
+  <nav class="navbar" role="navigation" aria-label="Navigation principale">
+    <a href="index.html" class="nav-logo" aria-label="LOWI — Accueil">LOWI</a>
+    <ul class="nav-links">
+      <li><a href="comment-ca-marche.html" data-i18n="nav_how">Comment ça marche</a></li>
+      <li><a href="a-propos.html" data-i18n="nav_about">À propos</a></li>
+      <li><a href="projets.html" class="active" data-i18n="nav_projects">Projets</a></li>
+    </ul>
+    <div class="nav-spacer"></div>
+    <button id="lang-btn" onclick="toggleLang()" aria-label="Changer de langue">EN</button>
+    <button id="nav-cta-btn" class="nav-cta" data-i18n="nav_cta">Commencer à investir</button>
+  </nav>
+
+  <!-- ═══════════ PAGE HERO ═══════════ -->
+  <section class="page-hero" aria-labelledby="hero-title">
+    <div class="hero-label" data-i18n="hero_label">Projets disponibles</div>
+    <h1 id="hero-title">
+      <span data-i18n="hero_title_1">Tous les</span> <span data-i18n="hero_title_2">projets</span>
+    </h1>
+    <p class="hero-subtitle" data-i18n="hero_subtitle">
+      Explorez l'ensemble des baux emphytéotiques disponibles à travers la Thaïlande. Filtrez par type, localisation et rendement pour trouver l'investissement qui vous correspond.
+    </p>
+  </section>
+
+  <!-- ═══════════ FILTER BAR ═══════════ -->
+  <div class="filter-bar" role="search" aria-label="Filtres projets">
+
+    <!-- Type filter -->
+    <div class="filter-group">
+      <span class="filter-label" data-i18n="filter_type">Type</span>
+      <button class="filter-pill active" data-filter="type" data-value="all" data-i18n="filter_all">Tous</button>
+      <button class="filter-pill" data-filter="type" data-value="villa">Villa</button>
+      <button class="filter-pill" data-filter="type" data-value="bungalow">Bungalow</button>
+      <button class="filter-pill" data-filter="type" data-value="condo">Condo</button>
+      <button class="filter-pill" data-filter="type" data-value="eco-resort" data-i18n="filter_eco">Éco-resort</button>
+      <button class="filter-pill" data-filter="type" data-value="co-living">Co-living</button>
+      <button class="filter-pill" data-filter="type" data-value="boutique-hotel" data-i18n="filter_boutique">Boutique Hotel</button>
+    </div>
+
+    <div class="filter-divider"></div>
+
+    <!-- Location filter -->
+    <div class="filter-group">
+      <span class="filter-label" data-i18n="filter_loc_label">Localisation</span>
+      <button class="filter-pill active" data-filter="loc" data-value="all" data-i18n="filter_all_loc">Tous</button>
+      <button class="filter-pill" data-filter="loc" data-value="ko-phangan">Ko Phangan</button>
+      <button class="filter-pill" data-filter="loc" data-value="koh-samui">Koh Samui</button>
+      <button class="filter-pill" data-filter="loc" data-value="phuket">Phuket</button>
+    </div>
+
+    <div class="filter-divider"></div>
+
+    <!-- Sort -->
+    <div class="filter-group">
+      <label class="filter-label" for="sort-select" data-i18n="filter_sort_label">Trier</label>
+      <select class="filter-select" id="sort-select" aria-label="Trier les projets">
+        <option value="tri-desc"    data-i18n="sort_tri_desc">TRI décroissant</option>
+        <option value="distrib-desc" data-i18n="sort_distrib_desc">Distribution décroissante</option>
+        <option value="price-asc"   data-i18n="sort_price_asc">Prix croissant</option>
+        <option value="price-desc"  data-i18n="sort_price_desc">Prix décroissant</option>
+      </select>
+    </div>
+
+  </div>
+
+  <!-- ═══════════ MAIN CONTENT ═══════════ -->
+  <main class="main-content" id="main-content">
+    <div class="results-bar">
+      <p class="results-count" id="results-count">
+        <strong id="results-num">30</strong> <span data-i18n="results_label">projets</span>
+      </p>
+    </div>
+
+    <div class="project-grid" id="project-grid" role="list" aria-live="polite" aria-atomic="true">
+      <!-- Cards injected by JS -->
+    </div>
+
+    <nav class="pagination" id="pagination" aria-label="Pagination" style="display:none;"></nav>
+  </main>
+
+  <!-- ═══════════ FOOTER ═══════════ -->
+  <footer role="contentinfo">
+    <div class="footer-inner">
+      <a href="index.html" class="footer-logo" aria-label="LOWI — Accueil">LOWI</a>
+      <nav class="footer-links" aria-label="Liens légaux">
+        <a href="#" data-i18n="footer_legal">Mentions légales</a>
+        <a href="#" data-i18n="footer_privacy">Politique de confidentialité</a>
+        <a href="#" data-i18n="footer_contact">Contact</a>
+      </nav>
+      <p id="footer-copy">
+        &copy; <span id="footer-year"></span> LOWI. <span data-i18n="footer_rights">Tous droits réservés.</span>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    /* ══════════════════════════════════════════════════════════
+       DATA
+    ══════════════════════════════════════════════════════════ */
+    const projects = [
+      {id:1, name:'Nai Wok Jungle Villa',       type:'villa',         loc:'ko-phangan', city:'Nai Wok, Ko Phangan',    img:'https://images.unsplash.com/photo-1582610116397-edb72278f033?w=600&q=80',  tri:12.1, distrib:8.0, ticket:500000,  bail:28, funding:87,  status:'open'},
+      {id:2, name:'Haad Yao Beach Bungalows',   type:'bungalow',      loc:'ko-phangan', city:'Haad Yao, Ko Phangan',   img:'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=80',  tri:11.5, distrib:7.5, ticket:750000,  bail:25, funding:62,  status:'open'},
+      {id:3, name:'Srithanu Digital Nest',       type:'co-living',     loc:'ko-phangan', city:'Srithanu, Ko Phangan',   img:'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80',  tri:13.2, distrib:8.5, ticket:500000,  bail:26, funding:55,  status:'open'},
+      {id:4, name:'Thong Sala Eco-Resort',       type:'eco-resort',    loc:'ko-phangan', city:'Thong Sala, Ko Phangan', img:'https://images.unsplash.com/photo-1540541338287-41700207dee6?w=600&q=80',  tri:11.8, distrib:7.8, ticket:500000,  bail:22, funding:38,  status:'open'},
+      {id:5, name:'Haad Rin Sunrise Villa',      type:'villa',         loc:'ko-phangan', city:'Haad Rin, Ko Phangan',   img:'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600&q=80',  tri:10.8, distrib:7.2, ticket:1000000, bail:30, funding:100, status:'full'},
+      {id:6, name:'Ban Tai Pool Villa',          type:'villa',         loc:'ko-phangan', city:'Ban Tai, Ko Phangan',    img:'https://images.unsplash.com/photo-1582610116397-edb72278f033?w=600&q=80',  tri:10.5, distrib:7.0, ticket:1500000, bail:29, funding:72,  status:'open'},
+      {id:7, name:'Bottle Beach Bungalows',      type:'bungalow',      loc:'ko-phangan', city:'Koh Ma, Ko Phangan',     img:'https://images.unsplash.com/photo-1573843981267-be1999ff37cd?w=600&q=80',  tri:12.8, distrib:8.3, ticket:500000,  bail:24, funding:18,  status:'open'},
+      {id:8, name:'Chaloklum Bay Resort',        type:'boutique-hotel',loc:'ko-phangan', city:'Chaloklum, Ko Phangan',  img:'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=80',  tri:11.2, distrib:7.5, ticket:2000000, bail:27, funding:0,   status:'soon'},
+      {id:9, name:'Mae Haad Oceanfront Villa',   type:'villa',         loc:'ko-phangan', city:'Mae Haad, Ko Phangan',   img:'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80',  tri:11.0, distrib:7.3, ticket:750000,  bail:28, funding:45,  status:'open'},
+      {id:10,name:'Srithanu Wellness Retreat',   type:'eco-resort',    loc:'ko-phangan', city:'Srithanu, Ko Phangan',   img:'https://images.unsplash.com/photo-1573843981267-be1999ff37cd?w=600&q=80',  tri:10.2, distrib:6.8, ticket:1000000, bail:25, funding:0,   status:'soon'},
+      {id:11,name:'Baan Tai Hillside Villa',     type:'villa',         loc:'ko-phangan', city:'Baan Tai, Ko Phangan',   img:'https://images.unsplash.com/photo-1540541338287-41700207dee6?w=600&q=80',  tri:11.9, distrib:7.9, ticket:750000,  bail:26, funding:33,  status:'open'},
+      {id:12,name:'Ao Plaay Condo',              type:'condo',         loc:'ko-phangan', city:'Thong Sala, Ko Phangan', img:'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600&q=80',  tri:10.6, distrib:7.1, ticket:500000,  bail:24, funding:61,  status:'open'},
+      {id:13,name:'Lamai Seaview Villa',         type:'villa',         loc:'koh-samui',  city:'Lamai, Koh Samui',       img:'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=600&q=80',   tri:9.8,  distrib:6.5, ticket:1000000, bail:30, funding:100, status:'full'},
+      {id:14,name:'Chaweng Beach Condo',         type:'condo',         loc:'koh-samui',  city:'Chaweng, Koh Samui',     img:'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=80',  tri:10.5, distrib:7.0, ticket:500000,  bail:28, funding:67,  status:'open'},
+      {id:15,name:'Bophut Heritage Villa',       type:'villa',         loc:'koh-samui',  city:'Bophut, Koh Samui',      img:'https://images.unsplash.com/photo-1582610116397-edb72278f033?w=600&q=80',  tri:9.5,  distrib:6.3, ticket:2000000, bail:29, funding:81,  status:'open'},
+      {id:16,name:'Maenam Yoga Retreat',         type:'eco-resort',    loc:'koh-samui',  city:'Maenam, Koh Samui',      img:'https://images.unsplash.com/photo-1573843981267-be1999ff37cd?w=600&q=80',  tri:10.8, distrib:7.2, ticket:750000,  bail:23, funding:34,  status:'open'},
+      {id:17,name:'Nathon Marina Suites',        type:'condo',         loc:'koh-samui',  city:'Nathon, Koh Samui',      img:'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600&q=80',  tri:11.2, distrib:7.4, ticket:500000,  bail:26, funding:22,  status:'open'},
+      {id:18,name:'Taling Ngam Pool Villa',      type:'villa',         loc:'koh-samui',  city:'Taling Ngam, Koh Samui', img:'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80',  tri:9.2,  distrib:6.1, ticket:1500000, bail:27, funding:91,  status:'open'},
+      {id:19,name:'Bang Por Beachfront',         type:'villa',         loc:'koh-samui',  city:'Bang Por, Koh Samui',    img:'https://images.unsplash.com/photo-1540541338287-41700207dee6?w=600&q=80',  tri:10.0, distrib:6.7, ticket:750000,  bail:28, funding:48,  status:'open'},
+      {id:20,name:'Samui Azure Villas',          type:'villa',         loc:'koh-samui',  city:'Chaweng, Koh Samui',     img:'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=600&q=80',   tri:11.5, distrib:7.5, ticket:750000,  bail:25, funding:62,  status:'open'},
+      {id:21,name:'Choeng Mon Bungalows',        type:'bungalow',      loc:'koh-samui',  city:'Choeng Mon, Koh Samui',  img:'https://images.unsplash.com/photo-1573843981267-be1999ff37cd?w=600&q=80',  tri:10.3, distrib:6.9, ticket:500000,  bail:22, funding:29,  status:'open'},
+      {id:22,name:'Rawai Pool Villa',            type:'villa',         loc:'phuket',     city:'Rawai, Phuket',          img:'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=600&q=80',   tri:10.2, distrib:6.8, ticket:750000,  bail:29, funding:55,  status:'open'},
+      {id:23,name:'Kata Beach Condo',            type:'condo',         loc:'phuket',     city:'Kata, Phuket',           img:'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=600&q=80',  tri:11.8, distrib:7.8, ticket:500000,  bail:26, funding:73,  status:'open'},
+      {id:24,name:'Patong Heights Villa',        type:'villa',         loc:'phuket',     city:'Patong, Phuket',         img:'https://images.unsplash.com/photo-1582610116397-edb72278f033?w=600&q=80',  tri:9.0,  distrib:6.0, ticket:2000000, bail:28, funding:88,  status:'open'},
+      {id:25,name:'Chalong Bay Bungalows',       type:'bungalow',      loc:'phuket',     city:'Chalong, Phuket',        img:'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80',  tri:12.2, distrib:8.1, ticket:500000,  bail:23, funding:31,  status:'open'},
+      {id:26,name:'Nai Harn Nature Retreat',     type:'eco-resort',    loc:'phuket',     city:'Nai Harn, Phuket',       img:'https://images.unsplash.com/photo-1573843981267-be1999ff37cd?w=600&q=80',  tri:10.5, distrib:7.0, ticket:1000000, bail:25, funding:0,   status:'soon'},
+      {id:27,name:'Kamala Beachfront Condo',     type:'condo',         loc:'phuket',     city:'Kamala, Phuket',         img:'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=80',  tri:11.0, distrib:7.3, ticket:750000,  bail:27, funding:44,  status:'open'},
+      {id:28,name:'Cape Yamu Luxury Villa',      type:'villa',         loc:'phuket',     city:'Cape Yamu, Phuket',      img:'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=600&q=80',   tri:8.8,  distrib:5.8, ticket:3000000, bail:30, funding:19,  status:'open'},
+      {id:29,name:'Surin Beach Residences',      type:'condo',         loc:'phuket',     city:'Surin, Phuket',          img:'https://images.unsplash.com/photo-1540541338287-41700207dee6?w=600&q=80',  tri:10.8, distrib:7.1, ticket:500000,  bail:26, funding:52,  status:'open'},
+      {id:30,name:'Layan Forest Villas',         type:'villa',         loc:'phuket',     city:'Layan, Phuket',          img:'https://images.unsplash.com/photo-1582610116397-edb72278f033?w=600&q=80',  tri:9.5,  distrib:6.3, ticket:1500000, bail:28, funding:0,   status:'soon'}
+    ];
+
+    /* ══════════════════════════════════════════════════════════
+       i18n
+    ══════════════════════════════════════════════════════════ */
+    const i18n = {
+      fr: {
+        nav_how:           'Comment ça marche',
+        nav_about:         'À propos',
+        nav_projects:      'Projets',
+        nav_cta:           'Commencer à investir',
+        hero_label:        'Projets disponibles',
+        hero_title_1:      'Tous les',
+        hero_title_2:      'projets',
+        hero_subtitle:     'Explorez l\'ensemble des baux emphytéotiques disponibles à travers la Thaïlande. Filtrez par type, localisation et rendement pour trouver l\'investissement qui vous correspond.',
+        filter_type:       'Type',
+        filter_all:        'Tous',
+        filter_eco:        'Éco-resort',
+        filter_boutique:   'Boutique Hotel',
+        filter_loc_label:  'Localisation',
+        filter_all_loc:    'Tous',
+        filter_sort_label: 'Trier',
+        sort_tri_desc:     'TRI décroissant',
+        sort_distrib_desc: 'Distribution décroissante',
+        sort_price_asc:    'Prix croissant',
+        sort_price_desc:   'Prix décroissant',
+        results_label:     'projets',
+        metric_tri:        'TRI',
+        metric_distrib:    'Distribution',
+        metric_ticket:     'Ticket min.',
+        metric_bail:       'Bail',
+        bail_unit:         'ans',
+        funding_label:     'Financement',
+        btn_invest:        'Investir maintenant',
+        btn_waitlist:      'Liste d\'attente',
+        btn_soon:          'Bientôt disponible',
+        badge_open:        'Ouvert',
+        badge_full:        'Complet',
+        badge_soon:        'Bientôt',
+        no_results_title:  'Aucun projet trouvé',
+        no_results_sub:    'Essayez de modifier vos filtres.',
+        prev:              'Précédent',
+        next:              'Suivant',
+        footer_legal:      'Mentions légales',
+        footer_privacy:    'Politique de confidentialité',
+        footer_contact:    'Contact',
+        footer_rights:     'Tous droits réservés.',
+      },
+      en: {
+        nav_how:           'How it works',
+        nav_about:         'About',
+        nav_projects:      'Projects',
+        nav_cta:           'Start investing',
+        hero_label:        'Available projects',
+        hero_title_1:      'All',
+        hero_title_2:      'projects',
+        hero_subtitle:     'Explore all available leasehold properties across Thailand. Filter by type, location and yield to find the investment that suits you.',
+        filter_type:       'Type',
+        filter_all:        'All',
+        filter_eco:        'Eco-resort',
+        filter_boutique:   'Boutique Hotel',
+        filter_loc_label:  'Location',
+        filter_all_loc:    'All',
+        filter_sort_label: 'Sort',
+        sort_tri_desc:     'IRR descending',
+        sort_distrib_desc: 'Distribution descending',
+        sort_price_asc:    'Price ascending',
+        sort_price_desc:   'Price descending',
+        results_label:     'projects',
+        metric_tri:        'IRR',
+        metric_distrib:    'Distribution',
+        metric_ticket:     'Min. ticket',
+        metric_bail:       'Lease',
+        bail_unit:         'yrs',
+        funding_label:     'Funding',
+        btn_invest:        'Invest now',
+        btn_waitlist:      'Join waitlist',
+        btn_soon:          'Coming soon',
+        badge_open:        'Open',
+        badge_full:        'Full',
+        badge_soon:        'Soon',
+        no_results_title:  'No projects found',
+        no_results_sub:    'Try adjusting your filters.',
+        prev:              'Previous',
+        next:              'Next',
+        footer_legal:      'Legal notice',
+        footer_privacy:    'Privacy policy',
+        footer_contact:    'Contact',
+        footer_rights:     'All rights reserved.',
+      }
+    };
+
+    let currentLang = 'fr';
+
+    function t(key) {
+      return (i18n[currentLang] && i18n[currentLang][key]) || key;
+    }
+
+    function applyTranslations() {
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        el.textContent = t(key);
+      });
+      // Sort select options
+      document.querySelectorAll('#sort-select option[data-i18n]').forEach(opt => {
+        opt.textContent = t(opt.getAttribute('data-i18n'));
+      });
+      // Lang button
+      document.getElementById('lang-btn').textContent = currentLang === 'fr' ? 'EN' : 'FR';
+      // html lang attribute
+      document.documentElement.lang = currentLang;
+      // Re-render cards to update dynamic text
+      renderGrid();
+    }
+
+    function toggleLang() {
+      currentLang = currentLang === 'fr' ? 'en' : 'fr';
+      applyTranslations();
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       STATE
+    ══════════════════════════════════════════════════════════ */
+    const PER_PAGE = 25;
+    let state = {
+      type: 'all',
+      loc:  'all',
+      sort: 'tri-desc',
+      page: 1
+    };
+
+    /* ══════════════════════════════════════════════════════════
+       HELPERS
+    ══════════════════════════════════════════════════════════ */
+    function fmtThb(n) {
+      // Format number with spaces: 1500000 → "1 500 000"
+      return n.toLocaleString('fr-FR').replace(/,/g, ' ') + ' THB';
+    }
+
+    function fmtThbShort(n) {
+      return n.toLocaleString('fr-FR').replace(/,/g, ' ') + ' THB';
+    }
+
+    function typeLabel(type) {
+      const map = {
+        villa:          'Villa',
+        bungalow:       'Bungalow',
+        condo:          'Condo',
+        'eco-resort':   currentLang === 'fr' ? 'Éco-resort' : 'Eco-resort',
+        'co-living':    'Co-living',
+        'boutique-hotel': 'Boutique Hotel'
+      };
+      return map[type] || type;
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       FILTER + SORT
+    ══════════════════════════════════════════════════════════ */
+    function getFiltered() {
+      let result = projects.slice();
+
+      if (state.type !== 'all') {
+        result = result.filter(p => p.type === state.type);
+      }
+      if (state.loc !== 'all') {
+        result = result.filter(p => p.loc === state.loc);
+      }
+
+      switch (state.sort) {
+        case 'tri-desc':     result.sort((a,b) => b.tri     - a.tri);     break;
+        case 'distrib-desc': result.sort((a,b) => b.distrib - a.distrib); break;
+        case 'price-asc':    result.sort((a,b) => a.ticket  - b.ticket);  break;
+        case 'price-desc':   result.sort((a,b) => b.ticket  - a.ticket);  break;
+      }
+
+      return result;
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       CARD BUILDER
+    ══════════════════════════════════════════════════════════ */
+    function buildCard(p) {
+      const annualThb = Math.round(p.ticket * (p.distrib / 100));
+      const annualFmt = annualThb.toLocaleString('fr-FR').replace(/,/g, ' ');
+      const ticketFmt = fmtThb(p.ticket);
+
+      // Status badge
+      const badgeClass = { open: 'badge-open', full: 'badge-full', soon: 'badge-soon' }[p.status];
+      const badgeText  = { open: t('badge_open'), full: t('badge_full'), soon: t('badge_soon') }[p.status];
+
+      // Button
+      let btnHtml = '';
+      if (p.status === 'open') {
+        btnHtml = `<button class="card-btn btn-invest">${t('btn_invest')}</button>`;
+      } else if (p.status === 'full') {
+        btnHtml = `<button class="card-btn btn-waitlist" disabled>${t('btn_waitlist')}</button>`;
+      } else {
+        btnHtml = `<button class="card-btn btn-soon">${t('btn_soon')}</button>`;
+      }
+
+      // Funding bar class
+      const barClass = p.status === 'full' ? 'full' : p.status === 'soon' ? 'soon' : '';
+      const pctClass = p.status === 'full' ? 'full' : '';
+
+      const fundingPct = p.funding;
+
+      return `
+        <article class="project-card" role="listitem" aria-label="${p.name}">
+          <div class="card-image-wrap">
+            <img src="${p.img}" alt="${p.name}" loading="lazy" width="600" height="200" />
+            <span class="card-type-tag">${typeLabel(p.type)}</span>
+            <span class="card-status-badge ${badgeClass}">${badgeText}</span>
+            <div class="card-img-bar">
+              <div class="card-img-bar-fill" style="width:${fundingPct}%"></div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div>
+              <h3 class="card-title">${p.name}</h3>
+              <p class="card-city">📍 ${p.city}</p>
+            </div>
+            <div class="card-metrics" role="group" aria-label="Indicateurs financiers">
+              <div class="metric-item">
+                <span class="metric-label">${t('metric_tri')}</span>
+                <span class="metric-value">${p.tri.toFixed(1)}%</span>
+                <span class="metric-sub">&nbsp;</span>
+              </div>
+              <div class="metric-item">
+                <span class="metric-label">${t('metric_distrib')}</span>
+                <span class="metric-value gold">${p.distrib.toFixed(1)}%/an</span>
+                <span class="metric-sub">~${annualFmt} THB/an</span>
+              </div>
+              <div class="metric-item">
+                <span class="metric-label">${t('metric_ticket')}</span>
+                <span class="metric-value" style="font-size:.78rem">${ticketFmt}</span>
+                <span class="metric-sub">${t('metric_bail')}: ${p.bail} ${t('bail_unit')}</span>
+              </div>
+            </div>
+            <div class="card-funding">
+              <div class="funding-label-row">
+                <span class="funding-label">${t('funding_label')}</span>
+                <span class="funding-pct ${pctClass}">${fundingPct}%</span>
+              </div>
+              <div class="funding-bar-track" role="progressbar" aria-valuenow="${fundingPct}" aria-valuemin="0" aria-valuemax="100">
+                <div class="funding-bar-fill ${barClass}" style="width:${fundingPct}%"></div>
+              </div>
+            </div>
+            ${btnHtml}
+          </div>
+        </article>
+      `;
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       RENDER GRID
+    ══════════════════════════════════════════════════════════ */
+    function renderGrid() {
+      const filtered = getFiltered();
+      const total    = filtered.length;
+      const pages    = Math.ceil(total / PER_PAGE);
+
+      // Clamp page
+      if (state.page > pages) state.page = Math.max(1, pages);
+
+      const start = (state.page - 1) * PER_PAGE;
+      const slice = filtered.slice(start, start + PER_PAGE);
+
+      const grid = document.getElementById('project-grid');
+
+      // Results count
+      document.getElementById('results-num').textContent = total;
+      document.querySelector('[data-i18n="results_label"]').textContent = t('results_label');
+
+      if (slice.length === 0) {
+        grid.innerHTML = `
+          <div class="no-results">
+            <div class="no-results-icon">🔍</div>
+            <h3>${t('no_results_title')}</h3>
+            <p>${t('no_results_sub')}</p>
+          </div>
+        `;
+      } else {
+        grid.innerHTML = slice.map(buildCard).join('');
+      }
+
+      renderPagination(total, pages);
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       RENDER PAGINATION
+    ══════════════════════════════════════════════════════════ */
+    function renderPagination(total, pages) {
+      const nav = document.getElementById('pagination');
+
+      if (total <= PER_PAGE) {
+        nav.style.display = 'none';
+        nav.innerHTML = '';
+        return;
+      }
+
+      nav.style.display = 'flex';
+
+      const p = state.page;
+      let html = '';
+
+      // Prev
+      html += `<button class="page-btn" ${p === 1 ? 'disabled' : ''} data-page="${p - 1}" aria-label="${t('prev')}">&lsaquo; ${t('prev')}</button>`;
+
+      // Page numbers with ellipsis
+      const pageNums = [];
+      if (pages <= 7) {
+        for (let i = 1; i <= pages; i++) pageNums.push(i);
+      } else {
+        pageNums.push(1);
+        if (p > 3) pageNums.push('...');
+        for (let i = Math.max(2, p-1); i <= Math.min(pages-1, p+1); i++) pageNums.push(i);
+        if (p < pages - 2) pageNums.push('...');
+        pageNums.push(pages);
+      }
+
+      pageNums.forEach(n => {
+        if (n === '...') {
+          html += `<span class="page-ellipsis">…</span>`;
+        } else {
+          html += `<button class="page-btn ${n === p ? 'active' : ''}" data-page="${n}" aria-label="Page ${n}" ${n === p ? 'aria-current="page"' : ''}>${n}</button>`;
+        }
+      });
+
+      // Next
+      html += `<button class="page-btn" ${p === pages ? 'disabled' : ''} data-page="${p + 1}" aria-label="${t('next')}">${t('next')} &rsaquo;</button>`;
+
+      nav.innerHTML = html;
+
+      // Bind pagination clicks
+      nav.querySelectorAll('.page-btn[data-page]').forEach(btn => {
+        btn.addEventListener('click', function() {
+          const newPage = parseInt(this.getAttribute('data-page'));
+          if (!isNaN(newPage) && newPage !== state.page) {
+            state.page = newPage;
+            renderGrid();
+            // Scroll to grid top
+            document.getElementById('main-content').scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       FILTER EVENTS
+    ══════════════════════════════════════════════════════════ */
+    // Pill buttons
+    document.querySelectorAll('.filter-pill').forEach(pill => {
+      pill.addEventListener('click', function() {
+        const filter = this.getAttribute('data-filter');
+        const value  = this.getAttribute('data-value');
+
+        // Deactivate siblings in same group
+        document.querySelectorAll(`.filter-pill[data-filter="${filter}"]`).forEach(p => p.classList.remove('active'));
+        this.classList.add('active');
+
+        if (filter === 'type') state.type = value;
+        if (filter === 'loc')  state.loc  = value;
+        state.page = 1;
+        renderGrid();
+      });
+    });
+
+    // Sort select
+    document.getElementById('sort-select').addEventListener('change', function() {
+      state.sort = this.value;
+      state.page = 1;
+      renderGrid();
+    });
+
+    /* ══════════════════════════════════════════════════════════
+       INIT
+    ══════════════════════════════════════════════════════════ */
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
+    renderGrid();
+  </script>
+</body>
+</html>
