@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
@@ -651,10 +651,12 @@
     <ul class="nav-links">
       <li><a href="comment-ca-marche.html" data-i18n="nav_how">Comment ça marche</a></li>
       <li><a href="a-propos.html" data-i18n="nav_about">À propos</a></li>
-      <li><a href="projets.html" class="active" data-i18n="nav_projects">Projets</a></li>
+      <li><a href="projets.html" class="active" data-i18n="nav_projects">Voir les propriétés</a></li>
+      <li><a href="proposer.html" data-i18n="nav_propose">Proposer votre bien</a></li>
     </ul>
     <div class="nav-spacer"></div>
     <button id="lang-btn" onclick="toggleLang()" aria-label="Changer de langue">EN</button>
+    
     <button id="nav-cta-btn" class="nav-cta" data-i18n="nav_cta">Commencer à investir</button>
   </nav>
 
@@ -774,7 +776,8 @@
       {id:27,name:'Kamala Beachfront Condo',     type:'condo',         loc:'phuket',     city:'Kamala, Phuket',         img:'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=80',  tri:11.0, distrib:7.3, ticket:750000,  bail:27, funding:44,  status:'open'},
       {id:28,name:'Cape Yamu Luxury Villa',      type:'villa',         loc:'phuket',     city:'Cape Yamu, Phuket',      img:'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=600&q=80',   tri:8.8,  distrib:5.8, ticket:3000000, bail:30, funding:19,  status:'open'},
       {id:29,name:'Surin Beach Residences',      type:'condo',         loc:'phuket',     city:'Surin, Phuket',          img:'https://images.unsplash.com/photo-1540541338287-41700207dee6?w=600&q=80',  tri:10.8, distrib:7.1, ticket:500000,  bail:26, funding:52,  status:'open'},
-      {id:30,name:'Layan Forest Villas',         type:'villa',         loc:'phuket',     city:'Layan, Phuket',          img:'https://images.unsplash.com/photo-1582610116397-edb72278f033?w=600&q=80',  tri:9.5,  distrib:6.3, ticket:1500000, bail:28, funding:0,   status:'soon'}
+      {id:30,name:'Layan Forest Villas',         type:'villa',         loc:'phuket',     city:'Layan, Phuket',          img:'https://images.unsplash.com/photo-1582610116397-edb72278f033?w=600&q=80',  tri:9.5,  distrib:6.3, ticket:1500000, bail:28, funding:0,   status:'soon'},
+      {id:31,name:'Chalok Baan Kao Pool Villa',  type:'villa',         loc:'ko-phangan', city:'Chalok Baan Kao, Ko Phangan', img:'https://images.unsplash.com/photo-1582610116397-edb72278f033?w=600&q=80', tri:11.2, distrib:7.5, ticket:500000, bail:20, funding:56, status:'open', detail:'projet-chalok-villa.html'}
     ];
 
     /* ══════════════════════════════════════════════════════════
@@ -784,7 +787,9 @@
       fr: {
         nav_how:           'Comment ça marche',
         nav_about:         'À propos',
-        nav_projects:      'Projets',
+        nav_projects:      'Voir les propriétés',
+        nav_propose:       'Proposer votre bien',
+        nav_propose_cta:   'Proposer votre bien',
         nav_cta:           'Commencer à investir',
         hero_label:        'Projets disponibles',
         hero_title_1:      'Tous les',
@@ -808,7 +813,8 @@
         metric_bail:       'Bail',
         bail_unit:         'ans',
         funding_label:     'Financement',
-        btn_invest:        'Investir maintenant',
+        btn_invest:        'Réservez vos parts',
+        btn_detail:        'Voir la fiche →',
         btn_waitlist:      'Liste d\'attente',
         btn_soon:          'Bientôt disponible',
         badge_open:        'Ouvert',
@@ -826,7 +832,9 @@
       en: {
         nav_how:           'How it works',
         nav_about:         'About',
-        nav_projects:      'Projects',
+        nav_projects:      'Properties',
+        nav_propose:       'List your property',
+        nav_propose_cta:   'List your property',
         nav_cta:           'Start investing',
         hero_label:        'Available projects',
         hero_title_1:      'All',
@@ -850,7 +858,8 @@
         metric_bail:       'Lease',
         bail_unit:         'yrs',
         funding_label:     'Funding',
-        btn_invest:        'Invest now',
+        btn_invest:        'Reserve your shares',
+        btn_detail:        'View project →',
         btn_waitlist:      'Join waitlist',
         btn_soon:          'Coming soon',
         badge_open:        'Open',
@@ -965,14 +974,15 @@
       const badgeClass = { open: 'badge-open', full: 'badge-full', soon: 'badge-soon' }[p.status];
       const badgeText  = { open: t('badge_open'), full: t('badge_full'), soon: t('badge_soon') }[p.status];
 
-      // Button
+      // Button — all projects link to detail page (demo)
+      const detailUrl = p.detail || 'projet-chalok-villa.html';
       let btnHtml = '';
-      if (p.status === 'open') {
-        btnHtml = `<button class="card-btn btn-invest">${t('btn_invest')}</button>`;
-      } else if (p.status === 'full') {
-        btnHtml = `<button class="card-btn btn-waitlist" disabled>${t('btn_waitlist')}</button>`;
+      if (p.status === 'full') {
+        btnHtml = `<a class="card-btn btn-waitlist" href="${detailUrl}" style="display:flex;align-items:center;justify-content:center;text-decoration:none;opacity:.75">${t('btn_waitlist')}</a>`;
+      } else if (p.status === 'soon') {
+        btnHtml = `<a class="card-btn btn-soon" href="${detailUrl}" style="display:flex;align-items:center;justify-content:center;text-decoration:none">${t('btn_soon')}</a>`;
       } else {
-        btnHtml = `<button class="card-btn btn-soon">${t('btn_soon')}</button>`;
+        btnHtml = `<a class="card-btn btn-invest" href="${detailUrl}" style="display:flex;align-items:center;justify-content:center;text-decoration:none">${t('btn_detail')}</a>`;
       }
 
       // Funding bar class
@@ -993,7 +1003,7 @@
           </div>
           <div class="card-body">
             <div>
-              <h3 class="card-title">${p.name}</h3>
+              <h3 class="card-title">${p.detail ? `<a href="${p.detail}" style="color:inherit;text-decoration:none;border-bottom:1.5px solid rgba(201,168,76,.35);padding-bottom:1px">${p.name}</a>` : p.name}</h3>
               <p class="card-city">📍 ${p.city}</p>
             </div>
             <div class="card-metrics" role="group" aria-label="Indicateurs financiers">

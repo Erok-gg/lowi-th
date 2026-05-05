@@ -122,10 +122,12 @@
   <ul>
     <li><a href="comment-ca-marche.html" id="nav-how">Comment ça marche</a></li>
     <li><a href="a-propos.html" class="active" id="nav-about">À propos</a></li>
-    <li><a href="projets.html" id="nav-projects">Projets</a></li>
+    <li><a href="projets.html" id="nav-projects">Voir les propriétés</a></li>
+    <li><a href="proposer.html" id="nav-propose">Proposer votre bien</a></li>
   </ul>
-  <div style="display:flex;align-items:center">
+  <div style="display:flex;align-items:center;gap:.5rem">
     <button id="lang-btn" onclick="toggleLang()">EN</button>
+    
     <button class="nav-cta" id="nav-cta-btn">Commencer à investir</button>
   </div>
 </nav>
@@ -248,7 +250,7 @@
 (function () {
   var T = {
     fr: {
-      navHow: 'Comment ça marche', navAbout: 'À propos', navProjects: 'Projets', navCta: 'Commencer à investir',
+      navHow: 'Comment ça marche', navAbout: 'À propos', navProjects: 'Voir les propriétés', navPropose: 'Proposer votre bien', navProposeCta: 'Proposer votre bien', navCta: 'Commencer à investir',
       pageLabel: 'À propos de LOWI',
       pageTitle: 'Un contrat signé.<br>Une structure qui vous protège.',
       pageSub: "Des droits économiques sur un bail immobilier enregistré en Thaïlande. Loyers, plus-value à la sortie — proportionnellement à votre part. Pas une promesse. Un contrat signé, auditable, protégé par une structure juridique internationale.",
@@ -272,7 +274,7 @@
       footerLegal: 'Mentions légales', footerPrivacy: 'Politique de confidentialité', footerContact: 'Contact'
     },
     en: {
-      navHow: 'How it works', navAbout: 'About', navProjects: 'Projects', navCta: 'Start investing',
+      navHow: 'How it works', navAbout: 'About', navProjects: 'Properties', navPropose: 'List your property', navProposeCta: 'List your property', navCta: 'Start investing',
       pageLabel: 'About LOWI',
       pageTitle: 'A signed contract.<br>A structure that protects you.',
       pageSub: 'Economic rights on a registered real estate lease in Thailand. Rent, capital gain at exit — proportional to your share. Not a promise. A signed, auditable contract, protected by an international legal structure.',
@@ -302,7 +304,7 @@
   function apply(l) {
     var t = T[l];
     document.documentElement.lang = l;
-    sel('nav-how').innerHTML = t.navHow; sel('nav-about').innerHTML = t.navAbout; var np2 = sel('nav-projects'); if(np2) np2.innerHTML = t.navProjects; sel('nav-cta-btn').innerHTML = t.navCta;
+    sel('nav-how').innerHTML = t.navHow; sel('nav-about').innerHTML = t.navAbout; var np2 = sel('nav-projects'); if(np2) np2.innerHTML = t.navProjects; var npp2 = sel('nav-propose'); if(npp2) npp2.innerHTML = t.navPropose; var nppc2 = sel('nav-propose-cta'); if(nppc2) nppc2.innerHTML = t.navProposeCta; sel('nav-cta-btn').innerHTML = t.navCta;
     sel('page-label').innerHTML = t.pageLabel; sel('page-title').innerHTML = t.pageTitle; sel('page-sub').innerHTML = t.pageSub;
     sel('vp-label').innerHTML = t.vpLabel; sel('vp-title').innerHTML = t.vpTitle; sel('vp-sub').innerHTML = t.vpSub;
     sel('vp1h3').innerHTML = t.vp1h3; sel('vp1p').innerHTML = t.vp1p;

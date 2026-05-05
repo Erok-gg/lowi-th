@@ -1,0 +1,464 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Soumettre mon bien — LOWI</title>
+  <style>
+    @font-face {
+      font-family: 'MCTen';
+      src: url('mc-ten-lowercase-alt.ttf') format('truetype');
+      font-weight: normal; font-style: normal; font-display: swap;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold:    #C9A84C;
+      --gold-lt: #E8C97A;
+      --teal:    #0D7C6E;
+      --teal-dk: #095448;
+      --cream:   #FAF6EE;
+      --ink:     #1A1A2E;
+      --ink2:    #2E2E4A;
+      --muted:   #6B7280;
+      --white:   #FFFFFF;
+      --r-lg: 1.25rem; --r-xl: 2rem;
+      --shadow: 0 8px 40px rgba(0,0,0,.14);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--cream); color: var(--ink); }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 4vw;
+      background: rgba(250,246,238,.88); backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(201,168,76,.2);
+    }
+    .logo { font-family: 'MCTen', sans-serif; font-size: 2rem; font-weight: normal; color: var(--ink); text-decoration: none; }
+    nav ul { list-style: none; display: flex; gap: 2rem; }
+    nav ul a { text-decoration: none; color: var(--ink2); font-size: .92rem; font-weight: 500; transition: color .2s; }
+    nav ul a:hover, nav ul a.active { color: var(--gold); }
+    .nav-cta { background: var(--gold); color: var(--ink); border: none; cursor: pointer; padding: .6rem 1.5rem; border-radius: 2rem; font-weight: 700; font-size: .92rem; transition: background .2s; text-decoration: none; display: inline-block; }
+    .nav-cta:hover { background: var(--gold-lt); }
+    #lang-btn { background: transparent; border: 1.5px solid rgba(0,0,0,.2); color: var(--ink2); padding: .48rem 1rem; border-radius: 2rem; font-weight: 700; font-size: .82rem; cursor: pointer; letter-spacing: .06em; transition: border-color .2s; }
+
+    /* PAGE */
+    .page-wrap {
+      max-width: 1100px; margin: 0 auto;
+      padding: 8rem 4vw 5rem;
+    }
+    .page-header { margin-bottom: 2.5rem; }
+    .page-header .label { font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--teal); margin-bottom: .6rem; }
+    .page-header h1 { font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 800; color: var(--ink); letter-spacing: -.03em; }
+    .page-header p { margin-top: .5rem; font-size: 1rem; color: var(--muted); }
+
+    /* FORM LAYOUT */
+    .form-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
+    }
+    .form-col { display: flex; flex-direction: column; gap: 1.5rem; }
+
+    /* SECTION CARD */
+    .section-card {
+      background: var(--white); border-radius: var(--r-lg);
+      box-shadow: 0 2px 16px rgba(0,0,0,.07);
+      padding: 1.8rem;
+    }
+    .section-card h2 {
+      font-size: 1rem; font-weight: 700; color: var(--ink);
+      letter-spacing: -.01em; margin-bottom: 1.2rem;
+      padding-bottom: .75rem; border-bottom: 1.5px solid #F0EDE6;
+      display: flex; align-items: center; gap: .5rem;
+    }
+    .section-card h2 .section-icon { font-size: 1.1rem; }
+
+    /* FIELDS */
+    .form-group { margin-bottom: .9rem; }
+    .form-group:last-child { margin-bottom: 0; }
+    label { display: block; font-size: .83rem; font-weight: 600; color: var(--ink2); margin-bottom: .35rem; }
+    input[type="text"], input[type="number"], select, textarea {
+      width: 100%; padding: .7rem 1rem;
+      border: 1.5px solid #E0E0E0; border-radius: .7rem;
+      font-size: .95rem; color: var(--ink); background: var(--white);
+      transition: border-color .2s; outline: none;
+      font-family: inherit;
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--gold); }
+    textarea { resize: vertical; min-height: 130px; line-height: 1.6; }
+    select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236B7280' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; padding-right: 2.5rem; }
+
+    /* INPUT ROW */
+    .input-row { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+
+    /* UPLOAD ZONE */
+    .upload-zone {
+      border: 2px dashed #D1D5DB; border-radius: var(--r-lg);
+      padding: 2rem 1.5rem; text-align: center; cursor: pointer;
+      transition: border-color .2s, background .2s;
+      background: #FAFAFA;
+    }
+    .upload-zone:hover, .upload-zone.drag-over { border-color: var(--gold); background: rgba(201,168,76,.05); }
+    .upload-zone input[type="file"] { display: none; }
+    .upload-icon { font-size: 2rem; margin-bottom: .5rem; }
+    .upload-zone p { font-size: .9rem; color: var(--muted); line-height: 1.5; }
+    .upload-zone strong { color: var(--ink2); }
+    .upload-zone .upload-hint { font-size: .78rem; color: var(--muted); margin-top: .35rem; }
+
+    /* PHOTO PREVIEWS */
+    .photo-previews {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+      gap: .5rem; margin-top: 1rem;
+    }
+    .photo-thumb {
+      width: 100%; aspect-ratio: 1; object-fit: cover;
+      border-radius: .5rem; border: 1.5px solid #E0E0E0;
+    }
+
+    /* DOC UPLOAD */
+    .doc-upload-zone {
+      border: 2px dashed #D1D5DB; border-radius: var(--r-lg);
+      padding: 1.5rem; display: flex; align-items: center; gap: 1rem;
+      cursor: pointer; transition: border-color .2s, background .2s;
+      background: #FAFAFA;
+    }
+    .doc-upload-zone:hover { border-color: var(--teal); background: rgba(13,124,110,.04); }
+    .doc-upload-zone input[type="file"] { display: none; }
+    .doc-icon { font-size: 1.6rem; flex-shrink: 0; }
+    .doc-text p { font-size: .9rem; color: var(--ink2); font-weight: 600; }
+    .doc-text span { font-size: .78rem; color: var(--muted); }
+    .doc-list { margin-top: .75rem; display: flex; flex-direction: column; gap: .3rem; }
+    .doc-item { font-size: .82rem; color: var(--ink2); display: flex; align-items: center; gap: .4rem; }
+    .doc-item::before { content: '📄'; font-size: .85rem; }
+
+    /* SUBMIT AREA */
+    .submit-area { margin-top: 2rem; }
+    .btn-submit {
+      width: 100%; padding: 1rem 2rem; background: var(--gold); color: var(--ink);
+      border: none; border-radius: 2rem; font-weight: 800; font-size: 1.05rem;
+      cursor: pointer; transition: background .2s, transform .15s;
+    }
+    .btn-submit:hover { background: var(--gold-lt); transform: translateY(-2px); }
+
+    /* FOOTER */
+    footer { background: var(--ink); color: rgba(255,255,255,.5); padding: 2.5rem 8vw; display: flex; align-items: center; justify-content: space-between; font-size: .83rem; margin-top: 4rem; }
+    footer .logo { font-family: 'MCTen', sans-serif; font-size: 1.8rem; color: rgba(255,255,255,.85); }
+    footer a { color: rgba(255,255,255,.45); text-decoration: none; }
+    footer a:hover { color: var(--gold); }
+    footer div { display: flex; gap: 1.5rem; }
+
+    @media (max-width: 860px) {
+      .form-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      nav ul { display: none; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; }
+      .input-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">LOWI<span style="font-size:.45em;color:#ff1a1a;letter-spacing:.01em;margin-left:.4em;vertical-align:middle"> - demo</span></a>
+  <ul>
+    <li><a href="comment-ca-marche.html" id="nav-how">Comment ça marche</a></li>
+    <li><a href="a-propos.html" id="nav-about">À propos</a></li>
+    <li><a href="projets.html" id="nav-projects">Voir les propriétés</a></li>
+    <li><a href="proposer.html" id="nav-propose">Proposer votre bien</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:.5rem">
+    <button id="lang-btn" onclick="toggleLang()">EN</button>
+    
+    <button class="nav-cta" id="nav-cta-btn">Commencer à investir</button>
+  </div>
+</nav>
+
+<div class="page-wrap">
+  <div class="page-header">
+    <div class="label" id="page-label">Nouvelle soumission</div>
+    <h1 id="page-title">Décrivez votre bien</h1>
+    <p id="page-sub">Remplissez les informations ci-dessous. Notre équipe vous contactera sous 5 à 10 jours ouvrés.</p>
+  </div>
+
+  <form id="submit-form" onsubmit="handleSubmit(event)">
+    <div class="form-grid">
+
+      <!-- LEFT COLUMN -->
+      <div class="form-col">
+
+        <!-- INFORMATIONS GÉNÉRALES -->
+        <div class="section-card">
+          <h2><span class="section-icon">🏠</span> <span id="sec-general">Informations générales</span></h2>
+          <div class="form-group">
+            <label for="bien-nom" id="lbl-nom">Nom du bien</label>
+            <input type="text" id="bien-nom" value="Chalok Baan Kao Pool Villa" />
+          </div>
+          <div class="form-group">
+            <label for="bien-loc" id="lbl-loc">Localisation</label>
+            <input type="text" id="bien-loc" value="Chalok Baan Kao, Ko Phangan, Thaïlande" />
+          </div>
+          <div class="input-row">
+            <div class="form-group">
+              <label for="bien-type" id="lbl-type">Type</label>
+              <select id="bien-type">
+                <option value="villa" selected>Villa</option>
+                <option value="appartement" id="opt-appt">Appartement</option>
+                <option value="resort">Resort</option>
+                <option value="autre" id="opt-autre">Autre</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="bien-statut" id="lbl-statut">Statut</label>
+              <select id="bien-statut">
+                <option value="vefa">VEFA</option>
+                <option value="acheve" selected id="opt-acheve">Construction achevée</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- FINANCIER -->
+        <div class="section-card">
+          <h2><span class="section-icon">💰</span> <span id="sec-financier">Financier</span></h2>
+          <div class="form-group">
+            <label for="prix-total" id="lbl-prix">Prix d'achat total (THB)</label>
+            <input type="text" id="prix-total" value="12 800 000 THB" />
+          </div>
+          <div class="form-group">
+            <label for="ticket-min" id="lbl-ticket">Ticket minimum souhaité (THB)</label>
+            <input type="text" id="ticket-min" value="500 000 THB" />
+          </div>
+          <div class="input-row">
+            <div class="form-group">
+              <label for="duree-bail" id="lbl-bail">Durée de bail proposée</label>
+              <input type="text" id="duree-bail" value="20 ans" />
+            </div>
+            <div class="form-group">
+              <label for="dist-annuelle" id="lbl-dist">Distribution annuelle estimée</label>
+              <input type="text" id="dist-annuelle" value="7,5 %" />
+            </div>
+          </div>
+        </div>
+
+        <!-- DESCRIPTION -->
+        <div class="section-card">
+          <h2><span class="section-icon">📝</span> <span id="sec-desc">Description</span></h2>
+          <div class="form-group">
+            <label for="bien-desc" id="lbl-desc">Description du bien</label>
+            <textarea id="bien-desc" rows="6">Villa contemporaine d'inspiration méditerranéenne, nichée dans un quartier résidentiel calme à Chalok Baan Kao, à seulement 5 minutes à pied de la plage. Livrée entièrement meublée et décorée, elle offre une expérience clé en main optimisée pour la location saisonnière haut de gamme.
+
+L'architecture conjugue des fenêtres à cadre acier raffiné, de hauts plafonds et une double isolation maçonnée, offrant un confort thermique et acoustique exceptionnel. La piscine chlorée au sel, les panneaux solaires et le puits artésien profond garantissent une exploitation durable avec des charges maîtrisées.
+
+Le bien est proposé en structure de bail emphytéotique (leasehold) de 20 ans, enregistré auprès du Land Office thaïlandais.</textarea>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="form-col">
+
+        <!-- PHOTOS -->
+        <div class="section-card">
+          <h2><span class="section-icon">📷</span> <span id="sec-photos">Photos</span></h2>
+          <div class="upload-zone" id="photo-zone" onclick="document.getElementById('photo-input').click()" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)">
+            <input type="file" id="photo-input" accept="image/*" multiple onchange="handlePhotoSelect(event)" />
+            <div class="upload-icon">🖼️</div>
+            <p><strong id="upload-title">Glissez vos photos ici</strong><br><span id="upload-sub">ou cliquez pour sélectionner</span></p>
+            <p class="upload-hint" id="upload-hint">JPG, PNG, WEBP — jusqu'à 20 photos</p>
+          </div>
+          <div class="photo-previews" id="photo-previews"></div>
+        </div>
+
+        <!-- DOCUMENTS -->
+        <div class="section-card">
+          <h2><span class="section-icon">📂</span> <span id="sec-docs">Documents</span></h2>
+          <p style="font-size:.85rem;color:var(--muted);margin-bottom:.9rem" id="docs-hint">Bail, titre foncier, diagnostics… (PDF)</p>
+          <div class="doc-upload-zone" onclick="document.getElementById('doc-input').click()">
+            <input type="file" id="doc-input" accept=".pdf,.doc,.docx" multiple onchange="handleDocSelect(event)" />
+            <div class="doc-icon">📎</div>
+            <div class="doc-text">
+              <p id="doc-upload-title">Ajouter des documents</p>
+              <span id="doc-upload-sub">PDF, DOC — bail, titre foncier, etc.</span>
+            </div>
+          </div>
+          <div class="doc-list" id="doc-list"></div>
+        </div>
+
+        <!-- SUBMIT -->
+        <div class="submit-area">
+          <button type="submit" class="btn-submit" id="btn-submit">Soumettre mon bien →</button>
+        </div>
+
+      </div>
+    </div>
+  </form>
+</div>
+
+<footer>
+  <a href="index.html" class="logo">LOWI</a>
+  <span id="footer-copy">© 2026 LOWI. Tous droits réservés.</span>
+  <div>
+    <a href="#" id="footer-legal">Mentions légales</a>
+    <a href="#" id="footer-privacy">Politique de confidentialité</a>
+    <a href="#" id="footer-contact">Contact</a>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var T = {
+    fr: {
+      navHow: 'Comment ça marche', navAbout: 'À propos', navProjects: 'Voir les propriétés',
+      navPropose: 'Proposer votre bien', navProposeCta: 'Proposer votre bien', navCta: 'Commencer à investir',
+      pageLabel: 'Nouvelle soumission',
+      pageTitle: 'Décrivez votre bien',
+      pageSub: 'Remplissez les informations ci-dessous. Notre équipe vous contactera sous 5 à 10 jours ouvrés.',
+      secGeneral: 'Informations générales',
+      lblNom: 'Nom du bien', lblLoc: 'Localisation', lblType: 'Type', lblStatut: 'Statut',
+      optAppt: 'Appartement', optAcheve: 'Construction achevée', optAutre: 'Autre',
+      secFinancier: 'Financier',
+      lblPrix: "Prix d'achat total (THB)", lblTicket: 'Ticket minimum souhaité (THB)',
+      lblBail: 'Durée de bail proposée', lblDist: 'Distribution annuelle estimée',
+      secDesc: 'Description', lblDesc: 'Description du bien',
+      secPhotos: 'Photos',
+      uploadTitle: 'Glissez vos photos ici', uploadSub: 'ou cliquez pour sélectionner',
+      uploadHint: 'JPG, PNG, WEBP — jusqu\'à 20 photos',
+      secDocs: 'Documents',
+      docsHint: 'Bail, titre foncier, diagnostics… (PDF)',
+      docUploadTitle: 'Ajouter des documents', docUploadSub: 'PDF, DOC — bail, titre foncier, etc.',
+      btnSubmit: 'Soumettre mon bien →',
+      footerCopy: '© 2026 LOWI. Tous droits réservés.',
+      footerLegal: 'Mentions légales', footerPrivacy: 'Politique de confidentialité', footerContact: 'Contact'
+    },
+    en: {
+      navHow: 'How it works', navAbout: 'About', navProjects: 'Properties',
+      navPropose: 'List your property', navProposeCta: 'List your property', navCta: 'Start investing',
+      pageLabel: 'New submission',
+      pageTitle: 'Describe your property',
+      pageSub: 'Fill in the details below. Our team will contact you within 5 to 10 business days.',
+      secGeneral: 'General information',
+      lblNom: 'Property name', lblLoc: 'Location', lblType: 'Type', lblStatut: 'Status',
+      optAppt: 'Apartment', optAcheve: 'Completed construction', optAutre: 'Other',
+      secFinancier: 'Financials',
+      lblPrix: 'Total purchase price (THB)', lblTicket: 'Desired minimum ticket (THB)',
+      lblBail: 'Proposed lease duration', lblDist: 'Estimated annual distribution',
+      secDesc: 'Description', lblDesc: 'Property description',
+      secPhotos: 'Photos',
+      uploadTitle: 'Drag your photos here', uploadSub: 'or click to select',
+      uploadHint: 'JPG, PNG, WEBP — up to 20 photos',
+      secDocs: 'Documents',
+      docsHint: 'Lease, land title, surveys… (PDF)',
+      docUploadTitle: 'Add documents', docUploadSub: 'PDF, DOC — lease, land title, etc.',
+      btnSubmit: 'Submit my property →',
+      footerCopy: '© 2026 LOWI. All rights reserved.',
+      footerLegal: 'Legal notice', footerPrivacy: 'Privacy policy', footerContact: 'Contact'
+    }
+  };
+
+  var currentLang = 'fr';
+  function sel(id) { return document.getElementById(id); }
+
+  function apply(l) {
+    var t = T[l];
+    document.documentElement.lang = l;
+    sel('nav-how').innerHTML = t.navHow;
+    sel('nav-about').innerHTML = t.navAbout;
+    sel('nav-projects').innerHTML = t.navProjects;
+    sel('nav-propose').innerHTML = t.navPropose;
+    sel('nav-propose-cta').innerHTML = t.navProposeCta;
+    sel('nav-cta-btn').innerHTML = t.navCta;
+    sel('page-label').innerHTML = t.pageLabel;
+    sel('page-title').innerHTML = t.pageTitle;
+    sel('page-sub').innerHTML = t.pageSub;
+    sel('sec-general').innerHTML = t.secGeneral;
+    sel('lbl-nom').innerHTML = t.lblNom;
+    sel('lbl-loc').innerHTML = t.lblLoc;
+    sel('lbl-type').innerHTML = t.lblType;
+    sel('lbl-statut').innerHTML = t.lblStatut;
+    sel('opt-appt').innerHTML = t.optAppt;
+    sel('opt-acheve').innerHTML = t.optAcheve;
+    sel('opt-autre').innerHTML = t.optAutre;
+    sel('sec-financier').innerHTML = t.secFinancier;
+    sel('lbl-prix').innerHTML = t.lblPrix;
+    sel('lbl-ticket').innerHTML = t.lblTicket;
+    sel('lbl-bail').innerHTML = t.lblBail;
+    sel('lbl-dist').innerHTML = t.lblDist;
+    sel('sec-desc').innerHTML = t.secDesc;
+    sel('lbl-desc').innerHTML = t.lblDesc;
+    sel('sec-photos').innerHTML = t.secPhotos;
+    sel('upload-title').innerHTML = t.uploadTitle;
+    sel('upload-sub').innerHTML = t.uploadSub;
+    sel('upload-hint').innerHTML = t.uploadHint;
+    sel('sec-docs').innerHTML = t.secDocs;
+    sel('docs-hint').innerHTML = t.docsHint;
+    sel('doc-upload-title').innerHTML = t.docUploadTitle;
+    sel('doc-upload-sub').innerHTML = t.docUploadSub;
+    sel('btn-submit').innerHTML = t.btnSubmit;
+    sel('footer-copy').innerHTML = t.footerCopy;
+    sel('footer-legal').innerHTML = t.footerLegal;
+    sel('footer-privacy').innerHTML = t.footerPrivacy;
+    sel('footer-contact').innerHTML = t.footerContact;
+    sel('lang-btn').textContent = l === 'fr' ? 'EN' : 'FR';
+    currentLang = l;
+  }
+
+  window.toggleLang = function() { apply(currentLang === 'fr' ? 'en' : 'fr'); };
+
+  // Photo upload
+  var photos = [];
+  window.handlePhotoSelect = function(e) {
+    addPhotos(Array.from(e.target.files));
+  };
+  window.handleDragOver = function(e) {
+    e.preventDefault();
+    sel('photo-zone').classList.add('drag-over');
+  };
+  window.handleDragLeave = function() {
+    sel('photo-zone').classList.remove('drag-over');
+  };
+  window.handleDrop = function(e) {
+    e.preventDefault();
+    sel('photo-zone').classList.remove('drag-over');
+    var files = Array.from(e.dataTransfer.files).filter(function(f) { return f.type.startsWith('image/'); });
+    addPhotos(files);
+  };
+
+  function addPhotos(files) {
+    var remaining = 20 - photos.length;
+    files.slice(0, remaining).forEach(function(file) {
+      photos.push(file);
+      var reader = new FileReader();
+      reader.onload = function(e) {
+        var img = document.createElement('img');
+        img.src = e.target.result;
+        img.className = 'photo-thumb';
+        img.title = file.name;
+        sel('photo-previews').appendChild(img);
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  // Doc upload
+  window.handleDocSelect = function(e) {
+    Array.from(e.target.files).forEach(function(file) {
+      var item = document.createElement('div');
+      item.className = 'doc-item';
+      item.textContent = file.name;
+      sel('doc-list').appendChild(item);
+    });
+  };
+
+  // Submit
+  window.handleSubmit = function(e) {
+    e.preventDefault();
+    window.location.href = 'confirmation-soumission.html';
+  };
+
+  document.addEventListener('DOMContentLoaded', function() { apply('fr'); });
+})();
+</script>
+</body>
+</html>

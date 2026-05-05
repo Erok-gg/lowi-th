@@ -106,10 +106,12 @@
   <ul>
     <li><a href="comment-ca-marche.html" class="active" id="nav-how">Comment ça marche</a></li>
     <li><a href="a-propos.html" id="nav-about">À propos</a></li>
-    <li><a href="projets.html" id="nav-projects">Projets</a></li>
+    <li><a href="projets.html" id="nav-projects">Voir les propriétés</a></li>
+    <li><a href="proposer.html" id="nav-propose">Proposer votre bien</a></li>
   </ul>
-  <div style="display:flex;align-items:center">
+  <div style="display:flex;align-items:center;gap:.5rem">
     <button id="lang-btn" onclick="toggleLang()">EN</button>
+    
     <button class="nav-cta" id="nav-cta-btn">Commencer à investir</button>
   </div>
 </nav>
@@ -191,26 +193,46 @@
 (function () {
   var T = {
     fr: {
-      navHow: 'Comment ça marche', navAbout: 'À propos', navProjects: 'Projets', navCta: 'Commencer à investir',
+      navHow: 'Comment ça marche', navAbout: 'À propos', navProjects: 'Voir les propriétés', navPropose: 'Proposer votre bien', navProposeCta: 'Proposer votre bien', navCta: 'Commencer à investir',
       pageLabel: 'Comment ça marche',
       pageTitle: 'De la sélection du bien<br>à votre première distribution.',
-      s1h3: 'Sélection', s1p: "LOWI identifie et audite les meilleurs projets immobiliers en Thaïlande. Chaque bien fait l'objet d'une valorisation indépendante avant toute ouverture aux investisseurs.", s1detail: "Critères de sélection : bien achevé et fonctionnel, historique locatif vérifiable, bail minimum 20 ans restants, rendement brut minimum 8% sur le prix d'achat, valorisation indépendante obligatoire.",
-      s2h3: 'Structuration', s2p: "Une société trustee internationale signe le bail et détient les droits pour votre compte. Chaque projet est isolé juridiquement et comptablement — votre investissement ne peut pas être utilisé pour couvrir un autre projet.", s2detail: "La structure inclut : comptabilité séparée par projet, clause d'arbitrage international exécutoire en Thaïlande, réserve de trésorerie constituée dès le closing.",
-      s3h3: 'Investissement', s3p: "Vous souscrivez votre part en USD. Votre contrat est signé électroniquement, horodaté et son empreinte est conservée de manière immuable et vérifiable à tout moment.", s3detail: "Les fonds sont détenus en séquestre jusqu'à l'atteinte de l'objectif de financement. Si l'objectif n'est pas atteint, vos fonds sont intégralement restitués.",
-      s4h3: 'Distribution', s4p: "Les revenus locatifs sont collectés par le gestionnaire indépendant. Les frais sont décomposés et transparents. Votre quote-part est virée en USD chaque trimestre. Tout est visible sur votre dashboard personnel.", s4detail: "Les rapports trimestriels du gestionnaire sont accessibles sur votre espace investisseur. Les jalons clés du projet sont conservés de manière immuable. Aucun chiffre n'est déclaratif.",
-      s5h3: 'Sortie', s5p: "À terme du bail, le bien est revendu et la plus-value distribuée aux investisseurs proportionnellement à leur part. Avant terme, vous pouvez céder vos droits sur le marché secondaire LOWI.", s5detail: "La durée du bail structure naturellement l'horizon d'investissement et clarifie la sortie. Un bail de 30 ans avec 25 ans restants correspond à un fonds immobilier avec date de maturité connue.",
+      s1h3: 'Sélection',
+      s1p: "LOWI identifie et audite les meilleurs projets immobiliers en Thaïlande. Nos équipes référencent les projets et propriétés les plus prometteurs dans notre réseau. La connaissance et l'expérience terrain nous permettent de filtrer une première fois. Un deuxième filtre vérifie que les acteurs en jeu ont un historique, des capacités financières et techniques suffisantes pour assumer le projet. Enfin, des valorisations indépendantes sont demandées pour s'assurer de la cohérence du prix.",
+      s1detail: "Critères de sélection : projets VEFA ou construction achevée, durée de bail minimum cohérente avec le rendement, rendement brut estimé minimum 8 % par rapport au prix d'achat.",
+      s2h3: 'Structuration',
+      s2p: "Une société trustee internationale vous représente et signe le bail en votre nom. Votre contrat avec le trustee vous confère des droits économiques sur le bien à proportion de votre participation. Chaque projet est isolé juridiquement et comptablement — votre investissement ne peut pas être utilisé pour couvrir un autre projet.",
+      s2detail: "La structure permet de mutualiser les coûts et de renforcer vos droits opposables entre associés : comptabilité séparée par projet, clause d'arbitrage international exécutoire en Thaïlande, réserve de trésorerie constituée dès le closing.",
+      s3h3: 'Investissement',
+      s3p: "Vous faites l'acquisition de vos parts en THB, EUR ou USD. Votre contrat est signé électroniquement, horodaté et son empreinte est conservée de manière immuable et vérifiable à tout moment.",
+      s3detail: "Les fonds sont détenus en séquestre jusqu'à l'atteinte de l'objectif de financement. Si l'objectif n'est pas atteint, vos fonds sont intégralement restitués sur le compte émetteur du paiement.",
+      s4h3: 'Distribution',
+      s4p: "La mise en location, le marketing, la maintenance et les check-in & check-out sont assurés par des prestataires reconnus localement, à des tarifs négociés par la plateforme. Ils rendent compte de leur gestion annuellement et sont responsables de la collecte des loyers. Les frais sont décomposés et transparents. Votre quote-part est virée en THB chaque trimestre. Tout est visible sur votre portail personnel.",
+      s4detail: "De la construction à la livraison, de la location à la sortie, tous les documents sont conservés de manière sécurisée et accessibles depuis votre portail client.",
+      s5h3: 'Sortie',
+      s5p: "Au terme du bail, le bien est revendu à d'autres locataires et une plus-value peut être distribuée aux investisseurs proportionnellement à leur part. Pour les baux long-termes non renouvelés, le bien est rendu au propriétaire — un plan de sortie des liquidités non distribuées est organisé conformément au contrat avec le trustee.<br><br>Pour les investisseurs souhaitant sortir avant le terme, il est possible de céder ses droits sur le marché secondaire LOWI.",
+      s5detail: "La durée du bail structure naturellement l'horizon d'investissement et clarifie la sortie. Un bail de 30 ans avec 25 ans restants correspond à un fonds immobilier avec date de maturité connue.",
       ctaTitle: 'Prêt à investir ?', ctaP: 'Consultez les projets disponibles et leur documentation complète avant toute décision.', ctaBtn1: 'Voir les projets disponibles →', ctaBtn2: 'En savoir plus sur la structure →',
       footerLegal: 'Mentions légales', footerPrivacy: 'Politique de confidentialité', footerContact: 'Contact'
     },
     en: {
-      navHow: 'How it works', navAbout: 'About', navProjects: 'Projects', navCta: 'Start investing',
+      navHow: 'How it works', navAbout: 'About', navProjects: 'Properties', navPropose: 'List your property', navProposeCta: 'List your property', navCta: 'Start investing',
       pageLabel: 'How it works',
       pageTitle: 'From property selection<br>to your first distribution.',
-      s1h3: 'Selection', s1p: 'LOWI identifies and audits the best real estate projects in Thailand. Each property is independently valued before any investor offering.', s1detail: 'Selection criteria: completed and operational property, verifiable rental history, minimum 20 years remaining on lease, minimum 8% gross yield on purchase price, mandatory independent valuation.',
-      s2h3: 'Structuring', s2p: 'An international trustee company signs the lease and holds the rights on your behalf. Each project is legally and accountably isolated — your investment cannot be used to cover another project.', s2detail: 'The structure includes: separate accounting per project, international arbitration clause enforceable in Thailand, cash reserve established at closing.',
-      s3h3: 'Investment', s3p: 'You subscribe your share in USD. Your contract is electronically signed, timestamped, and its fingerprint is immutably preserved and verifiable at any time.', s3detail: "Funds are held in escrow until the financing target is reached. If the target is not met, your funds are fully returned.",
-      s4h3: 'Distribution', s4p: 'Rental revenues are collected by the independent manager. Fees are itemized and transparent. Your share is transferred in USD every quarter. Everything is visible on your personal dashboard.', s4detail: "Quarterly manager reports are accessible on your investor space. Key project milestones are immutably recorded. No figure is self-reported.",
-      s5h3: 'Exit', s5p: 'At lease term, the property is sold and capital gains distributed to investors proportionally to their share. Before term, you can sell your rights on the LOWI secondary market.', s5detail: 'The lease duration naturally structures the investment horizon and clarifies the exit. A 30-year lease with 25 years remaining corresponds to a real estate fund with a known maturity date.',
+      s1h3: 'Selection',
+      s1p: "LOWI identifies and audits the best real estate projects in Thailand. Our teams source the most promising projects and properties within our network. Local knowledge and on-the-ground experience allow us to apply a first filter. A second filter verifies that the parties involved have the track record, financial capacity and technical ability to deliver the project. Finally, independent valuations are requested to ensure pricing is consistent.",
+      s1detail: "Selection criteria: off-plan (VEFA) or completed construction, minimum lease duration consistent with the expected yield, estimated minimum gross yield of 8% relative to purchase price.",
+      s2h3: 'Structuring',
+      s2p: "An international trustee company represents you and signs the lease in your name. Your contract with the trustee grants you economic rights over the property in proportion to your participation. Each project is legally and accountably isolated — your investment cannot be used to cover another project.",
+      s2detail: "The structure allows costs to be shared while strengthening your enforceable rights as a co-investor: separate accounting per project, international arbitration clause enforceable in Thailand, cash reserve established at closing.",
+      s3h3: 'Investment',
+      s3p: "You acquire your shares in THB, EUR or USD. Your contract is electronically signed, timestamped, and its fingerprint is immutably preserved and verifiable at any time.",
+      s3detail: "Funds are held in escrow until the financing target is reached. If the target is not met, your funds are fully returned to the originating payment account.",
+      s4h3: 'Distribution',
+      s4p: "Property rental, marketing, maintenance and check-in & check-out are handled by locally recognised service providers at rates negotiated by the platform. They report on their management annually and are responsible for rent collection. Fees are itemised and transparent. Your share is paid in THB every quarter. Everything is visible on your personal investor portal.",
+      s4detail: "From construction to delivery, from rental to exit, all documents are securely stored and accessible from your client portal.",
+      s5h3: 'Exit',
+      s5p: "At the end of the lease, the property is resold to other lessees and any capital gain may be distributed to investors in proportion to their share. For long-term leases that are not renewed, the property is returned to the owner — an exit plan for undistributed proceeds will be organised in accordance with the trustee agreement.<br><br>Investors wishing to exit before the end of the term may transfer their rights on the LOWI secondary market.",
+      s5detail: "The lease duration naturally structures the investment horizon and clarifies the exit. A 30-year lease with 25 years remaining corresponds to a real estate fund with a known maturity date.",
       ctaTitle: 'Ready to invest?', ctaP: 'Review available projects and their full documentation before any decision.', ctaBtn1: 'View available projects →', ctaBtn2: 'Learn more about the structure →',
       footerLegal: 'Legal notice', footerPrivacy: 'Privacy policy', footerContact: 'Contact'
     }
@@ -224,6 +246,8 @@
     sel('nav-how').innerHTML     = t.navHow;
     sel('nav-about').innerHTML   = t.navAbout;
     var np1 = sel('nav-projects'); if(np1) np1.innerHTML = t.navProjects;
+    var npp1 = sel('nav-propose'); if(npp1) npp1.innerHTML = t.navPropose;
+    var nppc1 = sel('nav-propose-cta'); if(nppc1) nppc1.innerHTML = t.navProposeCta;
     sel('nav-cta-btn').innerHTML = t.navCta;
     sel('page-label').innerHTML = t.pageLabel;
     sel('page-title').innerHTML = t.pageTitle;
