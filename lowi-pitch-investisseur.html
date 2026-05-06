@@ -1,0 +1,1632 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@200;300;400;500&family=Josefin+Sans:wght@100;200;300;400&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LOWI — Pitch Investisseur · Chalok Baan Kao Pool Villa</title>
+<style>
+@font-face {
+  font-family: 'MCTen';
+  src: url('mc-ten-lowercase-alt.ttf') format('truetype');
+  font-display: block;
+}
+</style>
+<style>
+:root {
+  --gold:    #C9A84C;
+  --gold-lt: #E8C97A;
+  --gold-bg: rgba(201,168,76,.10);
+  --gold-bd: rgba(201,168,76,.22);
+  --teal:    #0D7C6E;
+  --teal-dk: #095448;
+  --teal-bg: rgba(13,124,110,.08);
+  --teal-bd: rgba(13,124,110,.2);
+  --cream:   #FAF6EE;
+  --cream2:  #F2EDE2;
+  --ink:     #1A1A2E;
+  --ink2:    #2E2E4A;
+  --muted:   #6B7280;
+  --white:   #FFFFFF;
+  --red-bg:  rgba(239,68,68,.08);
+  --red:     #DC2626;
+  --grn-bg:  rgba(16,185,129,.08);
+  --grn:     #059669;
+  --shadow:  0 4px 24px rgba(26,26,46,.10);
+  --r-xl: 1.5rem;
+  --r-lg: 1rem;
+  --r-md: .6rem;
+  --serif: 'MCTen','Cormorant',Georgia,serif;
+  --sans:  'DM Sans',system-ui,sans-serif;
+  --label: 'Josefin Sans',sans-serif;
+  --mono:  'JetBrains Mono',monospace;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-snap-type:y mandatory;overflow-y:scroll;scroll-behavior:smooth;}
+body{background:var(--cream);color:var(--ink);font-family:var(--sans);line-height:1.5;}
+
+/* ── PROGRESS ── */
+.prog{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--teal),var(--gold));z-index:500;transition:width .4s cubic-bezier(.4,0,.2,1);box-shadow:0 0 6px rgba(201,168,76,.35);}
+
+/* ── LANG SWITCH ── */
+.lang-sw-inline{display:flex;border:1.5px solid var(--gold-bd);border-radius:6px;overflow:hidden;flex-shrink:0;}
+.lng{font-family:var(--label);padding:5px 13px;font-size:.65rem;font-weight:400;letter-spacing:.25em;cursor:pointer;background:transparent;border:none;color:var(--muted);transition:all .2s;}
+.lng.on{background:var(--gold);color:var(--ink);}
+
+/* ── NAV DOTS ── */
+/* .nav replaced by .nav-dots */
+.dot{width:7px;height:7px;border-radius:50%;background:rgba(26,26,46,.2);cursor:pointer;transition:all .3s;border:1.5px solid transparent;}
+.dot.on{background:var(--gold);border-color:var(--gold);transform:scale(1.3);}
+
+/* ── LANG CONTENT ── */
+body.fr .en{display:none!important;}
+body.en .fr{display:none!important;}
+
+/* ── SLIDE BASE ── */
+.slide{min-height:100vh;scroll-snap-align:start;display:grid;grid-template-columns:1fr 420px;gap:0;position:relative;overflow:hidden;}
+.slide.single{grid-template-columns:1fr;}
+.slide.wide{grid-template-columns:1fr;}
+.slide-left{padding:52px 52px 52px 64px;display:flex;flex-direction:column;justify-content:center;background:var(--cream);}
+.slide-right{background:var(--ink2);overflow:hidden;position:relative;}
+.slide-num{position:absolute;bottom:20px;right:24px;font-size:.7rem;color:rgba(26,26,46,.25);letter-spacing:.2em;font-weight:600;}
+
+/* ── TYPE ── */
+.slide-tag{font-family:var(--label);font-size:.68rem;font-weight:400;letter-spacing:.25em;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
+.h1{font-family:'MCTen',serif;font-size:clamp(2rem,3vw,3rem);color:var(--ink);line-height:1.1;margin-bottom:8px;font-weight:400;}
+.h2{font-family:'MCTen',serif;font-size:clamp(1.5rem,2.2vw,2.2rem);color:var(--ink);line-height:1.1;margin-bottom:8px;font-weight:400;}
+.h3{font-family:'MCTen',serif;font-size:1.05rem;color:var(--ink);margin-bottom:6px;font-weight:400;}
+.sub{font-size:.95rem;color:var(--muted);line-height:1.65;max-width:520px;font-family:var(--sans);font-weight:300;}
+.div{width:28px;height:2px;background:var(--gold);margin:14px 0;border-radius:2px;}
+
+/* ── STATS ROW ── */
+.stats{display:flex;gap:0;margin-top:24px;border:1.5px solid var(--gold-bd);border-radius:var(--r-xl);overflow:hidden;}
+.stat{flex:1;padding:18px 20px;text-align:center;background:var(--white);}
+.stat+.stat{border-left:1px solid var(--gold-bd);}
+.stat-v{font-family:'MCTen',serif;font-size:1.6rem;color:var(--gold);line-height:1;margin-bottom:4px;font-weight:400;}
+.stat-u{font-size:.75rem;color:var(--muted);}
+.stat-l{font-family:var(--label);font-size:.6rem;text-transform:uppercase;letter-spacing:.18em;color:var(--muted);font-weight:400;margin-top:2px;}
+
+/* ── TAG PILLS ── */
+.tags{display:flex;gap:6px;flex-wrap:wrap;margin:12px 0;}
+.tag{font-family:var(--label);display:inline-flex;align-items:center;gap:4px;padding:.3rem .85rem;border-radius:2rem;font-size:.65rem;font-weight:400;letter-spacing:.18em;text-transform:uppercase;}
+.tag-open{background:rgba(13,124,110,.12);color:var(--teal);border:1px solid var(--teal-bd);}
+.tag-type{background:rgba(26,26,46,.07);color:var(--ink2);border:1px solid rgba(26,26,46,.15);}
+.tag-gold{background:var(--gold-bg);color:var(--gold);border:1px solid var(--gold-bd);}
+
+/* ── MOSAIC ── */
+.mosaic{display:grid;grid-template-rows:1fr 1fr;grid-template-columns:1fr 1fr;height:100%;gap:2px;}
+.mosaic img{width:100%;height:100%;object-fit:cover;display:block;}
+.mosaic .span2{grid-column:1/3;}
+.mosaic3{display:grid;grid-template-rows:60% 40%;height:100%;gap:2px;}
+.mosaic3-row{display:grid;grid-template-columns:1fr 1fr;gap:2px;}
+.mosaic3 img,.mosaic3-row img{width:100%;height:100%;object-fit:cover;display:block;}
+.mosaic-top{height:60%;}
+.mosaic-bottom{height:40%;display:grid;grid-template-columns:1fr 1fr;gap:2px;}
+.mosaic-top img,.mosaic-bottom img{width:100%;height:100%;object-fit:cover;display:block;}
+
+/* ── GRID CARDS ── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px;}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:16px;}
+.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:8px;margin-top:16px;}
+.card{background:var(--white);border:1px solid rgba(26,26,46,.08);border-radius:var(--r-lg);padding:14px 16px;}
+.card.gold{background:var(--gold-bg);border-color:var(--gold-bd);}
+.card.teal{background:var(--teal-bg);border-color:var(--teal-bd);}
+.card.red{background:var(--red-bg);border-color:rgba(239,68,68,.2);}
+.card.grn{background:var(--grn-bg);border-color:rgba(16,185,129,.2);}
+.card-lbl{font-family:var(--label);font-size:.62rem;text-transform:uppercase;letter-spacing:.18em;color:var(--muted);font-weight:400;margin-bottom:4px;}
+.card-val{font-family:'MCTen',serif;font-size:1.3rem;color:var(--ink);font-weight:400;line-height:1;}
+.card-sub{font-size:.78rem;color:var(--muted);margin-top:3px;}
+
+/* ── TABLE ── */
+.tbl-wrap{border:1.5px solid var(--gold-bd);border-radius:var(--r-lg);overflow:hidden;margin-top:14px;}
+.tbl{width:100%;border-collapse:collapse;}
+.tbl th{font-family:var(--label);font-size:.6rem;text-transform:uppercase;letter-spacing:.18em;color:var(--gold);font-weight:400;padding:9px 14px;text-align:left;background:var(--gold-bg);border-bottom:1px solid var(--gold-bd);}
+.tbl td{font-size:.82rem;color:var(--ink2);padding:9px 14px;border-bottom:1px solid rgba(26,26,46,.05);}
+.tbl tr:last-child td{border-bottom:none;}
+.tbl tr:nth-child(even) td{background:rgba(250,246,238,.6);}
+.tbl td.hi{color:var(--ink);font-weight:700;}
+.tbl td.go{color:var(--gold);font-weight:700;}
+.tbl td.tl{color:var(--teal);font-weight:700;}
+.tbl td.rd{color:var(--red);}
+.tbl td.gn{color:var(--grn);}
+
+/* ── SECTION LABEL ── */
+.sec-lbl{font-family:var(--label);font-size:.62rem;text-transform:uppercase;letter-spacing:.25em;color:var(--gold);font-weight:400;padding:6px 12px;background:var(--gold-bg);border-radius:2rem;display:inline-block;margin-bottom:14px;}
+
+/* ── HEAT MAP ── */
+.heatmap{display:grid;gap:2px;margin-top:10px;}
+.hm-row{display:flex;gap:2px;align-items:center;}
+.hm-lbl{font-size:.62rem;color:var(--muted);width:26px;text-align:right;flex-shrink:0;font-weight:600;}
+.hm-cell{flex:1;height:22px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:.58rem;font-weight:700;color:var(--white);}
+.hm-head{display:flex;gap:2px;margin-left:28px;margin-bottom:2px;}
+.hm-head span{flex:1;font-size:.6rem;text-align:center;color:var(--muted);font-weight:600;}
+
+/* ── CHART CANVAS ── */
+.chart-wrap{position:relative;margin-top:14px;border:1px solid rgba(26,26,46,.08);border-radius:var(--r-lg);overflow:hidden;background:var(--white);}
+canvas{display:block;}
+
+/* ── CURRENCY SWITCH ── */
+.cur-sw{display:flex;gap:0;border:1.5px solid var(--gold-bd);border-radius:8px;overflow:hidden;margin-bottom:14px;width:fit-content;}
+.cur-btn{font-family:var(--label);padding:5px 14px;font-size:.65rem;font-weight:400;letter-spacing:.2em;cursor:pointer;background:transparent;border:none;color:var(--muted);transition:all .2s;}
+.cur-btn.on{background:var(--gold);color:var(--ink);}
+
+/* ── SCENARIO TABS ── */
+.sc-tabs{display:flex;gap:0;border:1.5px solid rgba(26,26,46,.12);border-radius:8px;overflow:hidden;margin-bottom:14px;width:fit-content;}
+.sc-tab{font-family:var(--label);padding:6px 16px;font-size:.65rem;font-weight:400;letter-spacing:.12em;cursor:pointer;background:transparent;border:none;color:var(--muted);transition:all .2s;}
+.sc-tab.bear.on{background:var(--red-bg);color:var(--red);border:none;}
+.sc-tab.base.on{background:var(--gold-bg);color:var(--gold);}
+.sc-tab.bull.on{background:var(--grn-bg);color:var(--grn);}
+
+/* ── DIVIDER LINE ── */
+hr.sec{border:none;border-top:1px solid rgba(26,26,46,.08);margin:14px 0;}
+
+/* ── FULL SLIDE ── */
+.full-pad{padding:48px 64px;}
+
+/* ── ACT SLIDE ── */
+.act-slide{display:flex;align-items:center;justify-content:center;text-align:center;background:var(--ink);background-image:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(201,168,76,.07) 0%,transparent 70%);color:var(--cream);min-height:100vh;scroll-snap-align:start;flex-direction:column;padding:80px 60px 60px;}
+.act-slide .h1{color:var(--white);}
+.act-slide .sub{color:rgba(255,255,255,.55);}
+
+/* ── REVEALS ── */
+.rv{opacity:0;transform:translateY(16px);transition:all .6s cubic-bezier(.16,1,.3,1);}
+.rv.on{opacity:1;transform:none;}
+.rv-l{opacity:0;transform:translateX(-20px);transition:all .6s cubic-bezier(.16,1,.3,1);}
+.rv-l.on{opacity:1;transform:none;}
+.rv-r{opacity:0;transform:translateX(20px);transition:all .6s cubic-bezier(.16,1,.3,1);}
+.rv-r.on{opacity:1;transform:none;}
+.rv-up{opacity:0;transform:translateY(28px);transition:all .7s cubic-bezier(.16,1,.3,1);}
+.rv-up.on{opacity:1;transform:none;}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.45s}.d5{transition-delay:.6s}
+
+/* ── LEASEHOLD NOTE ── */
+.lease-note{padding:12px 16px;background:var(--teal-bg);border-left:3px solid var(--teal);border-radius:0 var(--r-md) var(--r-md) 0;font-size:.8rem;color:var(--ink2);line-height:1.6;margin-top:12px;}
+
+/* ── CHECK LIST ── */
+.checklist{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:10px;}
+.chk{display:flex;align-items:center;gap:6px;font-size:.8rem;color:var(--ink2);font-weight:500;}
+.chk-dot{width:20px;height:20px;background:#D1FAE5;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.65rem;color:#065F46;flex-shrink:0;font-weight:700;}
+
+/* ── PROGRESS BAR ── */
+.pbar-wrap{background:rgba(26,26,46,.08);border-radius:2rem;overflow:hidden;height:6px;margin-top:8px;}
+.pbar-fill{height:100%;border-radius:2rem;background:linear-gradient(90deg,var(--teal),var(--gold));}
+
+/* ── SCENARIO COLORS ── */
+.s-bear{color:var(--red);}
+.s-base{color:var(--gold);}
+.s-bull{color:var(--grn);}
+
+/* ── INLINE NOTE ── */
+.note{font-size:.72rem;color:var(--muted);font-style:italic;margin-top:8px;}
+
+/* ── SITE HEADER ── */
+.site-header{
+  position:fixed;top:0;left:0;right:0;z-index:400;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;height:62px;
+  background:rgba(250,246,238,.92);backdrop-filter:blur(14px);
+  border-bottom:1px solid rgba(201,168,76,.2);
+}
+.sh-logo{text-decoration:none;display:flex;align-items:baseline;gap:4px;}
+.sh-logo-text{font-family:'MCTen',serif;font-size:1.45rem;letter-spacing:.06em;color:var(--gold);}
+.sh-demo{font-family:'MCTen',serif;font-size:.62rem;color:#ff1a1a;letter-spacing:.04em;vertical-align:super;}
+.sh-nav{display:flex;gap:28px;}
+.sh-nav a{font-family:var(--label);font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s;}
+.sh-nav a:hover{color:var(--gold);}
+.sh-cta{font-family:var(--label);font-size:8px;letter-spacing:.3em;text-transform:uppercase;padding:8px 20px;border:1px solid var(--gold);color:var(--gold);text-decoration:none;transition:all .2s;white-space:nowrap;}
+.sh-cta:hover{background:var(--gold);color:var(--ink);}
+.sh-badge{font-family:var(--label);font-size:7px;letter-spacing:.25em;text-transform:uppercase;padding:4px 10px;background:var(--gold-bg);border:1px solid var(--gold-bd);color:var(--gold);border-radius:2rem;}
+
+/* ── NAV DOTS (renamed) ── */
+.nav-dots{position:fixed;right:20px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:8px;z-index:100;}
+
+/* ── SLIDE padding to clear header ── */
+.slide{min-height:100vh;scroll-snap-align:start;display:grid;grid-template-columns:1fr 420px;gap:0;position:relative;overflow:hidden;}
+.slide.single,.slide.wide{grid-template-columns:1fr;}
+.slide-left{padding:82px 52px 52px 64px;display:flex;flex-direction:column;justify-content:center;background:var(--cream);}
+.full-pad{padding:82px 64px 52px;}</style>
+</head>
+<body class="fr">
+
+<!-- SITE HEADER -->
+<header class="site-header">
+  <a href="index.html" class="sh-logo">
+    <span class="sh-logo-text">lowi</span>
+    <span class="sh-demo">- demo</span>
+  </a>
+  <nav class="sh-nav">
+    <a href="projets.html">Voir les propriétés</a>
+    <a href="comment-ca-marche.html">Comment ça marche</a>
+    <a href="a-propos.html">À propos</a>
+  </nav>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <span class="sh-badge" id="sh-badge-fr">Pitch Investisseur</span>
+    <span class="sh-badge" id="sh-badge-en" style="display:none;">Investor Pitch</span>
+    <div class="lang-sw-inline">
+      <button class="lng on" id="btn-fr" onclick="setLang('fr')">FR</button>
+      <button class="lng" id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+    <a href="projets.html" class="sh-cta">R&#233;servez vos parts</a>
+  </div>
+</header>
+
+<div class="prog" id="prog"></div>
+<div class="nav-dots" id="nav-dots"></div>
+<!-- ══════════════════════════════════════
+     SLIDE 01 — HERO
+══════════════════════════════════════ -->
+<div class="slide" data-n="1" data-s="Villa">
+  <div class="slide-left">
+    <div class="rv">
+      <div class="slide-tag fr">Pitch Investisseur · LOWI</div>
+      <div class="slide-tag en">Investor Pitch · LOWI</div>
+    </div>
+    <div class="rv d1">
+      <div class="h1">Chalok Baan Kao<br>Pool Villa</div>
+    </div>
+    <div class="rv d2">
+      <div class="tags">
+        <span class="tag tag-open">● <span class="fr">Ouvert</span><span class="en">Open</span></span>
+        <span class="tag tag-type">Villa Premium</span>
+        <span class="tag tag-gold"><span class="fr">Bail 30 ans</span><span class="en">30-year lease</span></span>
+      </div>
+      <div class="sub fr">Ko Phangan · Thaïlande · Chalok Baan Kao<br>Villa contemporaine 3 chambres avec piscine sel chloriné, panneaux solaires, entièrement meublée. Bail leasehold 30 ans enregistré au Land Department.</div>
+      <div class="sub en">Ko Phangan · Thailand · Chalok Baan Kao<br>Contemporary 3-bedroom pool villa with salt-chlorinated pool, solar panels, fully furnished. 30-year leasehold registered at the Land Department.</div>
+    </div>
+    <div class="stats rv d3">
+      <div class="stat">
+        <div class="stat-v">11.2<span style="font-size:.9rem">%</span></div>
+        <div class="stat-l fr">TRI Cible</div>
+        <div class="stat-l en">Target IRR</div>
+      </div>
+      <div class="stat">
+        <div class="stat-v">7.5<span style="font-size:.9rem">%</span></div>
+        <div class="stat-l fr">Distribution /an</div>
+        <div class="stat-l en">Distribution /yr</div>
+      </div>
+      <div class="stat">
+        <div class="stat-v" style="color:var(--teal);">30</div>
+        <div class="stat-l fr">Ans de bail</div>
+        <div class="stat-l en">Lease years</div>
+      </div>
+      <div class="stat">
+        <div class="stat-v" style="font-size:1.1rem;">500k</div>
+        <div class="stat-u">THB</div>
+        <div class="stat-l fr">Ticket min.</div>
+        <div class="stat-l en">Min. ticket</div>
+      </div>
+    </div>
+    <div class="div rv d4"></div>
+    <p class="note rv d4 fr">Prix total : 12 800 000 THB · 16 parts à 800 000 THB</p>
+    <p class="note rv d4 en">Total price: 12,800,000 THB · 128 shares at 100,000 THB · 56 shares available</p>
+  </div>
+  <div class="slide-right rv">
+    <!-- Mosaic photos -->
+    <div style="display:grid;grid-template-rows:50% 50%;height:100%;gap:2px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;">
+        <img src="../../lowi/Demo/pool-and-garden.jpeg" alt="Piscine & jardin" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <img src="../../lowi/Demo/pool.jpeg" alt="Piscine" style="width:100%;height:100%;object-fit:cover;display:block;">
+      </div>
+      <div style="display:grid;grid-template-columns:2fr 1fr;gap:2px;">
+        <img src="../../lowi/Demo/solar-panels.webp" alt="Vue aérienne" style="width:100%;height:100%;object-fit:cover;display:block;">
+        <img src="../../lowi/Demo/bedroom.jpeg" alt="Chambre" style="width:100%;height:100%;object-fit:cover;display:block;">
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">01 / 09</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SLIDE 02 — CARACTÉRISTIQUES
+══════════════════════════════════════ -->
+<div class="slide" data-n="2" data-s="Bien">
+  <div class="slide-left">
+    <div class="rv">
+      <div class="slide-tag fr">Le Bien</div>
+      <div class="slide-tag en">The Property</div>
+      <div class="h2 fr">Caractéristiques de la villa</div>
+      <div class="h2 en">Villa specifications</div>
+    </div>
+    <div class="g4 rv d1">
+      <div class="card gold">
+        <div class="card-lbl fr">Surface intérieure</div>
+        <div class="card-lbl en">Interior area</div>
+        <div class="card-val">240 m²</div>
+      </div>
+      <div class="card gold">
+        <div class="card-lbl fr">Terrain</div>
+        <div class="card-lbl en">Land</div>
+        <div class="card-val">800 m²</div>
+      </div>
+      <div class="card">
+        <div class="card-lbl fr">Chambres</div>
+        <div class="card-lbl en">Bedrooms</div>
+        <div class="card-val">3</div>
+      </div>
+      <div class="card">
+        <div class="card-lbl fr">SDB</div>
+        <div class="card-lbl en">Bathrooms</div>
+        <div class="card-val">3</div>
+      </div>
+    </div>
+    <div class="checklist rv d2">
+      <div class="chk"><div class="chk-dot">✓</div><span class="fr">Piscine sel chloriné</span><span class="en">Salt-chlorinated pool</span></div>
+      <div class="chk"><div class="chk-dot">✓</div><span class="fr">Panneaux solaires</span><span class="en">Solar panels</span></div>
+      <div class="chk"><div class="chk-dot">✓</div><span class="fr">Puits artésien profond</span><span class="en">Deep artesian well</span></div>
+      <div class="chk"><div class="chk-dot">✓</div><span class="fr">Double isolation maçonnée</span><span class="en">Double masonry insulation</span></div>
+      <div class="chk"><div class="chk-dot">✓</div><span class="fr">Entièrement meublé</span><span class="en">Fully furnished</span></div>
+      <div class="chk"><div class="chk-dot">✓</div><span class="fr">Clim multi-split</span><span class="en">Multi-split AC</span></div>
+      <div class="chk"><div class="chk-dot">✓</div><span class="fr">Fibre optique</span><span class="en">Fibre optic</span></div>
+      <div class="chk"><div class="chk-dot">✓</div><span class="fr">Cuisine équipée</span><span class="en">Equipped kitchen</span></div>
+      <div class="chk"><div class="chk-dot">✓</div><span class="fr">Smart Home + TV</span><span class="en">Smart Home + TV</span></div>
+      <div class="chk"><div class="chk-dot">✓</div><span class="fr">Parking 2 véhicules</span><span class="en">2-car parking</span></div>
+      <div class="chk"><div class="chk-dot">✓</div><span class="fr">Citerne 10 000 L</span><span class="en">10,000 L cistern</span></div>
+      <div class="chk"><div class="chk-dot">✓</div><span class="fr">Fenêtres acier raffiné</span><span class="en">Steel-frame windows</span></div>
+    </div>
+    <hr class="sec rv d3">
+    <div class="rv d3">
+      <div class="slide-tag fr">Structure du bail</div>
+      <div class="slide-tag en">Lease structure</div>
+    </div>
+    <div class="g2 rv d3" style="margin-top:8px;">
+      <div class="card teal">
+        <div class="card-lbl fr">Durée contractuelle</div>
+        <div class="card-lbl en">Contractual term</div>
+        <div class="card-val" style="color:var(--teal);font-size:1.1rem;">30 ans · 2025 → 2055</div>
+      </div>
+      <div class="card">
+        <div class="card-lbl fr">Enregistrement</div>
+        <div class="card-lbl en">Registration</div>
+        <div class="card-val" style="font-size:.9rem;line-height:1.3;">Land Office · Chanote</div>
+      </div>
+      <div class="card">
+        <div class="card-lbl fr">Structure juridique</div>
+        <div class="card-lbl en">Legal structure</div>
+        <div class="card-val" style="font-size:.85rem;line-height:1.3;">Trustee + SIAC</div>
+      </div>
+      <div class="card">
+        <div class="card-lbl fr">Distribution</div>
+        <div class="card-lbl en">Distribution</div>
+        <div class="card-val" style="font-size:.85rem;line-height:1.3;" class="fr">Trimestrielle · THB</div>
+        <div class="card-val" style="font-size:.85rem;line-height:1.3;" class="en">Quarterly · THB</div>
+      </div>
+    </div>
+    <div class="lease-note rv d4">
+      <span class="fr"><strong>Vue :</strong> Sud-ouest — couchers de soleil sur Hinkong. Plage Chalok Baan Kao à 5 min à pied. Thong Sala Pier à 15 min en scooter. Résidentiel calme, végétation tropicale dense.</span>
+      <span class="en"><strong>View:</strong> Southwest — sunsets over Hinkong. Chalok Baan Kao beach 5 min walk. Thong Sala Pier 15 min by scooter. Quiet residential, dense tropical vegetation.</span>
+    </div>
+  </div>
+  <div class="slide-right">
+    <div style="display:grid;grid-template-rows:33.33% 33.33% 33.33%;height:100%;gap:2px;">
+      <img src="../../lowi/Demo/living.jpeg" alt="Séjour" style="width:100%;height:100%;object-fit:cover;display:block;">
+      <img src="../../lowi/Demo/kitchen-dinning.jpeg" alt="Cuisine" style="width:100%;height:100%;object-fit:cover;display:block;">
+      <img src="../../lowi/Demo/master-bathroom.jpeg" alt="Salle de bain" style="width:100%;height:100%;object-fit:cover;display:block;">
+    </div>
+  </div>
+  <div class="slide-num">02 / 09</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SLIDE 03 — MARCHÉ LOCATIF KO PHANGAN
+══════════════════════════════════════ -->
+<div class="slide wide" data-n="3" data-s="Marché">
+  <div class="full-pad" style="display:flex;flex-direction:column;justify-content:center;min-height:100vh;">
+    <div class="rv">
+      <div class="slide-tag fr">Données de marché · Ko Phangan · 2020–2025</div>
+      <div class="slide-tag en">Market Data · Ko Phangan · 2020–2025</div>
+      <div class="h2 fr">Location touristique — Villas premium & luxe</div>
+      <div class="h2 en">Tourist rental market — Premium & luxury villas</div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-top:20px;">
+
+      <!-- Col 1 : Synthèse marché -->
+      <div class="rv d1">
+        <div class="sec-lbl fr">Vue d'ensemble</div>
+        <div class="sec-lbl en">Overview</div>
+        <div class="g2" style="margin-top:8px;">
+          <div class="card gold">
+            <div class="card-lbl fr">Nuitée villa 3ch (2024)</div>
+            <div class="card-lbl en">3-bed villa night (2024)</div>
+            <div class="card-val">5 500–12 000</div>
+            <div class="card-sub">THB</div>
+          </div>
+          <div class="card gold">
+            <div class="card-lbl fr">Occupation annuelle</div>
+            <div class="card-lbl en">Annual occupancy</div>
+            <div class="card-val">62–68%</div>
+          </div>
+          <div class="card teal">
+            <div class="card-lbl fr">Croissance nuitées 2020–25</div>
+            <div class="card-lbl en">Nightly rate growth 2020–25</div>
+            <div class="card-val">+38%</div>
+          </div>
+          <div class="card teal">
+            <div class="card-lbl fr">Prix m² villa premium</div>
+            <div class="card-lbl en">Premium villa price/m²</div>
+            <div class="card-val">45–65k</div>
+            <div class="card-sub">THB/m²</div>
+          </div>
+        </div>
+        <hr class="sec">
+        <div class="sec-lbl fr" style="margin-top:8px;">Zones clés</div>
+        <div class="sec-lbl en" style="margin-top:8px;">Key zones</div>
+        <div class="tbl-wrap" style="margin-top:8px;">
+          <table class="tbl">
+            <thead><tr><th>Zone</th><th><span class="fr">Nuitée moy.</span><span class="en">Avg. night</span></th><th>%</th></tr></thead>
+            <tbody>
+              <tr><td>Chalok Baan Kao</td><td class="go"><span class="fr">7 500 THB</span><span class="en">7,500 THB</span></td><td class="tl">★★★</td></tr>
+              <tr><td>Srithanu / Haad Yao</td><td class="go"><span class="fr">8 200 THB</span><span class="en">8,200 THB</span></td><td class="tl">★★★</td></tr>
+              <tr><td>Thong Nai Pan</td><td class="go"><span class="fr">9 500 THB</span><span class="en">9,500 THB</span></td><td class="tl">★★★★</td></tr>
+              <tr><td>Ban Tai / Mae Haad</td><td><span class="fr">5 800 THB</span><span class="en">5,800 THB</span></td><td>★★</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="lease-note" style="margin-top:10px;font-size:.72rem;">
+          <span class="fr"><strong>Zones futures :</strong> Haad Salad et Ban Khai montrent une forte croissance depuis 2023 — investissement infra routière en cours.</span>
+          <span class="en"><strong>Emerging zones:</strong> Haad Salad and Ban Khai show strong growth since 2023 — road infrastructure investment ongoing.</span>
+        </div>
+      </div>
+
+      <!-- Col 2 : Évolution prix nuitée -->
+      <div class="rv d2">
+        <div class="sec-lbl fr">Évolution prix nuitée villa 3ch (THB)</div>
+        <div class="sec-lbl en">3-bed villa nightly rate evolution (THB)</div>
+        <div class="chart-wrap" style="margin-top:8px;padding:16px;">
+          <canvas id="chartNuit" width="320" height="180"></canvas>
+        </div>
+        <div class="sec-lbl fr" style="margin-top:14px;">Différenciateurs prix</div>
+        <div class="sec-lbl en" style="margin-top:14px;">Price differentiators</div>
+        <div class="tbl-wrap" style="margin-top:8px;">
+          <table class="tbl">
+            <thead><tr><th class="fr">Critère</th><th class="en">Criterion</th><th>+%</th></tr></thead>
+            <tbody>
+              <tr><td class="fr">Piscine privée</td><td class="en">Private pool</td><td class="go">+35–45%</td></tr>
+              <tr><td class="fr">Vue mer / coucher soleil</td><td class="en">Sea view / sunset</td><td class="go">+25–40%</td></tr>
+              <tr><td class="fr">Jardin tropical privé</td><td class="en">Private tropical garden</td><td class="tl">+15–20%</td></tr>
+              <tr><td class="fr">Services conciergerie</td><td class="en">Concierge services</td><td class="tl">+20–30%</td></tr>
+              <tr><td class="fr">Panneaux solaires</td><td class="en">Solar panels</td><td class="tl">+8–12%</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Col 3 : Heatmap occupation -->
+      <div class="rv d3">
+        <div class="sec-lbl fr">Taux d'occupation par mois (villas premium)</div>
+        <div class="sec-lbl en">Occupancy by month (premium villas)</div>
+        <div style="margin-top:8px;">
+          <div class="hm-head">
+            <span>J</span><span>F</span><span>M</span><span>A</span><span>M</span><span>J</span><span>J</span><span>A</span><span>S</span><span>O</span><span>N</span><span>D</span>
+          </div>
+          <!-- 2020 -->
+          <div class="hm-row">
+            <div class="hm-lbl">20</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.85);">82</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.8);">78</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.7);">70</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.2);">15</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.12);">10</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.15);">12</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.25);">20</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.22);">18</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.1);">8</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.18);">15</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.5);">45</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.75);">72</div>
+          </div>
+          <!-- 2021 -->
+          <div class="hm-row">
+            <div class="hm-lbl">21</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.65);">62</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.6);">58</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.5);">48</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.3);">28</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.2);">18</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.25);">22</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.3);">28</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.28);">25</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.15);">12</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.35);">32</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.55);">52</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.7);">65</div>
+          </div>
+          <!-- 2022 -->
+          <div class="hm-row">
+            <div class="hm-lbl">22</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.82);">80</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.78);">75</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.72);">70</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.45);">42</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.3);">28</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.32);">30</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.4);">38</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.38);">35</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.2);">18</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.42);">40</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.65);">62</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.85);">82</div>
+          </div>
+          <!-- 2023 -->
+          <div class="hm-row">
+            <div class="hm-lbl">23</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.9);">88</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.85);">83</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.8);">78</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.5);">48</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.35);">33</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.38);">35</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.48);">45</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.45);">42</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.25);">22</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.5);">48</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.72);">68</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.88);">85</div>
+          </div>
+          <!-- 2024 -->
+          <div class="hm-row">
+            <div class="hm-lbl">24</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.92);">90</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.88);">86</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.82);">80</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.55);">52</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.38);">36</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.4);">38</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.5);">48</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.48);">45</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.28);">25</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.52);">50</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.75);">72</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.9);">88</div>
+          </div>
+          <!-- 2025 -->
+          <div class="hm-row">
+            <div class="hm-lbl">25</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.95);">93</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.9);">88</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.85);">83</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.58);">55</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.4);">38</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.42);">40</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.52);">50</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.5);">48</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.3);">28</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.55);">52</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.78);">75</div>
+            <div class="hm-cell" style="background:rgba(13,124,110,.92);">90</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:8px;">
+            <div style="display:flex;gap:2px;">
+              <div style="width:12px;height:10px;background:rgba(13,124,110,.1);border-radius:2px;"></div>
+              <div style="width:12px;height:10px;background:rgba(13,124,110,.4);border-radius:2px;"></div>
+              <div style="width:12px;height:10px;background:rgba(13,124,110,.7);border-radius:2px;"></div>
+              <div style="width:12px;height:10px;background:rgba(13,124,110,.95);border-radius:2px;"></div>
+            </div>
+            <span class="fr" style="font-size:.6rem;color:var(--muted);">Taux d'occupation % · vert foncé = haute saison</span>
+            <span class="en" style="font-size:.6rem;color:var(--muted);">Occupancy % · dark green = peak season</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="slide-num">03 / 09</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SLIDE 04 — PRIX IMMOBILIER
+══════════════════════════════════════ -->
+<div class="slide wide" data-n="4" data-s="Immobilier">
+  <div class="full-pad" style="display:flex;flex-direction:column;justify-content:center;min-height:100vh;">
+    <div class="rv">
+      <div class="slide-tag fr">Immobilier Ko Phangan · 2020–2026</div>
+      <div class="slide-tag en">Ko Phangan Real Estate · 2020–2026</div>
+      <div class="h2 fr">Évolution des prix — Freehold & Leasehold</div>
+      <div class="h2 en">Price evolution — Freehold & Leasehold</div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:20px;margin-top:18px;">
+
+      <!-- Col 1 : Stats + graph -->
+      <div class="rv d1">
+        <div class="g2" style="margin-top:0;">
+          <div class="card gold">
+            <div class="card-lbl fr">Prix villa 3ch freehold (2026)</div>
+            <div class="card-lbl en">3-bed villa freehold (2026)</div>
+            <div class="card-val">12–18M</div>
+            <div class="card-sub">THB</div>
+          </div>
+          <div class="card teal">
+            <div class="card-lbl fr">Croissance 2020–2026</div>
+            <div class="card-lbl en">Growth 2020–2026</div>
+            <div class="card-val" style="color:var(--teal);">+52%</div>
+          </div>
+          <div class="card">
+            <div class="card-lbl fr">Décote leasehold 30 ans</div>
+            <div class="card-lbl en">30-yr leasehold discount</div>
+            <div class="card-val">-12%</div>
+            <div class="card-sub fr">vs freehold</div>
+            <div class="card-sub en">vs freehold</div>
+          </div>
+          <div class="card">
+            <div class="card-lbl fr">Rendement locatif brut</div>
+            <div class="card-lbl en">Gross rental yield</div>
+            <div class="card-val">9–12%</div>
+          </div>
+        </div>
+        <div class="chart-wrap" style="margin-top:12px;padding:16px;">
+          <canvas id="chartImmo" width="360" height="200"></canvas>
+        </div>
+      </div>
+
+      <!-- Col 2 : Zones -->
+      <div class="rv d2">
+        <div class="sec-lbl fr">Zones clés · Prix au m²</div>
+        <div class="sec-lbl en">Key zones · Price per m²</div>
+        <div class="tbl-wrap">
+          <table class="tbl">
+            <thead><tr><th>Zone</th><th><span class="fr">Villa 3ch</span><span class="en">3-bed villa</span></th><th>m²</th></tr></thead>
+            <tbody>
+              <tr><td>Thong Nai Pan</td><td class="go">14–20M THB</td><td class="go">58–75k</td></tr>
+              <tr><td>Srithanu</td><td class="go">12–18M THB</td><td class="go">50–65k</td></tr>
+              <tr><td><strong>Chalok B. Kao</strong></td><td class="tl"><strong>10–15M THB</strong></td><td class="tl"><strong>42–58k</strong></td></tr>
+              <tr><td>Ban Tai</td><td>8–12M THB</td><td>35–50k</td></tr>
+              <tr><td>Mae Haad</td><td>9–13M THB</td><td>38–52k</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="sec-lbl fr" style="margin-top:14px;">Zones émergentes</div>
+        <div class="sec-lbl en" style="margin-top:14px;">Emerging zones</div>
+        <div class="tbl-wrap">
+          <table class="tbl">
+            <thead><tr><th>Zone</th><th><span class="fr">Tendance</span><span class="en">Trend</span></th></tr></thead>
+            <tbody>
+              <tr><td>Haad Salad</td><td class="gn"><span class="fr">↑ +18%/an</span><span class="en">↑ +18%/yr</span></td></tr>
+              <tr><td>Ban Khai</td><td class="gn"><span class="fr">↑ +15%/an</span><span class="en">↑ +15%/yr</span></td></tr>
+              <tr><td><span class="fr">Haad Rin Est</span><span class="en">Haad Rin East</span></td><td class="tl"><span class="fr">↑ +12%/an</span><span class="en">↑ +12%/yr</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Col 3 : Différenciateurs -->
+      <div class="rv d3">
+        <div class="sec-lbl fr">Différenciateurs de valeur</div>
+        <div class="sec-lbl en">Value differentiators</div>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px;">
+          <div class="card gold">
+            <div class="card-lbl">🏊 <span class="fr">Piscine privée</span><span class="en">Private pool</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px;">
+              <div class="pbar-wrap" style="flex:1;margin-right:8px;"><div class="pbar-fill" style="width:90%;background:var(--gold);"></div></div>
+              <span style="font-size:.8rem;font-weight:700;color:var(--gold);">+35–45%</span>
+            </div>
+          </div>
+          <div class="card teal">
+            <div class="card-lbl">🌅 <span class="fr">Vue mer / coucher soleil</span><span class="en">Sea view / sunset</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px;">
+              <div class="pbar-wrap" style="flex:1;margin-right:8px;"><div class="pbar-fill" style="width:75%;"></div></div>
+              <span style="font-size:.8rem;font-weight:700;color:var(--teal);">+25–40%</span>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-lbl">🌳 <span class="fr">Jardin tropical</span><span class="en">Tropical garden</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px;">
+              <div class="pbar-wrap" style="flex:1;margin-right:8px;"><div class="pbar-fill" style="width:45%;"></div></div>
+              <span style="font-size:.8rem;font-weight:700;">+15–20%</span>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-lbl">⚡ <span class="fr">Panneaux solaires</span><span class="en">Solar panels</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px;">
+              <div class="pbar-wrap" style="flex:1;margin-right:8px;"><div class="pbar-fill" style="width:28%;"></div></div>
+              <span style="font-size:.8rem;font-weight:700;">+8–12%</span>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-lbl">🛎️ <span class="fr">Services conciergerie</span><span class="en">Concierge services</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px;">
+              <div class="pbar-wrap" style="flex:1;margin-right:8px;"><div class="pbar-fill" style="width:60%;"></div></div>
+              <span style="font-size:.8rem;font-weight:700;">+20–30%</span>
+            </div>
+          </div>
+        </div>
+        <div class="lease-note" style="margin-top:12px;font-size:.75rem;">
+          <span class="fr">La Chalok Baan Kao Pool Villa cumule 4 de ces 5 différenciateurs. Sa valeur de marché est estimée à <strong>12,8M THB</strong> soit <strong>53 333 THB/m²</strong> — dans la fourchette basse de la zone, offrant un potentiel de revalorisation.</span>
+          <span class="en">The Chalok Baan Kao Pool Villa combines 4 of these 5 differentiators. Market value estimated at <strong>12.8M THB</strong> or <strong>53,333 THB/m²</strong> — in the lower range for the zone, offering revaluation potential.</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="slide-num">04 / 09</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SLIDE 05 — SCÉNARIOS
+══════════════════════════════════════ -->
+<div class="slide wide" data-n="5" data-s="Scénarios">
+  <div class="full-pad" style="display:flex;flex-direction:column;justify-content:center;min-height:100vh;">
+    <div class="rv">
+      <div class="slide-tag fr">Analyse prospective · Scénarios</div>
+      <div class="slide-tag en">Forward-looking analysis · Scenarios</div>
+      <div class="h2 fr">3 scénarios — tous réalistes et conservateurs</div>
+      <div class="h2 en">3 scenarios — all realistic and conservative</div>
+      <div class="sub fr" style="margin-top:6px;">Ces scénarios sont volontairement prudents. Le scénario favorable reste en dessous de la performance moyenne constatée sur Ko Phangan sur 2022–2025.</div>
+      <div class="sub en" style="margin-top:6px;">These scenarios are intentionally cautious. The favorable scenario remains below average observed performance on Ko Phangan over 2022–2025.</div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:20px;">
+
+      <!-- Scénario défavorable -->
+      <div class="rv d1" style="border:2px solid rgba(239,68,68,.3);border-radius:var(--r-xl);padding:20px;background:var(--red-bg);">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+          <span style="font-size:1.4rem;">⚠️</span>
+          <div>
+            <div style="font-family:'MCTen',serif;font-size:1rem;color:var(--red);font-weight:400;" class="fr">Scénario Défavorable</div>
+            <div style="font-family:'MCTen',serif;font-size:1rem;color:var(--red);font-weight:400;" class="en">Unfavorable Scenario</div>
+          </div>
+        </div>
+        <div class="g2" style="margin-top:0;">
+          <div class="card red">
+            <div class="card-lbl fr">Occupation</div>
+            <div class="card-lbl en">Occupancy</div>
+            <div class="card-val" style="color:var(--red);">43%</div>
+            <div class="card-sub">vs 62% base</div>
+          </div>
+          <div class="card red">
+            <div class="card-lbl fr">Revalorisation</div>
+            <div class="card-lbl en">Appreciation</div>
+            <div class="card-val" style="color:var(--red);">-1%/an</div>
+          </div>
+        </div>
+        <div class="tbl-wrap" style="margin-top:10px;">
+          <table class="tbl">
+            <thead><tr><th class="fr">Indicateur</th><th class="en">Indicator</th><th class="fr">Valeur</th><th class="en">Value</th></tr></thead>
+            <tbody>
+              <tr><td class="fr">Loyers bruts/an</td><td class="en">Gross rents/yr</td><td class="rd">862k THB</td><td class="rd">862k THB</td></tr>
+              <tr><td class="fr">Distribution nette</td><td class="en">Net distribution</td><td class="rd">5.2%</td><td class="rd">5.2%</td></tr>
+              <tr><td class="fr">Valeur an 7</td><td class="en">Value yr 7</td><td class="rd">11.9M THB</td><td class="rd">11.9M THB</td></tr>
+              <tr><td>TRI 7 ans</td><td>IRR 7 yrs</td><td class="rd">7.8%</td><td class="rd">7.8%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="lease-note" style="margin-top:10px;font-size:.72rem;background:rgba(239,68,68,.06);border-left-color:var(--red);">
+          <span class="fr">Même en scénario défavorable, le projet reste positif. La résistance vient des fondamentaux : bien de qualité, zone établie, structure clé en main.</span>
+          <span class="en">Even in an unfavorable scenario, the project remains positive. Resilience comes from fundamentals: quality asset, established zone, turnkey structure.</span>
+        </div>
+      </div>
+
+      <!-- Scénario médian -->
+      <div class="rv d2" style="border:2px solid var(--gold-bd);border-radius:var(--r-xl);padding:20px;background:var(--gold-bg);">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+          <span style="font-size:1.4rem;">📊</span>
+          <div>
+            <div style="font-family:'MCTen',serif;font-size:1rem;color:var(--gold);font-weight:400;" class="fr">Scénario Médian</div>
+            <div style="font-family:'MCTen',serif;font-size:1rem;color:var(--gold);font-weight:400;" class="en">Base Scenario</div>
+          </div>
+          <span style="margin-left:auto;font-size:.65rem;font-weight:700;background:var(--gold);color:var(--ink);padding:2px 8px;border-radius:2rem;" class="fr">Référence</span>
+          <span style="margin-left:auto;font-size:.65rem;font-weight:700;background:var(--gold);color:var(--ink);padding:2px 8px;border-radius:2rem;" class="en">Base case</span>
+        </div>
+        <div class="g2" style="margin-top:0;">
+          <div class="card gold">
+            <div class="card-lbl fr">Occupation</div>
+            <div class="card-lbl en">Occupancy</div>
+            <div class="card-val">56%</div>
+            <div class="card-sub">vs 62% marché</div>
+          </div>
+          <div class="card gold">
+            <div class="card-lbl fr">Revalorisation</div>
+            <div class="card-lbl en">Appreciation</div>
+            <div class="card-val">+2%/an</div>
+          </div>
+        </div>
+        <div class="tbl-wrap" style="margin-top:10px;">
+          <table class="tbl">
+            <thead><tr><th class="fr">Indicateur</th><th class="en">Indicator</th><th class="fr">Valeur</th><th class="en">Value</th></tr></thead>
+            <tbody>
+              <tr><td class="fr">Loyers bruts/an</td><td class="en">Gross rents/yr</td><td class="go">1 243k THB</td><td class="go">1,243k THB</td></tr>
+              <tr><td class="fr">Distribution nette</td><td class="en">Net distribution</td><td class="go">7.5%</td><td class="go">7.5%</td></tr>
+              <tr><td class="fr">Valeur an 7</td><td class="en">Value yr 7</td><td class="go">13.6M THB</td><td class="go">13.6M THB</td></tr>
+              <tr><td>TRI 7 ans</td><td>IRR 7 yrs</td><td class="go">11.2%</td><td class="go">11.2%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="lease-note" style="margin-top:10px;font-size:.72rem;">
+          <span class="fr">Scénario de référence utilisé pour tous les calculs du dossier. Occupation conservatrice : -10% vs moyenne marché 2024.</span>
+          <span class="en">Reference scenario used for all calculations in this document. Conservative occupancy: -10% vs 2024 market average.</span>
+        </div>
+      </div>
+
+      <!-- Scénario favorable -->
+      <div class="rv d3" style="border:2px solid rgba(16,185,129,.3);border-radius:var(--r-xl);padding:20px;background:var(--grn-bg);">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+          <span style="font-size:1.4rem;">🚀</span>
+          <div>
+            <div style="font-family:'MCTen',serif;font-size:1rem;color:var(--grn);font-weight:400;" class="fr">Scénario Favorable</div>
+            <div style="font-family:'MCTen',serif;font-size:1rem;color:var(--grn);font-weight:400;" class="en">Favorable Scenario</div>
+          </div>
+        </div>
+        <div class="g2" style="margin-top:0;">
+          <div class="card grn">
+            <div class="card-lbl fr">Occupation</div>
+            <div class="card-lbl en">Occupancy</div>
+            <div class="card-val" style="color:var(--grn);">68%</div>
+            <div class="card-sub">+10% vs base</div>
+          </div>
+          <div class="card grn">
+            <div class="card-lbl fr">Revalorisation</div>
+            <div class="card-lbl en">Appreciation</div>
+            <div class="card-val" style="color:var(--grn);">+5%/an</div>
+          </div>
+        </div>
+        <div class="tbl-wrap" style="margin-top:10px;">
+          <table class="tbl">
+            <thead><tr><th class="fr">Indicateur</th><th class="en">Indicator</th><th class="fr">Valeur</th><th class="en">Value</th></tr></thead>
+            <tbody>
+              <tr><td class="fr">Loyers bruts/an</td><td class="en">Gross rents/yr</td><td class="gn">1 506k THB</td><td class="gn">1,506k THB</td></tr>
+              <tr><td class="fr">Distribution nette</td><td class="en">Net distribution</td><td class="gn">9.1%</td><td class="gn">9.1%</td></tr>
+              <tr><td class="fr">Valeur an 7</td><td class="en">Value yr 7</td><td class="gn">18.0M THB</td><td class="gn">18.0M THB</td></tr>
+              <tr><td>TRI 7 ans</td><td>IRR 7 yrs</td><td class="gn">15.8%</td><td class="gn">15.8%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="lease-note" style="margin-top:10px;font-size:.72rem;background:rgba(16,185,129,.06);border-left-color:var(--grn);">
+          <span class="fr">Performance constatée sur les meilleures villas de Ko Phangan en 2023–2024. Pas un scénario optimiste — c'est la réalité du marché haut de gamme géré professionnellement.</span>
+          <span class="en">Observed performance on top Ko Phangan villas in 2023–2024. Not optimistic — this is the reality of professionally managed premium market.</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+    <div style="margin-top:20px;padding:16px 20px;background:rgba(201,168,76,.08);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;" class="rv d4">
+      <p style="font-size:.88rem;font-weight:700;color:var(--ink);line-height:1.6;margin:0;" class="fr">Mettre le bon bien dans les mains de la bonne &#233;quipe de management augmente les chances de succ&#232;s, c&#39;est pourquoi LOWI v&#233;rifie tous les projets avant de les partager.</p>
+      <p style="font-size:.88rem;font-weight:700;color:var(--ink);line-height:1.6;margin:0;" class="en">Placing the right property in the hands of the right management team increases the chances of success &#8212; that is why LOWI reviews every project before sharing it.</p>
+    </div>
+  <div class="slide-num">05 / 09</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SLIDE 06 — LOYERS & DISTRIBUTIONS
+══════════════════════════════════════ -->
+<div class="slide wide" data-n="6" data-s="Distributions">
+  <div class="full-pad" style="display:flex;flex-direction:column;justify-content:center;min-height:100vh;">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:10px;" class="rv">
+      <div>
+        <div class="slide-tag fr">Loyers & Distributions · Évolution temporelle</div>
+        <div class="slide-tag en">Rents & Distributions · Time Evolution</div>
+        <div class="h2 fr">Flux investisseur sur 30 ans</div>
+        <div class="h2 en">Investor cash flows over 30 years</div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+        <div class="cur-sw" id="curSw6">
+          <button class="cur-btn on" onclick="setCur6('thb')">THB</button>
+          <button class="cur-btn" onclick="setCur6('usd')">USD</button>
+          <button class="cur-btn" onclick="setCur6('eur')">EUR</button>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:20px;margin-top:16px;align-items:stretch;">
+      <div class="rv d1">
+        <div class="lease-note" style="margin-bottom:12px;">
+          <span class="fr"><strong>Délai de carence 5 mois :</strong> Les 5 premiers mois de revenus sont affectés à la constitution de la réserve de trésorerie (5% du prix total). Les distributions démarrent au trimestre 2 (mois 6).</span>
+          <span class="en"><strong>5-month reserve period:</strong> First 5 months of revenue build the cash reserve (5% of total price). Distributions begin in Q2 (month 6).</span>
+        </div>
+        <div id="distrib-table-6"><!-- filled by JS --></div>
+        <div class="note fr" style="margin-top:8px;">Pour 1 part (800 000 THB)</div>
+        <div class="note en" style="margin-top:8px;">For 1 share (800,000 THB)</div>
+      </div>
+      <div class="rv d2">
+        <div class="chart-wrap" style="padding:16px;">
+          <canvas id="chartDistrib" width="520" height="260"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">06 / 09</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SLIDE 07 — ÉVOLUTION VALEUR IMMO
+══════════════════════════════════════ -->
+<div class="slide wide" data-n="7" data-s="Valeur">
+  <div class="full-pad" style="display:flex;flex-direction:column;justify-content:center;min-height:100vh;">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px;" class="rv">
+      <div>
+        <div class="slide-tag fr">Évolution de la valeur · Décote leasehold intégrée</div>
+        <div class="slide-tag en">Value evolution · Leasehold discount integrated</div>
+        <div class="h2 fr">Prix de revente selon durée de détention</div>
+        <div class="h2 en">Resale price by holding period</div>
+      </div>
+      <div class="cur-sw" id="curSw7">
+        <button class="cur-btn on" onclick="setCur7('thb')">THB</button>
+        <button class="cur-btn" onclick="setCur7('usd')">USD</button>
+        <button class="cur-btn" onclick="setCur7('eur')">EUR</button>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1.6fr 1fr;gap:20px;margin-top:14px;align-items:start;">
+      <div class="rv d1">
+        <div class="chart-wrap" style="padding:16px;">
+          <canvas id="chartValeur" width="560" height="280"></canvas>
+        </div>
+        <div class="note fr" style="margin-top:8px;">La décote leasehold s'accélère sous 20 ans restants. La revalorisation freehold du marché compense partiellement cette décote jusqu'à environ l'an 15.</div>
+        <div class="note en" style="margin-top:8px;">Leasehold discount accelerates below 20 remaining years. Freehold market appreciation partially offsets this discount until approximately year 15.</div>
+      </div>
+      <div class="rv d2">
+        <div class="sec-lbl fr">Tableau de revente (1 part = 800 000 THB)</div>
+        <div class="sec-lbl en">Resale table (1 share = 800,000 THB)</div>
+        <div id="resale-table"><!-- filled by JS --></div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">07 / 09</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SLIDE 08 — STRUCTURE DES FRAIS
+══════════════════════════════════════ -->
+<div class="slide wide" data-n="8" data-s="Frais">
+  <div class="full-pad" style="display:flex;flex-direction:column;justify-content:center;min-height:100vh;">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px;" class="rv">
+      <div>
+        <div class="slide-tag fr">Structure des frais · Transparence totale</div>
+        <div class="slide-tag en">Fee structure · Full transparency</div>
+        <div class="h2 fr">Ce que vous payez, quand vous le payez</div>
+        <div class="h2 en">What you pay, when you pay it</div>
+      </div>
+      <div class="cur-sw" id="curSw8">
+        <button class="cur-btn on" onclick="setCur8('thb')">THB</button>
+        <button class="cur-btn" onclick="setCur8('usd')">USD</button>
+        <button class="cur-btn" onclick="setCur8('eur')">EUR</button>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:18px;">
+      <div class="rv d1">
+        <div class="sec-lbl fr">Frais à l'entrée (one-shot)</div>
+        <div class="sec-lbl en">Entry fees (one-shot)</div>
+        <div class="tbl-wrap">
+          <table class="tbl">
+            <thead><tr><th class="fr">Frais</th><th class="en">Fee</th><th>%</th><th id="f8-col-thb-h" class="fr">Sur 1 part (800 000 THB)</th><th id="f8-col-thb-he" class="en">On 1 share (800,000 THB)</th></tr></thead>
+            <tbody>
+              <tr>
+                <td class="fr">Commission LOWI</td><td class="en">LOWI commission</td>
+                <td class="go">6%</td>
+                <td class="go" id="f8-entry-lowi">60 000 THB</td>
+              </tr>
+              <tr>
+                <td class="fr">Enregistrement bail (Land Dept.)</td><td class="en">Lease registration (Land Dept.)</td>
+                <td>~1.1%</td>
+                <td id="f8-entry-reg">11 000 THB</td>
+              </tr>
+              <tr>
+                <td class="fr">Frais juridiques &amp; trustee</td><td class="en">Legal &amp; trustee fees</td>
+                <td>~0.5%</td>
+                <td id="f8-entry-legal">5 000 THB</td>
+              </tr>
+              <tr style="background:rgba(201,168,76,.06);">
+                <td class="fr"><strong>Total entrée</strong></td><td class="en"><strong>Total entry</strong></td>
+                <td class="go"><strong>~7.6%</strong></td>
+                <td class="go" id="f8-entry-total"><strong>76 000 THB</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="sec-lbl fr" style="margin-top:16px;">Frais annuels récurrents</div>
+        <div class="sec-lbl en" style="margin-top:16px;">Annual recurring fees</div>
+        <div class="tbl-wrap">
+          <table class="tbl">
+            <thead><tr><th class="fr">Frais</th><th class="en">Fee</th><th>%</th><th class="fr">Base · 800 000 THB investi</th><th class="en">Base · 800,000 THB invested</th></tr></thead>
+            <tbody>
+              <tr>
+                <td class="fr">Management clé en main</td><td class="en">Turnkey management</td>
+                <td>20%</td>
+                <td class="fr" style="font-size:.75rem;">des loyers bruts</td>
+                <td class="en" style="font-size:.75rem;">of gross rents</td>
+              </tr>
+              <tr>
+                <td class="fr">Commission gestion LOWI</td><td class="en">LOWI management fee</td>
+                <td>2%</td>
+                <td class="fr" style="font-size:.75rem;">des loyers perçus</td>
+                <td class="en" style="font-size:.75rem;">of collected rents</td>
+              </tr>
+              <tr>
+                <td class="fr">Assurance + société profit-sharing</td><td class="en">Insurance + profit-sharing company</td>
+                <td>—</td>
+                <td id="f8-annual-struct" style="font-size:.75rem;">~800 THB/an</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="rv d2">
+        <div class="card gold" style="margin-bottom:10px;">
+          <div class="card-lbl fr">Simulation distribution - Année 2 - 1 part</div>
+          <div class="card-lbl en">Distribution simulation - Year 2 - 1 share</div>
+        </div>
+        <div class="tbl-wrap">
+          <table class="tbl" id="tbl-frais-sim">
+            <tbody>
+              <tr><td class="fr">Loyers bruts estimés (7,8% × 1M)</td><td class="en">Estimated gross rents (7.8% × 1M)</td><td class="hi" id="f8s-brut">97 000 THB</td></tr>
+              <tr><td class="fr">− Management 20%</td><td class="en">− Management 20%</td><td class="rd" id="f8s-mgmt">−17 460 THB</td></tr>
+              <tr><td class="fr">− Commission LOWI 2%</td><td class="en">− LOWI fee 2%</td><td class="rd" id="f8s-lowi">−1 940 THB</td></tr>
+              <tr><td class="fr">− Struct. (assur. + société)</td><td class="en">− Structure (insur. + company)</td><td class="rd" id="f8s-struct">−800 THB</td></tr>
+              <tr style="background:rgba(201,168,76,.08);">
+                <td class="fr"><strong>Distribution nette</strong></td><td class="en"><strong>Net distribution</strong></td>
+                <td class="go" id="f8s-net"><strong>76 800 THB</strong></td>
+              </tr>
+              <tr>
+                <td class="fr">Rendement net</td><td class="en">Net yield</td>
+                <td class="go" id="f8s-yield"><strong>7.68%</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="lease-note" style="margin-top:12px;">
+          <span class="fr">Le management 18% couvre : check-in/check-out, ménage, maintenance préventive, accueil locataires, gestion Airbnb/agences, urgences. <strong>Clé en main total</strong> — aucune intervention de votre part requise.</span>
+          <span class="en">The 18% management covers: check-in/check-out, cleaning, preventive maintenance, guest welcome, Airbnb/agency management, emergencies. <strong>Fully turnkey</strong> — no action required on your part.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-num">08 / 09</div>
+</div>
+
+<!-- ══════════════════════════════════════
+     SLIDE 09 — PROJECTIONS INVESTISSEUR
+══════════════════════════════════════ -->
+<div class="slide wide" data-n="9" data-s="Projections">
+  <div class="full-pad" style="display:flex;flex-direction:column;justify-content:center;min-height:100vh;">
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:10px;" class="rv">
+      <div>
+        <div class="slide-tag fr">Projections investisseur · 1 part = 800 000 THB</div>
+        <div class="slide-tag en">Investor projections · 1 share = 800,000 THB</div>
+        <div class="h2 fr">Distributions, TRI &amp; gain net si revente</div>
+        <div class="h2 en">Distributions, IRR & net gain before tax</div>
+      
+        <div style="margin-top:8px;font-size:.72rem;color:var(--muted);font-style:italic;" class="fr">Capital avant imp&#244;t. Frais d&#39;entr&#233;e 7.6% inclus. Rendements pass&#233;s ne garantissent pas les rendements futurs.</div>
+        <div style="margin-top:8px;font-size:.72rem;color:var(--muted);font-style:italic;" class="en">Pre-tax capital. 7.6% entry fees included. Past performance does not guarantee future returns.</div></div>
+      <div class="cur-sw" id="curSw9">
+        <button class="cur-btn on" onclick="setCur9('thb')">THB</button>
+        <button class="cur-btn" onclick="setCur9('usd')">USD</button>
+        <button class="cur-btn" onclick="setCur9('eur')">EUR</button>
+      </div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:2fr 1.2fr;gap:20px;margin-top:14px;align-items:start;">
+      <div class="rv d1" style="display:flex;flex-direction:column;gap:14px;">
+        <div id="proj-dist-table"><!-- filled by JS --></div>
+        <div id="proj-tri-table"><!-- filled by JS --></div>
+        <div id="proj-gain-table"><!-- filled by JS --></div>
+      </div>
+      <div class="rv d2">
+        <div class="chart-wrap" style="padding:16px;">
+          <canvas id="chartTri" width="400" height="280"></canvas>
+        </div>
+        <div class="lease-note" style="margin-top:10px;font-size:.75rem;">
+          <span class="fr">Courbe patrimoniale = distributions cumul&#233;es + valeur de revente leasehold. Capital avant imp&#244;t.</span>
+          <span class="en">Wealth curve = cumulative distributions + leasehold resale value. Pre-tax capital.</span>
+        </div>
+      </div>
+    </div>
+  </div><div class="slide-num">09 / 09</div>
+</div>
+
+<script>
+// ── CONSTANTS ──
+const PRICE     = 12800000;  // THB total
+const PARTS     = 16;
+const PART_PRC  = 800000;    // THB per part
+const BASE_OCC  = 0.56;      // 56% base occupancy
+const NIGHT_THB = 7500;      // avg nightly rate
+const NIGHTS_YR = 365;
+const MGMT      = 0.20;      // 20% management
+const LOWI_FEE  = 0.02;      // 2% LOWI
+const STRUCT_YR = 800;       // annual structure per part
+const ENTRY_PCT = 0.076;     // entry fees
+const RESERVE   = 0.05;      // 5% reserve
+const THB_USD   = 0.027;     // 1 THB = 0.027 USD
+const THB_EUR   = 0.025;     // 1 THB = 0.025 EUR
+const SCENARIOS = {
+  bear: { occ: 0.43, appre: -0.01, label_fr: 'Défavorable', label_en: 'Unfavorable', color: '#DC2626' },
+  base: { occ: 0.56, appre:  0.02, label_fr: 'Médian',      label_en: 'Base',        color: '#C9A84C' },
+  bull: { occ: 0.68, appre:  0.05, label_fr: 'Favorable',   label_en: 'Favorable',   color: '#059669' },
+};
+const LEASE_DISCOUNT = (yrsRemain) => {
+  // Factor based on remaining lease years
+  if (yrsRemain >= 30) return 0.88;
+  if (yrsRemain >= 25) return 0.80;
+  if (yrsRemain >= 23) return 0.72;
+  if (yrsRemain >= 20) return 0.65;
+  if (yrsRemain >= 15) return 0.50;
+  if (yrsRemain >= 10) return 0.30;
+  return 0.15;
+};
+
+let lang6 = 'fr', cur6 = 'thb', sc6 = 'base';
+let cur7 = 'thb', cur8 = 'thb', cur9 = 'thb';
+let curLang = 'fr';
+
+// ── FORMAT ──
+function fmt(v, cur) {
+  cur = cur || 'thb';
+  let val = cur === 'usd' ? v * THB_USD : cur === 'eur' ? v * THB_EUR : v;
+  let sym = cur === 'usd' ? '$' : cur === 'eur' ? '€' : '';
+  let suf = cur === 'thb' ? ' THB' : '';
+  return sym + Math.round(val).toLocaleString('fr-FR') + suf;
+}
+function fmtPct(v) { return (v * 100).toFixed(1) + '%'; }
+
+// ── GROSS RENT per part per year ──
+function grossRent(occ, yr) {
+  // nightly × occ × 365 × partShare
+  const partShare = 1 / PARTS; // 1 part
+  const baseNightly = NIGHT_THB * Math.pow(1.025, yr); // nightly grows ~2.5%/yr
+  return baseNightly * occ * NIGHTS_YR * partShare;
+}
+function netDist(occ, yr) {
+  const g = grossRent(occ, yr);
+  return g * (1 - MGMT - LOWI_FEE) - STRUCT_YR;
+}
+
+// ── LEASE VALUE (1 part) ──
+function leaseVal1(yr, appre) {
+  const partShare = 1 / PARTS;
+  const freeholdBase = PRICE / LEASE_DISCOUNT(30); // implied freehold
+  const freeholdNow  = freeholdBase * Math.pow(1 + appre, yr);
+  const remain       = 30 - yr;
+  return freeholdNow * LEASE_DISCOUNT(remain) * partShare;
+}
+
+// ── SLIDE 6 — Distribution table ──
+function buildDistrib6() {
+  const cur = cur6;
+  const l   = curLang;
+  const years = [1,2,3,4,5,7,10,15,20,25,30];
+  const scs = ['bear','base','bull'];
+  let rows = years.map(yr => {
+    const cells = scs.map(sc => {
+      const s = SCENARIOS[sc];
+      const dist = yr === 1 ? netDist(s.occ, yr) * (7/12) : netDist(s.occ, yr);
+      const yld  = dist / PART_PRC * 100;
+      return `<td style="color:${s.color}">${yld.toFixed(1)}%</td>`;
+    }).join('');
+    const label = l === 'fr' ? 'An ' + yr : 'Yr ' + yr;
+    return `<tr><td class="hi">${label}</td>${cells}</tr>`;
+  }).join('');
+  document.getElementById('distrib-table-6').innerHTML = `
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th rowspan="2">${l==='fr'?'Année':'Year'}</th>
+            <th style="color:${SCENARIOS.bear.color}">&#x26A0; ${l==='fr'?'Défav.':'Unfav.'}</th>
+            <th style="color:${SCENARIOS.base.color}">◆ ${l==='fr'?'Médian':'Base'}</th>
+            <th style="color:${SCENARIOS.bull.color}">★ ${l==='fr'?'Fav.':'Fav.'}</th>
+          </tr>
+          <tr>
+            <th style="font-size:.58rem;color:var(--muted);">${l==='fr'?'Rendement net':'Net yield'}</th>
+            <th style="font-size:.58rem;color:var(--muted);">${l==='fr'?'Rendement net':'Net yield'}</th>
+            <th style="font-size:.58rem;color:var(--muted);">${l==='fr'?'Rendement net':'Net yield'}</th>
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>`;
+  buildChartDistrib();
+}
+function setSc6(s) {
+  sc6 = s;
+  document.querySelectorAll('.sc-tab').forEach(b => b.classList.remove('on'));
+  document.querySelectorAll('.sc-tab.' + s).forEach(b => b.classList.add('on'));
+  buildDistrib6();
+}
+function setCur6(c) {
+  cur6 = c;
+  document.querySelectorAll('#curSw6 .cur-btn').forEach(b => b.classList.remove('on'));
+  document.querySelector('#curSw6 .cur-btn[onclick*=' + c + ']').classList.add('on');
+  buildDistrib6();
+}
+
+// ── SLIDE 7 — Resale table ──
+function buildResale() {
+  const cur = cur7;
+  const holdings = [7, 10, 15, 20, 30];
+  let rows = holdings.map(yr => {
+    const scBear = leaseVal1(yr, SCENARIOS.bear.appre);
+    const scBase = leaseVal1(yr, SCENARIOS.base.appre);
+    const scBull = leaseVal1(yr, SCENARIOS.bull.appre);
+    const pvBear = scBear - PART_PRC;
+    const pvBase = scBase - PART_PRC;
+    const pvBull = scBull - PART_PRC;
+    const remain = 30 - yr;
+    return `<tr>
+      <td class="hi fr"><strong>An ${yr}</strong><br><span style="font-size:.68rem;color:var(--muted)">${remain} ans restants</span></td>
+      <td class="hi en"><strong>Yr ${yr}</strong><br><span style="font-size:.68rem;color:var(--muted)">${remain} yrs left</span></td>
+      <td class="rd">${fmt(scBear, cur)}</td>
+      <td class="go">${fmt(scBase, cur)}</td>
+      <td class="gn">${fmt(scBull, cur)}</td>
+    </tr>`;
+  }).join('');
+  document.getElementById('resale-table').innerHTML = `
+    <div class="tbl-wrap">
+      <table class="tbl">
+        <thead><tr>
+          <th class="fr">Durée</th><th class="en">Period</th>
+          <th style="color:var(--red)" class="fr">Défav.</th><th style="color:var(--red)" class="en">Unfav.</th>
+          <th style="color:var(--gold)" class="fr">Médian</th><th style="color:var(--gold)" class="en">Base</th>
+          <th style="color:var(--grn)" class="fr">Fav.</th><th style="color:var(--grn)" class="en">Fav.</th>
+        </tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+    <p class="note fr" style="margin-top:8px;">Valeur de revente des 10 parts, décote leasehold intégrée. Capital initial : ${fmt(PART_PRC, cur)}.</p>
+    <p class="note en" style="margin-top:8px;">Resale value of 10 shares, leasehold discount included. Initial capital: ${fmt(PART_PRC, cur)}.</p>`;
+}
+function setCur7(c) {
+  cur7 = c;
+  document.querySelectorAll('#curSw7 .cur-btn').forEach(b => b.classList.remove('on'));
+  document.querySelector('#curSw7 .cur-btn[onclick*=' + c + ']').classList.add('on');
+  buildResale();
+  buildChartValeur();
+}
+
+// ── SLIDE 8 — Fees ──
+function buildFees8() {
+  const c = cur8;
+  const invest = PART_PRC;
+  document.getElementById('f8-entry-lowi').innerHTML  = '<strong>' + fmt(invest * 0.06, c) + '</strong>';
+  document.getElementById('f8-entry-reg').textContent  = fmt(invest * 0.011, c);
+  document.getElementById('f8-entry-legal').textContent = fmt(invest * 0.005, c);
+  document.getElementById('f8-entry-total').innerHTML = '<strong>' + fmt(invest * 0.076, c) + '</strong>';
+  document.getElementById('f8-annual-struct').textContent = fmt(STRUCT_YR, c) + (c==='thb'?'/an':'/yr');
+  // Simulation
+  const occ    = SCENARIOS.base.occ;
+  const gross  = grossRent(occ, 2);
+  const mgmt   = gross * MGMT;
+  const lf     = gross * LOWI_FEE;
+  const net    = gross - mgmt - lf - STRUCT_YR;
+  document.getElementById('f8s-brut').textContent   = fmt(gross, c);
+  document.getElementById('f8s-mgmt').textContent   = '−' + fmt(mgmt, c);
+  document.getElementById('f8s-lowi').textContent   = '−' + fmt(lf, c);
+  document.getElementById('f8s-struct').textContent = '−' + fmt(STRUCT_YR, c);
+  document.getElementById('f8s-net').innerHTML      = '<strong>' + fmt(net, c) + '</strong>';
+  document.getElementById('f8s-yield').innerHTML    = '<strong>' + fmtPct(net / invest) + '</strong>';
+}
+function setCur8(c) {
+  cur8 = c;
+  document.querySelectorAll('#curSw8 .cur-btn').forEach(b => b.classList.remove('on'));
+  document.querySelector('#curSw8 .cur-btn[onclick*=' + c + ']').classList.add('on');
+  buildFees8();
+}
+
+// ── SLIDE 9 — Projections ──
+function buildProj9() {
+  const c = cur9;
+  const l = curLang;
+  const invest = PART_PRC;
+  const holdings = [7, 10, 15, 20, 30];
+  const scs = ['bear','base','bull'];
+
+  let data = holdings.map(yr => {
+    return scs.map(sc => {
+      const s = SCENARIOS[sc];
+      let cumDist = 0;
+      for (let y = 1; y <= yr; y++) {
+        const d = y === 1 ? netDist(s.occ, y) * (7/12) : netDist(s.occ, y);
+        cumDist += Math.max(0, d);
+      }
+      const resale = leaseVal1(yr, s.appre);
+      const entry  = invest * (1 + ENTRY_PCT);
+      const totalReturn = cumDist + resale;
+      const irr = Math.pow(totalReturn / entry, 1/yr) - 1;
+      const netGain = totalReturn - invest;
+      return { sc, yr, cumDist, resale, irr, netGain };
+    });
+  });
+
+  function makeTable(titleFr, titleEn, colFn, unit) {
+    const scColors = [SCENARIOS.bear.color, SCENARIOS.base.color, SCENARIOS.bull.color];
+    const scIcons  = ['&#x26A0;','&#9670;','&#9733;'];
+    let rows = holdings.map((yr, i) => {
+      const label = yr === 30 ? (l==='fr'?'30 ans':'30 yrs') : (l==='fr'?'An '+yr:'Yr '+yr);
+      const cells = scs.map((sc,j) => `<td style="color:${scColors[j]}">${colFn(data[i][j])}</td>`).join('');
+      return `<tr><td class="hi"><strong>${label}</strong></td>${cells}</tr>`;
+    }).join('');
+    const headers = scs.map((sc,j) => `<th style="color:${scColors[j]}">${scIcons[j]}</th>`).join('');
+    return `<div class="tbl-wrap">
+      <table class="tbl">
+        <thead>
+          <tr><th>${l==='fr'?titleFr:titleEn}</th>${headers}</tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>`;
+  }
+
+  document.getElementById('proj-dist-table').innerHTML =
+    makeTable('Distributions cumul&#233;es', 'Cumulative distributions',
+      d => fmt(d.cumDist, c));
+  document.getElementById('proj-tri-table').innerHTML =
+    makeTable('TRI (taux de rendement interne)', 'IRR (internal rate of return)',
+      d => fmtPct(d.irr));
+  document.getElementById('proj-gain-table').innerHTML =
+    makeTable('Gain net si revente', 'Net gain on resale',
+      d => fmt(d.netGain, c));
+}
+function setCur9(c) {
+  cur9 = c;
+  document.querySelectorAll('#curSw9 .cur-btn').forEach(b => b.classList.remove('on'));
+  document.querySelector('#curSw9 .cur-btn[onclick*=' + c + ']').classList.add('on');
+  buildProj9();
+  buildChartTri();
+}
+
+// ── CHARTS ──
+function buildChartNuit() {
+  const canvas = document.getElementById('chartNuit');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const years = [2020, 2021, 2022, 2023, 2024, 2025];
+  const data  = [4500, 4800, 5500, 6200, 7500, 8200];
+  drawLineChart(ctx, canvas.width, canvas.height, years, [
+    { data, color: '#C9A84C', label: 'Villa 3ch · THB/nuit' }
+  ], 'THB');
+}
+
+function buildChartImmo() {
+  const canvas = document.getElementById('chartImmo');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const years = [2020, 2021, 2022, 2023, 2024, 2025, 2026];
+  drawLineChart(ctx, canvas.width, canvas.height, years, [
+    { data: [8400000,8600000,9200000,10500000,11800000,12400000,12800000], color: '#C9A84C', label: 'Freehold Villa 3ch' },
+    { data: [7400000,7600000,8100000,9200000,10400000,10900000,11264000], color: '#0D7C6E', label: 'Leasehold 30ans' },
+  ], 'THB (M)');
+}
+
+function buildChartDistrib() {
+  const canvas = document.getElementById('chartDistrib');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const yrs = [1,2,3,4,5,6,7,8,9,10,12,15,20,25,30];
+  const scs = ['bear','base','bull'];
+  const datasets = scs.map(sc => {
+    const s = SCENARIOS[sc];
+    const data = yrs.map(yr => {
+      const d = yr === 1 ? netDist(s.occ, yr) * (7/12) : netDist(s.occ, yr);
+      return cur6 === 'usd' ? d * THB_USD : cur6 === 'eur' ? d * THB_EUR : d;
+    });
+    return { data, color: s.color, label: s['label_' + curLang] };
+  });
+  drawLineChart(ctx, canvas.width, canvas.height, yrs, datasets, cur6.toUpperCase(), true);
+}
+
+function buildChartValeur() {
+  const canvas = document.getElementById('chartValeur');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const yrs = [0,1,2,3,4,5,6,7,8,9,10,12,15,20,25,30];
+  const scs = ['bear','base','bull'];
+  const datasets = scs.map(sc => {
+    const s = SCENARIOS[sc];
+    const data = yrs.map(yr => {
+      const v = leaseVal1(yr, s.appre);
+      return cur7 === 'usd' ? v * THB_USD : cur7 === 'eur' ? v * THB_EUR : v;
+    });
+    return { data, color: s.color, label: s['label_' + curLang] };
+  });
+  // Add markers at hold points
+  drawLineChart(ctx, canvas.width, canvas.height, yrs, datasets, cur7.toUpperCase(), true, [7,10,15,20,30]);
+}
+
+function buildChartTri() {
+  // Wealth curve: cumulative distributions + current leasehold resale value, over years 1-30
+  const canvas = document.getElementById('chartTri');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const yrs = [1,2,3,4,5,6,7,8,9,10,12,15,20,25,30];
+  const scs = ['bear','base','bull'];
+  const conv = cur9 === 'usd' ? THB_USD : cur9 === 'eur' ? THB_EUR : 1;
+  const datasets = scs.map(sc => {
+    const s = SCENARIOS[sc];
+    const data = yrs.map(yr => {
+      let cumDist = 0;
+      for (let y = 1; y <= yr; y++) {
+        cumDist += Math.max(0, y === 1 ? netDist(s.occ, y)*(7/12) : netDist(s.occ, y));
+      }
+      const resale = leaseVal1(yr, s.appre);
+      return Math.round((cumDist + resale) * conv);
+    });
+    return { data, color: s.color, label: s['label_' + curLang] };
+  });
+  drawLineChart(ctx, canvas.width, canvas.height, yrs, datasets, cur9.toUpperCase(), false);
+}
+function drawLineChart(ctx, W, H, labels, datasets, unit, fill, markers) {
+  ctx.clearRect(0, 0, W, H);
+  const pad = { t: 20, r: 16, b: 36, l: 60 };
+  const cW = W - pad.l - pad.r;
+  const cH = H - pad.t - pad.b;
+
+  const allVals = datasets.flatMap(d => d.data);
+  const minV = Math.min(...allVals) * 0.95;
+  const maxV = Math.max(...allVals) * 1.05;
+
+  const xScale = i => pad.l + (i / (labels.length - 1)) * cW;
+  const yScale = v => pad.t + cH - ((v - minV) / (maxV - minV)) * cH;
+
+  // Grid
+  ctx.strokeStyle = 'rgba(26,26,46,.08)';
+  ctx.lineWidth = 1;
+  for (let i = 0; i <= 4; i++) {
+    const y = pad.t + (i / 4) * cH;
+    ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(pad.l + cW, y); ctx.stroke();
+    const val = maxV - (i / 4) * (maxV - minV);
+    ctx.fillStyle = '#6B7280';
+    ctx.font = '10px DM Sans';
+    ctx.textAlign = 'right';
+    ctx.fillText(unit === 'THB (M)' ? (val/1000000).toFixed(1)+'M' : Math.round(val/1000)+'k', pad.l - 4, y + 4);
+  }
+
+  // X labels
+  ctx.fillStyle = '#6B7280';
+  ctx.font = '10px DM Sans';
+  ctx.textAlign = 'center';
+  labels.forEach((l, i) => ctx.fillText(l, xScale(i), H - 6));
+
+  // Lines
+  datasets.forEach(ds => {
+    ctx.beginPath();
+    ctx.strokeStyle = ds.color;
+    ctx.lineWidth = 2;
+    ds.data.forEach((v, i) => {
+      const x = xScale(i), y = yScale(v);
+      i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    });
+    ctx.stroke();
+    // Dots
+    ds.data.forEach((v, i) => {
+      const x = xScale(i), y = yScale(v);
+      ctx.beginPath();
+      ctx.arc(x, y, 3, 0, Math.PI*2);
+      ctx.fillStyle = ds.color;
+      ctx.fill();
+    });
+    // Markers labels
+    if (markers) {
+      markers.forEach(m => {
+        const idx = labels.indexOf(m);
+        if (idx >= 0) {
+          const x = xScale(idx), y = yScale(ds.data[idx]);
+          ctx.fillStyle = ds.color;
+          ctx.font = 'bold 9px DM Sans';
+          ctx.textAlign = 'center';
+          const v = ds.data[idx];
+          ctx.fillText(unit === 'THB (M)' ? (v/1000000).toFixed(1)+'M' : Math.round(v/1000)+'k', x, y - 8);
+        }
+      });
+    }
+  });
+}
+
+// ── GENERIC BAR CHART ──
+function drawBarChart(ctx, W, H, labels, datasets, unit) {
+  ctx.clearRect(0, 0, W, H);
+  const pad = { t: 20, r: 16, b: 40, l: 44 };
+  const cW = W - pad.l - pad.r;
+  const cH = H - pad.t - pad.b;
+  const allVals = datasets.flatMap(d => d.data);
+  const maxV = Math.max(...allVals) * 1.15;
+  const groupW = cW / labels.length;
+  const barW = (groupW - 8) / datasets.length;
+
+  // Grid
+  for (let i = 0; i <= 4; i++) {
+    const y = pad.t + (i / 4) * cH;
+    const v = maxV * (1 - i/4);
+    ctx.strokeStyle = 'rgba(26,26,46,.08)';
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(pad.l, y); ctx.lineTo(pad.l + cW, y); ctx.stroke();
+    ctx.fillStyle = '#6B7280';
+    ctx.font = '10px DM Sans';
+    ctx.textAlign = 'right';
+    ctx.fillText(v.toFixed(1) + unit, pad.l - 3, y + 3);
+  }
+
+  labels.forEach((lbl, gi) => {
+    const gx = pad.l + gi * groupW + 4;
+    datasets.forEach((ds, di) => {
+      const v = ds.data[gi];
+      const bh = (v / maxV) * cH;
+      const bx = gx + di * barW;
+      const by = pad.t + cH - bh;
+      ctx.fillStyle = ds.color + 'CC';
+      ctx.beginPath();
+      ctx.roundRect ? ctx.roundRect(bx, by, barW - 2, bh, [3,3,0,0]) : ctx.rect(bx, by, barW - 2, bh);
+      ctx.fill();
+      // Value on bar
+      ctx.fillStyle = ds.color;
+      ctx.font = 'bold 9px DM Sans';
+      ctx.textAlign = 'center';
+      ctx.fillText(v.toFixed(1) + unit, bx + (barW-2)/2, by - 3);
+    });
+    ctx.fillStyle = '#6B7280';
+    ctx.font = '10px DM Sans';
+    ctx.textAlign = 'center';
+    ctx.fillText(lbl, gx + (groupW - 8) / 2 - 2, H - 8);
+  });
+}
+
+// ── LANGUAGE ──
+function setLang(l) {
+  curLang = l;
+  document.body.className = l;
+  document.getElementById('btn-fr').classList.toggle('on', l === 'fr');
+  document.getElementById('btn-en').classList.toggle('on', l === 'en');
+  const bfr = document.getElementById('sh-badge-fr'); if(bfr) bfr.style.display = l==='fr' ? '' : 'none';
+  const ben = document.getElementById('sh-badge-en'); if(ben) ben.style.display = l==='en' ? '' : 'none';
+  buildAll();
+}
+
+// ── INIT & INTERSECT ──
+function buildAll() {
+  buildDistrib6();
+  buildResale();
+  buildFees8();
+  buildProj9();
+  buildChartNuit();
+  buildChartImmo();
+  buildChartDistrib();
+  buildChartValeur();
+  buildChartTri();
+}
+
+const slides = document.querySelectorAll('[data-n]');
+const navEl  = document.getElementById('nav-dots');
+const prog   = document.getElementById('prog');
+const total  = slides.length;
+
+slides.forEach((s, i) => {
+  const d = document.createElement('div');
+  d.className = 'dot' + (i===0?' on':'');
+  d.title = s.dataset.s || '';
+  d.onclick = () => s.scrollIntoView({ behavior: 'smooth' });
+  navEl.appendChild(d);
+});
+
+const REVEAL_SELS = ['.rv','.rv-l','.rv-r','.rv-up'];
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    REVEAL_SELS.forEach(sel => {
+      e.target.querySelectorAll(sel).forEach((r, i) => {
+        setTimeout(() => r.classList.add('on'), i * 70);
+      });
+    });
+    const idx = parseInt(e.target.dataset.n) - 1;
+    document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('on', i === idx));
+    prog.style.width = ((idx + 1) / total * 100) + '%';
+  });
+}, { threshold: 0.3 });
+
+slides.forEach(s => io.observe(s));
+REVEAL_SELS.forEach(sel => {
+  slides[0].querySelectorAll(sel).forEach((r, i) => setTimeout(() => r.classList.add('on'), i * 120));
+});
+
+buildAll();
+</script>
+</body>
+</html>
+
+
+
+
+
+
+

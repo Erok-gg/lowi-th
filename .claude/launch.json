@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "Static (serve)",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["serve", ".", "--listen", "3000", "--no-clipboard"],
+      "port": 3000
+    },
+    {
+      "name": "Live-reload (live-server)",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["live-server", ".", "--port=8080", "--no-browser"],
+      "port": 8080
+    }
+  ]
+}
