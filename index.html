@@ -52,15 +52,7 @@
         radial-gradient(ellipse 70% 60% at 80% 50%, rgba(13,124,110,.10) 0%, transparent 70%),
         var(--cream);
     }
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: .5rem;
-      background: rgba(201,168,76,.15); border: 1px solid rgba(201,168,76,.35);
-      color: var(--gold); font-size: .8rem; font-weight: 700;
-      letter-spacing: .08em; text-transform: uppercase;
-      padding: .35rem .9rem; border-radius: 2rem; margin-bottom: 1.5rem;
-    }
-    .hero-badge::before { content: "●"; font-size: .55rem; }
-    .hero h1 {
+.hero h1 {
       font-size: clamp(2.4rem, 4.5vw, 3.8rem);
       font-weight: 800; line-height: 1.08;
       letter-spacing: -.03em; margin-bottom: 1.5rem;
@@ -360,7 +352,7 @@
       display: flex; align-items: center; justify-content: space-between;
       font-size: .83rem;
     }
-    footer .logo { color: var(--white); }
+    footer .logo { color: var(--white); font-family: 'MCTen', sans-serif; }
     footer a { color: rgba(255,255,255,.45); text-decoration: none; }
     footer a:hover { color: var(--gold); }
 
@@ -399,8 +391,7 @@ window.__NAV_RIGHT__ = `
 <!-- ── HERO ───────────────────────────────────────── -->
 <section class="hero">
   <div class="hero-content">
-    <div class="hero-badge">Immobilier · En parts · Sans barrière</div>
-    <h1>L'immobilier thaïlandais.<br><em>En parts.</em><br>Sans barrière.</h1>
+<h1>L'immobilier thaïlandais.<br><em>En parts.</em><br>Sans barrière.</h1>
     <p>Co-investissez en Thaïlande et profitez de loyers réguliers sans les tracas de la gestion.</p>
     <div class="hero-actions">
       <a class="btn-primary" href="comment-ca-marche.html" style="display:inline-flex;align-items:center;text-decoration:none">En savoir plus →</a>
@@ -857,9 +848,7 @@ window.__NAV_RIGHT__ = `
     if (seeAll) seeAll.innerHTML = t.seeAllBtn;
 
     // Hero
-    var badge = sel('.hero-badge');
-    if (badge) badge.innerHTML = t.heroBadge;
-    var h1 = sel('.hero h1');
+var h1 = sel('.hero h1');
     if (h1) { h1.innerHTML = t.heroH1; startTicker(l); }
     var heroP = sel('.hero-content > p');
     if (heroP) heroP.innerHTML = t.heroP;

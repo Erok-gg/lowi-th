@@ -138,8 +138,13 @@ body.en .fr{display:none!important;}
 .hm-row{display:flex;gap:2px;align-items:center;}
 .hm-lbl{font-size:.62rem;color:var(--muted);width:26px;text-align:right;flex-shrink:0;font-weight:600;}
 .hm-cell{flex:1;height:22px;border-radius:3px;display:flex;align-items:center;justify-content:center;font-size:.58rem;font-weight:700;color:var(--white);}
+.hm-big .hm-cell{height:38px;font-size:.66rem;border-radius:4px;}
+.hm-big .hm-row{gap:3px;margin-bottom:2px;}
+.hm-big .hm-lbl{font-size:.66rem;width:28px;}
 .hm-head{display:flex;gap:2px;margin-left:28px;margin-bottom:2px;}
+.hm-big .hm-head{gap:3px;margin-left:30px;margin-bottom:4px;}
 .hm-head span{flex:1;font-size:.6rem;text-align:center;color:var(--muted);font-weight:600;}
+.hm-big .hm-head span{font-size:.66rem;}
 
 /* ── CHART CANVAS ── */
 .chart-wrap{position:relative;margin-top:14px;border:1px solid rgba(26,26,46,.08);border-radius:var(--r-lg);overflow:hidden;background:var(--white);}
@@ -392,79 +397,59 @@ window.__NAV_RIGHT__ = `
       <div class="h2 en">Tourist rental market — Premium & luxury villas</div>
     </div>
 
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:20px;margin-top:20px;">
+    <div style="display:grid;grid-template-columns:250px 1fr 420px;gap:20px;margin-top:20px;align-items:start;">
 
-      <!-- Col 1 : Synthèse marché -->
+      <!-- Col 1 : Vue d'ensemble (cartes verticales) -->
       <div class="rv d1">
         <div class="sec-lbl fr">Vue d'ensemble</div>
         <div class="sec-lbl en">Overview</div>
-        <div class="g2" style="margin-top:8px;">
-          <div class="card gold">
-            <div class="card-lbl fr">Nuitée villa 3ch (2024)</div>
-            <div class="card-lbl en">3-bed villa night (2024)</div>
-            <div class="card-val">5 500–12 000</div>
-            <div class="card-sub">THB</div>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-top:10px;">
+          <div class="card gold" style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;">
+            <div>
+              <div class="card-lbl fr">Nuitée villa 3ch (2024)</div>
+              <div class="card-lbl en">3-bed villa night (2024)</div>
+            </div>
+            <div style="text-align:right;">
+              <div class="card-val" style="font-size:1.05rem;">5 500–<br>12 000</div>
+              <div class="card-sub">THB</div>
+            </div>
           </div>
-          <div class="card gold">
-            <div class="card-lbl fr">Occupation annuelle</div>
-            <div class="card-lbl en">Annual occupancy</div>
-            <div class="card-val">62–68%</div>
+          <div class="card gold" style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;">
+            <div>
+              <div class="card-lbl fr">Occupation annuelle</div>
+              <div class="card-lbl en">Annual occupancy</div>
+            </div>
+            <div style="text-align:right;">
+              <div class="card-val" style="font-size:1.05rem;">62–68%</div>
+            </div>
           </div>
-          <div class="card teal">
-            <div class="card-lbl fr">Croissance nuitées 2020–25</div>
-            <div class="card-lbl en">Nightly rate growth 2020–25</div>
-            <div class="card-val">+38%</div>
+          <div class="card teal" style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;">
+            <div>
+              <div class="card-lbl fr">Croissance nuitées 2020–25</div>
+              <div class="card-lbl en">Nightly growth 2020–25</div>
+            </div>
+            <div style="text-align:right;">
+              <div class="card-val" style="font-size:1.05rem;">+38%</div>
+            </div>
           </div>
-          <div class="card teal">
-            <div class="card-lbl fr">Prix m² villa premium</div>
-            <div class="card-lbl en">Premium villa price/m²</div>
-            <div class="card-val">45–65k</div>
-            <div class="card-sub">THB/m²</div>
-          </div>
-        </div>
-        <hr class="sec">
-        <div class="sec-lbl fr" style="margin-top:8px;">Zones clés</div>
-        <div class="sec-lbl en" style="margin-top:8px;">Key zones</div>
-        <div class="tbl-wrap" style="margin-top:8px;">
-          <table class="tbl">
-            <thead><tr><th>Zone</th><th><span class="fr">Nuitée moy.</span><span class="en">Avg. night</span></th><th>%</th></tr></thead>
-            <tbody>
-              <tr><td>Chalok Baan Kao</td><td class="go"><span class="fr">7 500 THB</span><span class="en">7,500 THB</span></td><td class="tl">★★★</td></tr>
-              <tr><td>Srithanu / Haad Yao</td><td class="go"><span class="fr">8 200 THB</span><span class="en">8,200 THB</span></td><td class="tl">★★★</td></tr>
-              <tr><td>Thong Nai Pan</td><td class="go"><span class="fr">9 500 THB</span><span class="en">9,500 THB</span></td><td class="tl">★★★★</td></tr>
-              <tr><td>Ban Tai / Mae Haad</td><td><span class="fr">5 800 THB</span><span class="en">5,800 THB</span></td><td>★★</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="lease-note" style="margin-top:10px;font-size:.72rem;">
-          <span class="fr"><strong>Zones futures :</strong> Haad Salad et Ban Khai montrent une forte croissance depuis 2023 — investissement infra routière en cours.</span>
-          <span class="en"><strong>Emerging zones:</strong> Haad Salad and Ban Khai show strong growth since 2023 — road infrastructure investment ongoing.</span>
-        </div>
-      </div>
-
-      <!-- Col 2 : Évolution prix nuitée & THB/m² -->
-      <div class="rv d2" style="display:flex;flex-direction:column;gap:14px;">
-        <div>
-          <div class="sec-lbl fr">Évolution nuitée par type (THB/nuit)</div>
-          <div class="sec-lbl en">Nightly rate by type (THB/night)</div>
-          <div class="chart-wrap" style="margin-top:8px;padding:12px 16px;">
-            <canvas id="chartNuit" width="320" height="170"></canvas>
-          </div>
-        </div>
-        <div>
-          <div class="sec-lbl fr">Prix au m² Ko Phangan · Évolution (%)</div>
-          <div class="sec-lbl en">Ko Phangan price/m² · Evolution (%)</div>
-          <div class="chart-wrap" style="margin-top:8px;padding:12px 16px;">
-            <canvas id="chartM2" width="320" height="150"></canvas>
+          <div class="card teal" style="display:flex;justify-content:space-between;align-items:center;padding:10px 14px;">
+            <div>
+              <div class="card-lbl fr">Prix m² villa premium</div>
+              <div class="card-lbl en">Premium villa price/m²</div>
+            </div>
+            <div style="text-align:right;">
+              <div class="card-val" style="font-size:1.05rem;">45–65k</div>
+              <div class="card-sub">THB/m²</div>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Col 3 : Heatmap occupation -->
-      <div class="rv d3">
+      <!-- Col 2 : Heatmap + Zones -->
+      <div class="rv d2">
         <div class="sec-lbl fr">Taux d'occupation par mois (villas premium)</div>
         <div class="sec-lbl en">Occupancy by month (premium villas)</div>
-        <div style="margin-top:8px;">
+        <div class="hm-big" style="margin-top:10px;">
           <div class="hm-head">
             <span>J</span><span>F</span><span>M</span><span>A</span><span>M</span><span>J</span><span>J</span><span>A</span><span>S</span><span>O</span><span>N</span><span>D</span>
           </div>
@@ -575,6 +560,62 @@ window.__NAV_RIGHT__ = `
             <span class="en" style="font-size:.6rem;color:var(--muted);">Occupancy % · dark green = peak season</span>
           </div>
         </div>
+
+        <!-- Zones clés -->
+        <hr class="sec" style="margin-top:16px;">
+        <div class="sec-lbl fr" style="margin-top:12px;">Zones clés</div>
+        <div class="sec-lbl en" style="margin-top:12px;">Key zones</div>
+        <div class="tbl-wrap" style="margin-top:8px;">
+          <table class="tbl">
+            <thead><tr><th>Zone</th><th><span class="fr">Nuitée moy.</span><span class="en">Avg. night</span></th><th>Att.</th></tr></thead>
+            <tbody>
+              <tr><td>Chalok Baan Kao</td><td class="go"><span class="fr">7 500 THB</span><span class="en">7,500 THB</span></td><td class="tl">★★★</td></tr>
+              <tr><td>Srithanu / Haad Yao</td><td class="go"><span class="fr">8 200 THB</span><span class="en">8,200 THB</span></td><td class="tl">★★★</td></tr>
+              <tr><td>Thong Nai Pan</td><td class="go"><span class="fr">9 500 THB</span><span class="en">9,500 THB</span></td><td class="tl">★★★★</td></tr>
+              <tr><td>Ban Tai / Mae Haad</td><td><span class="fr">5 800 THB</span><span class="en">5,800 THB</span></td><td>★★</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Zones futures -->
+        <div class="lease-note" style="margin-top:10px;font-size:.72rem;">
+          <span class="fr"><strong>Zones futures :</strong> Haad Salad et Ban Khai — forte croissance depuis 2023, investissement infra routière en cours.</span>
+          <span class="en"><strong>Emerging zones:</strong> Haad Salad &amp; Ban Khai — strong growth since 2023, road infrastructure ongoing.</span>
+        </div>
+      </div>
+
+      <!-- Col 3 : Graphiques marché (droite) -->
+      <div class="rv d3" style="display:flex;flex-direction:column;gap:18px;">
+
+        <!-- Graphique 1 : Évolution nuitée par type -->
+        <div>
+          <div class="sec-lbl fr">Évolution nuitée par type · 2020–2025 (THB/nuit)</div>
+          <div class="sec-lbl en">Nightly rate by villa type · 2020–2025 (THB/night)</div>
+          <!-- Légende couleur -->
+          <div style="display:flex;gap:14px;margin:6px 0 4px;flex-wrap:wrap;">
+            <span style="font-size:.62rem;color:#6B7280;display:flex;align-items:center;gap:4px;"><span style="display:inline-block;width:22px;height:2px;background:#6B7280;border-radius:2px;"></span><span class="fr">1 chambre</span><span class="en">1 bed</span></span>
+            <span style="font-size:.62rem;color:#0D7C6E;display:flex;align-items:center;gap:4px;"><span style="display:inline-block;width:22px;height:2px;background:#0D7C6E;border-radius:2px;"></span><span class="fr">2 chambres</span><span class="en">2 beds</span></span>
+            <span style="font-size:.62rem;color:#C9A84C;display:flex;align-items:center;gap:4px;"><span style="display:inline-block;width:22px;height:2px;background:#C9A84C;border-radius:2px;"></span><span class="fr">3 chambres</span><span class="en">3 beds</span></span>
+            <span style="font-size:.62rem;color:#DC2626;display:flex;align-items:center;gap:4px;"><span style="display:inline-block;width:22px;height:2px;background:#DC2626;border-radius:2px;"></span><span class="fr">4 chambres</span><span class="en">4 beds</span></span>
+          </div>
+          <div class="chart-wrap" style="padding:10px 14px;">
+            <canvas id="chartNuit" width="400" height="200"></canvas>
+          </div>
+        </div>
+
+        <!-- Graphique 2 : Évolution prix m² annuelle -->
+        <div>
+          <div class="sec-lbl fr">Ko Phangan · Croissance prix m² annuelle (%/an)</div>
+          <div class="sec-lbl en">Ko Phangan · Annual price/m² growth (%/yr)</div>
+          <div class="lease-note" style="margin:4px 0 6px;font-size:.67rem;">
+            <span class="fr">Base : ~35 000 THB/m² en 2020 — villas premium leasehold.</span>
+            <span class="en">Base: ~35,000 THB/m² in 2020 — premium leasehold villas.</span>
+          </div>
+          <div class="chart-wrap" style="padding:10px 14px;">
+            <canvas id="chartM2" width="400" height="165"></canvas>
+          </div>
+        </div>
+
       </div>
 
     </div>
@@ -1339,25 +1380,30 @@ function buildChartNuit() {
   const canvas = document.getElementById('chartNuit');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
+  const l = curLang;
   const years = [2020, 2021, 2022, 2023, 2024, 2025];
   drawLineChart(ctx, canvas.width, canvas.height, years, [
-    { data: [2000,2200,2800,3500,4200,4800],  color: '#6B7280', label: '1ch' },
-    { data: [3500,3800,4500,5500,6500,7500],  color: '#0D7C6E', label: '2ch' },
-    { data: [4500,4800,5500,6200,7500,8200],  color: '#C9A84C', label: '3ch' },
-    { data: [7500,8000,9500,11000,13500,15500], color: '#DC2626', label: '4ch' },
+    { data: [2000, 2200, 2800, 3500, 4200, 4800],   color: '#6B7280', label: l==='fr'?'1 ch':'1 bd' },
+    { data: [3500, 3800, 4500, 5500, 6500, 7500],   color: '#0D7C6E', label: l==='fr'?'2 ch':'2 bd' },
+    { data: [4500, 4800, 5500, 6200, 7500, 8200],   color: '#C9A84C', label: l==='fr'?'3 ch':'3 bd' },
+    { data: [7500, 8000, 9500,11000,13500,15500],   color: '#DC2626', label: l==='fr'?'4 ch':'4 bd' },
   ], 'THB');
 }
 function buildChartM2() {
   const canvas = document.getElementById('chartM2');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
-  // Base 2020 = ~35 000 THB/m²  →  show % growth vs 2020
-  const years = [2020,2021,2022,2023,2024,2025,2026];
-  const base  = 35000;
-  const vals  = [35000,36500,38200,42500,47000,51000,54000];
-  const pct   = vals.map(v => Math.round((v/base - 1) * 1000) / 10); // e.g. 0.0, 4.3, 9.1 ...
+  const l = curLang;
+  // Année sur année : taux de croissance %/an du prix m²
+  // Base 2020 = ~35 000 THB/m² (villas premium leasehold Ko Phangan)
+  const vals = [35000, 36500, 38200, 42500, 47000, 51000, 54000]; // 2020–2026
+  const years = [2021, 2022, 2023, 2024, 2025, 2026];
+  const yoy = [];
+  for (let i = 1; i < vals.length; i++) {
+    yoy.push(Math.round((vals[i] / vals[i-1] - 1) * 1000) / 10);
+  }
   drawLineChart(ctx, canvas.width, canvas.height, years, [
-    { data: pct, color: '#C9A84C', label: 'THB/m² +%' },
+    { data: yoy, color: '#C9A84C', label: l==='fr'?'%/an':'%/yr' },
   ], '%');
 }
 function buildChartImmo() {
@@ -1451,7 +1497,12 @@ function drawLineChart(ctx, W, H, labels, datasets, unit, fill, markers) {
     ctx.fillStyle = '#6B7280';
     ctx.font = '10px DM Sans';
     ctx.textAlign = 'right';
-    ctx.fillText(unit === 'THB (M)' ? (val/1000000).toFixed(1)+'M' : Math.round(val/1000)+'k', pad.l - 4, y + 4);
+    let yLabel;
+    if (unit === 'THB (M)') yLabel = (val/1000000).toFixed(1)+'M';
+    else if (unit === '%')   yLabel = val.toFixed(1)+'%';
+    else if (val >= 1000)    yLabel = Math.round(val/1000)+'k';
+    else                     yLabel = Math.round(val)+'';
+    ctx.fillText(yLabel, pad.l - 4, y + 4);
   }
 
   // X labels
@@ -1488,7 +1539,12 @@ function drawLineChart(ctx, W, H, labels, datasets, unit, fill, markers) {
           ctx.font = 'bold 9px DM Sans';
           ctx.textAlign = 'center';
           const v = ds.data[idx];
-          ctx.fillText(unit === 'THB (M)' ? (v/1000000).toFixed(1)+'M' : Math.round(v/1000)+'k', x, y - 8);
+          let mLabel;
+          if (unit === 'THB (M)') mLabel = (v/1000000).toFixed(1)+'M';
+          else if (unit === '%')  mLabel = v.toFixed(1)+'%';
+          else if (v >= 1000)     mLabel = Math.round(v/1000)+'k';
+          else                    mLabel = Math.round(v)+'';
+          ctx.fillText(mLabel, x, y - 8);
         }
       });
     }

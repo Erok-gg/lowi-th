@@ -71,6 +71,23 @@
     .btn-outline { background: transparent; color: var(--white); border: 2px solid rgba(255,255,255,.35); padding: 1rem 2rem; border-radius: 2rem; font-weight: 700; font-size: 1rem; cursor: pointer; transition: border-color .2s; margin-left: 1rem; text-decoration: none; display: inline-block; }
     .btn-outline:hover { border-color: var(--white); }
 
+    /* Hero shortcut buttons */
+    .hero-btns { display: flex; gap: .75rem; margin-top: 2rem; flex-wrap: wrap; }
+    .btn-hero-teal {
+      background: var(--teal); color: var(--white); border: none;
+      padding: .7rem 1.5rem; border-radius: 2rem; font-weight: 700; font-size: .9rem;
+      cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: .45rem;
+      transition: background .2s, transform .15s;
+    }
+    .btn-hero-teal:hover { background: var(--teal-dk); transform: translateY(-1px); }
+    .btn-hero-gold {
+      background: var(--gold); color: var(--ink); border: none;
+      padding: .7rem 1.5rem; border-radius: 2rem; font-weight: 700; font-size: .9rem;
+      cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: .45rem;
+      transition: background .2s, transform .15s;
+    }
+    .btn-hero-gold:hover { background: var(--gold-lt); transform: translateY(-1px); }
+
     /* FOOTER */
     footer { background: var(--ink); color: rgba(255,255,255,.5); padding: 2.5rem 8vw; display: flex; align-items: center; justify-content: space-between; font-size: .83rem; }
     footer .logo { font-family: 'MCTen', sans-serif; font-size: 1.8rem; color: rgba(255,255,255,.85); }
@@ -98,6 +115,16 @@ window.__NAV_RIGHT__ = `
 <div class="page-hero">
   <div class="label" id="page-label">Comment ça marche</div>
   <h1 id="page-title">De la sélection du bien<br>à votre première distribution.</h1>
+  <div class="hero-btns">
+    <a href="lowi-tech.html" class="btn-hero-teal" id="btn-stack">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      Stack technique
+    </a>
+    <a href="lowi-pitch-investisseur.html" class="btn-hero-gold" id="btn-pitch-hero">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      Pitch investisseur
+    </a>
+  </div>
 </div>
 
 <section class="steps-section">
@@ -191,6 +218,7 @@ window.__NAV_RIGHT__ = `
       s5p: "Au terme du bail, le bien est revendu à d'autres locataires et une plus-value peut être distribuée aux investisseurs proportionnellement à leur part. Pour les baux long-termes non renouvelés, le bien est rendu au propriétaire — un plan de sortie des liquidités non distribuées est organisé conformément au contrat avec le trustee.<br><br>Pour les investisseurs souhaitant sortir avant le terme, il est possible de céder ses droits sur le marché secondaire LOWI.",
       s5detail: "La durée du bail structure naturellement l'horizon d'investissement et clarifie la sortie. Un bail de 30 ans avec 25 ans restants correspond à un fonds immobilier avec date de maturité connue.",
       ctaTitle: 'Prêt à investir ?', ctaP: 'Consultez les projets disponibles et leur documentation complète avant toute décision.', ctaBtn1: 'Voir les projets disponibles →', ctaBtn2: 'En savoir plus sur la structure →',
+      btnStack: 'Stack technique', btnPitchHero: 'Pitch investisseur',
       footerLegal: 'Mentions légales', footerPrivacy: 'Politique de confidentialité', footerContact: 'Contact'
     },
     en: {
@@ -213,6 +241,7 @@ window.__NAV_RIGHT__ = `
       s5p: "At the end of the lease, the property is resold to other lessees and any capital gain may be distributed to investors in proportion to their share. For long-term leases that are not renewed, the property is returned to the owner — an exit plan for undistributed proceeds will be organised in accordance with the trustee agreement.<br><br>Investors wishing to exit before the end of the term may transfer their rights on the LOWI secondary market.",
       s5detail: "The lease duration naturally structures the investment horizon and clarifies the exit. A 30-year lease with 25 years remaining corresponds to a real estate fund with a known maturity date.",
       ctaTitle: 'Ready to invest?', ctaP: 'Review available projects and their full documentation before any decision.', ctaBtn1: 'View available projects →', ctaBtn2: 'Learn more about the structure →',
+      btnStack: 'Tech stack', btnPitchHero: 'Investor pitch',
       footerLegal: 'Legal notice', footerPrivacy: 'Privacy policy', footerContact: 'Contact'
     }
   };
@@ -237,6 +266,8 @@ window.__NAV_RIGHT__ = `
     sel('s5h3').innerHTML = t.s5h3; sel('s5p').innerHTML = t.s5p; sel('s5detail').innerHTML = t.s5detail;
     sel('cta-title').innerHTML = t.ctaTitle; sel('cta-p').innerHTML = t.ctaP;
     sel('cta-btn1').innerHTML = t.ctaBtn1;   sel('cta-btn2').innerHTML = t.ctaBtn2;
+    var bs = sel('btn-stack'); if(bs) bs.lastChild.textContent = ' ' + t.btnStack;
+    var bp = sel('btn-pitch-hero'); if(bp) bp.lastChild.textContent = ' ' + t.btnPitchHero;
     sel('footer-legal').innerHTML = t.footerLegal;
     sel('footer-privacy').innerHTML = t.footerPrivacy;
     sel('footer-contact').innerHTML = t.footerContact;

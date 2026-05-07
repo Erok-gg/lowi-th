@@ -1413,6 +1413,10 @@
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             Télécharger la fiche projet
           </button>
+          <a href="lowi-pitch-investisseur.html" class="btn-secondary-dl" id="btn-pitch" style="justify-content:center;text-decoration:none;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            <span id="btn-pitch-lbl">Pitch investisseur</span>
+          </a>
         </div>
 
         <div class="ic-disclaimer" id="ic-disclaimer">
@@ -1633,6 +1637,7 @@
         crL1: 'Investissement', crL2: 'Distribution /an',
         btnInvest: 'Réserver mes parts →',
         btnDl: 'Télécharger la fiche projet',
+        btnPitch: 'Pitch investisseur',
         disclaimer: 'Investissement en parts de leasehold. Capital non garanti. Rendements basés sur projections locatives. Distributions en THB. Pas de renouvellement automatique du bail.',
         fl1: 'Mentions légales', fl2: 'Politique de confidentialité', fl3: 'Contact',
         footerCopy: '© 2025 LOWI — Tous droits réservés',
@@ -1683,6 +1688,7 @@
         crL1: 'Investment', crL2: 'Distribution /yr',
         btnInvest: 'Reserve my shares →',
         btnDl: 'Download project sheet',
+        btnPitch: 'Investor pitch',
         disclaimer: 'Investment in leasehold shares. Capital at risk. Returns based on rental projections. Distributions in THB. No automatic lease renewal.',
         fl1: 'Legal notice', fl2: 'Privacy policy', fl3: 'Contact',
         footerCopy: '© 2025 LOWI — All rights reserved',
@@ -1740,6 +1746,7 @@
       setId('cr-l1', t.crL1); setId('cr-l2', t.crL2);
       setId('btn-invest', t.btnInvest);
       setId('btn-dl', '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> ' + t.btnDl);
+      setId('btn-pitch-lbl', t.btnPitch);
       setId('ic-disclaimer', t.disclaimer);
       setId('fl1', t.fl1); setId('fl2', t.fl2); setId('fl3', t.fl3);
       setId('footer-copy', t.footerCopy);
