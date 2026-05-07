@@ -45,9 +45,9 @@
     .vp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem; }
     .vp-card { background: var(--cream); border-radius: var(--r-xl); padding: 2rem 1.8rem; border: 1px solid rgba(0,0,0,.07); transition: transform .25s, box-shadow .25s; }
     .vp-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
-    .vp-icon { width: 52px; height: 52px; border-radius: var(--r-lg); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 1.25rem; }
-    .vp-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: .6rem; }
+    .vp-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: .6rem; display: flex; align-items: center; gap: .5rem; }
     .vp-card p { font-size: .92rem; color: var(--muted); line-height: 1.65; }
+    .title-icon { font-size: 1.25rem; flex-shrink: 0; line-height: 1; }
 
     /* STRUCTURE SECTION */
     .structure-section { padding: 6rem 8vw; background: var(--ink); }
@@ -56,10 +56,8 @@
     .structure-section .section-sub { color: rgba(255,255,255,.6); }
     .pillars { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3rem; }
     .pillar { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: var(--r-xl); padding: 2rem; }
-    .pillar-icon { font-size: 1.8rem; margin-bottom: 1rem; }
-    .pillar h3 { font-size: 1.1rem; font-weight: 700; color: var(--white); margin-bottom: .6rem; }
+    .pillar h3 { font-size: 1.1rem; font-weight: 700; color: var(--white); margin-bottom: .6rem; display: flex; align-items: center; gap: .5rem; }
     .pillar p { font-size: .92rem; color: rgba(255,255,255,.55); line-height: 1.65; }
-    .pillar-tag { display: inline-block; background: rgba(201,168,76,.2); color: var(--gold-lt); font-size: .72rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; padding: .25rem .7rem; border-radius: 2rem; margin-bottom: .75rem; }
 
     /* SKIN IN THE GAME */
     .skin-section { padding: 5rem 8vw; background: var(--cream); display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
@@ -126,33 +124,27 @@ window.__NAV_RIGHT__ = `
 
   <div class="vp-grid">
     <div class="vp-card">
-      <div class="vp-icon" style="background:#FEF3C7">🏡</div>
-      <h3 id="vp1h3">Biens existants uniquement</h3>
+      <h3 id="vp1h3"><span class="title-icon">🏡</span> Biens existants uniquement</h3>
       <p id="vp1p">Aucun risque de construction. Chaque bien est livré, fonctionnel, avec un historique locatif réel avant toute ouverture aux investisseurs. Le rendement est vérifiable, pas projeté.</p>
     </div>
     <div class="vp-card">
-      <div class="vp-icon" style="background:#D1FAE5">💵</div>
-      <h3 id="vp2h3">Distribution trimestrielle en USD</h3>
+      <h3 id="vp2h3"><span class="title-icon">💵</span> Distribution trimestrielle en USD</h3>
       <p id="vp2p">Les revenus locatifs sont collectés, les frais décomposés, votre quote-part virée en USD chaque trimestre. Les justificatifs sont disponibles sur votre dashboard personnel.</p>
     </div>
     <div class="vp-card">
-      <div class="vp-icon" style="background:#EDE9FE">📋</div>
-      <h3 id="vp3h3">Horizon défini</h3>
+      <h3 id="vp3h3"><span class="title-icon">📋</span> Horizon défini</h3>
       <p id="vp3p">La durée du bail structure naturellement l'investissement. La date de sortie est connue dès le départ. Pas d'ambiguïté sur l'horizon ou sur les modalités de dissolution.</p>
     </div>
     <div class="vp-card">
-      <div class="vp-icon" style="background:#FEE2E2">🔍</div>
-      <h3 id="vp4h3">Documentation complète</h3>
+      <h3 id="vp4h3"><span class="title-icon">🔍</span> Documentation complète</h3>
       <p id="vp4p">Chaque fiche projet inclut : bail enregistré, valorisation indépendante, historique locatif, rapport de due diligence, décomposition des frais. Aucune décision à l'aveugle.</p>
     </div>
     <div class="vp-card">
-      <div class="vp-icon" style="background:#E0F2FE">🏝️</div>
-      <h3 id="vp5h3">Expertise locale</h3>
+      <h3 id="vp5h3"><span class="title-icon">🏝️</span> Expertise locale</h3>
       <p id="vp5p">Une équipe sur place à Ko Phangan, Koh Samui et Phuket. Sélection, structuration, gestion locative et reporting — tout est opéré localement par des professionnels installés en Thaïlande.</p>
     </div>
     <div class="vp-card">
-      <div class="vp-icon" style="background:#F0FDF4">🤝</div>
-      <h3 id="vp6h3">Skin in the game</h3>
+      <h3 id="vp6h3"><span class="title-icon">🤝</span> Skin in the game</h3>
       <p id="vp6p">Sur les projets LOWI Select, nous réinvestissons une partie de notre commission dans le projet. Nos droits sont dans le même contrat que les vôtres. Nous gagnons quand vous gagnez.</p>
     </div>
   </div>
@@ -166,27 +158,19 @@ window.__NAV_RIGHT__ = `
 
   <div class="pillars">
     <div class="pillar">
-      <div class="pillar-tag" id="p1tag">Juridique</div>
-      <div class="pillar-icon">🏛️</div>
-      <h3 id="p1h3">Trustee internationale</h3>
+      <h3 id="p1h3"><span class="title-icon">🏛️</span> Trustee internationale</h3>
       <p id="p1p">Une société trustee internationale signe chaque bail et détient les droits pour le compte des investisseurs. Comptabilité séparée par projet. Vos fonds ne se mélangent jamais avec un autre projet.</p>
     </div>
     <div class="pillar">
-      <div class="pillar-tag" id="p2tag">Protection</div>
-      <div class="pillar-icon">⚖️</div>
-      <h3 id="p2h3">Arbitrage international</h3>
+      <h3 id="p2h3"><span class="title-icon">⚖️</span> Arbitrage international</h3>
       <p id="p2p">Tous les contrats incluent une clause d'arbitrage dans une juridiction reconnue, exécutoire en Thaïlande sous la Convention de New York.</p>
     </div>
     <div class="pillar">
-      <div class="pillar-tag" id="p3tag">Trésorerie</div>
-      <div class="pillar-icon">🛡️</div>
-      <h3 id="p3h3">Réserve de sécurité</h3>
+      <h3 id="p3h3"><span class="title-icon">🛡️</span> Réserve de sécurité</h3>
       <p id="p3p">Constituée dès le closing, elle absorbe les variations saisonnières. Si un trimestre est inférieur aux projections, votre distribution est assurée depuis cette réserve.</p>
     </div>
     <div class="pillar">
-      <div class="pillar-tag" id="p4tag">Transparence</div>
-      <div class="pillar-icon">📊</div>
-      <h3 id="p4h3">Évaluations indépendantes</h3>
+      <h3 id="p4h3"><span class="title-icon">📊</span> Évaluations indépendantes</h3>
       <p id="p4p">Chaque bien est suivi par un gestionnaire indépendant. Les rapports sont accessibles sur votre dashboard. Les jalons clés sont conservés de manière immuable et vérifiable.</p>
     </div>
   </div>
@@ -195,7 +179,6 @@ window.__NAV_RIGHT__ = `
 <!-- SKIN IN THE GAME -->
 <section class="skin-section">
   <div>
-    <div class="badge" id="skin-badge">● LOWI Select</div>
     <h2 id="skin-title">Nous investissons avec vous.</h2>
     <p id="skin-p">Sur les projets LOWI Select, nous réinvestissons une partie de notre commission dans le projet lui-même. Nos droits sont dans le même contrat que les vôtres. Visibles. Vérifiables. Nous gagnons quand vous gagnez.</p>
   </div>
@@ -243,11 +226,11 @@ window.__NAV_RIGHT__ = `
       vp5h3: 'Expertise locale', vp5p: "Une équipe sur place à Ko Phangan, Koh Samui et Phuket. Sélection, structuration, gestion locative et reporting — tout est opéré localement par des professionnels installés en Thaïlande.",
       vp6h3: 'Skin in the game', vp6p: "Sur les projets LOWI Select, nous réinvestissons une partie de notre commission dans le projet. Nos droits sont dans le même contrat que les vôtres. Nous gagnons quand vous gagnez.",
       structLabel: 'La structure de confiance', structTitle: 'Quatre piliers juridiques<br>non négociables.', structSub: 'Chaque projet LOWI repose sur la même architecture juridique. Sans exception.',
-      p1tag: 'Juridique', p1h3: 'Trustee internationale', p1p: "Une société trustee internationale signe chaque bail et détient les droits pour le compte des investisseurs. Comptabilité séparée par projet. Vos fonds ne se mélangent jamais avec un autre projet.",
-      p2tag: 'Protection', p2h3: 'Arbitrage international', p2p: "Tous les contrats incluent une clause d'arbitrage dans une juridiction reconnue, exécutoire en Thaïlande sous la Convention de New York.",
-      p3tag: 'Trésorerie', p3h3: 'Réserve de sécurité', p3p: "Constituée dès le closing, elle absorbe les variations saisonnières. Si un trimestre est inférieur aux projections, votre distribution est assurée depuis cette réserve.",
-      p4tag: 'Transparence', p4h3: 'Évaluations indépendantes', p4p: "Chaque bien est suivi par un gestionnaire indépendant. Les rapports sont accessibles sur votre dashboard. Les jalons clés sont conservés de manière immuable et vérifiable.",
-      skinBadge: '● LOWI Select', skinTitle: 'Nous investissons avec vous.', skinP: "Sur les projets LOWI Select, nous réinvestissons une partie de notre commission dans le projet lui-même. Nos droits sont dans le même contrat que les vôtres. Visibles. Vérifiables. Nous gagnons quand vous gagnez.",
+      p1h3: 'Trustee internationale', p1p: "Une société trustee internationale signe chaque bail et détient les droits pour le compte des investisseurs. Comptabilité séparée par projet. Vos fonds ne se mélangent jamais avec un autre projet.",
+      p2h3: 'Arbitrage international', p2p: "Tous les contrats incluent une clause d'arbitrage dans une juridiction reconnue, exécutoire en Thaïlande sous la Convention de New York.",
+      p3h3: 'Réserve de sécurité', p3p: "Constituée dès le closing, elle absorbe les variations saisonnières. Si un trimestre est inférieur aux projections, votre distribution est assurée depuis cette réserve.",
+      p4h3: 'Évaluations indépendantes', p4p: "Chaque bien est suivi par un gestionnaire indépendant. Les rapports sont accessibles sur votre dashboard. Les jalons clés sont conservés de manière immuable et vérifiable.",
+      skinTitle: 'Nous investissons avec vous.', skinP: "Sur les projets LOWI Select, nous réinvestissons une partie de notre commission dans le projet lui-même. Nos droits sont dans le même contrat que les vôtres. Visibles. Vérifiables. Nous gagnons quand vous gagnez.",
       r1lbl: "Commission d'acquisition", r2lbl: 'Property management', r3lbl: 'Co-investissement Select', r3val: '5% conservés avec vous', r4lbl: 'Carried interest à la sortie',
       ctaTitle: 'Consulter les projets disponibles', ctaP: 'Documentation complète, historiques locatifs et baux enregistrés accessibles avant toute souscription.', ctaBtn1: 'Voir les projets →', ctaBtn2: 'Comment ça marche →',
       footerLegal: 'Mentions légales', footerPrivacy: 'Politique de confidentialité', footerContact: 'Contact'
@@ -267,11 +250,11 @@ window.__NAV_RIGHT__ = `
       vp5h3: 'Local expertise', vp5p: 'An on-the-ground team in Ko Phangan, Koh Samui and Phuket. Selection, structuring, property management and reporting — all operated locally by professionals based in Thailand.',
       vp6h3: 'Skin in the game', vp6p: 'On LOWI Select projects, we reinvest part of our commission into the project itself. Our rights are in the same contract as yours. We win when you win.',
       structLabel: 'The trust structure', structTitle: 'Four non-negotiable<br>legal pillars.', structSub: 'Every LOWI project is built on the same legal architecture. No exceptions.',
-      p1tag: 'Legal', p1h3: 'International trustee', p1p: "An international trustee company signs each lease and holds the rights on behalf of investors. Separate accounting per project. Your funds never mix with another project's.",
-      p2tag: 'Protection', p2h3: 'International arbitration', p2p: 'All contracts include an arbitration clause in a recognized jurisdiction, enforceable in Thailand under the New York Convention.',
-      p3tag: 'Treasury', p3h3: 'Safety reserve', p3p: 'Established at closing, it absorbs seasonal variations. If a quarter falls short of projections, your distribution is covered from this reserve.',
-      p4tag: 'Transparency', p4h3: 'Independent evaluations', p4p: 'Each property is monitored by an independent manager. Reports are accessible on your dashboard. Key milestones are immutably and verifiably recorded.',
-      skinBadge: '● LOWI Select', skinTitle: 'We invest alongside you.', skinP: 'On LOWI Select projects, we reinvest part of our commission into the project itself. Our rights are in the same contract as yours. Visible. Verifiable. We win when you win.',
+      p1h3: 'International trustee', p1p: "An international trustee company signs each lease and holds the rights on behalf of investors. Separate accounting per project. Your funds never mix with another project's.",
+      p2h3: 'International arbitration', p2p: 'All contracts include an arbitration clause in a recognized jurisdiction, enforceable in Thailand under the New York Convention.',
+      p3h3: 'Safety reserve', p3p: 'Established at closing, it absorbs seasonal variations. If a quarter falls short of projections, your distribution is covered from this reserve.',
+      p4h3: 'Independent evaluations', p4p: 'Each property is monitored by an independent manager. Reports are accessible on your dashboard. Key milestones are immutably and verifiably recorded.',
+      skinTitle: 'We invest alongside you.', skinP: 'On LOWI Select projects, we reinvest part of our commission into the project itself. Our rights are in the same contract as yours. Visible. Verifiable. We win when you win.',
       r1lbl: 'Acquisition fee', r2lbl: 'Property management', r3lbl: 'Select co-investment', r3val: '5% held alongside you', r4lbl: 'Carried interest at exit',
       ctaTitle: 'View available projects', ctaP: 'Full documentation, rental histories and registered leases accessible before any subscription.', ctaBtn1: 'View projects →', ctaBtn2: 'How it works →',
       footerLegal: 'Legal notice', footerPrivacy: 'Privacy policy', footerContact: 'Contact'
@@ -280,24 +263,32 @@ window.__NAV_RIGHT__ = `
 
   var sel = function(id) { return document.getElementById(id); };
 
+  // Updates an element's text while preserving any leading .title-icon span
+  function setTitle(id, text) {
+    var el = sel(id); if (!el) return;
+    var ic = el.querySelector('.title-icon');
+    el.innerHTML = text;
+    if (ic) el.insertBefore(ic, el.firstChild);
+  }
+
   function apply(l) {
     var t = T[l];
     document.documentElement.lang = l;
     sel('nav-how').innerHTML = t.navHow; sel('nav-about').innerHTML = t.navAbout; var np2 = sel('nav-projects'); if(np2) np2.innerHTML = t.navProjects; var npp2 = sel('nav-propose'); if(npp2) npp2.innerHTML = t.navPropose; var nppc2 = sel('nav-propose-cta'); if(nppc2) nppc2.innerHTML = t.navProposeCta; sel('nav-cta-btn').innerHTML = t.navCta;
     sel('page-label').innerHTML = t.pageLabel; sel('page-title').innerHTML = t.pageTitle; sel('page-sub').innerHTML = t.pageSub;
     sel('vp-label').innerHTML = t.vpLabel; sel('vp-title').innerHTML = t.vpTitle; sel('vp-sub').innerHTML = t.vpSub;
-    sel('vp1h3').innerHTML = t.vp1h3; sel('vp1p').innerHTML = t.vp1p;
-    sel('vp2h3').innerHTML = t.vp2h3; sel('vp2p').innerHTML = t.vp2p;
-    sel('vp3h3').innerHTML = t.vp3h3; sel('vp3p').innerHTML = t.vp3p;
-    sel('vp4h3').innerHTML = t.vp4h3; sel('vp4p').innerHTML = t.vp4p;
-    sel('vp5h3').innerHTML = t.vp5h3; sel('vp5p').innerHTML = t.vp5p;
-    sel('vp6h3').innerHTML = t.vp6h3; sel('vp6p').innerHTML = t.vp6p;
+    setTitle('vp1h3', t.vp1h3); sel('vp1p').innerHTML = t.vp1p;
+    setTitle('vp2h3', t.vp2h3); sel('vp2p').innerHTML = t.vp2p;
+    setTitle('vp3h3', t.vp3h3); sel('vp3p').innerHTML = t.vp3p;
+    setTitle('vp4h3', t.vp4h3); sel('vp4p').innerHTML = t.vp4p;
+    setTitle('vp5h3', t.vp5h3); sel('vp5p').innerHTML = t.vp5p;
+    setTitle('vp6h3', t.vp6h3); sel('vp6p').innerHTML = t.vp6p;
     sel('struct-label').innerHTML = t.structLabel; sel('struct-title').innerHTML = t.structTitle; sel('struct-sub').innerHTML = t.structSub;
-    sel('p1tag').innerHTML = t.p1tag; sel('p1h3').innerHTML = t.p1h3; sel('p1p').innerHTML = t.p1p;
-    sel('p2tag').innerHTML = t.p2tag; sel('p2h3').innerHTML = t.p2h3; sel('p2p').innerHTML = t.p2p;
-    sel('p3tag').innerHTML = t.p3tag; sel('p3h3').innerHTML = t.p3h3; sel('p3p').innerHTML = t.p3p;
-    sel('p4tag').innerHTML = t.p4tag; sel('p4h3').innerHTML = t.p4h3; sel('p4p').innerHTML = t.p4p;
-    sel('skin-badge').innerHTML = t.skinBadge; sel('skin-title').innerHTML = t.skinTitle; sel('skin-p').innerHTML = t.skinP;
+    setTitle('p1h3', t.p1h3); sel('p1p').innerHTML = t.p1p;
+    setTitle('p2h3', t.p2h3); sel('p2p').innerHTML = t.p2p;
+    setTitle('p3h3', t.p3h3); sel('p3p').innerHTML = t.p3p;
+    setTitle('p4h3', t.p4h3); sel('p4p').innerHTML = t.p4p;
+    sel('skin-title').innerHTML = t.skinTitle; sel('skin-p').innerHTML = t.skinP;
     sel('r1lbl').innerHTML = t.r1lbl; sel('r2lbl').innerHTML = t.r2lbl; sel('r3lbl').innerHTML = t.r3lbl; sel('r3val').innerHTML = t.r3val; sel('r4lbl').innerHTML = t.r4lbl;
     sel('cta-title').innerHTML = t.ctaTitle; sel('cta-p').innerHTML = t.ctaP; sel('cta-btn1').innerHTML = t.ctaBtn1; sel('cta-btn2').innerHTML = t.ctaBtn2;
     sel('footer-legal').innerHTML = t.footerLegal; sel('footer-privacy').innerHTML = t.footerPrivacy; sel('footer-contact').innerHTML = t.footerContact;
