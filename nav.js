@@ -73,19 +73,20 @@ nav.lowi-nav {
   background: rgba(201,168,76,.1); border: 1px solid rgba(201,168,76,.3);
   color: var(--gold, #C9A84C); border-radius: 2rem;
   font-weight: 600; white-space: nowrap;
-  font-family: 'Josefin Sans', 'DM Sans', sans-serif;
+  font-family: inherit;
 }
-/* Inline lang switcher (pitch) */
+/* Inline lang switcher (pitch / tech) */
 .lowi-nav .nav-lang-inline {
   display: flex; border: 1.5px solid rgba(201,168,76,.3);
   border-radius: 6px; overflow: hidden;
 }
 .lowi-nav .nav-lang-inline button {
-  font-family: 'Josefin Sans', 'DM Sans', sans-serif;
-  font-size: .65rem; font-weight: 600; letter-spacing: .2em;
-  padding: 5px 11px; cursor: pointer;
+  font-family: inherit;
+  font-size: .72rem; font-weight: 700; letter-spacing: .12em;
+  padding: 5px 12px; cursor: pointer;
   background: transparent; border: none;
   color: var(--muted, #6B7280); transition: all .2s;
+  text-transform: uppercase;
 }
 .lowi-nav .nav-lang-inline button.on {
   background: var(--gold, #C9A84C); color: var(--ink, #1A1A2E);
@@ -107,10 +108,10 @@ nav.lowi-nav {
 <nav class="lowi-nav" id="lowi-nav">
   <a href="index.html" class="nav-logo">lowi<span class="nav-logo-demo"> - demo</span></a>
   <ul class="nav-links">
-    <li><a href="comment-ca-marche.html">Comment ça marche</a></li>
-    <li><a href="a-propos.html">À propos</a></li>
-    <li><a href="projets.html">Voir les propriétés</a></li>
-    <li><a href="proposer.html">Proposer votre bien</a></li>
+    <li><a href="comment-ca-marche.html" id="nav-how">Comment ça marche</a></li>
+    <li><a href="a-propos.html" id="nav-about">À propos</a></li>
+    <li><a href="projets.html" id="nav-projects">Voir les propriétés</a></li>
+    <li><a href="proposer.html" id="nav-propose">Proposer votre bien</a></li>
   </ul>
   <div class="nav-right">${rightSlot}</div>
 </nav>`;

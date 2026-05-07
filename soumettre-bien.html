@@ -346,7 +346,7 @@ Le bien est proposé en structure de bail emphytéotique (leasehold) de 20 ans, 
     sel('nav-about').innerHTML = t.navAbout;
     sel('nav-projects').innerHTML = t.navProjects;
     sel('nav-propose').innerHTML = t.navPropose;
-    sel('nav-propose-cta').innerHTML = t.navProposeCta;
+    var npc = sel('nav-propose-cta'); if (npc) npc.innerHTML = t.navProposeCta;
     sel('nav-cta-btn').innerHTML = t.navCta;
     sel('page-label').innerHTML = t.pageLabel;
     sel('page-title').innerHTML = t.pageTitle;

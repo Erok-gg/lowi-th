@@ -94,7 +94,7 @@
     /* ── FILTER BAR ─────────────────────────────────────────── */
     .filter-bar {
       position: sticky;
-      top: 64px;
+      top: 62px;
       z-index: 90;
       background: var(--cream);
       border-bottom: 1px solid rgba(0,0,0,.08);
@@ -536,18 +536,13 @@
     }
 
     @media (max-width: 768px) {
-      .navbar { padding: 0 1.2rem; gap: 1rem; }
-      .nav-links { gap: 1.1rem; }
-      .nav-links li:nth-child(1),
-      .nav-links li:nth-child(2) { display: none; }
       .page-hero { padding: 6rem 1.25rem 2.75rem; }
-      .filter-bar { padding: .75rem 1.25rem; top: 64px; }
+      .filter-bar { padding: .75rem 1.25rem; top: 62px; }
       .main-content { padding: 1.5rem 1.25rem 2.5rem; }
       .project-grid { grid-template-columns: 1fr; gap: 1.25rem; }
     }
 
     @media (max-width: 480px) {
-      .nav-links { display: none; }
       .filter-group { gap: .35rem; }
       .filter-pill { padding: .28rem .65rem; font-size: .78rem; }
     }

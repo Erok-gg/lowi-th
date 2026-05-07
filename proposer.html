@@ -235,7 +235,7 @@ window.__NAV_RIGHT__ = `
     sel('nav-about').innerHTML = t.navAbout;
     sel('nav-projects').innerHTML = t.navProjects;
     sel('nav-propose').innerHTML = t.navPropose;
-    sel('nav-propose-cta').innerHTML = t.navProposeCta;
+    var npc = sel('nav-propose-cta'); if (npc) npc.innerHTML = t.navProposeCta;
     sel('nav-cta-btn').innerHTML = t.navCta;
     sel('card-title').innerHTML = t.cardTitle;
     sel('card-sub').innerHTML = t.cardSub;

@@ -188,7 +188,7 @@ window.__NAV_RIGHT__ = `
     sel('nav-about').innerHTML = t.navAbout;
     sel('nav-projects').innerHTML = t.navProjects;
     sel('nav-propose').innerHTML = t.navPropose;
-    sel('nav-propose-cta').innerHTML = t.navProposeCta;
+    var npc = sel('nav-propose-cta'); if (npc) npc.innerHTML = t.navProposeCta;
     sel('nav-cta-btn').innerHTML = t.navCta;
     sel('confirm-title').innerHTML = t.confirmTitle;
     sel('confirm-sub').innerHTML = t.confirmSub;
