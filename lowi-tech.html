@@ -38,20 +38,7 @@ body{background:var(--ink);color:var(--cream);font-family:var(--sans);}
 .dot.on{background:var(--gold);transform:scale(1.8);box-shadow:0 0 6px rgba(201,168,76,.5);}
 .dot:hover:not(.on){background:rgba(201,168,76,.55);}
 
-/* LANG SWITCH */
-.lang-switch{
-  position:fixed;top:28px;right:60px;z-index:300;
-  display:flex;align-items:center;gap:0;
-  border:1px solid var(--borderS);
-}
-.lang-btn{
-  padding:6px 14px;font-family:var(--label);font-size:8px;
-  letter-spacing:.3em;text-transform:uppercase;cursor:pointer;
-  background:transparent;color:var(--grey);border:none;
-  transition:all .2s;
-}
-.lang-btn.active{background:var(--gold);color:var(--ink);font-weight:600;}
-.lang-btn:hover:not(.active){color:var(--cream);}
+/* LANG CONTENT */
 
 /* LANG CONTENT */
 .fr-content,.en-content{transition:opacity .3s;}
@@ -164,23 +151,6 @@ body.lang-en .en-content{display:block;}
 .tbox-sub{font-family:var(--sans);font-size:11px;font-weight:300;color:var(--grey);margin-top:2px;}
 .tline{width:1px;height:18px;background:var(--borderS);}
 .trow{display:flex;gap:8px;align-items:flex-start;}
-/* ── SITE HEADER ──────────────────────────────────────────── */
-.site-header{
-  position:fixed;top:0;left:0;right:0;z-index:400;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 48px;height:62px;
-  background:rgba(26,26,46,.92);backdrop-filter:blur(14px);
-  border-bottom:1px solid rgba(201,168,76,.18);
-}
-.sh-logo{text-decoration:none;display:flex;align-items:baseline;gap:4px;}
-.sh-logo-text{font-family:'MCTen',serif;font-size:1.45rem;letter-spacing:.06em;color:var(--gold);}
-.sh-demo{font-family:'MCTen',serif;font-size:.62rem;color:#ff1a1a;letter-spacing:.04em;vertical-align:super;}
-.sh-nav{display:flex;gap:30px;}
-.sh-nav a{font-family:var(--label);font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:var(--grey);text-decoration:none;transition:color .2s;}
-.sh-nav a:hover{color:var(--gold);}
-.sh-cta{font-family:var(--label);font-size:8px;letter-spacing:.3em;text-transform:uppercase;padding:8px 20px;border:1px solid var(--gold);color:var(--gold);text-decoration:none;transition:all .2s;white-space:nowrap;}
-.sh-cta:hover{background:var(--gold);color:var(--ink);}
-
 /* ── NAV DOTS ─────────────────────────────────────────────── */
 .nav-dots{position:fixed;right:22px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:8px;z-index:100;}
 
@@ -209,29 +179,20 @@ body.lang-en .en-content{display:block;}
 </head>
 <body class="lang-fr">
 
-<!-- SITE HEADER -->
-<header class="site-header">
-  <a href="index.html" class="sh-logo">
-    <span class="sh-logo-text">lowi</span>
-    <span class="sh-demo">- demo</span>
-  </a>
-  <nav class="sh-nav">
-    <a href="projets.html">Voir les propriétés</a>
-    <a href="comment-ca-marche.html">Comment ça marche</a>
-    <a href="a-propos.html">À propos</a>
-    <a href="proposer.html">Proposer votre bien</a>
-  </nav>
-  <a href="projets.html" class="sh-cta">Réservez vos parts</a>
-</header>
+<!-- NAVBAR -->
+<script>
+window.__NAV_RIGHT__ = `
+  <div class="nav-lang-inline">
+    <button class="on" id="btn-fr" onclick="setLang('fr')">FR</button>
+    <button id="btn-en" onclick="setLang('en')">EN</button>
+  </div>
+  <a href="projets.html" class="nav-cta">R&eacute;servez vos parts</a>
+`;
+</script>
+<script src="nav.js"></script>
 
 <div class="prog" id="prog"></div>
 <div class="nav-dots" id="nav-dots"></div>
-
-<!-- LANGUAGE SWITCH -->
-<div class="lang-switch">
-  <button class="lang-btn active" id="btn-fr" onclick="setLang('fr')">FR</button>
-  <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
-</div>
 
 <!-- ══════════════════════════════════
      01 — HERO
@@ -1253,8 +1214,8 @@ body.lang-en .en-content{display:block;}
 // LANGUAGE SWITCH
 function setLang(lang) {
   document.body.className = 'lang-' + lang;
-  document.getElementById('btn-fr').classList.toggle('active', lang==='fr');
-  document.getElementById('btn-en').classList.toggle('active', lang==='en');
+  document.getElementById('btn-fr').classList.toggle('on', lang==='fr');
+  document.getElementById('btn-en').classList.toggle('on', lang==='en');
 }
 
 // NAV DOTS

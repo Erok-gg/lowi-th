@@ -30,20 +30,6 @@
     body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--cream); color: var(--ink); min-height: 100vh; display: flex; flex-direction: column; }
 
     /* NAV */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 1.1rem 4vw;
-      background: rgba(250,246,238,.88); backdrop-filter: blur(18px);
-      border-bottom: 1px solid rgba(201,168,76,.2);
-    }
-    .logo { font-family: 'MCTen', sans-serif; font-size: 2rem; font-weight: normal; color: var(--ink); text-decoration: none; }
-    nav ul { list-style: none; display: flex; gap: 2rem; }
-    nav ul a { text-decoration: none; color: var(--ink2); font-size: .92rem; font-weight: 500; transition: color .2s; }
-    nav ul a:hover, nav ul a.active { color: var(--gold); }
-    .nav-cta { background: var(--gold); color: var(--ink); border: none; cursor: pointer; padding: .6rem 1.5rem; border-radius: 2rem; font-weight: 700; font-size: .92rem; transition: background .2s; text-decoration: none; display: inline-block; }
-    .nav-cta:hover { background: var(--gold-lt); }
-    #lang-btn { background: transparent; border: 1.5px solid rgba(0,0,0,.2); color: var(--ink2); padding: .48rem 1rem; border-radius: 2rem; font-weight: 700; font-size: .82rem; cursor: pointer; letter-spacing: .06em; transition: border-color .2s; }
 
     /* MAIN */
     main {
@@ -120,20 +106,13 @@
 </head>
 <body>
 
-<nav>
-  <a href="index.html" class="logo">LOWI<span style="font-size:.45em;color:#ff1a1a;letter-spacing:.01em;margin-left:.4em;vertical-align:middle"> - demo</span></a>
-  <ul>
-    <li><a href="comment-ca-marche.html" id="nav-how">Comment ça marche</a></li>
-    <li><a href="a-propos.html" id="nav-about">À propos</a></li>
-    <li><a href="projets.html" id="nav-projects">Voir les propriétés</a></li>
-    <li><a href="proposer.html" id="nav-propose">Proposer votre bien</a></li>
-  </ul>
-  <div style="display:flex;align-items:center;gap:.5rem">
-    <button id="lang-btn" onclick="toggleLang()">EN</button>
-    
-    <button class="nav-cta" id="nav-cta-btn">Commencer à investir</button>
-  </div>
-</nav>
+<script>
+window.__NAV_RIGHT__ = `
+  <button id="lang-btn" onclick="toggleLang()" class="nav-lang-btn">EN</button>
+  <button class="nav-cta" id="nav-cta-btn" onclick="location.href='projets.html'">Commencer &agrave; investir</button>
+`;
+</script>
+<script src="nav.js"></script>
 
 <main>
   <div class="card">

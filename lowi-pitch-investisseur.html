@@ -51,9 +51,7 @@ body{background:var(--cream);color:var(--ink);font-family:var(--sans);line-heigh
 .prog{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--teal),var(--gold));z-index:500;transition:width .4s cubic-bezier(.4,0,.2,1);box-shadow:0 0 6px rgba(201,168,76,.35);}
 
 /* ── LANG SWITCH ── */
-.lang-sw-inline{display:flex;border:1.5px solid var(--gold-bd);border-radius:6px;overflow:hidden;flex-shrink:0;}
-.lng{font-family:var(--label);padding:5px 13px;font-size:.65rem;font-weight:400;letter-spacing:.25em;cursor:pointer;background:transparent;border:none;color:var(--muted);transition:all .2s;}
-.lng.on{background:var(--gold);color:var(--ink);}
+
 
 /* ── NAV DOTS ── */
 /* .nav replaced by .nav-dots */
@@ -201,24 +199,6 @@ hr.sec{border:none;border-top:1px solid rgba(26,26,46,.08);margin:14px 0;}
 /* ── INLINE NOTE ── */
 .note{font-size:.72rem;color:var(--muted);font-style:italic;margin-top:8px;}
 
-/* ── SITE HEADER ── */
-.site-header{
-  position:fixed;top:0;left:0;right:0;z-index:400;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0 48px;height:62px;
-  background:rgba(250,246,238,.92);backdrop-filter:blur(14px);
-  border-bottom:1px solid rgba(201,168,76,.2);
-}
-.sh-logo{text-decoration:none;display:flex;align-items:baseline;gap:4px;}
-.sh-logo-text{font-family:'MCTen',serif;font-size:1.45rem;letter-spacing:.06em;color:var(--gold);}
-.sh-demo{font-family:'MCTen',serif;font-size:.62rem;color:#ff1a1a;letter-spacing:.04em;vertical-align:super;}
-.sh-nav{display:flex;gap:28px;}
-.sh-nav a{font-family:var(--label);font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s;}
-.sh-nav a:hover{color:var(--gold);}
-.sh-cta{font-family:var(--label);font-size:8px;letter-spacing:.3em;text-transform:uppercase;padding:8px 20px;border:1px solid var(--gold);color:var(--gold);text-decoration:none;transition:all .2s;white-space:nowrap;}
-.sh-cta:hover{background:var(--gold);color:var(--ink);}
-.sh-badge{font-family:var(--label);font-size:7px;letter-spacing:.25em;text-transform:uppercase;padding:4px 10px;background:var(--gold-bg);border:1px solid var(--gold-bd);color:var(--gold);border-radius:2rem;}
-
 /* ── NAV DOTS (renamed) ── */
 .nav-dots{position:fixed;right:20px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:8px;z-index:100;}
 
@@ -231,26 +211,18 @@ hr.sec{border:none;border-top:1px solid rgba(26,26,46,.08);margin:14px 0;}
 <body class="fr">
 
 <!-- SITE HEADER -->
-<header class="site-header">
-  <a href="index.html" class="sh-logo">
-    <span class="sh-logo-text">lowi</span>
-    <span class="sh-demo">- demo</span>
-  </a>
-  <nav class="sh-nav">
-    <a href="projets.html">Voir les propriétés</a>
-    <a href="comment-ca-marche.html">Comment ça marche</a>
-    <a href="a-propos.html">À propos</a>
-  </nav>
-  <div style="display:flex;align-items:center;gap:12px;">
-    <span class="sh-badge" id="sh-badge-fr">Pitch Investisseur</span>
-    <span class="sh-badge" id="sh-badge-en" style="display:none;">Investor Pitch</span>
-    <div class="lang-sw-inline">
-      <button class="lng on" id="btn-fr" onclick="setLang('fr')">FR</button>
-      <button class="lng" id="btn-en" onclick="setLang('en')">EN</button>
-    </div>
-    <a href="projets.html" class="sh-cta">R&#233;servez vos parts</a>
+<script>
+window.__NAV_RIGHT__ = `
+  <span class="nav-badge" id="sh-badge-fr">Pitch Investisseur</span>
+  <span class="nav-badge" id="sh-badge-en" style="display:none">Investor Pitch</span>
+  <div class="nav-lang-inline">
+    <button class="on" id="btn-fr" onclick="setLang('fr')">FR</button>
+    <button id="btn-en" onclick="setLang('en')">EN</button>
   </div>
-</header>
+  <a href="projets.html" class="nav-cta">Réservez vos parts</a>
+`;
+</script>
+<script src="nav.js"></script>
 
 <div class="prog" id="prog"></div>
 <div class="nav-dots" id="nav-dots"></div>
@@ -470,26 +442,21 @@ hr.sec{border:none;border-top:1px solid rgba(26,26,46,.08);margin:14px 0;}
         </div>
       </div>
 
-      <!-- Col 2 : Évolution prix nuitée -->
-      <div class="rv d2">
-        <div class="sec-lbl fr">Évolution prix nuitée villa 3ch (THB)</div>
-        <div class="sec-lbl en">3-bed villa nightly rate evolution (THB)</div>
-        <div class="chart-wrap" style="margin-top:8px;padding:16px;">
-          <canvas id="chartNuit" width="320" height="180"></canvas>
+      <!-- Col 2 : Évolution prix nuitée & THB/m² -->
+      <div class="rv d2" style="display:flex;flex-direction:column;gap:14px;">
+        <div>
+          <div class="sec-lbl fr">Évolution nuitée par type (THB/nuit)</div>
+          <div class="sec-lbl en">Nightly rate by type (THB/night)</div>
+          <div class="chart-wrap" style="margin-top:8px;padding:12px 16px;">
+            <canvas id="chartNuit" width="320" height="170"></canvas>
+          </div>
         </div>
-        <div class="sec-lbl fr" style="margin-top:14px;">Différenciateurs prix</div>
-        <div class="sec-lbl en" style="margin-top:14px;">Price differentiators</div>
-        <div class="tbl-wrap" style="margin-top:8px;">
-          <table class="tbl">
-            <thead><tr><th class="fr">Critère</th><th class="en">Criterion</th><th>+%</th></tr></thead>
-            <tbody>
-              <tr><td class="fr">Piscine privée</td><td class="en">Private pool</td><td class="go">+35–45%</td></tr>
-              <tr><td class="fr">Vue mer / coucher soleil</td><td class="en">Sea view / sunset</td><td class="go">+25–40%</td></tr>
-              <tr><td class="fr">Jardin tropical privé</td><td class="en">Private tropical garden</td><td class="tl">+15–20%</td></tr>
-              <tr><td class="fr">Services conciergerie</td><td class="en">Concierge services</td><td class="tl">+20–30%</td></tr>
-              <tr><td class="fr">Panneaux solaires</td><td class="en">Solar panels</td><td class="tl">+8–12%</td></tr>
-            </tbody>
-          </table>
+        <div>
+          <div class="sec-lbl fr">Prix au m² Ko Phangan · Évolution (%)</div>
+          <div class="sec-lbl en">Ko Phangan price/m² · Evolution (%)</div>
+          <div class="chart-wrap" style="margin-top:8px;padding:12px 16px;">
+            <canvas id="chartM2" width="320" height="150"></canvas>
+          </div>
         </div>
       </div>
 
@@ -1373,12 +1340,26 @@ function buildChartNuit() {
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
   const years = [2020, 2021, 2022, 2023, 2024, 2025];
-  const data  = [4500, 4800, 5500, 6200, 7500, 8200];
   drawLineChart(ctx, canvas.width, canvas.height, years, [
-    { data, color: '#C9A84C', label: 'Villa 3ch · THB/nuit' }
+    { data: [2000,2200,2800,3500,4200,4800],  color: '#6B7280', label: '1ch' },
+    { data: [3500,3800,4500,5500,6500,7500],  color: '#0D7C6E', label: '2ch' },
+    { data: [4500,4800,5500,6200,7500,8200],  color: '#C9A84C', label: '3ch' },
+    { data: [7500,8000,9500,11000,13500,15500], color: '#DC2626', label: '4ch' },
   ], 'THB');
 }
-
+function buildChartM2() {
+  const canvas = document.getElementById('chartM2');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  // Base 2020 = ~35 000 THB/m²  →  show % growth vs 2020
+  const years = [2020,2021,2022,2023,2024,2025,2026];
+  const base  = 35000;
+  const vals  = [35000,36500,38200,42500,47000,51000,54000];
+  const pct   = vals.map(v => Math.round((v/base - 1) * 1000) / 10); // e.g. 0.0, 4.3, 9.1 ...
+  drawLineChart(ctx, canvas.width, canvas.height, years, [
+    { data: pct, color: '#C9A84C', label: 'THB/m² +%' },
+  ], '%');
+}
 function buildChartImmo() {
   const canvas = document.getElementById('chartImmo');
   if (!canvas) return;
@@ -1580,6 +1561,7 @@ function buildAll() {
   buildFees8();
   buildProj9();
   buildChartNuit();
+  buildChartM2();
   buildChartImmo();
   buildChartDistrib();
   buildChartValeur();

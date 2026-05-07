@@ -41,84 +41,6 @@
     }
 
     /* ── NAVBAR ─────────────────────────────────────────────── */
-    .navbar {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      background: rgba(26, 26, 46, 0.96);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(201,168,76,.18);
-      height: 64px;
-      display: flex;
-      align-items: center;
-      padding: 0 2rem;
-      gap: 2rem;
-    }
-
-    .nav-logo {
-      font-family: 'MCTen', serif;
-      font-size: 1.6rem;
-      color: var(--gold);
-      text-decoration: none;
-      letter-spacing: .04em;
-      flex-shrink: 0;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 1.75rem;
-      list-style: none;
-      margin-left: .5rem;
-    }
-
-    .nav-links a {
-      color: rgba(255,255,255,.78);
-      text-decoration: none;
-      font-size: .93rem;
-      font-weight: 500;
-      letter-spacing: .02em;
-      transition: color .2s;
-    }
-
-    .nav-links a:hover { color: var(--white); }
-    .nav-links a.active { color: var(--gold); }
-
-    .nav-spacer { flex: 1; }
-
-    #lang-btn {
-      background: transparent;
-      border: 1.5px solid rgba(201,168,76,.45);
-      color: var(--gold-lt);
-      border-radius: 6px;
-      padding: .3rem .75rem;
-      font-size: .82rem;
-      font-weight: 600;
-      cursor: pointer;
-      letter-spacing: .06em;
-      transition: background .2s, border-color .2s;
-    }
-    #lang-btn:hover {
-      background: rgba(201,168,76,.12);
-      border-color: var(--gold);
-    }
-
-    .nav-cta {
-      background: var(--gold);
-      color: var(--ink);
-      border: none;
-      border-radius: .6rem;
-      padding: .5rem 1.25rem;
-      font-size: .9rem;
-      font-weight: 700;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: background .2s, transform .15s;
-      text-decoration: none;
-      display: inline-block;
-    }
-    .nav-cta:hover { background: var(--gold-lt); transform: translateY(-1px); }
-
     /* ── PAGE HERO ──────────────────────────────────────────── */
     .page-hero {
       background: var(--ink);
@@ -646,19 +568,13 @@
 <body>
 
   <!-- ═══════════ NAVBAR ═══════════ -->
-  <nav class="navbar" role="navigation" aria-label="Navigation principale">
-    <a href="index.html" class="nav-logo" aria-label="LOWI — Accueil">LOWI</a>
-    <ul class="nav-links">
-      <li><a href="comment-ca-marche.html" data-i18n="nav_how">Comment ça marche</a></li>
-      <li><a href="a-propos.html" data-i18n="nav_about">À propos</a></li>
-      <li><a href="projets.html" class="active" data-i18n="nav_projects">Voir les propriétés</a></li>
-      <li><a href="proposer.html" data-i18n="nav_propose">Proposer votre bien</a></li>
-    </ul>
-    <div class="nav-spacer"></div>
-    <button id="lang-btn" onclick="toggleLang()" aria-label="Changer de langue">EN</button>
-    
-    <button id="nav-cta-btn" class="nav-cta" data-i18n="nav_cta">Commencer à investir</button>
-  </nav>
+  <script>
+  window.__NAV_RIGHT__ = `
+    <button id="lang-btn" onclick="toggleLang()" class="nav-lang-btn">EN</button>
+    <button class="nav-cta" id="nav-cta-btn" onclick="location.href='projets.html'">Commencer &agrave; investir</button>
+  `;
+  </script>
+  <script src="nav.js"></script>
 
   <!-- ═══════════ PAGE HERO ═══════════ -->
   <section class="page-hero" aria-labelledby="hero-title">
