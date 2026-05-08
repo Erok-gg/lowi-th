@@ -96,14 +96,29 @@
       position: sticky;
       top: 62px;
       z-index: 90;
-      background: var(--cream);
-      border-bottom: 1px solid rgba(0,0,0,.08);
+      background: #EDE8DC;
+      border-bottom: 1px solid rgba(0,0,0,.11);
       padding: .9rem 2rem;
       display: flex;
       flex-wrap: wrap;
       gap: .75rem 1.5rem;
       align-items: center;
     }
+    .btn-apply {
+      margin-left: auto;
+      background: var(--teal);
+      color: var(--white);
+      border: none;
+      padding: .5rem 1.4rem;
+      border-radius: 2rem;
+      font-size: .82rem;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      letter-spacing: .04em;
+      transition: background .18s, transform .15s;
+    }
+    .btn-apply:hover { background: var(--teal-dk); transform: translateY(-1px); }
 
     .filter-group {
       display: flex;
@@ -571,16 +586,6 @@
   </script>
   <script src="nav.js"></script>
 
-  <!-- ═══════════ PAGE HERO ═══════════ -->
-  <section class="page-hero" aria-labelledby="hero-title">
-    <h1 id="hero-title">
-      <span data-i18n="hero_title_1">Tous les</span> <span data-i18n="hero_title_2">projets</span>
-    </h1>
-    <p class="hero-subtitle" data-i18n="hero_subtitle">
-      Explorez l'ensemble des baux emphytéotiques disponibles à travers la Thaïlande. Filtrez par type, localisation et rendement pour trouver l'investissement qui vous correspond.
-    </p>
-  </section>
-
   <!-- ═══════════ FILTER BAR ═══════════ -->
   <div class="filter-bar" role="search" aria-label="Filtres projets">
 
@@ -619,6 +624,8 @@
         <option value="price-desc"  data-i18n="sort_price_desc">Prix décroissant</option>
       </select>
     </div>
+
+    <button class="btn-apply" id="btn-apply-filters">Appliquer</button>
 
   </div>
 

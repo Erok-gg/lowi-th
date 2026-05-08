@@ -32,34 +32,45 @@
     /* PAGE HERO */
     .page-hero {
       padding: 10rem 8vw 5rem;
-      background: var(--ink);
+      position: relative;
+      background: var(--ink) url('sunset-hero.jpg') center / cover no-repeat;
+      overflow: hidden;
     }
+    .page-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(10, 10, 20, 0.62);
+      pointer-events: none;
+    }
+    .page-hero .label,
+    .page-hero h1,
+    .page-hero .hero-btns { position: relative; z-index: 1; }
     .page-hero .label { font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--gold-lt); margin-bottom: .75rem; }
     .page-hero h1 { font-size: clamp(2.2rem, 4vw, 3.4rem); font-weight: 800; color: var(--white); line-height: 1.1; letter-spacing: -.03em; max-width: 640px; }
 
     /* STEPS */
     .steps-section { padding: 6rem 8vw; background: var(--cream); }
-    .steps-list { display: flex; flex-direction: column; gap: 0; margin-top: 3rem; }
+    .steps-list { display: flex; flex-direction: column; gap: 0; margin-top: 3rem; counter-reset: step-counter; }
     .step-row {
-      display: grid; grid-template-columns: 80px 1fr; gap: 2rem;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem;
       padding: 2.5rem 0; border-bottom: 1px solid rgba(0,0,0,.08);
-      align-items: start;
+      align-items: start; counter-increment: step-counter;
     }
     .step-row:last-child { border-bottom: none; }
-    .step-num-lg {
-      width: 64px; height: 64px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--gold), var(--gold-lt));
-      color: var(--ink); font-weight: 800; font-size: 1.3rem;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
+    .step-left h3 {
+      font-size: 1.35rem; font-weight: 700; margin-bottom: .6rem; letter-spacing: -.02em;
     }
-    .step-content h3 { font-size: 1.35rem; font-weight: 700; margin-bottom: .6rem; letter-spacing: -.02em; }
-    .step-content p { font-size: 1rem; color: var(--muted); line-height: 1.75; max-width: 620px; }
-    .step-content .step-detail {
-      margin-top: 1rem; background: var(--white);
-      border-radius: var(--r-lg); padding: 1.2rem 1.4rem;
+    .step-left h3::before {
+      content: '#' counter(step-counter) ' — ';
+      color: var(--gold); font-weight: 800;
+    }
+    .step-left p { font-size: 1rem; color: var(--muted); line-height: 1.75; }
+    .step-right { display: flex; align-items: flex-start; padding-top: .25rem; }
+    .step-detail {
+      background: var(--white); border-radius: var(--r-lg); padding: 1.2rem 1.4rem;
       border-left: 3px solid var(--gold); font-size: .9rem;
-      color: var(--ink2); line-height: 1.65;
+      color: var(--ink2); line-height: 1.65; width: 100%;
     }
 
     /* CTA */
@@ -95,9 +106,11 @@
     footer a:hover { color: var(--gold); }
     footer div { display: flex; gap: 1.5rem; }
 
+    @media (max-width: 900px) {
+      .step-row { grid-template-columns: 1fr; gap: 1rem; }
+    }
     @media (max-width: 640px) {
       nav ul { display: none; }
-      .step-row { grid-template-columns: 1fr; }
       footer { flex-direction: column; gap: 1rem; text-align: center; }
     }
   </style>
@@ -131,47 +144,52 @@ window.__NAV_RIGHT__ = `
   <div class="steps-list">
 
     <div class="step-row">
-      <div class="step-num-lg">01</div>
-      <div class="step-content">
+      <div class="step-left">
         <h3 id="s1h3">Sélection</h3>
         <p id="s1p">LOWI identifie et audite les meilleurs projets immobiliers en Thaïlande. Chaque bien fait l'objet d'une valorisation indépendante avant toute ouverture aux investisseurs.</p>
+      </div>
+      <div class="step-right">
         <div class="step-detail" id="s1detail">Critères de sélection : bien achevé et fonctionnel, historique locatif vérifiable, bail minimum 20 ans restants, rendement brut minimum 8% sur le prix d'achat, valorisation indépendante obligatoire.</div>
       </div>
     </div>
 
     <div class="step-row">
-      <div class="step-num-lg">02</div>
-      <div class="step-content">
+      <div class="step-left">
         <h3 id="s2h3">Structuration</h3>
         <p id="s2p">Une société trustee internationale signe le bail et détient les droits pour votre compte. Chaque projet est isolé juridiquement et comptablement — votre investissement ne peut pas être utilisé pour couvrir un autre projet.</p>
+      </div>
+      <div class="step-right">
         <div class="step-detail" id="s2detail">La structure inclut : comptabilité séparée par projet, clause d'arbitrage international exécutoire en Thaïlande, réserve de trésorerie constituée dès le closing.</div>
       </div>
     </div>
 
     <div class="step-row">
-      <div class="step-num-lg">03</div>
-      <div class="step-content">
+      <div class="step-left">
         <h3 id="s3h3">Investissement</h3>
         <p id="s3p">Vous souscrivez votre part en USD. Votre contrat est signé électroniquement, horodaté et son empreinte est conservée de manière immuable et vérifiable à tout moment.</p>
+      </div>
+      <div class="step-right">
         <div class="step-detail" id="s3detail">Les fonds sont détenus en séquestre jusqu'à l'atteinte de l'objectif de financement. Si l'objectif n'est pas atteint, vos fonds sont intégralement restitués.</div>
       </div>
     </div>
 
     <div class="step-row">
-      <div class="step-num-lg">04</div>
-      <div class="step-content">
+      <div class="step-left">
         <h3 id="s4h3">Distribution</h3>
         <p id="s4p">Les revenus locatifs sont collectés par le gestionnaire indépendant. Les frais sont décomposés et transparents. Votre quote-part est virée en USD chaque trimestre. Tout est visible sur votre dashboard personnel.</p>
+      </div>
+      <div class="step-right">
         <div class="step-detail" id="s4detail">Les rapports trimestriels du gestionnaire sont accessibles sur votre espace investisseur. Les jalons clés du projet sont conservés de manière immuable. Aucun chiffre n'est déclaratif.</div>
       </div>
     </div>
 
     <div class="step-row">
-      <div class="step-num-lg">05</div>
-      <div class="step-content">
+      <div class="step-left">
         <h3 id="s5h3">Sortie</h3>
-        <p id="s5p">À terme du bail, le bien est revendu et la plus-value distribuée aux investisseurs proportionnellement à leur part. Avant terme, vous pouvez céder vos droits sur le marché secondaire LOWI.</p>
-        <div class="step-detail" id="s5detail">La durée du bail structure naturellement l'horizon d'investissement et clarifie la sortie. Un bail de 30 ans avec 25 ans restants correspond à un fonds immobilier avec date de maturité connue.</div>
+        <p id="s5p">À terme du bail, le bien est revendu et la plus-value distribuée aux investisseurs proportionnellement à leur part.</p>
+      </div>
+      <div class="step-right">
+        <div class="step-detail" id="s5detail">Pour les investisseurs souhaitant sortir avant le terme, il est possible de céder ses droits sur le marché secondaire LOWI.</div>
       </div>
     </div>
 
@@ -215,8 +233,8 @@ window.__NAV_RIGHT__ = `
       s4p: "La mise en location, le marketing, la maintenance et les check-in & check-out sont assurés par des prestataires reconnus localement, à des tarifs négociés par la plateforme. Ils rendent compte de leur gestion annuellement et sont responsables de la collecte des loyers. Les frais sont décomposés et transparents. Votre quote-part est virée en THB chaque trimestre. Tout est visible sur votre portail personnel.",
       s4detail: "De la construction à la livraison, de la location à la sortie, tous les documents sont conservés de manière sécurisée et accessibles depuis votre portail client.",
       s5h3: 'Sortie',
-      s5p: "Au terme du bail, le bien est revendu à d'autres locataires et une plus-value peut être distribuée aux investisseurs proportionnellement à leur part. Pour les baux long-termes non renouvelés, le bien est rendu au propriétaire — un plan de sortie des liquidités non distribuées est organisé conformément au contrat avec le trustee.<br><br>Pour les investisseurs souhaitant sortir avant le terme, il est possible de céder ses droits sur le marché secondaire LOWI.",
-      s5detail: "La durée du bail structure naturellement l'horizon d'investissement et clarifie la sortie. Un bail de 30 ans avec 25 ans restants correspond à un fonds immobilier avec date de maturité connue.",
+      s5p: "Au terme du bail, le bien est revendu à d'autres locataires et une plus-value peut être distribuée aux investisseurs proportionnellement à leur part. Pour les baux long-termes non renouvelés, le bien est rendu au propriétaire — un plan de sortie des liquidités non distribuées est organisé conformément au contrat avec le trustee.",
+      s5detail: "Pour les investisseurs souhaitant sortir avant le terme, il est possible de céder ses droits sur le marché secondaire LOWI.",
       ctaTitle: 'Prêt à investir ?', ctaP: 'Consultez les projets disponibles et leur documentation complète avant toute décision.', ctaBtn1: 'Voir les projets disponibles →', ctaBtn2: 'En savoir plus sur la structure →',
       btnStack: 'Stack technique', btnPitchHero: 'Pitch investisseur',
       footerLegal: 'Mentions légales', footerPrivacy: 'Politique de confidentialité', footerContact: 'Contact'
@@ -238,8 +256,8 @@ window.__NAV_RIGHT__ = `
       s4p: "Property rental, marketing, maintenance and check-in & check-out are handled by locally recognised service providers at rates negotiated by the platform. They report on their management annually and are responsible for rent collection. Fees are itemised and transparent. Your share is paid in THB every quarter. Everything is visible on your personal investor portal.",
       s4detail: "From construction to delivery, from rental to exit, all documents are securely stored and accessible from your client portal.",
       s5h3: 'Exit',
-      s5p: "At the end of the lease, the property is resold to other lessees and any capital gain may be distributed to investors in proportion to their share. For long-term leases that are not renewed, the property is returned to the owner — an exit plan for undistributed proceeds will be organised in accordance with the trustee agreement.<br><br>Investors wishing to exit before the end of the term may transfer their rights on the LOWI secondary market.",
-      s5detail: "The lease duration naturally structures the investment horizon and clarifies the exit. A 30-year lease with 25 years remaining corresponds to a real estate fund with a known maturity date.",
+      s5p: "At the end of the lease, the property is resold to other lessees and any capital gain may be distributed to investors in proportion to their share. For long-term leases that are not renewed, the property is returned to the owner — an exit plan for undistributed proceeds will be organised in accordance with the trustee agreement.",
+      s5detail: "Investors wishing to exit before the end of the term may transfer their rights on the LOWI secondary market.",
       ctaTitle: 'Ready to invest?', ctaP: 'Review available projects and their full documentation before any decision.', ctaBtn1: 'View available projects →', ctaBtn2: 'Learn more about the structure →',
       btnStack: 'Tech stack', btnPitchHero: 'Investor pitch',
       footerLegal: 'Legal notice', footerPrivacy: 'Privacy policy', footerContact: 'Contact'
