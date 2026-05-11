@@ -132,4 +132,24 @@ nav.lowi-nav {
   navEl.querySelectorAll('.nav-links a').forEach(a => {
     if (a.getAttribute('href') === page) a.classList.add('active');
   });
+
+  /* ── Image protection : no right-click ── */
+  document.addEventListener('contextmenu', function (e) {
+    if (e.target.tagName === 'IMG') e.preventDefault();
+  });
+
+  /* ── Copy-paste attribution ── */
+  document.addEventListener('copy', function () {
+    const sel = window.getSelection();
+    if (!sel || sel.isCollapsed) return;
+    setTimeout(function () {
+      const text = sel.toString();
+      if (!text) return;
+      try {
+        navigator.clipboard.writeText(
+          text + '\n\n— Contenu issu de LOWI, la plateforme d\'investissement immobilier fractionné en Thaïlande. lowi.immo'
+        );
+      } catch (_) { /* clipboard API non disponible */ }
+    }, 0);
+  });
 })();
