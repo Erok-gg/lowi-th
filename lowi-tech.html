@@ -33,12 +33,9 @@ body{background:var(--ink);color:var(--cream);font-family:var(--sans);}
 .prog{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--teal),var(--gold));z-index:200;transition:width .4s cubic-bezier(.4,0,.2,1);box-shadow:0 0 8px rgba(201,168,76,.4);}
 
 /* NAV DOTS */
-.nav{position:fixed;right:24px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:8px;z-index:100;}
 .dot{width:4px;height:4px;border-radius:50%;background:rgba(201,168,76,.25);cursor:pointer;transition:all .35s;}
 .dot.on{background:var(--gold);transform:scale(1.8);box-shadow:0 0 6px rgba(201,168,76,.5);}
 .dot:hover:not(.on){background:rgba(201,168,76,.55);}
-
-/* LANG CONTENT */
 
 /* LANG CONTENT */
 .fr-content,.en-content{transition:opacity .3s;}
@@ -46,6 +43,11 @@ body.lang-en .fr-content{display:none;}
 body.lang-fr .en-content{display:none;}
 body.lang-fr .fr-content{display:block;}
 body.lang-en .en-content{display:block;}
+/* Fix: th/td must stay table-cell, not block */
+body.lang-fr .tbl th.fr-content,
+body.lang-fr .tbl td.fr-content{display:table-cell;}
+body.lang-en .tbl th.en-content,
+body.lang-en .tbl td.en-content{display:table-cell;}
 
 /* SLIDES */
 /* .slide overridden below */
@@ -72,17 +74,17 @@ body.lang-en .en-content{display:block;}
 .bgr{border:1px solid rgba(90,158,114,.4);color:var(--green);}
 
 /* TABLE */
-.tbl-wrap{border:1px solid rgba(201,168,76,.18);border-radius:1.25rem;overflow:hidden;margin-top:20px;}
+.tbl-wrap{border:1.5px solid var(--borderS);border-radius:1rem;overflow:hidden;margin-top:16px;}
 .tbl{width:100%;border-collapse:collapse;}
-.tbl th{font-family:var(--label);font-size:8px;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);padding:12px 18px;text-align:left;background:rgba(201,168,76,.08);border-bottom:1px solid rgba(201,168,76,.18);}
-.tbl td{font-family:var(--sans);font-size:13px;font-weight:300;color:var(--grey);padding:11px 18px;border-bottom:1px solid rgba(255,255,255,.05);}
+.tbl th{font-family:var(--label);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);font-weight:400;padding:10px 16px;text-align:left;background:rgba(201,168,76,.08);border-bottom:1.5px solid var(--borderS);}
+.tbl td{font-family:var(--sans);font-size:.82rem;font-weight:300;color:var(--grey);padding:10px 16px;border-bottom:1px solid rgba(255,255,255,.07);}
 .tbl tr:last-child td{border-bottom:none;}
-.tbl tr:hover td{background:rgba(255,255,255,.03);}
-.tbl td.hl{color:var(--cream);font-weight:400;}
-.tbl td.go{color:var(--gold);}
+.tbl tr:hover td{background:rgba(255,255,255,.04);}
+.tbl td.hl{color:var(--cream);font-weight:600;}
+.tbl td.go{color:var(--gold);font-weight:600;}
+.tbl td.gr{color:var(--green);font-weight:600;}
+.tbl td.rd{color:#E07878;}
 .tbl td.bl{color:var(--blue);}
-.tbl td.gr{color:var(--green);}
-.tbl td.rd{color:#9E6060;}
 
 /* GRID */
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(201,168,76,.12);border:1px solid rgba(201,168,76,.18);border-radius:1.25rem;overflow:hidden;margin-top:24px;}
@@ -598,8 +600,6 @@ window.__NAV_RIGHT__ = `
       </div>
     </div>
     <div class="rv d2">
-      <div class="at b fr-content" style="margin-bottom:10px;">Paramètre · Détail</div>
-      <div class="at b en-content" style="margin-bottom:10px;">Parameter · Detail</div>
       <div class="tbl-wrap"><table class="tbl" style="margin-top:0;">
         <thead><tr>
           <th class="fr-content">Paramètre</th><th class="en-content">Parameter</th>
@@ -1123,10 +1123,10 @@ window.__NAV_RIGHT__ = `
       </div>
       <div class="wr" style="background:var(--grs);">
         <div class="wn" style="background:transparent;color:var(--green);">5</div>
-        <div class="wl" style="background:transparent;color:var(--cream);font-weight:400;" class="fr-content">Distribution pro-rata · Tous détenteurs de parts (incl. LOWI Select)</div>
-        <div class="wl" style="background:transparent;color:var(--cream);font-weight:400;" class="en-content">Pro-rata distribution · All share holders (incl. LOWI Select)</div>
-        <div class="wv" style="background:transparent;color:var(--green);" class="fr-content">Investisseurs</div>
-        <div class="wv" style="background:transparent;color:var(--green);" class="en-content">Investors</div>
+        <div class="wl fr-content" style="background:transparent;color:var(--cream);font-weight:400;">Distribution pro-rata · Tous détenteurs de parts (incl. LOWI Select)</div>
+        <div class="wl en-content" style="background:transparent;color:var(--cream);font-weight:400;">Pro-rata distribution · All share holders (incl. LOWI Select)</div>
+        <div class="wv fr-content" style="background:transparent;color:var(--green);">Investisseurs</div>
+        <div class="wv en-content" style="background:transparent;color:var(--green);">Investors</div>
       </div>
     </div>
   </div>
@@ -1175,7 +1175,10 @@ const navEl = document.getElementById('nav-dots');
 const prog = document.getElementById('prog');
 const total = slides.length;
 
+// Map each slide element to its real DOM index (independent of data-slide value)
+const slideIndexMap = new Map();
 slides.forEach((s,i) => {
+  slideIndexMap.set(s, i);
   const d = document.createElement('div');
   d.className = 'dot' + (i===0?' on':'');
   d.title = s.dataset.s||'';
@@ -1193,7 +1196,7 @@ const io = new IntersectionObserver(entries => {
         setTimeout(() => r.classList.add('on'), i * 80);
       });
     });
-    const idx = parseInt(e.target.dataset.slide)-1;
+    const idx = slideIndexMap.get(e.target);
     document.querySelectorAll('.dot').forEach((d,i) => d.classList.toggle('on', i===idx));
     prog.style.width = ((idx+1)/total*100)+'%';
   });
@@ -1207,6 +1210,8 @@ REVEAL_CLASSES.forEach(sel => {
 </script>
 </body>
 </html>
+
+
 
 
 
