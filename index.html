@@ -373,9 +373,14 @@
       .carousel-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
       footer { flex-direction: column; gap: 1rem; text-align: center; }
     }
+    /* ── HALO ── */
+    #halo { position: fixed; width: 780px; height: 780px; border-radius: 50%; background: radial-gradient(circle, rgba(13,124,110,.32) 0%, rgba(201,168,76,.16) 40%, transparent 70%); filter: blur(72px); pointer-events: none; transform: translate(-50%,-50%); z-index: 2; mix-blend-mode: screen; }
+    footer { position: relative; }
+    footer::before { content: ''; position: absolute; top: -1px; left: -3%; width: 106%; height: 14px; background: var(--cream); border-radius: 0 0 50% 50% / 0 0 6px 13px; z-index: 5; }
   </style>
 </head>
 <body>
+<div id="halo"></div>
 
 <!-- ── NAVBAR ─────────────────────────────────────── -->
 <script>
@@ -784,12 +789,49 @@ window.__NAV_RIGHT__ = `
       footerLegal:   'Legal notice',
       footerPrivacy: 'Privacy policy',
       footerContact: 'Contact'
+    },
+    th: {
+      navHow: 'วิธีการทำงาน', navAbout: 'เกี่ยวกับเรา', navProjects: 'ดูโครงการ', navPropose: 'เสนออสังหาริมทรัพย์', navProposeCta: 'เสนออสังหาริมทรัพย์', navCta: 'เริ่มลงทุน',
+      seeAllBtn: 'ดูโครงการทั้งหมด →',
+      heroBadge: 'อสังหาริมทรัพย์ · แบ่งส่วน · ไร้อุปสรรค',
+      heroH1: "อสังหาริมทรัพย์ไทย<br>แบ่งส่วน<br>เริ่มต้นที่ <span id='price-ticker' class='price-ticker'>฿500,000</span>",
+      heroP: 'ร่วมลงทุนในประเทศไทยและรับรายได้ค่าเช่าสม่ำเสมอ โดยไม่ต้องยุ่งยากกับการจัดการทรัพย์สิน',
+      heroTagline: 'การลงทุนที่ถูกกฎหมายในแดนสยาม — สิทธิ์ของคุณจดทะเบียนตรงในโฉนดที่ดิน',
+      heroBtn1: 'เรียนรู้เพิ่มเติม →', heroBtn2: 'ดูโครงการ',
+      heroCardLoc: '📍 เกาะพะงัน · สัญญาเช่า 28 ปี',
+      pill1: '<span class="dot dot-green"></span> เปิดรับการสมัคร',
+      pill2: '<span class="dot dot-gold"></span> สัญญาเช่าจดทะเบียน · ตรวจสอบแล้ว',
+      vpLabel: 'ทำไมต้อง LOWI',
+      vpTitle: 'สัญญาที่ลงนาม<br>โครงสร้างที่ ' + GR('ปกป้องคุณ'),
+      vpSub: 'สิทธิ์ทางเศรษฐกิจบนสัญญาเช่าอสังหาริมทรัพย์ที่จดทะเบียนในประเทศไทย ค่าเช่าและกำไรเมื่อออก — ตามสัดส่วนของคุณ ไม่ใช่คำสัญญา แต่เป็นสัญญาที่ลงนามและตรวจสอบได้',
+      vp1h3: 'สิทธิ์ ไม่ใช่คำสัญญา', vp1p: 'คุณซื้อสิทธิ์ทางเศรษฐกิจบนสัญญาเช่าที่จดทะเบียนในประเทศไทย: ค่าเช่าและกำไรเมื่อออก ตามสัดส่วนการถือครองของคุณ',
+      vp2h3: 'การจ่ายรายไตรมาสเป็น USD', vp2p: 'รายได้ถูกเก็บรวบรวม ค่าธรรมเนียมแจกแจงชัดเจน ส่วนแบ่งของคุณโอนเป็น USD ทุกไตรมาส',
+      vp3h3: 'ผู้ดูแลระหว่างประเทศ', vp3p: 'บริษัทผู้ดูแลระหว่างประเทศลงนามในสัญญาเช่าและถือสิทธิ์แทนคุณ บัญชีแยกต่างหากต่อโครงการ',
+      vp4h3: 'อนุญาโตตุลาการระหว่างประเทศ', vp4p: 'สัญญาทุกฉบับมีข้อกำหนดอนุญาโตตุลาการบังคับใช้ได้ในประเทศไทยภายใต้อนุสัญญานิวยอร์ก',
+      vp5h3: 'กองทุนสำรอง', vp5p: 'จัดตั้งตั้งแต่ปิดการลงทุน เพื่อรองรับความผันผวนตามฤดูกาล หากไตรมาสใดต่ำกว่าเป้า การจ่ายเงินของคุณจะดูแลจากกองทุนนี้',
+      vp6h3: 'ลงทุนร่วมกับคุณ', vp6p: 'ในโครงการ LOWI Select เราลงทุนส่วนหนึ่งของค่าคอมมิชชั่นในโครงการเอง สิทธิ์ของเราอยู่ในสัญญาเดียวกับของคุณ เราชนะเมื่อคุณชนะ',
+      howLabel: 'วิธีการทำงาน', howTitle: 'วิธีการทำงาน', howSub: 'ตั้งแต่การคัดเลือกอสังหาริมทรัพย์จนถึงการจ่ายเงินครั้งแรก',
+      s1h4: 'การคัดเลือก', s1p: 'LOWI ระบุและตรวจสอบโครงการที่ดีที่สุด ทุกอสังหาริมทรัพย์ได้รับการประเมินอย่างอิสระก่อนเสนอนักลงทุน',
+      s2h4: 'การจัดโครงสร้าง', s2p: 'บริษัทผู้ดูแลระหว่างประเทศลงนามในสัญญาเช่าและถือสิทธิ์แทนคุณ แต่ละโครงการแยกทางกฎหมายและบัญชี',
+      s3h4: 'การลงทุน', s3p: 'คุณสมัครเป็น USD สัญญาของคุณลงนามทางอิเล็กทรอนิกส์ ประทับเวลา และจัดเก็บอย่างไม่สามารถเปลี่ยนแปลงได้',
+      s4h4: 'การจ่ายเงิน', s4p: 'รายได้ถูกเก็บรวบรวม ค่าธรรมเนียมโปร่งใส ส่วนแบ่งของคุณโอนเป็น USD ทุกไตรมาส',
+      s5h4: 'การออกจากการลงทุน', s5p: 'เมื่อสิ้นสุดสัญญา อสังหาริมทรัพย์ถูกขายและกำไรถูกแจกจ่าย ก่อนสิ้นสุด คุณสามารถโอนสิทธิ์ในตลาดรองของ LOWI',
+      t1desc: 'เป้าหมายการจ่ายรายปี', t2desc: 'ระยะเวลาสัญญาเช่า', t3desc: 'ขั้นต่ำการลงทุน (~15,000 USD)', t4desc: 'โปร่งใสทุกรายการ',
+      carLabel: 'โครงการปัจจุบัน', carTitle: 'สัญญาเช่าที่เปิดรับการสมัคร',
+      lblYield: 'IRR', lblMin: 'การจ่าย', lblLease: 'ขั้นต่ำ', lblFund: 'เงินทุน',
+      btnInvest: 'จองส่วนของคุณ', btnFull: 'เต็ม — เข้าคิวรอ',
+      ctaTitle: 'สัญญาที่ลงนาม<br>สิทธิ์ที่ชัดเจน ' + GR('ผลตอบแทนจริง'),
+      ctaP: 'โครงการเสนอแบบจำกัด การเข้าถึงต้องยืนยันตัวตนและผ่านการตรวจสอบนักลงทุน',
+      ctaBtn1: 'ดูโครงการที่พร้อม →', ctaBtn2: 'เรียนรู้เพิ่มเติมเกี่ยวกับโครงสร้าง',
+      disclaimer: 'เงินลงทุนของคุณไม่ได้รับการรับประกัน ผลตอบแทน 7% เป็นเป้าหมาย ไม่ใช่คำสัญญา รายได้ขึ้นอยู่กับตลาดและฤดูกาล นี่คือการลงทุนระยะ 7-10 ปี',
+      footerLegal: 'ข้อมูลทางกฎหมาย', footerPrivacy: 'นโยบายความเป็นส่วนตัว', footerContact: 'ติดต่อ'
     }
   };
 
   var tickerVals = {
     fr: ['15 000 €', '$15 000', '฿500 000'],
-    en: ['€15,000', '$15,000', '฿500,000']
+    en: ['€15,000', '$15,000', '฿500,000'],
+    th: ['฿500,000', '$15,000', '€15,000']
   };
   var tickerTimer = null;
   function startTicker(lang) {
@@ -925,14 +967,18 @@ var h1 = sel('.hero h1');
 
     // Lang button
     var lb = sel('#lang-btn');
-    if (lb) lb.textContent = l === 'fr' ? 'EN' : 'FR';
+    if (lb) lb.textContent = {fr:'EN',en:'TH',th:'FR'}[l];
+    localStorage.setItem('lowi-lang', l);
     currentLang = l;
   }
 
   var currentLang = 'fr';
-  window.toggleLang = function() { apply(currentLang === 'fr' ? 'en' : 'fr'); };
-  document.addEventListener('DOMContentLoaded', function() { apply('fr'); });
+  window.toggleLang = function() { apply({fr:'en',en:'th',th:'fr'}[currentLang]); };
+  document.addEventListener('DOMContentLoaded', function() { apply(localStorage.getItem('lowi-lang') || 'fr'); });
 })();
+</script>
+<script>
+(function(){var h=document.getElementById('halo');function upd(){var p=Math.min(window.scrollY/(document.body.scrollHeight-window.innerHeight||1),1);h.style.left=(50+28*Math.sin(p*Math.PI*2.5))+'vw';h.style.top=(30+p*50)+'vh';}h.style.transition='none';upd();requestAnimationFrame(function(){h.style.transition='top 1s cubic-bezier(.25,.1,.25,1),left 1s cubic-bezier(.25,.1,.25,1)';});window.addEventListener('scroll',upd,{passive:true});window.addEventListener('resize',upd,{passive:true});})();
 </script>
 </body>
 </html>

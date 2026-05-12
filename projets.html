@@ -60,7 +60,7 @@
 
     .hero-label {
       display: inline-block;
-      background: rgba(201,168,76,.15);
+      background: rgba(201,168,76,.16);
       border: 1px solid rgba(201,168,76,.35);
       color: var(--gold);
       font-size: .78rem;
@@ -511,7 +511,6 @@
       padding: 2.25rem 2rem;
       text-align: center;
       font-size: .85rem;
-      border-top: 1px solid rgba(201,168,76,.15);
     }
 
     .footer-inner {
@@ -573,9 +572,14 @@
       animation: shimmer 1.4s infinite;
       border-radius: .5rem;
     }
+    /* ── HALO ── */
+    #halo { position: fixed; width: 780px; height: 780px; border-radius: 50%; background: radial-gradient(circle, rgba(13,124,110,.32) 0%, rgba(201,168,76,.16) 40%, transparent 70%); filter: blur(72px); pointer-events: none; transform: translate(-50%,-50%); z-index: 2; mix-blend-mode: screen; }
+    footer { position: relative; }
+    footer::before { content: ''; position: absolute; top: -1px; left: -3%; width: 106%; height: 14px; background: var(--cream); border-radius: 0 0 50% 50% / 0 0 6px 13px; z-index: 5; }
   </style>
 </head>
 <body>
+<div id="halo"></div>
 
   <!-- ═══════════ NAVBAR ═══════════ -->
   <script>
@@ -788,10 +792,54 @@
         footer_privacy:    'Privacy policy',
         footer_contact:    'Contact',
         footer_rights:     'All rights reserved.',
+      },
+      th: {
+        nav_how:           'วิธีการทำงาน',
+        nav_about:         'เกี่ยวกับเรา',
+        nav_projects:      'ดูอสังหาริมทรัพย์',
+        nav_propose:       'เสนออสังหาริมทรัพย์',
+        nav_propose_cta:   'เสนออสังหาริมทรัพย์',
+        nav_cta:           'เริ่มลงทุน',
+        hero_title_1:      'โครงการ',
+        hero_title_2:      'ทั้งหมด',
+        hero_subtitle:     'สำรวจสัญญาเช่าทั้งหมดในประเทศไทย กรองตามประเภท ที่ตั้ง และผลตอบแทนเพื่อหาการลงทุนที่เหมาะกับคุณ',
+        filter_type:       'ประเภท',
+        filter_all:        'ทั้งหมด',
+        filter_eco:        'Éco-resort',
+        filter_boutique:   'Boutique Hotel',
+        filter_loc_label:  'ที่ตั้ง',
+        filter_all_loc:    'ทั้งหมด',
+        filter_sort_label: 'เรียงลำดับ',
+        sort_tri_desc:     'IRR มากไปน้อย',
+        sort_distrib_desc: 'การจ่ายมากไปน้อย',
+        sort_price_asc:    'ราคาน้อยไปมาก',
+        sort_price_desc:   'ราคามากไปน้อย',
+        results_label:     'โครงการ',
+        metric_tri:        'IRR',
+        metric_distrib:    'การจ่าย',
+        metric_ticket:     'ตั๋วขั้นต่ำ',
+        metric_bail:       'สัญญาเช่า',
+        bail_unit:         'ปี',
+        funding_label:     'เงินทุน',
+        btn_invest:        'จองส่วนของคุณ',
+        btn_detail:        'ดูโครงการ →',
+        btn_waitlist:      'เข้าคิวรอ',
+        btn_soon:          'เร็วๆ นี้',
+        badge_open:        'เปิด',
+        badge_full:        'เต็ม',
+        badge_soon:        'เร็วๆ นี้',
+        no_results_title:  'ไม่พบโครงการ',
+        no_results_sub:    'ลองปรับตัวกรองของคุณ',
+        prev:              'ก่อนหน้า',
+        next:              'ถัดไป',
+        footer_legal:      'ข้อมูลทางกฎหมาย',
+        footer_privacy:    'นโยบายความเป็นส่วนตัว',
+        footer_contact:    'ติดต่อ',
+        footer_rights:     'สงวนลิขสิทธิ์ทุกประการ',
       }
     };
 
-    let currentLang = 'fr';
+    let currentLang = localStorage.getItem('lowi-lang') || 'fr';
 
     function t(key) {
       return (i18n[currentLang] && i18n[currentLang][key]) || key;
@@ -807,7 +855,8 @@
         opt.textContent = t(opt.getAttribute('data-i18n'));
       });
       // Lang button
-      document.getElementById('lang-btn').textContent = currentLang === 'fr' ? 'EN' : 'FR';
+      document.getElementById('lang-btn').textContent = {fr:'EN',en:'TH',th:'FR'}[currentLang];
+      localStorage.setItem('lowi-lang', currentLang);
       // html lang attribute
       document.documentElement.lang = currentLang;
       // Re-render cards to update dynamic text
@@ -815,7 +864,7 @@
     }
 
     function toggleLang() {
-      currentLang = currentLang === 'fr' ? 'en' : 'fr';
+      currentLang = {fr:'en',en:'th',th:'fr'}[currentLang];
       applyTranslations();
     }
 
@@ -1078,7 +1127,11 @@
        INIT
     ══════════════════════════════════════════════════════════ */
     document.getElementById('footer-year').textContent = new Date().getFullYear();
+    applyTranslations();
     renderGrid();
   </script>
+<script>
+(function(){var h=document.getElementById('halo');function upd(){var p=Math.min(window.scrollY/(document.body.scrollHeight-window.innerHeight||1),1);h.style.left=(50+28*Math.sin(p*Math.PI*2.5))+'vw';h.style.top=(30+p*50)+'vh';}h.style.transition='none';upd();requestAnimationFrame(function(){h.style.transition='top 1s cubic-bezier(.25,.1,.25,1),left 1s cubic-bezier(.25,.1,.25,1)';});window.addEventListener('scroll',upd,{passive:true});window.addEventListener('resize',upd,{passive:true});})();
+</script>
 </body>
 </html>

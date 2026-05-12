@@ -991,9 +991,14 @@
       .char-grid { grid-template-columns: repeat(2, 1fr); }
       .amenities-grid { grid-template-columns: 1fr; }
     }
+    /* ── HALO ── */
+    #halo { position: fixed; width: 780px; height: 780px; border-radius: 50%; background: radial-gradient(circle, rgba(13,124,110,.32) 0%, rgba(201,168,76,.16) 40%, transparent 70%); filter: blur(72px); pointer-events: none; transform: translate(-50%,-50%); z-index: 2; mix-blend-mode: screen; }
+    footer { position: relative; }
+    footer::before { content: ''; position: absolute; top: -1px; left: -3%; width: 106%; height: 14px; background: var(--cream); border-radius: 0 0 50% 50% / 0 0 6px 13px; z-index: 5; }
   </style>
 </head>
 <body>
+<div id="halo"></div>
 
   <!-- ── NAVBAR ────────────────────────────────────────────── -->
   <script>
@@ -1584,7 +1589,7 @@
     }
 
     /* ── TRANSLATIONS ────────────────────────────────────── */
-    var lang = 'fr';
+    var lang = localStorage.getItem('lowi-lang') || 'fr';
 
     var T = {
       fr: {
@@ -1688,6 +1693,57 @@
         disclaimer: 'Investment in leasehold shares. Capital at risk. Returns based on rental projections. Distributions in THB. No automatic lease renewal.',
         fl1: 'Legal notice', fl2: 'Privacy policy', fl3: 'Contact',
         footerCopy: '© 2025 LOWI — All rights reserved',
+      },
+      th: {
+        navHow: 'วิธีการทำงาน', navAbout: 'เกี่ยวกับเรา', navProjects: 'ดูอสังหาริมทรัพย์', navPropose: 'เสนออสังหาริมทรัพย์', navProposeCta: 'เสนออสังหาริมทรัพย์', navCta: 'ลงทุน',
+        bcProjects: 'โครงการ',
+        tagStatus: 'เปิดรับการลงทุน', tagType: 'วิลล่า', tagBail: 'สัญญาเช่า 20 ปี',
+        heroTitle: 'Chalok Baan Kao Pool Villa',
+        heroLoc: 'ชะลกบ้านเกา, เกาะพะงัน, ประเทศไทย',
+        slTri: 'IRR เป้าหมาย', slDist: 'การจ่าย', slBailUnit: 'ปี', slBail: 'ระยะเวลาสัญญาเช่า',
+        slTicket: 'ตั๋วขั้นต่ำ', slParts: 'ส่วนที่พร้อม',
+        tDesc: 'คำอธิบาย',
+        dp1: 'วิลล่าร่วมสมัยสไตล์เมดิเตอร์เรเนียน ตั้งอยู่ในย่านที่พักอาศัยสงบที่ชะลกบ้านเกา ห่างจากชายหาดเพียง 5 นาทีเดิน ตกแต่งและเฟอร์นิเจอร์ครบครัน เหมาะสำหรับให้เช่าระยะสั้นระดับพรีเมียม',
+        dp2: 'สถาปัตยกรรมผสมผสานหน้าต่างกรอบเหล็กรีไฟน์ เพดานสูง และผนังก่ออิฐสองชั้น ให้ความสบายด้านความร้อนและเสียงที่ยอดเยี่ยม สระว่ายน้ำเกลือคลอรีน แผงโซลาร์ และบ่อน้ำบาดาลลึกช่วยลดต้นทุนการดำเนินงาน',
+        dp3: 'อสังหาริมทรัพย์นี้เสนอในรูปแบบสัญญาเช่า 20 ปี จดทะเบียนที่กรมที่ดินไทย สิทธิ์ถูกบันทึกในสัญญาเช่าส่วนบุคคลในนามของนักลงทุนแต่ละราย ไม่มีการต่ออายุอัตโนมัติ',
+        tSit: 'ที่ตั้งของอสังหาริมทรัพย์',
+        sl1: 'เกาะ / จังหวัด', sl2: 'ชายหาดที่ใกล้ที่สุด', sv2: 'ชะลกบ้านเกา — 5 นาทีเดิน',
+        sl3: 'ทิศทาง / วิว', sv3: 'ตะวันตกเฉียงใต้ — วิวพระอาทิตย์ตกที่ Hinkong',
+        sl4: 'สภาพแวดล้อม', sv4: 'ย่านที่พักอาศัยสงบ ร่มรื่นด้วยพืชพันธุ์เขตร้อน',
+        sl5: 'การเข้าถึง', sv5: 'ถนนลาดยาง — ที่จอดรถส่วนตัว',
+        sl6: 'เรือเฟอร์รี่ / การเชื่อมต่อ', sv6: 'ท่าเรือทองสาลา — 15 นาทีด้วยสกู๊ตเตอร์',
+        tChar: 'ลักษณะของอสังหาริมทรัพย์',
+        clInt: 'พื้นที่ภายใน', clLand: 'พื้นที่ที่ดิน', clBuilt: 'พื้นที่ก่อสร้าง',
+        clPool: 'สระว่ายน้ำ', clBeds: 'ห้องนอน', clBaths: 'ห้องน้ำ', clFloors: 'ชั้น', clPark: 'ที่จอดรถ',
+        tEquip: 'สิ่งอำนวยความสะดวก',
+        eq1:'สระเกลือคลอรีน', eq2:'แผงโซลาร์ (Grid PEA)', eq3:'บ่อน้ำบาดาลลึก',
+        eq4:'ผนังก่ออิฐสองชั้น', eq5:'เฟอร์นิเจอร์และตกแต่งครบครัน', eq6:'แอร์มัลติสปลิต',
+        eq7:'อินเทอร์เน็ตความเร็วสูง (ไฟเบอร์)', eq8:'ครัวพร้อมอุปกรณ์ครบครัน', eq9:'TV & Smart Home',
+        eq10:'ที่จอดรถหลังคาส่วนตัว (2 คัน)', eq11:'ถังเก็บน้ำ 10,000 ลิตร + ปั๊ม', eq12:'หน้าต่างกรอบเหล็กรีไฟน์',
+        tLease: 'โครงสร้าง Leasehold',
+        ll1:'ประเภทสิทธิ์', lv1:'สัญญาเช่าระยะยาว (Leasehold)',
+        ll2:'ระยะเวลาตามสัญญา',
+        ll3:'การจดทะเบียน', lv3:'กรมที่ดินไทย (โฉนด)',
+        ll4:'โฉนดที่ดินของเจ้าของ',
+        ll5:'โครงสร้างทางกฎหมาย', lv5:'ผู้ดูแลที่กำหนด + อนุญาโตตุลาการระหว่างประเทศ',
+        ll6:'ความถี่การจ่าย', lv6:'รายไตรมาส — จ่ายเป็น THB',
+        leaseNote: '<strong>ไม่มีการต่ออายุอัตโนมัติ</strong> ระยะเวลาสัญญากำหนดไว้ที่ 20 ปี เมื่อครบกำหนด LOWI จะจัดการขายหรือชำระบัญชีอสังหาริมทรัพย์เพื่อประโยชน์ของผู้ถือสิทธิ์',
+        tMap: 'ที่ตั้ง',
+        icPriceLbl: 'ราคารวมของอสังหาริมทรัพย์',
+        icBadge: '● เปิด', icPct: 'ได้รับการสนับสนุน 56%',
+        icRaised: 'ระดมได้ 7,168,000 THB', icRemain: 'เหลือ 5,632,000 THB',
+        iplTotal: 'ส่วนทั้งหมด', iplSold: 'ขายแล้ว', iplAvail: 'พร้อม',
+        iubL1: 'ราคาต่อส่วน', iubL2: 'ตั๋วขั้นต่ำ',
+        icCalcTitle: 'จำลองการลงทุนของฉัน',
+        icPartsLbl: 'จำนวนส่วน',
+        calcHint: 'ขั้นต่ำ 5 ส่วน<br>สูงสุด 56 ส่วน',
+        crL1: 'การลงทุน', crL2: 'การจ่าย/ปี',
+        btnInvest: 'จองส่วนของฉัน →',
+        btnDl: 'ดาวน์โหลดข้อมูลโครงการ',
+        btnPitch: 'พิตช์นักลงทุน',
+        disclaimer: 'การลงทุนในส่วน leasehold เงินลงทุนไม่ได้รับการรับประกัน ผลตอบแทนอ้างอิงจากประมาณการค่าเช่า การจ่ายเป็น THB ไม่มีการต่ออายุสัญญาเช่าอัตโนมัติ',
+        fl1: 'ข้อมูลทางกฎหมาย', fl2: 'นโยบายความเป็นส่วนตัว', fl3: 'ติดต่อ',
+        footerCopy: '© 2025 LOWI — สงวนลิขสิทธิ์ทุกประการ',
       }
     };
 
@@ -1698,7 +1754,8 @@
 
     function applyLang(l) {
       var t = T[l];
-      document.getElementById('lang-btn').textContent = l === 'fr' ? 'EN' : 'FR';
+      document.getElementById('lang-btn').textContent = {fr:'EN',en:'TH',th:'FR'}[l];
+      localStorage.setItem('lowi-lang', l);
       setId('nav-how', t.navHow); setId('nav-about', t.navAbout);
       setId('nav-projects', t.navProjects); setId('nav-propose', t.navPropose);
       setId('nav-propose-cta', t.navProposeCta); setId('nav-cta-btn', t.navCta);
@@ -1750,7 +1807,7 @@
     }
 
     function toggleLang() {
-      lang = lang === 'fr' ? 'en' : 'fr';
+      lang = {fr:'en',en:'th',th:'fr'}[lang];
       applyLang(lang);
     }
 
@@ -1839,7 +1896,11 @@
     };
 
     /* Init */
+    if (lang !== 'fr') applyLang(lang);
     updateCalc();
   </script>
+<script>
+(function(){var h=document.getElementById('halo');function upd(){var p=Math.min(window.scrollY/(document.body.scrollHeight-window.innerHeight||1),1);h.style.left=(50+28*Math.sin(p*Math.PI*2.5))+'vw';h.style.top=(30+p*50)+'vh';}h.style.transition='none';upd();requestAnimationFrame(function(){h.style.transition='top 1s cubic-bezier(.25,.1,.25,1),left 1s cubic-bezier(.25,.1,.25,1)';});window.addEventListener('scroll',upd,{passive:true});window.addEventListener('resize',upd,{passive:true});})();
+</script>
 </body>
 </html>
