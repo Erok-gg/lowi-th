@@ -141,9 +141,14 @@
       footer { flex-direction: column; gap: 1rem; text-align: center; }
       .input-row { grid-template-columns: 1fr; }
     }
+    /* ── HALO ── */
+    #halo { position: fixed; width: 780px; height: 780px; border-radius: 50%; background: radial-gradient(circle, rgba(13,124,110,.32) 0%, rgba(201,168,76,.16) 40%, transparent 70%); filter: blur(72px); pointer-events: none; transform: translate(-50%,-50%); z-index: 2; mix-blend-mode: screen; }
+    footer { position: relative; }
+    footer::before { content: ''; position: absolute; top: -1px; left: -3%; width: 106%; height: 14px; background: var(--cream); border-radius: 0 0 50% 50% / 0 0 6px 13px; z-index: 5; }
   </style>
 </head>
 <body>
+<div id="halo"></div>
 
 <script>
 window.__NAV_RIGHT__ = `
@@ -333,6 +338,28 @@ Le bien est proposé en structure de bail emphytéotique (leasehold) de 20 ans, 
       btnSubmit: 'Submit my property →',
       footerCopy: '© 2026 LOWI. All rights reserved.',
       footerLegal: 'Legal notice', footerPrivacy: 'Privacy policy', footerContact: 'Contact'
+    },
+    th: {
+      navHow: 'วิธีการทำงาน', navAbout: 'เกี่ยวกับเรา', navProjects: 'ดูอสังหาริมทรัพย์', navPropose: 'เสนออสังหาริมทรัพย์', navProposeCta: 'เสนออสังหาริมทรัพย์', navCta: 'เริ่มลงทุน',
+      pageLabel: 'การส่งใหม่',
+      pageTitle: 'อธิบายอสังหาริมทรัพย์ของคุณ',
+      pageSub: 'กรอกรายละเอียดด้านล่าง ทีมงานของเราจะติดต่อคุณภายใน 5 ถึง 10 วันทำการ',
+      secGeneral: 'ข้อมูลทั่วไป',
+      lblNom: 'ชื่ออสังหาริมทรัพย์', lblLoc: 'ที่ตั้ง', lblType: 'ประเภท', lblStatut: 'สถานะ',
+      optAppt: 'อพาร์ตเมนต์', optAcheve: 'การก่อสร้างแล้วเสร็จ', optAutre: 'อื่นๆ',
+      secFinancier: 'การเงิน',
+      lblPrix: 'ราคาซื้อทั้งหมด (THB)', lblTicket: 'ตั๋วขั้นต่ำที่ต้องการ (THB)',
+      lblBail: 'ระยะเวลาสัญญาเช่าที่เสนอ', lblDist: 'การจ่ายรายปีโดยประมาณ',
+      secDesc: 'คำอธิบาย', lblDesc: 'คำอธิบายอสังหาริมทรัพย์',
+      secPhotos: 'รูปภาพ',
+      uploadTitle: 'ลากรูปภาพของคุณมาที่นี่', uploadSub: 'หรือคลิกเพื่อเลือก',
+      uploadHint: 'JPG, PNG, WEBP — สูงสุด 20 รูป',
+      secDocs: 'เอกสาร',
+      docsHint: 'สัญญาเช่า โฉนดที่ดิน... (PDF)',
+      docUploadTitle: 'เพิ่มเอกสาร', docUploadSub: 'PDF, DOC — สัญญาเช่า โฉนดที่ดิน ฯลฯ',
+      btnSubmit: 'ส่งอสังหาริมทรัพย์ของฉัน →',
+      footerCopy: '© 2026 LOWI. สงวนลิขสิทธิ์ทุกประการ',
+      footerLegal: 'ข้อมูลทางกฎหมาย', footerPrivacy: 'นโยบายความเป็นส่วนตัว', footerContact: 'ติดต่อ'
     }
   };
 
@@ -379,11 +406,12 @@ Le bien est proposé en structure de bail emphytéotique (leasehold) de 20 ans, 
     sel('footer-legal').innerHTML = t.footerLegal;
     sel('footer-privacy').innerHTML = t.footerPrivacy;
     sel('footer-contact').innerHTML = t.footerContact;
-    sel('lang-btn').textContent = l === 'fr' ? 'EN' : 'FR';
+    sel('lang-btn').textContent = {fr:'EN',en:'TH',th:'FR'}[l];
+    localStorage.setItem('lowi-lang', l);
     currentLang = l;
   }
 
-  window.toggleLang = function() { apply(currentLang === 'fr' ? 'en' : 'fr'); };
+  window.toggleLang = function() { apply({fr:'en',en:'th',th:'fr'}[currentLang]); };
 
   // Photo upload
   var photos = [];
@@ -436,8 +464,11 @@ Le bien est proposé en structure de bail emphytéotique (leasehold) de 20 ans, 
     window.location.href = 'confirmation-soumission.html';
   };
 
-  document.addEventListener('DOMContentLoaded', function() { apply('fr'); });
+  document.addEventListener('DOMContentLoaded', function() { apply(localStorage.getItem('lowi-lang') || 'fr'); });
 })();
+</script>
+<script>
+(function(){var h=document.getElementById('halo');function upd(){var p=Math.min(window.scrollY/(document.body.scrollHeight-window.innerHeight||1),1);h.style.left=(50+28*Math.sin(p*Math.PI*2.5))+'vw';h.style.top=(30+p*50)+'vh';}h.style.transition='none';upd();requestAnimationFrame(function(){h.style.transition='top 1s cubic-bezier(.25,.1,.25,1),left 1s cubic-bezier(.25,.1,.25,1)';});window.addEventListener('scroll',upd,{passive:true});window.addEventListener('resize',upd,{passive:true});})();
 </script>
 </body>
 </html>

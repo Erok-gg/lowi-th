@@ -102,9 +102,14 @@
       footer { flex-direction: column; gap: 1rem; text-align: center; }
       .card { padding: 2.5rem 1.5rem; }
     }
+    /* ── HALO ── */
+    #halo { position: fixed; width: 780px; height: 780px; border-radius: 50%; background: radial-gradient(circle, rgba(13,124,110,.32) 0%, rgba(201,168,76,.16) 40%, transparent 70%); filter: blur(72px); pointer-events: none; transform: translate(-50%,-50%); z-index: 2; mix-blend-mode: screen; }
+    footer { position: relative; }
+    footer::before { content: ''; position: absolute; top: -1px; left: -3%; width: 106%; height: 14px; background: var(--cream); border-radius: 0 0 50% 50% / 0 0 6px 13px; z-index: 5; }
   </style>
 </head>
 <body>
+<div id="halo"></div>
 
 <script>
 window.__NAV_RIGHT__ = `
@@ -175,6 +180,17 @@ window.__NAV_RIGHT__ = `
       btnProjects: 'View our projects →',
       footerCopy: '© 2026 LOWI. All rights reserved.',
       footerLegal: 'Legal notice', footerPrivacy: 'Privacy policy', footerContact: 'Contact'
+    },
+    th: {
+      navHow: 'วิธีการทำงาน', navAbout: 'เกี่ยวกับเรา', navProjects: 'ดูอสังหาริมทรัพย์', navPropose: 'เสนออสังหาริมทรัพย์', navProposeCta: 'เสนออสังหาริมทรัพย์', navCta: 'เริ่มลงทุน',
+      confirmTitle: 'เราได้รับข้อมูลของคุณแล้ว!',
+      confirmSub: 'ทีมงาน LOWI จะตรวจสอบอสังหาริมทรัพย์ของคุณและติดต่อกลับภายใน 5 ถึง 10 วันทำการ',
+      recapLabel: 'อสังหาริมทรัพย์ที่ส่ง:',
+      recapName: 'Chalok Baan Kao Pool Villa',
+      btnHome: 'กลับหน้าหลัก →',
+      btnProjects: 'ดูโครงการของเรา →',
+      footerCopy: '© 2026 LOWI. สงวนลิขสิทธิ์ทุกประการ',
+      footerLegal: 'ข้อมูลทางกฎหมาย', footerPrivacy: 'นโยบายความเป็นส่วนตัว', footerContact: 'ติดต่อ'
     }
   };
 
@@ -200,13 +216,17 @@ window.__NAV_RIGHT__ = `
     sel('footer-legal').innerHTML = t.footerLegal;
     sel('footer-privacy').innerHTML = t.footerPrivacy;
     sel('footer-contact').innerHTML = t.footerContact;
-    sel('lang-btn').textContent = l === 'fr' ? 'EN' : 'FR';
+    sel('lang-btn').textContent = {fr:'EN',en:'TH',th:'FR'}[l];
+    localStorage.setItem('lowi-lang', l);
     currentLang = l;
   }
 
-  window.toggleLang = function() { apply(currentLang === 'fr' ? 'en' : 'fr'); };
-  document.addEventListener('DOMContentLoaded', function() { apply('fr'); });
+  window.toggleLang = function() { apply({fr:'en',en:'th',th:'fr'}[currentLang]); };
+  document.addEventListener('DOMContentLoaded', function() { apply(localStorage.getItem('lowi-lang') || 'fr'); });
 })();
+</script>
+<script>
+(function(){var h=document.getElementById('halo');function upd(){var p=Math.min(window.scrollY/(document.body.scrollHeight-window.innerHeight||1),1);h.style.left=(50+28*Math.sin(p*Math.PI*2.5))+'vw';h.style.top=(30+p*50)+'vh';}h.style.transition='none';upd();requestAnimationFrame(function(){h.style.transition='top 1s cubic-bezier(.25,.1,.25,1),left 1s cubic-bezier(.25,.1,.25,1)';});window.addEventListener('scroll',upd,{passive:true});window.addEventListener('resize',upd,{passive:true});})();
 </script>
 </body>
 </html>

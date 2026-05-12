@@ -61,7 +61,7 @@
 
     /* SKIN IN THE GAME */
     .skin-section { padding: 5rem 8vw; background: var(--cream); display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
-    .skin-section .badge { display: inline-flex; align-items: center; gap: .5rem; background: rgba(201,168,76,.15); border: 1px solid rgba(201,168,76,.35); color: var(--gold); font-size: .78rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: .35rem .9rem; border-radius: 2rem; margin-bottom: 1.2rem; }
+    .skin-section .badge { display: inline-flex; align-items: center; gap: .5rem; background: rgba(201,168,76,.16); border: 1px solid rgba(201,168,76,.35); color: var(--gold); font-size: .78rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: .35rem .9rem; border-radius: 2rem; margin-bottom: 1.2rem; }
     .skin-section h2 { font-size: clamp(1.6rem, 2.5vw, 2.2rem); font-weight: 800; letter-spacing: -.03em; line-height: 1.2; margin-bottom: 1rem; }
     .skin-section p { font-size: 1rem; color: var(--muted); line-height: 1.75; }
     .skin-visual { background: var(--white); border-radius: var(--r-xl); padding: 2rem; box-shadow: var(--shadow); }
@@ -97,9 +97,14 @@
       .vp-grid { grid-template-columns: 1fr; }
       footer { flex-direction: column; gap: 1rem; text-align: center; }
     }
+    /* ── HALO ── */
+    #halo { position: fixed; width: 780px; height: 780px; border-radius: 50%; background: radial-gradient(circle, rgba(13,124,110,.32) 0%, rgba(201,168,76,.16) 40%, transparent 70%); filter: blur(72px); pointer-events: none; transform: translate(-50%,-50%); z-index: 2; mix-blend-mode: screen; }
+    footer { position: relative; }
+    footer::before { content: ''; position: absolute; top: -1px; left: -3%; width: 106%; height: 14px; background: var(--cream); border-radius: 0 0 50% 50% / 0 0 6px 13px; z-index: 5; }
   </style>
 </head>
 <body>
+<div id="halo"></div>
 
 <script>
 window.__NAV_RIGHT__ = `
@@ -258,6 +263,28 @@ window.__NAV_RIGHT__ = `
       r1lbl: 'Acquisition fee', r2lbl: 'Property management', r3lbl: 'Select co-investment', r3val: '6% held alongside you', r4lbl: 'Carried interest at exit',
       ctaTitle: 'View available projects', ctaP: 'discover our curated selection of properties', ctaBtn1: 'View projects →', ctaBtn2: 'How it works →',
       footerLegal: 'Legal notice', footerPrivacy: 'Privacy policy', footerContact: 'Contact'
+    },
+    th: {
+      navHow: 'วิธีการทำงาน', navAbout: 'เกี่ยวกับเรา', navProjects: 'ดูอสังหาริมทรัพย์', navPropose: 'เสนออสังหาริมทรัพย์', navProposeCta: 'เสนออสังหาริมทรัพย์', navCta: 'เริ่มลงทุน',
+      pageLabel: 'เกี่ยวกับ LOWI',
+      pageTitle: 'สัญญาที่ลงนาม<br>โครงสร้างที่ปกป้องคุณ',
+      pageSub: 'สิทธิ์ทางเศรษฐกิจบนสัญญาเช่าอสังหาริมทรัพย์ที่จดทะเบียนในประเทศไทย ค่าเช่าและกำไรเมื่อออก — ตามสัดส่วนของคุณ ไม่ใช่คำสัญญา แต่เป็นสัญญาที่ลงนาม ตรวจสอบได้ และปกป้องโดยโครงสร้างทางกฎหมายระหว่างประเทศ',
+      vpLabel: 'สิ่งที่คุณซื้อ', vpTitle: 'สิทธิ์ทางเศรษฐกิจจริง<br>บนอสังหาริมทรัพย์ที่มีอยู่จริง', vpSub: 'ทุกโครงการ LOWI คืออสังหาริมทรัพย์ที่ดำเนินการแล้ว พร้อมประวัติการเช่าที่ตรวจสอบได้',
+      vp1h3: 'สัญญาเช่าระยะยาว', vp1p: 'LOWI เสนอเฉพาะอสังหาริมทรัพย์ที่สอดคล้องกับกฎหมายไทยว่าด้วยการถือครองทรัพย์สินของชาวต่างชาติ',
+      vp2h3: 'การจ่ายรายไตรมาสเป็น THB', vp2p: 'รายได้ค่าเช่าถูกเก็บโดยผู้จัดการและแจกจ่ายรายไตรมาสตามสัดส่วนการถือครองของคุณ',
+      vp3h3: 'ระยะเวลาที่กำหนดชัด', vp3p: 'วันออกทราบตั้งแต่วันแรก คุณยังสามารถขายส่วนของคุณในตลาดรองได้ตลอดเวลา',
+      vp4h3: 'เอกสารครบถ้วน', vp4p: 'ทุกโครงการมีห้องนิรภัยออนไลน์: สัญญาเช่าที่จดทะเบียน การประเมินอิสระ ประวัติการเช่า รายงาน due diligence',
+      vp5h3: 'ความเชี่ยวชาญในพื้นที่', vp5p: 'ทีมงานในพื้นที่ที่เกาะพะงัน เกาะสมุย และภูเก็ต ดำเนินการทั้งหมดโดยผู้เชี่ยวชาญในพื้นที่',
+      vp6h3: 'ลงทุนร่วมกับคุณ', vp6p: 'ในโครงการ LOWI Select เราลงทุนส่วนหนึ่งของค่าคอมมิชชั่นในโครงการเอง เราชนะเมื่อคุณชนะ',
+      structLabel: 'โครงสร้างความไว้วางใจ', structTitle: 'สี่เสาหลักทางกฎหมาย<br>ที่ไม่สามารถต่อรองได้', structSub: 'ทุกโครงการ LOWI ยึดสถาปัตยกรรมทางกฎหมายเดียวกัน โดยไม่มีข้อยกเว้น',
+      p1h3: 'ผู้ดูแลระหว่างประเทศ', p1p: 'บริษัทผู้ดูแลระหว่างประเทศลงนามในสัญญาเช่าแต่ละฉบับและถือสิทธิ์แทนนักลงทุน บัญชีแยกต่างหากต่อโครงการ',
+      p2h3: 'อนุญาโตตุลาการระหว่างประเทศ', p2p: 'สัญญาทุกฉบับมีข้อกำหนดอนุญาโตตุลาการบังคับใช้ได้ในประเทศไทยภายใต้อนุสัญญานิวยอร์ก',
+      p3h3: 'กองทุนสำรองความปลอดภัย', p3p: 'จัดตั้งตั้งแต่ปิดการลงทุน เพื่อรองรับความผันผวนตามฤดูกาล',
+      p4h3: 'การประเมินอิสระ', p4p: 'แต่ละอสังหาริมทรัพย์ถูกติดตามโดยผู้จัดการอิสระ รายงานเข้าถึงได้ในแดชบอร์ดของคุณ',
+      skinTitle: 'เราลงทุนร่วมกับคุณ', skinP: 'ในโครงการ LOWI Select สิทธิ์ของเราอยู่ในสัญญาเดียวกับของคุณ มองเห็นได้ ตรวจสอบได้ เราชนะเมื่อคุณชนะ',
+      r1lbl: 'ค่าธรรมเนียมการได้มา', r2lbl: 'การจัดการอสังหาริมทรัพย์', r3lbl: 'การร่วมลงทุน Select', r3val: '6% ถือร่วมกับคุณ', r4lbl: 'Carried interest เมื่อออก',
+      ctaTitle: 'ดูโครงการที่พร้อม', ctaP: 'เอกสารครบถ้วนพร้อมก่อนการสมัคร', ctaBtn1: 'ดูโครงการ →', ctaBtn2: 'วิธีการทำงาน →',
+      footerLegal: 'ข้อมูลทางกฎหมาย', footerPrivacy: 'นโยบายความเป็นส่วนตัว', footerContact: 'ติดต่อ'
     }
   };
 
@@ -292,14 +319,18 @@ window.__NAV_RIGHT__ = `
     sel('r1lbl').innerHTML = t.r1lbl; sel('r2lbl').innerHTML = t.r2lbl; sel('r3lbl').innerHTML = t.r3lbl; sel('r3val').innerHTML = t.r3val; sel('r4lbl').innerHTML = t.r4lbl;
     sel('cta-title').innerHTML = t.ctaTitle; sel('cta-p').innerHTML = t.ctaP; sel('cta-btn1').innerHTML = t.ctaBtn1; sel('cta-btn2').innerHTML = t.ctaBtn2;
     sel('footer-legal').innerHTML = t.footerLegal; sel('footer-privacy').innerHTML = t.footerPrivacy; sel('footer-contact').innerHTML = t.footerContact;
-    sel('lang-btn').textContent = l === 'fr' ? 'EN' : 'FR';
+    sel('lang-btn').textContent = {fr:'EN',en:'TH',th:'FR'}[l];
+    localStorage.setItem('lowi-lang', l);
     currentLang = l;
   }
 
   var currentLang = 'fr';
-  window.toggleLang = function() { apply(currentLang === 'fr' ? 'en' : 'fr'); };
-  document.addEventListener('DOMContentLoaded', function() { apply('fr'); });
+  window.toggleLang = function() { apply({fr:'en',en:'th',th:'fr'}[currentLang]); };
+  document.addEventListener('DOMContentLoaded', function() { apply(localStorage.getItem('lowi-lang') || 'fr'); });
 })();
+</script>
+<script>
+(function(){var h=document.getElementById('halo');function upd(){var p=Math.min(window.scrollY/(document.body.scrollHeight-window.innerHeight||1),1);h.style.left=(50+28*Math.sin(p*Math.PI*2.5))+'vw';h.style.top=(30+p*50)+'vh';}h.style.transition='none';upd();requestAnimationFrame(function(){h.style.transition='top 1s cubic-bezier(.25,.1,.25,1),left 1s cubic-bezier(.25,.1,.25,1)';});window.addEventListener('scroll',upd,{passive:true});window.addEventListener('resize',upd,{passive:true});})();
 </script>
 </body>
 </html>

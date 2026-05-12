@@ -113,9 +113,14 @@
       nav ul { display: none; }
       footer { flex-direction: column; gap: 1rem; text-align: center; }
     }
+    /* ── HALO ── */
+    #halo { position: fixed; width: 780px; height: 780px; border-radius: 50%; background: radial-gradient(circle, rgba(13,124,110,.32) 0%, rgba(201,168,76,.16) 40%, transparent 70%); filter: blur(72px); pointer-events: none; transform: translate(-50%,-50%); z-index: 2; mix-blend-mode: screen; }
+    footer { position: relative; }
+    footer::before { content: ''; position: absolute; top: -1px; left: -3%; width: 106%; height: 14px; background: var(--cream); border-radius: 0 0 50% 50% / 0 0 6px 13px; z-index: 5; }
   </style>
 </head>
 <body>
+<div id="halo"></div>
 
 <script>
 window.__NAV_RIGHT__ = `
@@ -261,6 +266,19 @@ window.__NAV_RIGHT__ = `
       ctaTitle: 'Ready to invest?', ctaP: 'Review available projects and their full documentation before any decision.', ctaBtn1: 'View available projects →', ctaBtn2: 'Learn more about the structure →',
       btnStack: 'Tech stack', btnPitchHero: 'Investor pitch',
       footerLegal: 'Legal notice', footerPrivacy: 'Privacy policy', footerContact: 'Contact'
+    },
+    th: {
+      navHow: 'วิธีการทำงาน', navAbout: 'เกี่ยวกับเรา', navProjects: 'ดูอสังหาริมทรัพย์', navPropose: 'เสนออสังหาริมทรัพย์', navProposeCta: 'เสนออสังหาริมทรัพย์', navCta: 'เริ่มลงทุน',
+      pageLabel: 'วิธีการทำงาน',
+      pageTitle: 'ตั้งแต่การคัดเลือกอสังหาริมทรัพย์<br>จนถึงการจ่ายเงินครั้งแรก',
+      s1h3: 'การคัดเลือก', s1p: 'LOWI ระบุและตรวจสอบโครงการอสังหาริมทรัพย์ที่ดีที่สุดในประเทศไทย ทีมงานของเราคัดกรองโครงการที่มีแนวโน้มดีที่สุดจากเครือข่ายของเรา', s1detail: 'เกณฑ์การคัดเลือก: โครงการ VEFA หรือก่อสร้างแล้วเสร็จ ระยะเวลาสัญญาเช่าขั้นต่ำสอดคล้องกับผลตอบแทน ผลตอบแทนรวมประมาณขั้นต่ำ 8% เทียบกับราคาซื้อ',
+      s2h3: 'การจัดโครงสร้าง', s2p: 'บริษัทผู้ดูแลระหว่างประเทศเป็นตัวแทนของคุณและลงนามในสัญญาเช่าในนามของคุณ สัญญากับผู้ดูแลให้สิทธิ์ทางเศรษฐกิจบนอสังหาริมทรัพย์ตามสัดส่วนการมีส่วนร่วมของคุณ', s2detail: 'โครงสร้างช่วยแบ่งปันต้นทุนและเสริมสร้างสิทธิ์ของคุณ: บัญชีแยกต่างหากต่อโครงการ ข้อกำหนดอนุญาโตตุลาการระหว่างประเทศ กองทุนสำรองจัดตั้งตั้งแต่ปิด',
+      s3h3: 'การลงทุน', s3p: 'คุณซื้อส่วนของคุณเป็น THB EUR หรือ USD สัญญาของคุณลงนามทางอิเล็กทรอนิกส์ ประทับเวลา และจัดเก็บอย่างไม่สามารถเปลี่ยนแปลงได้', s3detail: 'เงินถูกเก็บไว้ในบัญชีเอสโครว์จนกว่าจะถึงเป้าหมายการจัดหาเงินทุน หากไม่ถึงเป้า เงินของคุณจะถูกคืนครบถ้วน',
+      s4h3: 'การจ่ายเงิน', s4p: 'การจัดการ การตลาด การบำรุงรักษา และการเช็คอิน/เช็คเอาต์ดูแลโดยผู้ให้บริการที่มีชื่อเสียงในพื้นที่ ค่าธรรมเนียมแจกแจงชัดเจนและโปร่งใส ส่วนแบ่งของคุณโอนรายไตรมาส', s4detail: 'ตั้งแต่การก่อสร้างจนถึงการส่งมอบ ตั้งแต่การเช่าจนถึงการออก เอกสารทั้งหมดจัดเก็บอย่างปลอดภัยและเข้าถึงได้จากพอร์ทัลลูกค้าของคุณ',
+      s5h3: 'การออกจากการลงทุน', s5p: 'เมื่อสิ้นสุดสัญญา อสังหาริมทรัพย์ถูกขายและกำไรถูกแจกจ่ายตามสัดส่วน สำหรับนักลงทุนที่ต้องการออกก่อนกำหนด สามารถโอนสิทธิ์ในตลาดรองของ LOWI ได้', s5detail: 'นักลงทุนที่ต้องการออกก่อนสิ้นสุดสัญญาสามารถโอนสิทธิ์ในตลาดรองของ LOWI ได้',
+      ctaTitle: 'พร้อมลงทุนแล้วหรือยัง?', ctaP: 'ตรวจสอบโครงการที่พร้อมและเอกสารครบถ้วนก่อนตัดสินใจ', ctaBtn1: 'ดูโครงการที่พร้อม →', ctaBtn2: 'เรียนรู้เพิ่มเติมเกี่ยวกับโครงสร้าง →',
+      btnStack: 'เทคโนโลยี', btnPitchHero: 'พิตช์นักลงทุน',
+      footerLegal: 'ข้อมูลทางกฎหมาย', footerPrivacy: 'นโยบายความเป็นส่วนตัว', footerContact: 'ติดต่อ'
     }
   };
 
@@ -289,14 +307,18 @@ window.__NAV_RIGHT__ = `
     sel('footer-legal').innerHTML = t.footerLegal;
     sel('footer-privacy').innerHTML = t.footerPrivacy;
     sel('footer-contact').innerHTML = t.footerContact;
-    sel('lang-btn').textContent = l === 'fr' ? 'EN' : 'FR';
+    sel('lang-btn').textContent = {fr:'EN',en:'TH',th:'FR'}[l];
+    localStorage.setItem('lowi-lang', l);
     currentLang = l;
   }
 
   var currentLang = 'fr';
-  window.toggleLang = function() { apply(currentLang === 'fr' ? 'en' : 'fr'); };
-  document.addEventListener('DOMContentLoaded', function() { apply('fr'); });
+  window.toggleLang = function() { apply({fr:'en',en:'th',th:'fr'}[currentLang]); };
+  document.addEventListener('DOMContentLoaded', function() { apply(localStorage.getItem('lowi-lang') || 'fr'); });
 })();
+</script>
+<script>
+(function(){var h=document.getElementById('halo');function upd(){var p=Math.min(window.scrollY/(document.body.scrollHeight-window.innerHeight||1),1);h.style.left=(50+28*Math.sin(p*Math.PI*2.5))+'vw';h.style.top=(30+p*50)+'vh';}h.style.transition='none';upd();requestAnimationFrame(function(){h.style.transition='top 1s cubic-bezier(.25,.1,.25,1),left 1s cubic-bezier(.25,.1,.25,1)';});window.addEventListener('scroll',upd,{passive:true});window.addEventListener('resize',upd,{passive:true});})();
 </script>
 </body>
 </html>
