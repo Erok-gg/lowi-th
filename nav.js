@@ -11,7 +11,7 @@ nav.lowi-nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 400;
   display: flex; align-items: center; justify-content: space-between;
   padding: 0 4vw; height: 62px;
-  background: rgba(250,246,238,.92);
+  background: rgba(242,237,226,.92);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
   border-bottom: 1px solid rgba(201,168,76,.2);
