@@ -4,39 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Co-investissez en Thaïlande avec Lowi</title>
+  <link rel="stylesheet" href="lowi-tokens.css">
   <style>
-    /* ── FONT ── */
-    @font-face {
-  font-family: 'MCTen';
-  src: url('mc-ten-lowercase-alt.ttf') format('truetype');
-  font-display: swap;
-}
-
-    /* ───────────────────────────────────────────
-       RESET & BASE
-    ─────────────────────────────────────────── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --gold:    #C9A84C;
-      --gold-lt: #E8C97A;
-      --teal:    #0D7C6E;
-      --teal-dk: #095448;
-      --cream:   #F2EDE2;
-      --ink:     #1A1A2E;
-      --ink2:    #2E2E4A;
-      --muted:   #6B7280;
-      --white:   #FFFFFF;
-      --r-lg:    1.25rem;
-      --r-xl:    2rem;
-      --shadow:  0 8px 40px rgba(0,0,0,.14);
-    }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      background: var(--cream);
-      color: var(--ink);
-      overflow-x: hidden;
-    }
+    body { overflow-x: hidden; }
 
 
     /* ───────────────────────────────────────────
@@ -66,19 +36,6 @@
       max-width: 480px; margin-bottom: 2.5rem;
     }
     .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
-    .btn-primary {
-      background: var(--ink); color: var(--white); border: none;
-      padding: .9rem 2.2rem; border-radius: 2rem; font-weight: 700;
-      font-size: 1rem; cursor: pointer; transition: background .2s, transform .15s;
-      display: flex; align-items: center; gap: .5rem;
-    }
-    .btn-primary:hover { background: var(--ink2); transform: translateY(-2px); }
-    .btn-secondary {
-      background: transparent; color: var(--ink); border: 2px solid var(--ink);
-      padding: .9rem 2.2rem; border-radius: 2rem; font-weight: 700;
-      font-size: 1rem; cursor: pointer; transition: border-color .2s, color .2s, transform .15s;
-    }
-    .btn-secondary:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
     .price-ticker-wrap {
       display: inline-block;
       overflow: hidden;
@@ -151,28 +108,11 @@
        VALUE PROPOSITION
     ─────────────────────────────────────────── */
     .section { padding: 6rem 8vw; }
-    .section-label {
-      font-size: .78rem; font-weight: 700; letter-spacing: .12em;
-      text-transform: uppercase; color: var(--gold); margin-bottom: .75rem;
-    }
-    .section-title {
-      font-size: clamp(1.8rem, 3vw, 2.8rem); font-weight: 800;
-      letter-spacing: -.03em; line-height: 1.15; margin-bottom: 1rem;
-    }
-    .section-sub {
-      font-size: 1.05rem; color: var(--muted); max-width: 580px; line-height: 1.7;
-    }
 
     .vp-grid {
       display: grid; grid-template-columns: repeat(3, 1fr);
       gap: 1.75rem; margin-top: 3.5rem;
     }
-    .vp-card {
-      background: var(--white); border-radius: var(--r-xl);
-      padding: 2rem 1.8rem; border: 1px solid rgba(0,0,0,.07);
-      transition: transform .25s, box-shadow .25s;
-    }
-    .vp-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
     .vp-icon {
       width: 52px; height: 52px; border-radius: var(--r-lg);
       display: flex; align-items: center; justify-content: center;
@@ -334,26 +274,6 @@
     }
     .final-cta p { font-size: 1.1rem; color: var(--muted); margin-bottom: 2.5rem; }
     .final-cta .cta-group { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-    .btn-gold {
-      background: var(--gold); color: var(--ink); border: none;
-      padding: 1rem 2.5rem; border-radius: 2rem; font-weight: 800;
-      font-size: 1rem; cursor: pointer; transition: background .2s, transform .15s;
-    }
-    .btn-gold:hover { background: var(--gold-lt); transform: translateY(-2px); }
-
-    /* ───────────────────────────────────────────
-       FOOTER
-    ─────────────────────────────────────────── */
-    footer {
-      background: var(--ink); color: rgba(255,255,255,.5);
-      padding: 2.5rem 8vw;
-      display: flex; align-items: center; justify-content: space-between;
-      font-size: .83rem;
-    }
-    footer .logo { color: var(--white); font-family: 'MCTen', sans-serif; }
-    footer a { color: rgba(255,255,255,.45); text-decoration: none; }
-    footer a:hover { color: var(--gold); }
-
     /* ───────────────────────────────────────────
        RESPONSIVE
     ─────────────────────────────────────────── */
@@ -371,12 +291,7 @@
       .steps { grid-template-columns: 1fr; }
       .trust-section { grid-template-columns: 1fr 1fr; }
       .carousel-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
-      footer { flex-direction: column; gap: 1rem; text-align: center; }
     }
-    /* ── HALO ── */
-    #halo { position: fixed; width: 780px; height: 780px; border-radius: 50%; background: radial-gradient(circle, rgba(13,124,110,.34) 0%, rgba(201,168,76,.17) 40%, transparent 70%); filter: blur(72px); pointer-events: none; transform: translate(-50%,-50%); z-index: 2; mix-blend-mode: screen; }
-    footer { position: relative; }
-    footer::before { content: ''; position: absolute; top: -1px; left: -3%; width: 106%; height: 14px; background: var(--cream); border-radius: 0 0 50% 50% / 0 0 6px 13px; z-index: 5; }
   </style>
 </head>
 <body>

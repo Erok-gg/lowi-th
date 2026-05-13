@@ -1,0 +1,215 @@
+/*
+ * LOWI — Design Tokens & Shared Components
+ * Inclure sur toutes les pages principales (sauf lowi-tech, lowi-pitch-investisseur)
+ * Last updated: 2026-05
+ */
+
+/* ── FONT ─────────────────────────────────────────────────── */
+@font-face {
+  font-family: 'MCTen';
+  src: url('mc-ten-lowercase-alt.ttf') format('truetype');
+  font-weight: normal; font-style: normal; font-display: swap;
+}
+
+/* ── RESET ────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── TOKENS ───────────────────────────────────────────────── */
+:root {
+  --gold:    #C9A84C;
+  --gold-lt: #E8C97A;
+  --teal:    #0D7C6E;
+  --teal-dk: #095448;
+  --cream:   #F2EDE2;
+  --ink:     #1A1A2E;
+  --ink2:    #2E2E4A;
+  --muted:   #6B7280;
+  --white:   #FFFFFF;
+  --r-lg:    1.25rem;
+  --r-xl:    2rem;
+  --shadow:  0 8px 40px rgba(0,0,0,.14);
+}
+
+/* ── BASE ─────────────────────────────────────────────────── */
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+}
+
+/* ── TYPOGRAPHY SHARED ────────────────────────────────────── */
+.section-label {
+  font-size: .78rem; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: .75rem;
+}
+.section-title {
+  font-size: clamp(1.6rem, 2.5vw, 2.4rem); font-weight: 800;
+  letter-spacing: -.03em; line-height: 1.15; margin-bottom: 1rem;
+}
+.section-sub {
+  font-size: 1.05rem; color: var(--muted);
+  max-width: 580px; line-height: 1.7;
+}
+
+/* On dark backgrounds */
+.on-dark .section-label { color: var(--gold-lt); }
+.on-dark .section-title { color: var(--white); }
+.on-dark .section-sub   { color: rgba(255,255,255,.6); }
+
+/* ── BUTTONS ──────────────────────────────────────────────── */
+/* Primary — dark */
+.btn-primary {
+  background: var(--ink); color: var(--white); border: none;
+  padding: .9rem 2.2rem; border-radius: 2rem;
+  font-weight: 700; font-size: 1rem; cursor: pointer;
+  transition: background .2s, transform .15s;
+  display: inline-flex; align-items: center; gap: .5rem;
+  text-decoration: none; font-family: inherit;
+}
+.btn-primary:hover { background: var(--ink2); transform: translateY(-2px); }
+
+/* Secondary — outline dark */
+.btn-secondary {
+  background: transparent; color: var(--ink); border: 2px solid var(--ink);
+  padding: .9rem 2.2rem; border-radius: 2rem;
+  font-weight: 700; font-size: 1rem; cursor: pointer;
+  transition: border-color .2s, color .2s, transform .15s;
+  text-decoration: none; font-family: inherit; display: inline-block;
+}
+.btn-secondary:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+/* Gold — main CTA */
+.btn-gold {
+  background: var(--gold); color: var(--ink); border: none;
+  padding: 1rem 2.5rem; border-radius: 2rem;
+  font-weight: 800; font-size: 1rem; cursor: pointer;
+  transition: background .2s, transform .15s;
+  text-decoration: none; display: inline-block; font-family: inherit;
+}
+.btn-gold:hover { background: var(--gold-lt); transform: translateY(-2px); }
+
+/* Outline white — on dark bg */
+.btn-outline {
+  background: transparent; color: var(--white);
+  border: 2px solid rgba(255,255,255,.35);
+  padding: 1rem 2rem; border-radius: 2rem;
+  font-weight: 700; font-size: 1rem; cursor: pointer;
+  transition: border-color .2s;
+  text-decoration: none; display: inline-block; font-family: inherit;
+}
+.btn-outline:hover { border-color: var(--white); }
+
+/* Outline ink — on light bg */
+.btn-outline-ink {
+  background: transparent; color: var(--ink2);
+  border: 2px solid #E0E0E0;
+  padding: .85rem 2rem; border-radius: 2rem;
+  font-weight: 700; font-size: 1rem; cursor: pointer;
+  transition: border-color .2s, color .2s;
+  text-decoration: none; display: inline-block; font-family: inherit;
+}
+.btn-outline-ink:hover { border-color: var(--ink2); color: var(--ink); }
+
+/* Hero teal */
+.btn-hero-teal {
+  background: var(--teal); color: var(--white); border: none;
+  padding: .7rem 1.5rem; border-radius: 2rem;
+  font-weight: 700; font-size: .9rem; cursor: pointer;
+  transition: background .2s, transform .15s;
+  text-decoration: none; display: inline-flex; align-items: center; gap: .45rem;
+  font-family: inherit;
+}
+.btn-hero-teal:hover { background: var(--teal-dk); transform: translateY(-1px); }
+
+/* Hero gold */
+.btn-hero-gold {
+  background: var(--gold); color: var(--ink); border: none;
+  padding: .7rem 1.5rem; border-radius: 2rem;
+  font-weight: 700; font-size: .9rem; cursor: pointer;
+  transition: background .2s, transform .15s;
+  text-decoration: none; display: inline-flex; align-items: center; gap: .45rem;
+  font-family: inherit;
+}
+.btn-hero-gold:hover { background: var(--gold-lt); transform: translateY(-1px); }
+
+/* ── BADGES & TAGS ────────────────────────────────────────── */
+/* Label pill (gold transparent) */
+.hero-label {
+  display: inline-block;
+  background: rgba(201,168,76,.17); border: 1px solid rgba(201,168,76,.35);
+  color: var(--gold); font-size: .78rem; font-weight: 700;
+  letter-spacing: .12em; text-transform: uppercase;
+  padding: .35rem 1rem; border-radius: 2rem; margin-bottom: 1.25rem;
+}
+
+/* Status badges (cards projets) */
+.badge-open { background: var(--teal);  color: var(--white); }
+.badge-full { background: var(--muted); color: var(--white); }
+.badge-soon { background: var(--gold);  color: var(--ink);   }
+.badge-open, .badge-full, .badge-soon {
+  font-size: .72rem; font-weight: 700; letter-spacing: .06em;
+  text-transform: uppercase; padding: .28rem .7rem; border-radius: 1rem;
+}
+
+/* ── SECTION STANDARD ─────────────────────────────────────── */
+.section { padding: 6rem 8vw; }
+
+/* ── CARDS COMMUNES ───────────────────────────────────────── */
+.vp-card {
+  background: var(--white); border-radius: var(--r-xl);
+  padding: 2rem 1.8rem; border: 1px solid rgba(0,0,0,.07);
+  transition: transform .25s, box-shadow .25s;
+}
+.vp-card:hover { transform: translateY(-6px); box-shadow: var(--shadow); }
+.vp-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: .6rem; }
+.vp-card p  { font-size: .92rem; color: var(--muted); line-height: 1.65; }
+
+/* ── PROGRESS BAR ─────────────────────────────────────────── */
+.progress-bar {
+  height: 6px; background: rgba(0,0,0,.07);
+  border-radius: 3px; overflow: hidden;
+}
+.progress-bar-fill {
+  height: 100%; border-radius: 3px;
+  background: linear-gradient(90deg, var(--teal), var(--gold));
+}
+
+/* ── FOOTER ───────────────────────────────────────────────── */
+footer {
+  position: relative;
+  background: var(--ink); color: rgba(255,255,255,.5);
+  padding: 2.5rem 8vw;
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: .83rem;
+}
+footer .logo {
+  font-family: 'MCTen', sans-serif; font-size: 1.8rem;
+  color: rgba(255,255,255,.85); text-decoration: none;
+}
+footer a { color: rgba(255,255,255,.45); text-decoration: none; }
+footer a:hover { color: var(--gold); }
+footer div { display: flex; gap: 1.5rem; }
+
+/* Footer concave arc */
+footer::before {
+  content: ''; position: absolute; top: -1px; left: -3%; width: 106%; height: 14px;
+  background: var(--cream);
+  border-radius: 0 0 50% 50% / 0 0 6px 13px;
+  z-index: 5;
+}
+
+/* ── HALO AMBIANT ─────────────────────────────────────────── */
+#halo {
+  position: fixed; width: 780px; height: 780px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(13,124,110,.34) 0%, rgba(201,168,76,.17) 40%, transparent 70%);
+  filter: blur(72px); pointer-events: none;
+  transform: translate(-50%,-50%); z-index: 2;
+  mix-blend-mode: screen;
+}
+
+/* ── RESPONSIVE ───────────────────────────────────────────── */
+@media (max-width: 640px) {
+  footer { flex-direction: column; gap: 1rem; text-align: center; }
+}
