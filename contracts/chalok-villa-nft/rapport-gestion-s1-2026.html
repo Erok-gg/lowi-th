@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<title>Rapport de Gestion S1 2026 — Chalok Villa · LOWI</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+  :root {
+    --gold:   #C9A84C;
+    --teal:   #0D7C6E;
+    --ink:    #1A1A2E;
+    --ink2:   #2E2E4A;
+    --cream:  #FAF6EE;
+    --white:  #ffffff;
+    --muted:  #6B7280;
+    --border: #E5E7EB;
+    --red:    #DC2626;
+    --green:  #059669;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #f0ece4;
+    color: var(--ink);
+    font-size: 9.5pt;
+    line-height: 1.5;
+  }
+
+  .page {
+    width: 210mm;
+    margin: 10mm auto;
+    background: var(--white);
+    box-shadow: 0 4px 40px rgba(0,0,0,.18);
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--ink2);
+    padding: 18px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .logo {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--gold);
+    letter-spacing: .08em;
+  }
+  .logo span { color: rgba(255,255,255,.35); font-weight: 300; }
+  .header-right { text-align: right; }
+  .header-right .title {
+    font-size: 11pt;
+    font-weight: 700;
+    color: var(--white);
+  }
+  .header-right .sub {
+    font-size: 8pt;
+    color: rgba(255,255,255,.4);
+    margin-top: 2px;
+  }
+
+  /* RAPPORT TITLE */
+  .rapport-title {
+    background: linear-gradient(135deg, var(--teal) 0%, #095448 100%);
+    padding: 16px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .rapport-title h1 {
+    font-size: 13pt;
+    font-weight: 800;
+    color: var(--white);
+  }
+  .rapport-title .period {
+    font-size: 9pt;
+    color: rgba(255,255,255,.65);
+    margin-top: 2px;
+  }
+  .rapport-title .badge {
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 20px;
+    padding: 5px 14px;
+    font-size: 8pt;
+    font-weight: 600;
+    color: rgba(255,255,255,.8);
+  }
+
+  /* BODY */
+  .body { padding: 20px 28px; }
+
+  /* Alert banner */
+  .alert {
+    background: #FEF3C7;
+    border: 1.5px solid #F59E0B;
+    border-radius: 8px;
+    padding: 10px 14px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin-bottom: 16px;
+    font-size: 8.5pt;
+  }
+  .alert .icon { font-size: 14pt; flex-shrink: 0; margin-top: -1px; }
+  .alert p { color: #92400E; line-height: 1.4; }
+  .alert strong { color: #78350F; }
+
+  /* Section title */
+  .st {
+    font-size: 8pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .09em;
+    color: var(--teal);
+    border-bottom: 1.5px solid var(--teal);
+    padding-bottom: 3px;
+    margin: 14px 0 10px;
+  }
+
+  /* KPI row */
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .kpi {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+  }
+  .kpi .val {
+    font-size: 14pt;
+    font-weight: 800;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .kpi .val.green { color: var(--green); }
+  .kpi .val.red   { color: var(--red); }
+  .kpi .val.teal  { color: var(--teal); }
+  .kpi .lbl {
+    font-size: 7pt;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--muted);
+    font-weight: 600;
+    margin-top: 4px;
+  }
+
+  /* Occupancy calendar */
+  .cal-wrap {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 14px;
+  }
+  .cal-title {
+    font-size: 8.5pt;
+    font-weight: 700;
+    color: var(--ink2);
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .cal-title .legend {
+    display: flex;
+    gap: 12px;
+    font-size: 7.5pt;
+    font-weight: 500;
+    color: var(--muted);
+  }
+  .legend-item { display: flex; align-items: center; gap: 4px; }
+  .legend-dot {
+    width: 9px; height: 9px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .dot-occupied { background: var(--teal); }
+  .dot-empty    { background: #E5E7EB; }
+  .dot-season   { background: rgba(201,168,76,.4); border: 1px solid var(--gold); }
+
+  /* Month rows */
+  .months { display: flex; flex-direction: column; gap: 4px; }
+  .month-row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .month-lbl {
+    width: 30px;
+    font-size: 7pt;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+  .days {
+    display: flex;
+    gap: 2px;
+    flex: 1;
+  }
+  .day {
+    flex: 1;
+    height: 12px;
+    border-radius: 2px;
+    min-width: 0;
+  }
+  .d-occ  { background: var(--teal); }
+  .d-free { background: #E5E7EB; }
+  .d-na   { background: transparent; }
+  .month-stat {
+    width: 60px;
+    text-align: right;
+    font-size: 7.5pt;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  .month-stat .pct-occ  { color: var(--teal); }
+  .month-stat .pct-free { color: var(--muted); }
+
+  /* Financial table */
+  table.fin {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 8.5pt;
+    margin-bottom: 14px;
+  }
+  table.fin thead tr { background: var(--ink2); }
+  table.fin thead th {
+    padding: 7px 8px;
+    text-align: left;
+    font-weight: 600;
+    color: rgba(255,255,255,.7);
+    font-size: 7.5pt;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+  }
+  table.fin thead th.right { text-align: right; }
+  table.fin tbody tr:nth-child(even) { background: var(--cream); }
+  table.fin tbody td { padding: 6px 8px; border-bottom: 1px solid var(--border); }
+  table.fin tbody td.right { text-align: right; font-weight: 600; }
+  table.fin tbody td.green { color: var(--green); font-weight: 700; }
+  table.fin tbody td.gold  { color: var(--gold);  font-weight: 700; }
+  table.fin tbody td.muted { color: var(--muted); font-style: italic; }
+  table.fin tfoot td {
+    padding: 7px 8px;
+    font-weight: 700;
+    background: rgba(201,168,76,.1);
+    border-top: 2px solid var(--gold);
+  }
+  table.fin tfoot td.right { text-align: right; }
+
+  /* Distribution box */
+  .dist-box {
+    background: #F0FDF4;
+    border: 1.5px solid #BBF7D0;
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 14px;
+  }
+  .dist-box h3 {
+    font-size: 8.5pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: #065F46;
+    margin-bottom: 8px;
+  }
+  .dist-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0;
+    border-bottom: 1px solid #D1FAE5;
+    font-size: 8.5pt;
+  }
+  .dist-row:last-child { border-bottom: none; }
+  .dist-row .key { color: #065F46; }
+  .dist-row .val { font-weight: 700; color: var(--ink2); }
+  .dist-row .val.highlight { color: var(--teal); font-size: 10pt; }
+  .dist-row .val.gold { color: var(--gold); }
+
+  /* Reserve box */
+  .reserve-box {
+    background: linear-gradient(135deg, #1A1A2E 0%, #2E2E4A 100%);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 14px;
+  }
+  .reserve-box h3 {
+    font-size: 8.5pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  .reserve-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 8.5pt;
+    padding: 4px 0;
+    border-bottom: 1px solid rgba(255,255,255,.07);
+  }
+  .reserve-row:last-child { border-bottom: none; }
+  .reserve-row .key { color: rgba(255,255,255,.5); }
+  .reserve-row .val { font-weight: 700; color: var(--white); }
+  .reserve-row .val.gold { color: var(--gold); }
+
+  /* Comment block */
+  .comment {
+    background: #EFF6FF;
+    border: 1px solid #BFDBFE;
+    border-radius: 8px;
+    padding: 10px 13px;
+    font-size: 8.5pt;
+    color: #1E40AF;
+    margin-bottom: 10px;
+    line-height: 1.5;
+  }
+  .comment strong { font-weight: 700; }
+
+  /* Per-investor table */
+  table.inv {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 8pt;
+    margin-bottom: 14px;
+  }
+  table.inv thead tr { background: #F3F4F6; }
+  table.inv thead th {
+    padding: 6px 8px;
+    text-align: left;
+    font-size: 7pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--muted);
+  }
+  table.inv thead th.right { text-align: right; }
+  table.inv tbody tr:nth-child(even) { background: var(--cream); }
+  table.inv tbody td { padding: 5px 8px; border-bottom: 1px solid var(--border); }
+  table.inv tbody td.right { text-align: right; }
+  table.inv tbody td.teal  { color: var(--teal); font-weight: 700; }
+  table.inv tbody td.gold  { color: var(--gold); font-weight: 600; }
+
+  /* Outlook */
+  .outlook {
+    background: #FEF9EE;
+    border: 1.5px solid rgba(201,168,76,.35);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+  }
+  .outlook h3 {
+    font-size: 8.5pt;
+    font-weight: 700;
+    color: #92400E;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    margin-bottom: 8px;
+  }
+  .outlook ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  .outlook li {
+    font-size: 8.5pt;
+    color: var(--ink2);
+    display: flex;
+    gap: 8px;
+    line-height: 1.4;
+  }
+  .outlook li::before {
+    content: "→";
+    color: var(--gold);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* Signature */
+  .signature {
+    border-top: 1px solid var(--border);
+    padding-top: 12px;
+    margin-bottom: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    font-size: 8pt;
+  }
+  .signature .left { color: var(--muted); }
+  .signature .right { text-align: right; color: var(--muted); }
+  .signature .name { font-weight: 700; color: var(--ink); font-size: 9pt; }
+
+  /* Footer */
+  .footer {
+    background: var(--ink2);
+    padding: 9px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer div { font-size: 7pt; color: rgba(255,255,255,.3); }
+  .footer .mid { color: rgba(255,255,255,.2); }
+  .footer .right { color: var(--gold); font-weight: 600; }
+
+  @media print {
+    body { background: white; }
+    .page { margin: 0; box-shadow: none; width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="logo">LOWI<span> · Rapport de gestion</span></div>
+    <div class="header-right">
+      <div class="title">Chalok Baan Kao Pool Villa</div>
+      <div class="sub">Ko Phangan, Thaïlande · Réf. LOWI-TH-001</div>
+    </div>
+  </div>
+
+  <div class="rapport-title">
+    <div>
+      <h1>Rapport de Gestion — Début de saison 2026</h1>
+      <div class="period">Période couverte : 20 décembre 2025 → 12 mai 2026</div>
+    </div>
+    <div class="badge">Émis le 12 mai 2026</div>
+  </div>
+
+  <div class="body">
+
+    <!-- ALERT -->
+    <div class="alert">
+      <div class="icon">📋</div>
+      <p>Ce rapport couvre la <strong>haute saison 2025-2026</strong> (déc.–avr.) et les premières semaines de basse saison. La villa a été occupée sans interruption du <strong>20 décembre 2025 au 14 avril 2026</strong> (117 nuits), puis est restée vacante depuis le 15 avril. Le prochain rapport complet (T2 2026) sera émis fin juillet 2026.</p>
+    </div>
+
+    <!-- KPI -->
+    <div class="kpi-row">
+      <div class="kpi">
+        <div class="val green">117</div>
+        <div class="lbl">Nuits occupées</div>
+      </div>
+      <div class="kpi">
+        <div class="val red">27</div>
+        <div class="lbl">Nuits vacantes</div>
+      </div>
+      <div class="kpi">
+        <div class="val teal">81,2 %</div>
+        <div class="lbl">Taux occupation</div>
+      </div>
+      <div class="kpi">
+        <div class="val">8 000 THB</div>
+        <div class="lbl">Prix moyen / nuit</div>
+      </div>
+    </div>
+
+    <!-- CALENDRIER -->
+    <div class="cal-wrap">
+      <div class="cal-title">
+        Calendrier d'occupation · Déc. 2025 → Mai 2026
+        <div class="legend">
+          <div class="legend-item"><div class="legend-dot dot-occupied"></div>Occupé</div>
+          <div class="legend-item"><div class="legend-dot dot-empty"></div>Vacant</div>
+        </div>
+      </div>
+      <div class="months">
+
+        <!-- DÉC 2025 : jours 1-19 vides, 20-31 occupés -->
+        <div class="month-row">
+          <div class="month-lbl">Déc 25</div>
+          <div class="days">
+            <!-- j1-19 vides -->
+            <div class="day d-free"></div><div class="day d-free"></div><div class="day d-free"></div>
+            <div class="day d-free"></div><div class="day d-free"></div><div class="day d-free"></div>
+            <div class="day d-free"></div><div class="day d-free"></div><div class="day d-free"></div>
+            <div class="day d-free"></div><div class="day d-free"></div><div class="day d-free"></div>
+            <div class="day d-free"></div><div class="day d-free"></div><div class="day d-free"></div>
+            <div class="day d-free"></div><div class="day d-free"></div><div class="day d-free"></div>
+            <div class="day d-free"></div>
+            <!-- j20-31 occupés -->
+            <div class="day d-occ"></div><div class="day d-occ"></div><div class="day d-occ"></div>
+            <div class="day d-occ"></div><div class="day d-occ"></div><div class="day d-occ"></div>
+            <div class="day d-occ"></div><div class="day d-occ"></div><div class="day d-occ"></div>
+            <div class="day d-occ"></div><div class="day d-occ"></div><div class="day d-occ"></div>
+          </div>
+          <div class="month-stat"><span class="pct-occ">12 nuits</span></div>
+        </div>
+
+        <!-- JAN 2026 : 31j tous occupés -->
+        <div class="month-row">
+          <div class="month-lbl">Jan 26</div>
+          <div class="days">
+            <div class="day d-occ"></div><div class="day d-occ"></div><div class="day d-occ"></div>
+            <div class="day d-occ"></div><div class="day d-occ"></div><div class="day d-occ"></div>
+            <div class="day d-occ"></div><div class="day d-occ"></div><div class="day d-occ"></div>
+            <div class="day d-occ"></div><div class="day d-occ"></div><div class="day d-occ"></div>
+            <div class="day d-occ"></div><div class="day d-occ"></div><div class="day d-occ"></div>
+            <div class="day d-occ"></div><div class="day d-occ"></div><div class="day d-occ"></div>
+            <div class="day d-occ"></div><div class="day d-occ"></div><div class="day d-occ"></div>
+            <div class="day d-occ"></div><div class="day d-occ"></div><div class="day d-occ"></div>
+            <div class="day d-occ"></div><div class="day d-occ"></div><div class="day d-occ"></div>
+            <div class="day d-occ"></div><div class="day d-occ"></div><div class="day d-occ"></div>
+            <div class="day d-occ"></div>
+          </div>
+          <div class="month-stat"><span class="pct-occ">31 nuits</span></div>
+        </div>
+
+        <!-- FÉV 2026 : 28j tous occupés -->
+        <div class="month-row">
+          <div class="month-lbl">Fév 26</div>
+          <div class="days">
+            <div class="day d-occ"></div><div class="day d-occ"></div><div class="day d-occ"></div>
+            <div class="day d-occ"></div><div class="day d-occ"></div><div class="day d-occ"></div>
+            <div class="day d-occ"></div><div class="day d-occ"></div><div class="day d-occ"></div>
+            <div class="day d-occ"></div><div class="day d-occ"></div><div class="day d-occ"></div>
+            <div class="day d-occ"></div><div class="day d-occ"></div><div class="day d-occ"></div>
+            <div class="day d-occ"></div><div class="day d-occ"></div><div class="day d-occ"></div>
+            <div class="day d-occ"></div><div class="day d-occ"></div><div class="day d-occ"></div>
+            <div class="day d-occ"></div><div class="day d-occ"></div><div class="day d-occ"></div>
+            <div class="day d-occ"></div><div class="day d-occ"></div><div class="day d-occ"></div>
+            <div class="day d-occ"></div>
+            <div class="day d-na"></div><div class="day d-na"></div><div class="day d-na"></div>
+          </div>
+          <div class="month-stat"><span class="pct-occ">28 nuits</span></div>
+        </div>
+
+        <!-- MAR 2026 : 31j tous occupés -->
+        <div class="month-row">
+          <div class="month-lbl">Mar 26</div>
+          <div class="days">
+            <div class="day d-occ"></div><div class="day d-occ"></div><div class="day d-occ"></div>
+            <div class="day d-occ"></div><div class="day d-occ"></div><div class="day d-occ"></div>
+            <div class="day d-occ"></div><div class="day d-occ"></div><div class="day d-occ"></div>
+            <div class="day d-occ"></div><div class="day d-occ"></div><div class="day d-occ"></div>
+            <div class="day d-occ"></div><div class="day d-occ"></div><div class="day d-occ"></div>
+            <div class="day d-occ"></div><div class="day d-occ"></div><div class="day d-occ"></div>
+            <div class="day d-occ"></div><div class="day d-occ"></div><div class="day d-occ"></div>
+            <div class="day d-occ"></div><div class="day d-occ"></div><div class="day d-occ"></div>
+            <div class="day d-occ"></div><div class="day d-occ"></div><div class="day d-occ"></div>
+            <div class="day d-occ"></div><div class="day d-occ"></div><div class="day d-occ"></div>
+            <div class="day d-occ"></div>
+          </div>
+          <div class="month-stat"><span class="pct-occ">31 nuits</span></div>
+        </div>
+
+        <!-- AVR 2026 : j1-14 occupés, j15-30 vides -->
+        <div class="month-row">
+          <div class="month-lbl">Avr 26</div>
+          <div class="days">
+            <div class="day d-occ"></div><div class="day d-occ"></div><div class="day d-occ"></div>
+            <div class="day d-occ"></div><div class="day d-occ"></div><div class="day d-occ"></div>
+            <div class="day d-occ"></div><div class="day d-occ"></div><div class="day d-occ"></div>
+            <div class="day d-occ"></div><div class="day d-occ"></div><div class="day d-occ"></div>
+            <div class="day d-occ"></div><div class="day d-occ"></div>
+            <div class="day d-free"></div><div class="day d-free"></div><div class="day d-free"></div>
+            <div class="day d-free"></div><div class="day d-free"></div><div class="day d-free"></div>
+            <div class="day d-free"></div><div class="day d-free"></div><div class="day d-free"></div>
+            <div class="day d-free"></div><div class="day d-free"></div><div class="day d-free"></div>
+            <div class="day d-free"></div><div class="day d-free"></div><div class="day d-free"></div>
+            <div class="day d-free"></div>
+          </div>
+          <div class="month-stat"><span class="pct-occ">14 nuits</span> / <span class="pct-free">16</span></div>
+        </div>
+
+        <!-- MAI 2026 : j1-12 vides (rapport au 12 mai) -->
+        <div class="month-row">
+          <div class="month-lbl">Mai 26</div>
+          <div class="days">
+            <div class="day d-free"></div><div class="day d-free"></div><div class="day d-free"></div>
+            <div class="day d-free"></div><div class="day d-free"></div><div class="day d-free"></div>
+            <div class="day d-free"></div><div class="day d-free"></div><div class="day d-free"></div>
+            <div class="day d-free"></div><div class="day d-free"></div><div class="day d-free"></div>
+            <!-- reste du mois non encore vécu -->
+            <div class="day d-na"></div><div class="day d-na"></div><div class="day d-na"></div>
+            <div class="day d-na"></div><div class="day d-na"></div><div class="day d-na"></div>
+            <div class="day d-na"></div><div class="day d-na"></div><div class="day d-na"></div>
+            <div class="day d-na"></div><div class="day d-na"></div><div class="day d-na"></div>
+            <div class="day d-na"></div><div class="day d-na"></div><div class="day d-na"></div>
+            <div class="day d-na"></div><div class="day d-na"></div><div class="day d-na"></div>
+            <div class="day d-na"></div>
+          </div>
+          <div class="month-stat"><span class="pct-free">12 vacant</span></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- FINANCE -->
+    <div class="st">Compte d'exploitation — Saison 2025-2026</div>
+    <table class="fin">
+      <thead>
+        <tr>
+          <th>Poste</th>
+          <th>Période</th>
+          <th class="right">Montant (THB)</th>
+          <th class="right">Note</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Revenus locatifs bruts</strong></td>
+          <td>20 déc. 25 → 14 avr. 26</td>
+          <td class="right green">936 000</td>
+          <td class="right">117 nuits × 8 000 THB</td>
+        </tr>
+        <tr>
+          <td>Frais de plateforme (Airbnb / Booking)</td>
+          <td>—</td>
+          <td class="right" style="color:var(--red)">−56 160</td>
+          <td class="right muted">6 % des revenus</td>
+        </tr>
+        <tr>
+          <td>Frais de gestion LOWI</td>
+          <td>—</td>
+          <td class="right" style="color:var(--red)">−93 600</td>
+          <td class="right muted">10 % des revenus</td>
+        </tr>
+        <tr>
+          <td>Entretien & ménage (117 check-outs)</td>
+          <td>—</td>
+          <td class="right" style="color:var(--red)">−35 100</td>
+          <td class="right muted">300 THB/nuit</td>
+        </tr>
+        <tr>
+          <td>Électricité + eau (solaire, puits artésien)</td>
+          <td>—</td>
+          <td class="right" style="color:var(--red)">−12 400</td>
+          <td class="right muted">Charges réduites</td>
+        </tr>
+        <tr>
+          <td>Réparations mineures (piscine, clim)</td>
+          <td>Fév. 2026</td>
+          <td class="right" style="color:var(--red)">−8 500</td>
+          <td class="right muted">Pompe piscine</td>
+        </tr>
+        <tr>
+          <td>Assurance bien & responsabilité</td>
+          <td>Annuel prorata</td>
+          <td class="right" style="color:var(--red)">−6 200</td>
+          <td class="right muted">—</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="2"><strong>Revenu net investisseurs (avant algorithme)</strong></td>
+          <td class="right gold">724 040 THB</td>
+          <td class="right">Marge nette 77,4 %</td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <!-- DISTRIBUTION -->
+    <div class="dist-box">
+      <h3>Algorithme de distribution · Application T1 2026 (trimestre plein : jan–mar)</h3>
+      <div class="dist-row">
+        <div class="key">Revenu net T1 2026 (jan + fév + mar)</div>
+        <div class="val">549 240 THB</div>
+      </div>
+      <div class="dist-row">
+        <div class="key">Plafond 8 %/an × 72 parts ÷ 4 trimestres</div>
+        <div class="val">144 000 THB <span style="font-size:7.5pt;color:var(--muted)">(2 000 THB/part)</span></div>
+      </div>
+      <div class="dist-row">
+        <div class="key">✅ Montant distribué T1 2026</div>
+        <div class="val highlight">144 000 THB</div>
+      </div>
+      <div class="dist-row">
+        <div class="key">➕ Excédent → Réserve de performance</div>
+        <div class="val gold">+ 405 240 THB</div>
+      </div>
+    </div>
+
+    <!-- RÉSERVE -->
+    <div class="reserve-box">
+      <h3>📦 Réserve de performance on-chain</h3>
+      <div class="reserve-row">
+        <div class="key">Réserve après T1 2026</div>
+        <div class="val gold">405 240 THB</div>
+      </div>
+      <div class="reserve-row">
+        <div class="key">Quote-part / investisseur (base 1 part)</div>
+        <div class="val">5 628 THB</div>
+      </div>
+      <div class="reserve-row">
+        <div class="key">Prochain vote AGE</div>
+        <div class="val">Janvier 2027 (AGE annuelle)</div>
+      </div>
+      <div class="reserve-row">
+        <div class="key">Sortie finale de réserve</div>
+        <div class="val">Fin de bail 2044 (automatique)</div>
+      </div>
+    </div>
+
+    <!-- PAR INVESTISSEUR -->
+    <div class="st">Distribution T1 2026 par investisseur</div>
+    <table class="inv">
+      <thead>
+        <tr>
+          <th>Investisseur</th>
+          <th class="right">Parts</th>
+          <th class="right">Distribué T1 (THB)</th>
+          <th class="right">Quote-part réserve</th>
+          <th class="right">TRI annualisé</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Sophie Marchand</td>    <td class="right teal">10</td><td class="right">20 000</td><td class="right gold">56 280</td><td class="right">8,0 %</td></tr>
+        <tr><td>Thomas Bergmann</td>    <td class="right teal">8</td> <td class="right">16 000</td><td class="right gold">45 024</td><td class="right">8,0 %</td></tr>
+        <tr><td>Julien Rousseau</td>    <td class="right teal">10</td><td class="right">20 000</td><td class="right gold">56 280</td><td class="right">8,0 %</td></tr>
+        <tr><td>Marco Ferretti</td>     <td class="right teal">5</td> <td class="right">10 000</td><td class="right gold">28 140</td><td class="right">8,0 %</td></tr>
+        <tr><td>Anna Kowalski</td>      <td class="right teal">7</td> <td class="right">14 000</td><td class="right gold">39 396</td><td class="right">8,0 %</td></tr>
+        <tr><td>David Lefebvre</td>     <td class="right teal">8</td> <td class="right">16 000</td><td class="right gold">45 024</td><td class="right">8,0 %</td></tr>
+        <tr><td>Pierre Vandenberg</td>  <td class="right teal">5</td> <td class="right">10 000</td><td class="right gold">28 140</td><td class="right">8,0 %</td></tr>
+        <tr><td>Elena Dubois</td>       <td class="right teal">9</td> <td class="right">18 000</td><td class="right gold">50 652</td><td class="right">8,0 %</td></tr>
+        <tr><td>Romain Petit</td>       <td class="right teal">6</td> <td class="right">12 000</td><td class="right gold">33 768</td><td class="right">8,0 %</td></tr>
+        <tr><td>Nathalie Chen</td>      <td class="right teal">4</td> <td class="right">8 000</td> <td class="right gold">22 512</td><td class="right">8,0 %</td></tr>
+      </tbody>
+    </table>
+
+    <!-- COMMENTAIRE GESTIONNAIRE -->
+    <div class="comment">
+      <strong>Note du gestionnaire :</strong> La saison 2025-2026 a été exceptionnelle avec un taux d'occupation de 100 % en haute saison (jan–mar), porté par une forte demande européenne et un taux de change THB/EUR favorable. Le bien a généré un revenu brut de 936 000 THB sur la seule période occupée. Depuis le 15 avril, la villa est en basse saison — les revenus de mai à novembre seront mécaniquement réduits. L'algorithme de lissage à 8 % a permis de constituer une réserve de 405 240 THB qui protégera les investisseurs lors des prochains trimestres à faible occupation.
+    </div>
+
+    <!-- OUTLOOK -->
+    <div class="outlook">
+      <h3>Perspectives T2–T4 2026</h3>
+      <ul>
+        <li>Basse saison attendue mai–octobre 2026 : taux d'occupation estimé 15–25 %. Le plafond 8 % ne sera pas atteint — la réserve absorbera la différence.</li>
+        <li>Ouverture des réservations haute saison 2026-2027 prévue dès juillet, avec tarifs nuit revalorisés à 8 500 THB (+6,3 %).</li>
+        <li>AGE prévue en janvier 2027 : vote sur le déblocage partiel de la réserve (proposition de 200 000 THB, soit ~49,4 % de la réserve actuelle).</li>
+        <li>Maintenance planifiée en septembre 2026 : ravalement façade, contrôle panneaux solaires — budget provisionnné 45 000 THB.</li>
+      </ul>
+    </div>
+
+    <!-- SIGNATURE -->
+    <div class="signature">
+      <div class="left">
+        <div class="name">Lowi Property Management</div>
+        <div>Gestionnaire mandaté · Chalok Baan Kao Pool Villa</div>
+        <div style="margin-top:3px">contact@lowi.app · lowi.app</div>
+      </div>
+      <div class="right">
+        <div>Rapport établi le 12 mai 2026</div>
+        <div style="margin-top:3px">Prochain rapport : 31 juillet 2026 (T2)</div>
+        <div style="margin-top:6px; font-size:7.5pt; color:var(--muted)">Document à usage exclusif des porteurs de NFT LOWI-TH-001</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div>LOWI · lowi.app · Testnet Demo</div>
+    <div class="mid">LOWI-TH-001 · Rapport S1 2026 · Confidentiel</div>
+    <div class="right">Page 1 / 1</div>
+  </div>
+
+</div>
+</body>
+</html>

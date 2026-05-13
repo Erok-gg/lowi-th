@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8"/>
+<title>Fiche de Bien — Chalok Baan Kao Pool Villa · LOWI</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+  :root {
+    --gold:   #C9A84C;
+    --teal:   #0D7C6E;
+    --ink:    #1A1A2E;
+    --ink2:   #2E2E4A;
+    --cream:  #FAF6EE;
+    --white:  #ffffff;
+    --muted:  #6B7280;
+    --border: #E5E7EB;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #f0ece4;
+    color: var(--ink);
+    font-size: 10pt;
+    line-height: 1.5;
+  }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    margin: 10mm auto;
+    background: var(--white);
+    box-shadow: 0 4px 40px rgba(0,0,0,.18);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    background: var(--ink2);
+    padding: 22px 30px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .logo {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--gold);
+    letter-spacing: .08em;
+  }
+  .logo span { color: rgba(255,255,255,.4); font-weight: 300; }
+  .header-right {
+    text-align: right;
+  }
+  .header-right .ref {
+    font-size: 9pt;
+    color: rgba(255,255,255,.45);
+    letter-spacing: .06em;
+    text-transform: uppercase;
+  }
+  .header-right .date {
+    font-size: 8.5pt;
+    color: rgba(255,255,255,.3);
+    margin-top: 2px;
+  }
+
+  /* ── HERO BAND ── */
+  .hero-band {
+    background: linear-gradient(135deg, var(--teal) 0%, #095448 100%);
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .hero-band h1 {
+    font-size: 17pt;
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1.15;
+  }
+  .hero-band .sub {
+    font-size: 9.5pt;
+    color: rgba(255,255,255,.7);
+    margin-top: 3px;
+  }
+  .price-badge {
+    text-align: right;
+  }
+  .price-badge .thb {
+    font-size: 18pt;
+    font-weight: 800;
+    color: var(--gold);
+  }
+  .price-badge .eur {
+    font-size: 9.5pt;
+    color: rgba(255,255,255,.55);
+    margin-top: 1px;
+  }
+
+  /* ── TAGS ── */
+  .tags {
+    background: var(--ink);
+    padding: 8px 30px;
+    display: flex;
+    gap: 8px;
+  }
+  .tag {
+    font-size: 7.5pt;
+    font-weight: 700;
+    letter-spacing: .07em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 20px;
+  }
+  .tag-bail   { background: rgba(201,168,76,.2);  color: #C9A84C; border: 1px solid rgba(201,168,76,.4); }
+  .tag-open   { background: rgba(13,124,110,.3);  color: #6EE7B7; border: 1px solid rgba(110,231,183,.3); }
+  .tag-nft    { background: rgba(255,255,255,.08); color: rgba(255,255,255,.7); border: 1px solid rgba(255,255,255,.15); }
+
+  /* ── BODY ── */
+  .body { padding: 22px 30px; }
+
+  /* KPI row */
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+  .kpi {
+    background: var(--cream);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 11px 10px;
+    text-align: center;
+  }
+  .kpi .val {
+    font-size: 13pt;
+    font-weight: 800;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .kpi .lbl {
+    font-size: 7pt;
+    text-transform: uppercase;
+    letter-spacing: .07em;
+    color: var(--muted);
+    font-weight: 600;
+    margin-top: 4px;
+  }
+  .kpi.kpi-teal .val { color: var(--teal); }
+
+  /* Two-col layout */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 14px;
+  }
+
+  .section-title {
+    font-size: 8pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .09em;
+    color: var(--teal);
+    border-bottom: 1.5px solid var(--teal);
+    padding-bottom: 4px;
+    margin-bottom: 10px;
+  }
+
+  .dl {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5px 10px;
+  }
+  .dl dt {
+    font-size: 8pt;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  .dl dd {
+    font-size: 8.5pt;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  /* NFT box */
+  .nft-box {
+    background: linear-gradient(135deg, #1A1A2E 0%, #2E2E4A 100%);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 14px;
+  }
+  .nft-box h3 {
+    font-size: 8.5pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .09em;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .nft-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+  .nft-stat { text-align: center; }
+  .nft-stat .v {
+    font-size: 12pt;
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1;
+  }
+  .nft-stat .v em { font-style: normal; font-size: 8pt; color: rgba(255,255,255,.45); }
+  .nft-stat .l {
+    font-size: 7pt;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: rgba(255,255,255,.4);
+    margin-top: 3px;
+  }
+
+  /* Algorithm box */
+  .algo-box {
+    background: #F0FDF4;
+    border: 1.5px solid #BBF7D0;
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 14px;
+  }
+  .algo-box h3 {
+    font-size: 8.5pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    color: #065F46;
+    margin-bottom: 8px;
+  }
+  .algo-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 5px;
+    font-size: 8.5pt;
+  }
+  .algo-row .bullet {
+    width: 16px;
+    height: 16px;
+    background: var(--teal);
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 7pt;
+    font-weight: 700;
+    margin-top: 1px;
+  }
+  .algo-row p { color: #1F2937; line-height: 1.4; }
+  .algo-row strong { color: var(--teal); }
+
+  /* Participants table */
+  table.parts {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 8pt;
+    margin-bottom: 14px;
+  }
+  table.parts thead tr {
+    background: var(--ink2);
+    color: rgba(255,255,255,.7);
+  }
+  table.parts thead th {
+    padding: 6px 8px;
+    text-align: left;
+    font-weight: 600;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    font-size: 7pt;
+  }
+  table.parts tbody tr:nth-child(even) { background: var(--cream); }
+  table.parts tbody td { padding: 6px 8px; border-bottom: 1px solid var(--border); }
+  table.parts .parts-val { font-weight: 700; color: var(--teal); }
+  table.parts .thb-val   { font-weight: 600; color: var(--ink2); }
+  table.parts tfoot td   { padding: 7px 8px; font-weight: 700; background: rgba(201,168,76,.1); border-top: 2px solid var(--gold); }
+
+  /* Disclaimer */
+  .disclaimer {
+    background: #FEF9EE;
+    border: 1px solid rgba(201,168,76,.3);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 7pt;
+    color: var(--muted);
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+
+  /* Footer */
+  .footer {
+    background: var(--ink2);
+    padding: 10px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer .left { font-size: 7.5pt; color: rgba(255,255,255,.35); }
+  .footer .center { font-size: 7.5pt; color: rgba(255,255,255,.25); }
+  .footer .right { font-size: 7.5pt; color: var(--gold); font-weight: 600; }
+
+  @media print {
+    body { background: white; }
+    .page { margin: 0; box-shadow: none; width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="logo">LOWI<span> · Immobilier fractionné</span></div>
+    <div class="header-right">
+      <div class="ref">Réf. LOWI-TH-001 · Testnet Demo</div>
+      <div class="date">Émis le 12 mai 2026 · Document confidentiel</div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero-band">
+    <div>
+      <h1>Chalok Baan Kao Pool Villa</h1>
+      <div class="sub">📍 Ko Phangan, Surat Thani, Thaïlande</div>
+    </div>
+    <div class="price-badge">
+      <div class="thb">12 800 000 THB</div>
+      <div class="eur">≈ 320 000 €</div>
+    </div>
+  </div>
+
+  <!-- TAGS -->
+  <div class="tags">
+    <span class="tag tag-open">● Levée en cours</span>
+    <span class="tag tag-bail">Bail emphytéotique 20 ans</span>
+    <span class="tag tag-nft">NFT Sui · Testnet</span>
+    <span class="tag tag-bail">Distribution trimestrielle THB</span>
+  </div>
+
+  <div class="body">
+
+    <!-- KPI -->
+    <div class="kpi-row">
+      <div class="kpi">
+        <div class="val">11,2 %</div>
+        <div class="lbl">TRI cible</div>
+      </div>
+      <div class="kpi">
+        <div class="val">7,5 %</div>
+        <div class="lbl">Distribution brute</div>
+      </div>
+      <div class="kpi kpi-teal">
+        <div class="val">8,0 %</div>
+        <div class="lbl">Plafond lissage</div>
+      </div>
+      <div class="kpi">
+        <div class="val">20 ans</div>
+        <div class="lbl">Durée bail</div>
+      </div>
+      <div class="kpi">
+        <div class="val">192 m²</div>
+        <div class="lbl">Surface int.</div>
+      </div>
+    </div>
+
+    <!-- TWO COL -->
+    <div class="two-col">
+      <div>
+        <div class="section-title">Caractéristiques du bien</div>
+        <dl class="dl">
+          <dt>Type</dt>           <dd>Villa avec piscine</dd>
+          <dt>Chambres</dt>       <dd>3 suites</dd>
+          <dt>Surface intérieure</dt><dd>192 m²</dd>
+          <dt>Surface construite</dt><dd>264 m²</dd>
+          <dt>Terrain</dt>        <dd>308 m²</dd>
+          <dt>Piscine</dt>        <dd>24 m² — chlore au sel</dd>
+          <dt>Énergie</dt>        <dd>Panneaux solaires + puits artésien</dd>
+          <dt>Année construction</dt><dd>2024</dd>
+          <dt>Gestionnaire</dt>   <dd>Lowi Property Management</dd>
+        </dl>
+      </div>
+      <div>
+        <div class="section-title">Structure juridique</div>
+        <dl class="dl">
+          <dt>Montage</dt>        <dd>Bail emphytéotique (leasehold)</dd>
+          <dt>Durée</dt>          <dd>20 ans · non renouvelable auto.</dd>
+          <dt>Enregistrement</dt> <dd>Land Office thaïlandais</dd>
+          <dt>Contrat</dt>        <dd>Individuel par investisseur</dd>
+          <dt>Distribution</dt>   <dd>Trimestrielle · versement THB</dd>
+          <dt>Fréquence AGE</dt>  <dd>Annuelle · vote on-chain</dd>
+          <dt>Sortie liquidité</dt><dd>Fin de bail ou vote AGE</dd>
+          <dt>Juridiction</dt>    <dd>Droit thaïlandais</dd>
+        </dl>
+      </div>
+    </div>
+
+    <!-- NFT -->
+    <div class="nft-box">
+      <h3>⛓ Structure NFT · Blockchain Sui</h3>
+      <div class="nft-grid">
+        <div class="nft-stat">
+          <div class="v">128 <em>parts</em></div>
+          <div class="l">Offre totale</div>
+        </div>
+        <div class="nft-stat">
+          <div class="v">100 000 <em>THB</em></div>
+          <div class="l">Prix / part</div>
+        </div>
+        <div class="nft-stat">
+          <div class="v">5 <em>parts min.</em></div>
+          <div class="l">Ticket minimum</div>
+        </div>
+        <div class="nft-stat">
+          <div class="v">72 <em>/ 128</em></div>
+          <div class="l">Parts émises</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ALGORITHME -->
+    <div class="algo-box">
+      <h3>Algorithme de distribution · Plafond 8 % / Réserve de performance</h3>
+      <div class="algo-row">
+        <div class="bullet">1</div>
+        <p>Chaque trimestre, le revenu locatif brut est enregistré on-chain. <strong>Le montant distribuable est plafonné à 8 % du capital investi par an</strong> (soit 2 000 THB/part/trimestre), garantissant un rendement stable même en haute saison exceptionnelle.</p>
+      </div>
+      <div class="algo-row">
+        <div class="bullet">2</div>
+        <p>L'excédent au-delà du plafond est crédité à une <strong>réserve de performance</strong> sécurisée on-chain. La réserve protège aussi les investisseurs lors des trimestres à faible occupation (hors-saison).</p>
+      </div>
+      <div class="algo-row">
+        <div class="bullet">3</div>
+        <p><strong>Vote AGE annuel</strong> : les détenteurs votent proportionnellement à leur nombre de parts pour débloquer tout ou partie de la réserve. Majorité simple (>50 % des parts mintées) requise.</p>
+      </div>
+      <div class="algo-row">
+        <div class="bullet">4</div>
+        <p><strong>Sortie en fin de bail (2044)</strong> : intégralité de la réserve distribuée pro-rata automatiquement. Aucune décision supplémentaire requise.</p>
+      </div>
+    </div>
+
+    <!-- PARTICIPANTS -->
+    <div class="section-title">Participants · Levée en cours (72 / 128 parts)</div>
+    <table class="parts">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Investisseur</th>
+          <th>Origine</th>
+          <th>Parts</th>
+          <th>Montant (THB)</th>
+          <th>% du capital</th>
+          <th>Statut NFT</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>01</td><td>Sophie Marchand</td>    <td>Paris, France</td>       <td class="parts-val">10</td><td class="thb-val">1 000 000</td><td>7,8 %</td><td>✓ Émis</td></tr>
+        <tr><td>02</td><td>Thomas Bergmann</td>    <td>Munich, Allemagne</td>   <td class="parts-val">8</td> <td class="thb-val">800 000</td>  <td>6,25 %</td><td>✓ Émis</td></tr>
+        <tr><td>03</td><td>Julien Rousseau</td>    <td>Lyon, France</td>        <td class="parts-val">10</td><td class="thb-val">1 000 000</td><td>7,8 %</td><td>✓ Émis</td></tr>
+        <tr><td>04</td><td>Marco Ferretti</td>     <td>Milan, Italie</td>       <td class="parts-val">5</td> <td class="thb-val">500 000</td>  <td>3,9 %</td><td>✓ Émis</td></tr>
+        <tr><td>05</td><td>Anna Kowalski</td>      <td>Varsovie, Pologne</td>   <td class="parts-val">7</td> <td class="thb-val">700 000</td>  <td>5,47 %</td><td>✓ Émis</td></tr>
+        <tr><td>06</td><td>David Lefebvre</td>     <td>Bruxelles, Belgique</td> <td class="parts-val">8</td> <td class="thb-val">800 000</td>  <td>6,25 %</td><td>✓ Émis</td></tr>
+        <tr><td>07</td><td>Pierre Vandenberg</td>  <td>Amsterdam, Pays-Bas</td> <td class="parts-val">5</td> <td class="thb-val">500 000</td>  <td>3,9 %</td><td>✓ Émis</td></tr>
+        <tr><td>08</td><td>Elena Dubois</td>       <td>Genève, Suisse</td>      <td class="parts-val">9</td> <td class="thb-val">900 000</td>  <td>7,03 %</td><td>✓ Émis</td></tr>
+        <tr><td>09</td><td>Romain Petit</td>       <td>Bordeaux, France</td>    <td class="parts-val">6</td> <td class="thb-val">600 000</td>  <td>4,69 %</td><td>✓ Émis</td></tr>
+        <tr><td>10</td><td>Nathalie Chen</td>      <td>Singapour</td>           <td class="parts-val">4</td> <td class="thb-val">400 000</td>  <td>3,13 %</td><td>✓ Émis</td></tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3"><strong>Total investisseurs : 10</strong></td>
+          <td><strong>72</strong></td>
+          <td><strong>7 200 000 THB</strong></td>
+          <td><strong>56,25 %</strong></td>
+          <td>56 parts libres</td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <!-- DISCLAIMER -->
+    <div class="disclaimer">
+      <strong>Avertissement :</strong> Ce document est une présentation à des fins de démonstration (testnet Sui). Les participants listés sont fictifs. Les performances passées ne préjugent pas des performances futures. L'investissement immobilier fractionné comporte des risques de perte en capital. LOWI n'est pas un conseiller en investissement agréé. Ce document ne constitue pas une offre de souscription. Les rendements sont exprimés avant fiscalité locale applicable.
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="left">LOWI · Immobilier fractionné · lowi.app</div>
+    <div class="center">LOWI-TH-001 · Chalok Baan Kao Pool Villa · Testnet Demo</div>
+    <div class="right">Page 1 / 1</div>
+  </div>
+
+</div>
+</body>
+</html>

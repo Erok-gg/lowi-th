@@ -1899,6 +1899,90 @@
     if (lang !== 'fr') applyLang(lang);
     updateCalc();
   </script>
+
+  <!-- ── SUI BLOCKCHAIN — Parts en temps réel ───────────────────────────── -->
+  <script>
+  (function () {
+    var COLLECTION_ID = '0x43c92af105dd976f7a9ed39a76b3f5e55aa949a8fde6e069fb7c575e22d5a6a4';
+    var TOTAL         = 128;
+    var PRICE         = 100000; // THB par part
+    var CACHE_TTL     = 60000;  // 60 s
+
+    function fmt(n) { return n.toLocaleString('fr-FR'); }
+
+    function applyMinted(minted) {
+      var avail  = TOTAL - minted;
+      var pct    = Math.round(minted / TOTAL * 100);
+      var raised = minted * PRICE;
+      var remain = avail  * PRICE;
+
+      /* ── Barre de progression ── */
+      var fill = document.querySelector('.ic-progress-fill');
+      if (fill) fill.style.width = pct + '%';
+
+      /* ── Labels levée ── */
+      var elRaised = document.getElementById('ic-raised');
+      var elRemain = document.getElementById('ic-remain');
+      if (elRaised) elRaised.textContent = fmt(raised) + ' THB levés';
+      if (elRemain) elRemain.textContent = fmt(remain) + ' THB restants';
+
+      /* ── % financé (badge) ── */
+      var elPct = document.getElementById('ic-badge-pct');
+      if (elPct) elPct.textContent = 'Financé à ' + pct + ' %';
+
+      /* ── Compteurs parts (vendues / disponibles) ── */
+      var ipsVals = document.querySelectorAll('.ic-part-stat .ips-val');
+      if (ipsVals[1]) ipsVals[1].textContent = minted; // vendues
+      if (ipsVals[2]) ipsVals[2].textContent = avail;  // disponibles
+
+      /* ── Stats bar hero ── */
+      var heroAvail = document.querySelector('.stat-item.parts-stat .avail');
+      if (heroAvail) heroAvail.textContent = avail;
+
+      /* ── Calculateur : max dynamique ── */
+      MAX_PARTS = Math.max(MIN_PARTS, avail);
+      var inp = document.getElementById('parts-input');
+      if (inp) {
+        inp.max = MAX_PARTS;
+        if (parseInt(inp.value) > MAX_PARTS) { inp.value = MAX_PARTS; updateCalc(); }
+      }
+      var hint = document.getElementById('calc-hint');
+      if (hint) hint.innerHTML = 'min. ' + MIN_PARTS + ' parts<br>max. ' + avail + ' disponibles';
+    }
+
+    /* ── Cache sessionStorage (évite de taper le RPC à chaque scroll) ── */
+    var cached = sessionStorage.getItem('lowi-chalok-minted');
+    var ts     = sessionStorage.getItem('lowi-chalok-ts');
+    if (cached && ts && (Date.now() - parseInt(ts)) < CACHE_TTL) {
+      applyMinted(parseInt(cached));
+      return;
+    }
+
+    /* ── Appel RPC Sui testnet ── */
+    fetch('https://fullnode.testnet.sui.io', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        jsonrpc: '2.0', id: 1,
+        method:  'sui_getObject',
+        params:  [COLLECTION_ID, { showContent: true }]
+      })
+    })
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      var minted = parseInt(data.result.data.content.fields.minted);
+      if (!isNaN(minted)) {
+        sessionStorage.setItem('lowi-chalok-minted', minted);
+        sessionStorage.setItem('lowi-chalok-ts', Date.now());
+        applyMinted(minted);
+      }
+    })
+    .catch(function (err) {
+      console.warn('[LOWI] Sui RPC inaccessible — valeurs statiques conservées.', err);
+    });
+  })();
+  </script>
+
 <script>
 (function(){var h=document.getElementById('halo');function upd(){var p=Math.min(window.scrollY/(document.body.scrollHeight-window.innerHeight||1),1);h.style.left=(50+28*Math.sin(p*Math.PI*2.5))+'vw';h.style.top=(30+p*50)+'vh';}h.style.transition='none';upd();requestAnimationFrame(function(){h.style.transition='top 1s cubic-bezier(.25,.1,.25,1),left 1s cubic-bezier(.25,.1,.25,1)';});window.addEventListener('scroll',upd,{passive:true});window.addEventListener('resize',upd,{passive:true});})();
 </script>
