@@ -21,10 +21,12 @@ function LoginForm() {
       if (user) {
         if (redirect.startsWith('http')) {
           const dest = new URL(redirect)
-          if (!dest.hostname.includes('lowi-dashboard')) {
+          if (dest.hostname.includes('lowi-dashboard')) {
+            router.replace(dest.pathname + dest.search)
+          } else {
             dest.searchParams.set('lowi_session', '1')
+            window.location.href = dest.toString()
           }
-          window.location.href = dest.toString()
         } else {
           router.replace(redirect)
         }
@@ -50,14 +52,20 @@ function LoginForm() {
       if (error) { setError(error.message); setLoading(false); return }
     }
 
-    // External redirect (back to static site) or internal
+    // External redirect (static site) → window.location with lowi_session flag
+    // Same-domain redirect → router.push (preserves Supabase session in memory)
     if (redirect.startsWith('http')) {
       const dest = new URL(redirect)
-      // Add lowi_session only for the static GitHub Pages site (not the dashboard itself)
-      if (!dest.hostname.includes('lowi-dashboard')) {
+      if (dest.hostname.includes('lowi-dashboard')) {
+        // Same dashboard domain — use client-side navigation to keep session alive
+        const path = dest.pathname + dest.search
+        router.push(path)
+        router.refresh()
+      } else {
+        // External: static GitHub Pages site — signal auth via lowi_session param
         dest.searchParams.set('lowi_session', '1')
+        window.location.href = dest.toString()
       }
-      window.location.href = dest.toString()
     } else {
       router.push(redirect)
       router.refresh()
