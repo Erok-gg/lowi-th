@@ -119,11 +119,7 @@ nav.lowi-nav {
 `;
 
   /* ── HTML ── */
-  const _personIcon = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>`;
-  const _loginBase  = 'https://lowi-dashboard.vercel.app/invest/login';
-  const _back       = encodeURIComponent(window.location.href);
-  const rightSlot = window.__NAV_RIGHT__ || `
-    <a href="${_loginBase}?redirect=${_back}" class="nav-profile-btn">${_personIcon} Mon profil</a>`;
+  const rightSlot = window.__NAV_RIGHT__ || '';
 
   const HTML = `
 <nav class="lowi-nav" id="lowi-nav">
@@ -147,6 +143,16 @@ nav.lowi-nav {
   tmp.innerHTML = HTML.trim();
   const navEl = tmp.firstElementChild;
   document.body.insertBefore(navEl, document.body.firstChild);
+
+  /* ── Inject "Mon profil" button (always, after page-specific slot) ── */
+  const _personIcon = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>`;
+  const _loginBase  = 'https://lowi-dashboard.vercel.app/invest/login';
+  const _back       = encodeURIComponent(window.location.href);
+  const _profileBtn = document.createElement('a');
+  _profileBtn.href  = _loginBase + '?redirect=' + _back;
+  _profileBtn.className = 'nav-profile-btn';
+  _profileBtn.innerHTML = _personIcon + ' Mon profil';
+  navEl.querySelector('.nav-right').appendChild(_profileBtn);
 
   /* ── Active link ── */
   const page = location.pathname.split('/').pop() || 'index.html';
