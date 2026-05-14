@@ -30,7 +30,9 @@ function LoginForm() {
 
     // External redirect (back to static site) or internal
     if (redirect.startsWith('http')) {
-      window.location.href = redirect
+      const dest = new URL(redirect)
+      dest.searchParams.set('lowi_session', '1')
+      window.location.href = dest.toString()
     } else {
       router.push(redirect)
       router.refresh()
