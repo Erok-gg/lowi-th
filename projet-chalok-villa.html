@@ -1781,21 +1781,12 @@
       applyLang(lang);
     }
 
-    /* ── MODAL ───────────────────────────────────────────── */
+    /* ── INVEST REDIRECT ─────────────────────────────────── */
     function openModal() {
-      // Sync modal summary with current calculator values
-      var parts  = parseInt(document.getElementById('parts-input').value) || MIN_PARTS;
-      var total  = parts * PART_PRICE;
-      var distrib = Math.round(total * DISTRIB_RATE);
-      var t = T[lang];
-      document.getElementById('modal-parts-val').textContent   = parts + (lang === 'fr' ? ' parts' : ' shares');
-      document.getElementById('modal-amount-val').textContent  = fmt(total) + ' THB';
-      document.getElementById('reserve-form').style.display    = 'block';
-      document.getElementById('modal-success').style.display   = 'none';
-      document.getElementById('modal-overlay').classList.add('open');
-      document.body.style.overflow = 'hidden';
-      // Focus first input
-      setTimeout(function() { document.getElementById('f-prenom').focus(); }, 120);
+      var parts   = parseInt(document.getElementById('parts-input').value) || MIN_PARTS;
+      var kycUrl  = 'https://lowi-dashboard.vercel.app/invest/kyc?parts=' + parts;
+      var loginUrl = 'https://lowi-dashboard.vercel.app/invest/login?redirect=' + encodeURIComponent(kycUrl);
+      window.location.href = loginUrl;
     }
 
     function closeModal(evt) {
