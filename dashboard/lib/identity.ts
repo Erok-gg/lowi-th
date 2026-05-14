@@ -1,0 +1,38 @@
+// Shared identity type — used by KYC, profile pages, and any future script
+
+export type IdentityData = {
+  first_name:    string
+  last_name:     string
+  maiden_name:   string   // nom d'usage / nom de naissance pour les femmes
+  sex:           'M' | 'F' | 'autre' | ''
+  birth_date:    string   // ISO date string YYYY-MM-DD
+  birth_place:   string
+  birth_country: string
+}
+
+export const EMPTY_IDENTITY: IdentityData = {
+  first_name:    '',
+  last_name:     '',
+  maiden_name:   '',
+  sex:           '',
+  birth_date:    '',
+  birth_place:   '',
+  birth_country: '',
+}
+
+export function identityComplete(data: IdentityData): boolean {
+  return !!(
+    data.first_name &&
+    data.last_name &&
+    data.sex &&
+    data.birth_date &&
+    data.birth_place &&
+    data.birth_country
+  )
+}
+
+export function identityFolderName(data: Pick<IdentityData, 'first_name' | 'last_name'>): string {
+  const fn = data.first_name.trim().toLowerCase().replace(/\s+/g, '-')
+  const ln = data.last_name.trim().toLowerCase().replace(/\s+/g, '-')
+  return `${fn}_${ln}`
+}
