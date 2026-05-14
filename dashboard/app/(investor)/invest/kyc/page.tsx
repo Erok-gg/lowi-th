@@ -1,6 +1,7 @@
 'use client'
-import { useState, useEffect, useRef } from 'react'
-import { useRouter } from 'next/navigation'
+import { useState, useEffect, useRef, Suspense } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { createClient } from '@/lib/supabase/client'
 import IdentityForm, { IdentityFormRef } from '@/components/IdentityForm'
 import { IdentityData, identityComplete } from '@/lib/identity'
 
@@ -14,11 +15,26 @@ function fmt(n: number, currency: string) {
   return new Intl.NumberFormat('fr-FR', { style: 'currency', currency, maximumFractionDigits: 0 }).format(n)
 }
 
-export default function InvestKycPage() {
+function KycForm() {
   const router = useRouter()
+  const searchParams = useSearchParams()
+
+  // Auth guard — redirect to login if not connected
+  useEffect(() => {
+    const supabase = createClient()
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      if (!user) {
+        const here = '/invest/kyc' + (window.location.search || '')
+        router.replace(`/invest/login?redirect=${encodeURIComponent(here)}`)
+      }
+    })
+  }, [router])
+
+  // Pre-fill parts from URL param
+  const partsParam = parseInt(searchParams.get('parts') || '0')
 
   // Step 1 — Parts
-  const [parts, setParts]             = useState(MIN_PARTS)
+  const [parts, setParts]             = useState(partsParam >= MIN_PARTS ? partsParam : MIN_PARTS)
   const [rates, setRates]             = useState<Rates | null>(null)
   const [available, setAvailable]     = useState(TOTAL_PARTS)
   const [partsConfirmed, setPartsConfirmed] = useState(false)
@@ -328,5 +344,13 @@ export default function InvestKycPage() {
         </div>
       )}
     </div>
+  )
+}
+
+export default function InvestKycPage() {
+  return (
+    <Suspense fallback={<div style={{ display:'flex', alignItems:'center', justifyContent:'center', minHeight:'60vh', color:'var(--inv-muted)' }}>Chargement…</div>}>
+      <KycForm />
+    </Suspense>
   )
 }

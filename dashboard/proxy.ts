@@ -43,7 +43,8 @@ export async function proxy(request: NextRequest) {
     }
     // All other investor routes require auth
     if (!user) {
-      return NextResponse.redirect(new URL(`/invest/login?redirect=${encodeURIComponent(pathname)}`, request.url))
+      const fullPath = pathname + (request.nextUrl.search || '')
+      return NextResponse.redirect(new URL(`/invest/login?redirect=${encodeURIComponent(fullPath)}`, request.url))
     }
     return supabaseResponse
   }

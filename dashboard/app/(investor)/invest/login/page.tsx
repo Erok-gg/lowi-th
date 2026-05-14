@@ -31,7 +31,10 @@ function LoginForm() {
     // External redirect (back to static site) or internal
     if (redirect.startsWith('http')) {
       const dest = new URL(redirect)
-      dest.searchParams.set('lowi_session', '1')
+      // Add lowi_session only for the static GitHub Pages site (not the dashboard itself)
+      if (!dest.hostname.includes('lowi-dashboard')) {
+        dest.searchParams.set('lowi_session', '1')
+      }
       window.location.href = dest.toString()
     } else {
       router.push(redirect)
