@@ -972,10 +972,7 @@
 
   <!-- ── NAVBAR ────────────────────────────────────────────── -->
   <script>
-  window.__NAV_RIGHT__ = `
-    <button id="lang-btn" onclick="toggleLang()" class="nav-lang-btn">EN</button>
-    <a href="#invest-cta" class="nav-cta" id="nav-cta-btn">Investir</a>
-  `;
+  /* nav dropdown injected by nav.js */
   </script>
   <script src="nav.js"></script>
 
@@ -1724,7 +1721,7 @@
 
     function applyLang(l) {
       var t = T[l];
-      document.getElementById('lang-btn').textContent = {fr:'EN',en:'TH',th:'FR'}[l];
+      if (window.__updateLangDD__) window.__updateLangDD__(l);
       localStorage.setItem('lowi-lang', l);
       setId('nav-how', t.navHow); setId('nav-about', t.navAbout);
       setId('nav-projects', t.navProjects); setId('nav-propose', t.navPropose);
@@ -1776,10 +1773,7 @@
       updateCalc();
     }
 
-    function toggleLang() {
-      lang = {fr:'en',en:'th',th:'fr'}[lang];
-      applyLang(lang);
-    }
+    window.setLang = function(l) { lang = l; applyLang(l); };
 
     /* ── INVEST REDIRECT ─────────────────────────────────── */
     function openModal() {

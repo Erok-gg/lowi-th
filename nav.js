@@ -109,6 +109,33 @@ nav.lowi-nav {
 .lowi-nav .nav-lang-inline button.on {
   background: var(--gold, #C9A84C); color: var(--ink, #1A1A2E);
 }
+/* Lang dropdown */
+.lowi-nav .nav-lang-dd { position: relative; }
+.lowi-nav .nav-lang-dd-btn {
+  background: transparent; border: 1.5px solid rgba(0,0,0,.18);
+  color: var(--ink2, #2E2E4A); padding: .42rem .85rem;
+  border-radius: 2rem; font-weight: 700; font-size: .82rem;
+  cursor: pointer; letter-spacing: .04em;
+  transition: border-color .2s, background .2s;
+  font-family: inherit; display: inline-flex; align-items: center; gap: 5px;
+}
+.lowi-nav .nav-lang-dd-btn:hover {
+  background: var(--gold, #C9A84C); color: var(--ink, #1A1A2E);
+  border-color: var(--gold, #C9A84C);
+}
+.lowi-nav .nav-lang-dd-menu {
+  display: none; position: absolute; top: calc(100% + 6px); right: 0;
+  background: #fff; border-radius: 10px; list-style: none; margin: 0; padding: 4px;
+  box-shadow: 0 6px 24px rgba(0,0,0,.13); min-width: 112px; z-index: 600;
+  border: 1px solid rgba(0,0,0,.07);
+}
+.lowi-nav .nav-lang-dd-menu.open { display: block; }
+.lowi-nav .nav-lang-dd-menu li {
+  padding: 7px 14px; cursor: pointer; display: flex; align-items: center; gap: 7px;
+  border-radius: 6px; font-size: .82rem; font-weight: 600; color: var(--ink2, #2E2E4A);
+  transition: background .15s; white-space: nowrap;
+}
+.lowi-nav .nav-lang-dd-menu li:hover { background: rgba(201,168,76,.12); }
 /* Responsive */
 @media (max-width: 1024px) {
   .lowi-nav .nav-links { display: none; }
@@ -159,6 +186,63 @@ nav.lowi-nav {
   navEl.querySelectorAll('.nav-links a').forEach(a => {
     if (a.getAttribute('href') === page) a.classList.add('active');
   });
+
+  /* ── Language dropdown (injected on all pages unless __NAV_NO_LANG__ is set) ── */
+  if (!window.__NAV_NO_LANG__) {
+    var _fc   = { fr: 'fr', en: 'gb', th: 'th' };
+    var _lbl  = { fr: 'FR', en: 'ENG', th: 'TH' };
+    var _sl   = localStorage.getItem('lowi-lang') || 'fr';
+    var _ic   = _fc[_sl] || 'fr';
+    var _il   = _lbl[_sl] || 'FR';
+    var _base = 'https://flagcdn.com/20x15/';
+    var _img  = function(code) {
+      return '<img src="' + _base + code + '.png" width="20" height="15" style="border-radius:2px;vertical-align:middle" alt="">';
+    };
+
+    var _ddEl = document.createElement('div');
+    _ddEl.className = 'nav-lang-dd';
+    _ddEl.id = 'lowi-lang-dd';
+    _ddEl.innerHTML =
+      '<button class="nav-lang-dd-btn" id="lowi-lang-btn">' +
+        _img(_ic) + ' <span id="lowi-lang-label">' + _il + '</span> ▾' +
+      '</button>' +
+      '<ul class="nav-lang-dd-menu" id="lowi-lang-menu">' +
+        '<li data-lang="fr">' + _img('fr') + ' FR</li>' +
+        '<li data-lang="en">' + _img('gb') + ' ENG</li>' +
+        '<li data-lang="th">' + _img('th') + ' TH</li>' +
+      '</ul>';
+
+    navEl.querySelector('.nav-right').insertBefore(_ddEl, navEl.querySelector('.nav-right').firstChild);
+
+    document.getElementById('lowi-lang-btn').addEventListener('click', function(e) {
+      e.stopPropagation();
+      document.getElementById('lowi-lang-menu').classList.toggle('open');
+    });
+
+    document.getElementById('lowi-lang-menu').querySelectorAll('li').forEach(function(li) {
+      li.addEventListener('click', function() {
+        var l = li.getAttribute('data-lang');
+        document.getElementById('lowi-lang-menu').classList.remove('open');
+        if (window.setLang) window.setLang(l);
+      });
+    });
+
+    document.addEventListener('click', function() {
+      var m = document.getElementById('lowi-lang-menu');
+      if (m) m.classList.remove('open');
+    });
+
+    window.__updateLangDD__ = function(l) {
+      var btn = document.getElementById('lowi-lang-btn');
+      var lbl = document.getElementById('lowi-lang-label');
+      if (btn) {
+        var code = _fc[l] || 'fr';
+        btn.innerHTML = _img(code) + ' <span id="lowi-lang-label">' + (_lbl[l] || 'FR') + '</span> ▾';
+      } else if (lbl) {
+        lbl.textContent = _lbl[l] || 'FR';
+      }
+    };
+  }
 
   /* ── Image protection : no right-click ── */
   document.addEventListener('contextmenu', function (e) {

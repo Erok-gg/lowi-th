@@ -534,10 +534,7 @@
 
   <!-- ═══════════ NAVBAR ═══════════ -->
   <script>
-  window.__NAV_RIGHT__ = `
-    <button id="lang-btn" onclick="toggleLang()" class="nav-lang-btn">EN</button>
-    <button class="nav-cta" id="nav-cta-btn" onclick="location.href='projets.html'">Commencer &agrave; investir</button>
-  `;
+  /* nav dropdown injected by nav.js */
   </script>
   <script src="nav.js"></script>
 
@@ -806,7 +803,7 @@
         opt.textContent = t(opt.getAttribute('data-i18n'));
       });
       // Lang button
-      document.getElementById('lang-btn').textContent = {fr:'EN',en:'TH',th:'FR'}[currentLang];
+      if (window.__updateLangDD__) window.__updateLangDD__(currentLang);
       localStorage.setItem('lowi-lang', currentLang);
       // html lang attribute
       document.documentElement.lang = currentLang;
@@ -814,10 +811,7 @@
       renderGrid();
     }
 
-    function toggleLang() {
-      currentLang = {fr:'en',en:'th',th:'fr'}[currentLang];
-      applyTranslations();
-    }
+    window.setLang = function(l) { currentLang = l; applyTranslations(); };
 
     /* ══════════════════════════════════════════════════════════
        STATE

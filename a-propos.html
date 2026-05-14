@@ -66,10 +66,7 @@
 <div id="halo"></div>
 
 <script>
-window.__NAV_RIGHT__ = `
-  <button id="lang-btn" onclick="toggleLang()" class="nav-lang-btn">EN</button>
-  <button class="nav-cta" id="nav-cta-btn" onclick="location.href='projets.html'">Commencer &agrave; investir</button>
-`;
+/* nav dropdown injected by nav.js */
 </script>
 <script src="nav.js"></script>
 
@@ -278,13 +275,13 @@ window.__NAV_RIGHT__ = `
     sel('r1lbl').innerHTML = t.r1lbl; sel('r2lbl').innerHTML = t.r2lbl; sel('r3lbl').innerHTML = t.r3lbl; sel('r3val').innerHTML = t.r3val; sel('r4lbl').innerHTML = t.r4lbl;
     sel('cta-title').innerHTML = t.ctaTitle; sel('cta-p').innerHTML = t.ctaP; sel('cta-btn1').innerHTML = t.ctaBtn1; sel('cta-btn2').innerHTML = t.ctaBtn2;
     sel('footer-legal').innerHTML = t.footerLegal; sel('footer-privacy').innerHTML = t.footerPrivacy; sel('footer-contact').innerHTML = t.footerContact;
-    sel('lang-btn').textContent = {fr:'EN',en:'TH',th:'FR'}[l];
+    if (window.__updateLangDD__) window.__updateLangDD__(l);
     localStorage.setItem('lowi-lang', l);
     currentLang = l;
   }
 
   var currentLang = 'fr';
-  window.toggleLang = function() { apply({fr:'en',en:'th',th:'fr'}[currentLang]); };
+  window.setLang = function(l) { apply(l); };
   document.addEventListener('DOMContentLoaded', function() { apply(localStorage.getItem('lowi-lang') || 'fr'); });
 })();
 </script>

@@ -293,33 +293,6 @@
       .carousel-header { flex-direction: column; align-items: flex-start; gap: 1rem; }
     }
 
-    /* ── Language dropdown ── */
-    .nav-lang-dd { position: relative; }
-    .nav-lang-dd-btn {
-      background: transparent; border: 1.5px solid rgba(0,0,0,.18);
-      color: var(--ink2, #2E2E4A); padding: .42rem .95rem;
-      border-radius: 2rem; font-weight: 700; font-size: .82rem;
-      cursor: pointer; letter-spacing: .04em;
-      transition: border-color .2s, background .2s;
-      font-family: inherit; display: inline-flex; align-items: center; gap: 3px;
-    }
-    .nav-lang-dd-btn:hover {
-      background: var(--gold, #C9A84C); color: var(--ink, #1A1A2E);
-      border-color: var(--gold, #C9A84C);
-    }
-    .nav-lang-dd-menu {
-      display: none; position: absolute; top: calc(100% + 6px); right: 0;
-      background: #fff; border-radius: 10px; list-style: none; margin: 0; padding: 4px;
-      box-shadow: 0 6px 24px rgba(0,0,0,.13); min-width: 110px; z-index: 600;
-      border: 1px solid rgba(0,0,0,.07);
-    }
-    .nav-lang-dd-menu.open { display: block; }
-    .nav-lang-dd-menu li {
-      padding: 7px 14px; cursor: pointer; display: flex; align-items: center; gap: 7px;
-      border-radius: 6px; font-size: .82rem; font-weight: 600; color: var(--ink2, #2E2E4A);
-      transition: background .15s;
-    }
-    .nav-lang-dd-menu li:hover { background: rgba(201,168,76,.12); color: var(--ink, #1A1A2E); }
   </style>
 </head>
 <body>
@@ -327,18 +300,7 @@
 
 <!-- ── NAVBAR ─────────────────────────────────────── -->
 <script>
-window.__NAV_RIGHT__ = `
-  <div class="nav-lang-dd" id="lang-dd">
-    <button class="nav-lang-dd-btn" id="lang-btn" onclick="toggleLangDD(event)">
-      <span id="lang-flag">🇫🇷</span>&nbsp;<span id="lang-label">FR</span>&nbsp;▾
-    </button>
-    <ul class="nav-lang-dd-menu" id="lang-dd-menu">
-      <li onclick="setLang('fr')">🇫🇷&nbsp;FR</li>
-      <li onclick="setLang('en')">🇬🇧&nbsp;ENG</li>
-      <li onclick="setLang('th')">🇹🇭&nbsp;TH</li>
-    </ul>
-  </div>
-`;
+/* nav dropdown injected by nav.js */
 </script>
 <script src="nav.js"></script>
 
@@ -904,32 +866,13 @@ var h1 = sel('.hero h1');
     if (footerAs[1]) footerAs[1].innerHTML = t.footerPrivacy;
     if (footerAs[2]) footerAs[2].innerHTML = t.footerContact;
 
-    // Lang dropdown
-    var _flags  = {fr:'🇫🇷', en:'🇬🇧', th:'🇹🇭'};
-    var _labels = {fr:'FR',  en:'ENG', th:'TH'};
-    var flagEl  = sel('#lang-flag');
-    var labelEl = sel('#lang-label');
-    if (flagEl)  flagEl.textContent  = _flags[l];
-    if (labelEl) labelEl.textContent = _labels[l];
+    if (window.__updateLangDD__) window.__updateLangDD__(l);
     localStorage.setItem('lowi-lang', l);
     currentLang = l;
   }
 
   var currentLang = 'fr';
-  window.setLang = function(l) {
-    apply(l);
-    var menu = document.getElementById('lang-dd-menu');
-    if (menu) menu.classList.remove('open');
-  };
-  window.toggleLangDD = function(e) {
-    e.stopPropagation();
-    var menu = document.getElementById('lang-dd-menu');
-    if (menu) menu.classList.toggle('open');
-  };
-  document.addEventListener('click', function() {
-    var menu = document.getElementById('lang-dd-menu');
-    if (menu) menu.classList.remove('open');
-  });
+  window.setLang = function(l) { apply(l); };
   document.addEventListener('DOMContentLoaded', function() { apply(localStorage.getItem('lowi-lang') || 'fr'); });
 })();
 </script>

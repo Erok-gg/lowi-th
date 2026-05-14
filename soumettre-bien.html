@@ -121,10 +121,7 @@
 <div id="halo"></div>
 
 <script>
-window.__NAV_RIGHT__ = `
-  <button id="lang-btn" onclick="toggleLang()" class="nav-lang-btn">EN</button>
-  <button class="nav-cta" id="nav-cta-btn" onclick="location.href='projets.html'">Commencer &agrave; investir</button>
-`;
+/* nav dropdown injected by nav.js */
 </script>
 <script src="nav.js"></script>
 
@@ -376,12 +373,12 @@ Le bien est proposé en structure de bail emphytéotique (leasehold) de 20 ans, 
     sel('footer-legal').innerHTML = t.footerLegal;
     sel('footer-privacy').innerHTML = t.footerPrivacy;
     sel('footer-contact').innerHTML = t.footerContact;
-    sel('lang-btn').textContent = {fr:'EN',en:'TH',th:'FR'}[l];
+    if (window.__updateLangDD__) window.__updateLangDD__(l);
     localStorage.setItem('lowi-lang', l);
     currentLang = l;
   }
 
-  window.toggleLang = function() { apply({fr:'en',en:'th',th:'fr'}[currentLang]); };
+  window.setLang = function(l) { apply(l); };
 
   // Photo upload
   var photos = [];
