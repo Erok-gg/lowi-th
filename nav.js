@@ -66,6 +66,24 @@ nav.lowi-nav {
   background: var(--gold, #C9A84C); color: var(--ink, #1A1A2E);
   border-color: var(--gold, #C9A84C);
 }
+/* Profile button */
+.lowi-nav .nav-profile-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: transparent;
+  border: 1.5px solid rgba(0,0,0,.18);
+  color: var(--ink2, #2E2E4A);
+  padding: .42rem .9rem;
+  border-radius: 2rem;
+  font-weight: 600; font-size: .88rem;
+  cursor: pointer; text-decoration: none;
+  transition: border-color .2s, background .2s;
+  font-family: inherit; white-space: nowrap;
+}
+.lowi-nav .nav-profile-btn:hover {
+  background: rgba(201,168,76,.12);
+  border-color: var(--gold, #C9A84C);
+  color: var(--ink, #1A1A2E);
+}
 /* Pitch-specific badge */
 .lowi-nav .nav-badge {
   font-size: .68rem; letter-spacing: .14em; text-transform: uppercase;
@@ -101,8 +119,11 @@ nav.lowi-nav {
 `;
 
   /* ── HTML ── */
+  const _personIcon = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>`;
+  const _loginBase  = 'https://lowi-dashboard.vercel.app/invest/login';
+  const _back       = encodeURIComponent(window.location.href);
   const rightSlot = window.__NAV_RIGHT__ || `
-    <a href="projets.html" class="nav-cta">Commencer à investir</a>`;
+    <a href="${_loginBase}?redirect=${_back}" class="nav-profile-btn">${_personIcon} Mon profil</a>`;
 
   const HTML = `
 <nav class="lowi-nav" id="lowi-nav">
