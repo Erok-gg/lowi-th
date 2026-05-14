@@ -1,5 +1,5 @@
 'use client'
-import { useState, Suspense } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 
@@ -12,7 +12,29 @@ function LoginForm() {
   const [email, setEmail]       = useState('')
   const [password, setPassword] = useState('')
   const [error, setError]       = useState('')
-  const [loading, setLoading]   = useState(false)
+  const [loading, setLoading]   = useState(true)
+
+  // If already logged in, skip the form and go straight to redirect target
+  useEffect(() => {
+    const supabase = createClient()
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      if (user) {
+        if (redirect.startsWith('http')) {
+          const dest = new URL(redirect)
+          if (!dest.hostname.includes('lowi-dashboard')) {
+            dest.searchParams.set('lowi_session', '1')
+          }
+          window.location.href = dest.toString()
+        } else {
+          router.replace(redirect)
+        }
+      } else {
+        setLoading(false)
+      }
+    })
+  }, [redirect, router])
+
+  if (loading) return <div style={{ textAlign:'center', padding: 40, color:'var(--inv-muted)' }}>⏳ Vérification…</div>
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()

@@ -26,25 +26,13 @@ export async function proxy(request: NextRequest) {
 
   // ── Investor routes ──
   if (pathname.startsWith('/invest/') || pathname.startsWith('/api/invest/')) {
-    // Exchange rate is fully public
+    // Public: exchange rate + login page + KYC UI pages (auth checked client-side)
     if (pathname.startsWith('/api/invest/exchange-rate')) return supabaseResponse
-    // Login page: if already logged in, skip to redirect target
-    if (pathname === '/invest/login') {
-      if (user) {
-        const redirectTo = request.nextUrl.searchParams.get('redirect') ?? '/invest/kyc'
-        if (redirectTo.startsWith('http')) {
-          const dest = new URL(redirectTo)
-          dest.searchParams.set('lowi_session', '1')
-          return NextResponse.redirect(dest.toString())
-        }
-        return NextResponse.redirect(new URL(redirectTo, request.url))
-      }
-      return supabaseResponse
-    }
-    // All other investor routes require auth
-    if (!user) {
-      const fullPath = pathname + (request.nextUrl.search || '')
-      return NextResponse.redirect(new URL(`/invest/login?redirect=${encodeURIComponent(fullPath)}`, request.url))
+    if (pathname === '/invest/login') return supabaseResponse
+    if (pathname === '/invest/kyc') return supabaseResponse
+    // Protect API routes that write data
+    if (pathname.startsWith('/api/invest/') && !user) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
     return supabaseResponse
   }
