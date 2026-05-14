@@ -136,6 +136,26 @@ nav.lowi-nav {
   transition: background .15s; white-space: nowrap;
 }
 .lowi-nav .nav-lang-dd-menu li:hover { background: rgba(201,168,76,.12); }
+/* Profile button — logged-in state */
+.lowi-nav .nav-profile-btn.is-connected {
+  background: rgba(34,197,94,.10);
+  border-color: #22c55e;
+  color: #15803d;
+}
+.lowi-nav .nav-profile-btn.is-connected:hover {
+  background: rgba(34,197,94,.20);
+  border-color: #22c55e;
+}
+.lowi-nav .nav-profile-dot {
+  display: inline-block;
+  width: 9px; height: 9px; border-radius: 50%;
+  background: #22c55e; flex-shrink: 0;
+  animation: lowi-blink 3s step-start infinite;
+}
+@keyframes lowi-blink {
+  0%, 49%  { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
 /* Responsive */
 @media (max-width: 1024px) {
   .lowi-nav .nav-links { display: none; }
@@ -180,6 +200,32 @@ nav.lowi-nav {
   _profileBtn.className = 'nav-profile-btn';
   _profileBtn.innerHTML = _personIcon + ' Mon profil';
   navEl.querySelector('.nav-right').appendChild(_profileBtn);
+
+  /* ── Session detection (lowi_session param + localStorage) ── */
+  (function () {
+    var SESSION_KEY = 'lowi_auth_ts';
+    var SESSION_TTL = 8 * 60 * 60 * 1000; // 8 h
+
+    // Catch ?lowi_session=1 set by dashboard after login
+    var _sp = new URLSearchParams(window.location.search);
+    if (_sp.get('lowi_session') === '1') {
+      localStorage.setItem(SESSION_KEY, Date.now().toString());
+      // Clean URL
+      _sp.delete('lowi_session');
+      var _newSearch = _sp.toString();
+      var _newUrl = window.location.pathname + (_newSearch ? '?' + _newSearch : '') + window.location.hash;
+      history.replaceState(null, '', _newUrl);
+    }
+
+    var _ts = parseInt(localStorage.getItem(SESSION_KEY) || '0');
+    var _connected = _ts > 0 && (Date.now() - _ts) < SESSION_TTL;
+
+    if (_connected) {
+      _profileBtn.classList.add('is-connected');
+      _profileBtn.innerHTML =
+        '<span class="nav-profile-dot"></span> Mon profil';
+    }
+  })();
 
   /* ── Active link ── */
   const page = location.pathname.split('/').pop() || 'index.html';
