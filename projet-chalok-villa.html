@@ -1304,7 +1304,7 @@
             <div class="ic-price-eur">≈ 320 000 €</div>
           </div>
           <div class="ic-status-col">
-            <span class="badge-open" id="ic-badge" onclick="openModal()" style="cursor:pointer" title="Investir maintenant">● Ouvert</span>
+            <a class="badge-open" id="ic-badge" href="https://lowi-dashboard.vercel.app/invest/login?redirect=https%3A%2F%2Flowi-dashboard.vercel.app%2Finvest%2Fkyc%3Fparts%3D5" style="cursor:pointer;text-decoration:none" title="Investir maintenant">● Ouvert</a>
             <span class="ic-pct" id="ic-pct-txt">56 % financé</span>
           </div>
         </div>
@@ -1380,7 +1380,7 @@
 
         <!-- CTAs -->
         <div class="ic-ctas">
-          <button class="btn-primary-invest" id="btn-invest" onclick="openModal()">Réserver mes parts →</button>
+          <a class="btn-primary-invest" id="btn-invest" href="https://lowi-dashboard.vercel.app/invest/login?redirect=https%3A%2F%2Flowi-dashboard.vercel.app%2Finvest%2Fkyc%3Fparts%3D5" style="text-decoration:none;display:block;text-align:center">Réserver mes parts →</a>
           <button class="btn-secondary-dl" id="btn-dl">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             Télécharger la fiche projet
@@ -1478,7 +1478,7 @@
       <div class="sci-name">Chalok Baan Kao Pool Villa</div>
       <div class="sci-sub" id="sticky-sub">TRI 11,2% · 7,5%/an · 500k THB min.</div>
     </div>
-    <button class="sticky-cta-btn" id="sticky-btn" onclick="openModal()">Réserver →</button>
+    <a class="sticky-cta-btn" id="sticky-btn" href="https://lowi-dashboard.vercel.app/invest/login?redirect=https%3A%2F%2Flowi-dashboard.vercel.app%2Finvest%2Fkyc%3Fparts%3D5" style="text-decoration:none">Réserver →</a>
   </div>
 
   <script>
@@ -1553,6 +1553,16 @@
       document.getElementById('cr-invest-eur').textContent = '≈ ' + fmt(Math.round(total / EUR_RATE)) + ' €';
       document.getElementById('cr-distrib').textContent    = fmt(Math.round(distrib)) + ' THB';
       document.getElementById('cr-distrib-mo').textContent = '≈ ' + fmt(Math.round(distrib / 12)) + ' THB/mois';
+
+      // Update invest button hrefs with current parts count
+      var kycUrl   = 'https://lowi-dashboard.vercel.app/invest/kyc?parts=' + p;
+      var loginUrl = 'https://lowi-dashboard.vercel.app/invest/login?redirect=' + encodeURIComponent(kycUrl);
+      var btnInvest = document.getElementById('btn-invest');
+      var stickyBtn = document.getElementById('sticky-btn');
+      var icBadge   = document.getElementById('ic-badge');
+      if (btnInvest)  btnInvest.href  = loginUrl;
+      if (stickyBtn)  stickyBtn.href  = loginUrl;
+      if (icBadge)    icBadge.href    = loginUrl;
     }
 
     /* ── TRANSLATIONS ────────────────────────────────────── */

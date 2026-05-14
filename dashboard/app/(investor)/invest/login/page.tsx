@@ -60,7 +60,6 @@ function LoginForm() {
         // Same dashboard domain — use client-side navigation to keep session alive
         const path = dest.pathname + dest.search
         router.push(path)
-        router.refresh()
       } else {
         // External: static GitHub Pages site — signal auth via lowi_session param
         dest.searchParams.set('lowi_session', '1')
@@ -68,7 +67,6 @@ function LoginForm() {
       }
     } else {
       router.push(redirect)
-      router.refresh()
     }
   }
 
