@@ -1,0 +1,52 @@
+/* À propos page — styles from a-propos.html <style> block */
+.page-hero { padding: 10rem 8vw 5rem; background: var(--cream); border-bottom: 1px solid rgba(0,0,0,.07); }
+.page-hero .label { font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); margin-bottom: .75rem; }
+.page-hero h1 { font-size: clamp(2.2rem, 4vw, 3.4rem); font-weight: 800; color: var(--ink); line-height: 1.1; letter-spacing: -.03em; max-width: 700px; margin-bottom: 1.2rem; }
+.page-hero p { font-size: 1.1rem; color: var(--muted); max-width: 620px; line-height: 1.7; }
+
+.what-section { padding: 6rem 8vw; background: var(--white); }
+.what-section .section-sub { margin-bottom: 3rem; }
+.vp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem; }
+.vp-card { background: var(--cream); }
+.vp-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: .6rem; display: flex; align-items: center; gap: .5rem; }
+.vp-card p { font-size: .92rem; color: var(--muted); line-height: 1.65; }
+.title-icon { font-size: 1.25rem; flex-shrink: 0; line-height: 1; }
+
+.structure-section { padding: 6rem 8vw; background: var(--ink); }
+.structure-section .section-label { color: var(--gold-lt); }
+.structure-section .section-title { color: var(--white); }
+.structure-section .section-sub { color: rgba(255,255,255,.6); }
+.pillars { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3rem; }
+.pillar { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: var(--r-xl); padding: 2rem; }
+.pillar h3 { font-size: 1.1rem; font-weight: 700; color: var(--white); margin-bottom: .6rem; display: flex; align-items: center; gap: .5rem; }
+.pillar p { font-size: .92rem; color: rgba(255,255,255,.55); line-height: 1.65; }
+
+.skin-section { padding: 5rem 8vw; background: var(--cream); display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+.skin-section .badge {
+  display: inline-flex; align-items: center; gap: .5rem;
+  background: rgba(201,168,76,.17); border: 1px solid rgba(201,168,76,.35);
+  color: var(--gold); font-size: .78rem; font-weight: 700; letter-spacing: .08em;
+  text-transform: uppercase; padding: .35rem .9rem; border-radius: 2rem; margin-bottom: 1.2rem;
+}
+.skin-section h2 { font-size: clamp(1.6rem, 2.5vw, 2.2rem); font-weight: 800; letter-spacing: -.03em; line-height: 1.2; margin-bottom: 1rem; }
+.skin-section p { font-size: 1rem; color: var(--muted); line-height: 1.75; }
+.skin-visual { background: var(--white); border-radius: var(--r-xl); padding: 2rem; box-shadow: var(--shadow); }
+.skin-row { display: flex; justify-content: space-between; align-items: center; padding: .9rem 0; border-bottom: 1px solid rgba(0,0,0,.06); }
+.skin-row:last-child { border-bottom: none; }
+.skin-row .lbl { font-size: .88rem; color: var(--muted); }
+.skin-row .val { font-size: .95rem; font-weight: 700; color: var(--ink); }
+.skin-row .val.gold { color: var(--gold); }
+
+.page-cta { padding: 6rem 8vw; background: var(--teal-dk); text-align: center; }
+.page-cta h2 { font-size: clamp(1.8rem, 3vw, 2.6rem); font-weight: 800; color: var(--white); letter-spacing: -.03em; margin-bottom: 1rem; }
+.page-cta p { font-size: 1.05rem; color: rgba(255,255,255,.65); margin-bottom: 2rem; }
+.page-cta .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+@media (max-width: 1024px) {
+  .vp-grid { grid-template-columns: 1fr 1fr; }
+  .pillars { grid-template-columns: 1fr; }
+  .skin-section { grid-template-columns: 1fr; }
+}
+@media (max-width: 640px) {
+  .vp-grid { grid-template-columns: 1fr; }
+}
