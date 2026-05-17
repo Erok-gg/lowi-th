@@ -102,7 +102,7 @@ export default function LowiNav() {
 
         {/* Profile button */}
         <Link
-          href={`/invest/login?redirect=${encodeURIComponent(pathname)}`}
+          href={connected ? '/profile' : `/invest/login?redirect=${encodeURIComponent(pathname)}`}
           className={`nav-profile-btn${connected ? ' is-connected' : ''}`}
         >
           {connected

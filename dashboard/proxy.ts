@@ -38,6 +38,17 @@ export async function proxy(request: NextRequest) {
     return supabaseResponse
   }
 
+  // ── Investor profile ──
+  if (pathname === '/profile' || pathname.startsWith('/api/profile')) {
+    if (!user) {
+      if (pathname.startsWith('/api/')) {
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+      }
+      return NextResponse.redirect(new URL('/invest/login?redirect=/profile', request.url))
+    }
+    return supabaseResponse
+  }
+
   // ── Vitrine publique ──
   const isVitrinePublic =
     pathname === '/' ||
