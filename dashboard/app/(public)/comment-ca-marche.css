@@ -1,0 +1,135 @@
+.ccm-hero {
+  padding: 10rem 8vw 5rem;
+  background: var(--ink);
+  position: relative;
+  overflow: hidden;
+}
+
+.ccm-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 90% at 60% 110%, rgba(13,124,110,.22) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.ccm-hero .label {
+  position: relative;
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--gold-lt);
+  margin-bottom: .75rem;
+}
+
+.ccm-hero h1 {
+  position: relative;
+  font-size: clamp(2.2rem, 4vw, 3.4rem);
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1.1;
+  letter-spacing: -.03em;
+  max-width: 640px;
+}
+
+/* STEPS */
+.steps-section {
+  padding: 6rem 8vw;
+  background: var(--cream);
+}
+
+.steps-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 3rem;
+  counter-reset: step-counter;
+}
+
+.step-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3.5rem;
+  padding: 2.5rem 0;
+  border-bottom: 1px solid rgba(0,0,0,.08);
+  align-items: start;
+  counter-increment: step-counter;
+}
+
+.step-row:last-child { border-bottom: none; }
+
+.step-left h3 {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: .6rem;
+  letter-spacing: -.02em;
+  color: var(--ink);
+}
+
+.step-left h3::before {
+  content: '#' counter(step-counter) ' \2014\0020';
+  color: var(--gold);
+  font-weight: 800;
+}
+
+.step-left p {
+  font-size: 1rem;
+  color: var(--muted);
+  line-height: 1.75;
+}
+
+.step-right {
+  display: flex;
+  align-items: flex-start;
+  padding-top: .25rem;
+}
+
+.step-detail {
+  background: var(--white);
+  border-radius: var(--r-lg);
+  padding: 1.2rem 1.4rem;
+  border-left: 3px solid var(--gold);
+  font-size: .9rem;
+  color: var(--ink2);
+  line-height: 1.65;
+  width: 100%;
+}
+
+/* CTA */
+.ccm-cta {
+  padding: 6rem 8vw;
+  background: var(--teal-dk);
+  text-align: center;
+}
+
+.ccm-cta h2 {
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 800;
+  color: var(--white);
+  letter-spacing: -.03em;
+  margin-bottom: 1rem;
+}
+
+.ccm-cta p {
+  font-size: 1.05rem;
+  color: rgba(255,255,255,.65);
+  margin-bottom: 2rem;
+}
+
+.ccm-cta-btns {
+  display: flex;
+  gap: .75rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 900px) {
+  .step-row { grid-template-columns: 1fr; gap: 1rem; }
+}
+
+@media (max-width: 640px) {
+  .ccm-hero { padding: 8rem 5vw 3.5rem; }
+  .steps-section { padding: 4rem 5vw; }
+  .ccm-cta { padding: 4rem 5vw; }
+}

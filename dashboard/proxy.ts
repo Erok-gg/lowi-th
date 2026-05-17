@@ -30,12 +30,22 @@ export async function proxy(request: NextRequest) {
     if (pathname.startsWith('/api/invest/exchange-rate')) return supabaseResponse
     if (pathname === '/invest/login') return supabaseResponse
     if (pathname === '/invest/kyc') return supabaseResponse
+    if (pathname === '/invest/documents') return supabaseResponse
     // Protect API routes that write data
     if (pathname.startsWith('/api/invest/') && !user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
     return supabaseResponse
   }
+
+  // ── Vitrine publique ──
+  const isVitrinePublic =
+    pathname === '/' ||
+    pathname.startsWith('/a-propos') ||
+    pathname.startsWith('/comment-ca-marche') ||
+    pathname.startsWith('/projets')
+
+  if (isVitrinePublic) return supabaseResponse
 
   // ── Admin routes ──
   const isPublic = pathname.startsWith('/login') ||
@@ -44,6 +54,10 @@ export async function proxy(request: NextRequest) {
                    pathname.startsWith('/api/setup')
 
   if (!user && !isPublic) {
+    // Don't redirect API calls — return 401 JSON so fetch() handles it gracefully
+    if (pathname.startsWith('/api/')) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
     return NextResponse.redirect(new URL('/login', request.url))
   }
 
