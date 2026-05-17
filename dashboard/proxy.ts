@@ -38,7 +38,19 @@ export async function proxy(request: NextRequest) {
     return supabaseResponse
   }
 
-  // ── Investor profile ──
+  // ── Investor pages (profile + properties) ──
+  if (pathname.startsWith('/properties') || pathname.startsWith('/api/properties')) {
+    if (!user) {
+      if (pathname.startsWith('/api/')) {
+        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+      }
+      const dest = new URL('/invest/login', request.url)
+      dest.searchParams.set('redirect', pathname)
+      return NextResponse.redirect(dest)
+    }
+    return supabaseResponse
+  }
+
   if (pathname === '/profile' || pathname.startsWith('/api/profile')) {
     if (!user) {
       if (pathname.startsWith('/api/')) {
