@@ -3,30 +3,13 @@ import { randomUUID } from 'crypto'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { enforceRateLimit, RATE_LIMITS } from '@/lib/rate-limit'
+import { detectDocOrImageMime } from '@/lib/mime-detect'
 
 const MAX_SIZE      = 25 * 1024 * 1024    // 25 Mo
 const BUCKET        = 'property-kyb'
 const SIGNED_TTL    = 3600                // 1h
 const DOC_TYPES     = ['passport', 'title_deed', 'company_dbd', 'director_nomination'] as const
 type DocType        = typeof DOC_TYPES[number]
-
-// Validation magic bytes : PDF / JPEG / PNG
-function detectMime(buf: Buffer): { mime: string; ext: string } | null {
-  if (buf.length < 8) return null
-  // PDF : %PDF
-  if (buf[0] === 0x25 && buf[1] === 0x50 && buf[2] === 0x44 && buf[3] === 0x46) {
-    return { mime: 'application/pdf', ext: 'pdf' }
-  }
-  // JPEG : FF D8 FF
-  if (buf[0] === 0xFF && buf[1] === 0xD8 && buf[2] === 0xFF) {
-    return { mime: 'image/jpeg', ext: 'jpg' }
-  }
-  // PNG : 89 50 4E 47
-  if (buf[0] === 0x89 && buf[1] === 0x50 && buf[2] === 0x4E && buf[3] === 0x47) {
-    return { mime: 'image/png', ext: 'png' }
-  }
-  return null
-}
 
 // GET /api/properties/[id]/kyb — liste docs + URLs signées
 export async function GET(
@@ -106,8 +89,9 @@ export async function POST(
   }
 
   const buffer  = Buffer.from(await file.arrayBuffer())
-  const detected = detectMime(buffer)
-  if (!detected) {
+  const detected = detectDocOrImageMime(buffer)
+  // KYB : restreint à PDF / JPEG / PNG (pas de WebP/HEIC pour cohérence compliance)
+  if (!detected || !['application/pdf', 'image/jpeg', 'image/png'].includes(detected.mime)) {
     return NextResponse.json({ error: 'Format invalide. PDF, JPEG ou PNG uniquement.' }, { status: 400 })
   }
 

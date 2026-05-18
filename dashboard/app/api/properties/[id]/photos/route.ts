@@ -4,31 +4,11 @@ import sharp from 'sharp'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { enforceRateLimit, RATE_LIMITS } from '@/lib/rate-limit'
+import { detectImageMime } from '@/lib/mime-detect'
 
 const MAX_SIZE    = 10 * 1024 * 1024  // 10 Mo
 const MAX_PHOTOS  = 20
 const BUCKET      = 'property-photos'
-
-// Validation magic bytes (sans dépendance externe)
-function detectImageMime(buf: Buffer): string | null {
-  if (buf.length < 12) return null
-  // JPEG: FF D8 FF
-  if (buf[0] === 0xFF && buf[1] === 0xD8 && buf[2] === 0xFF) return 'image/jpeg'
-  // PNG: 89 50 4E 47 0D 0A 1A 0A
-  if (buf[0] === 0x89 && buf[1] === 0x50 && buf[2] === 0x4E && buf[3] === 0x47) return 'image/png'
-  // WebP: RIFF????WEBP
-  if (
-    buf[0] === 0x52 && buf[1] === 0x49 && buf[2] === 0x46 && buf[3] === 0x46 &&
-    buf[8] === 0x57 && buf[9] === 0x45 && buf[10] === 0x42 && buf[11] === 0x50
-  ) return 'image/webp'
-  // HEIC/HEIF: ftyp box
-  if (buf.toString('ascii', 4, 8) === 'ftyp') {
-    const brand = buf.toString('ascii', 8, 12)
-    const heicBrands = ['heic', 'heix', 'hevc', 'hevx', 'heim', 'heis', 'hevm', 'hevs', 'mif1', 'msf1']
-    if (heicBrands.includes(brand)) return 'image/heic'
-  }
-  return null
-}
 
 // POST /api/properties/[id]/photos — upload + re-encode webp + strip EXIF
 export async function POST(
@@ -80,8 +60,8 @@ export async function POST(
   const rawBuffer = Buffer.from(await file.arrayBuffer())
 
   // Validation MIME via magic bytes
-  const mime = detectImageMime(rawBuffer)
-  if (!mime) {
+  const detected = detectImageMime(rawBuffer)
+  if (!detected) {
     return NextResponse.json({ error: 'Format invalide. JPEG, PNG, WebP ou HEIC acceptés.' }, { status: 400 })
   }
 

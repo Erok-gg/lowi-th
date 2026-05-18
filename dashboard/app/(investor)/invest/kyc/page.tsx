@@ -333,9 +333,9 @@ function KycForm() {
           <button
             className="inv-btn inv-btn-gold"
             style={{ width: '100%', padding: 14, fontSize: 15 }}
-            onClick={() => router.push('/kyc')}
+            onClick={() => router.push('/invest/documents')}
           >
-            Accéder à l&apos;upload des documents →
+            Uploader mes documents KYC →
           </button>
 
           <div style={{ marginTop: 12, textAlign: 'center', fontSize: 12, color: 'var(--inv-muted)' }}>

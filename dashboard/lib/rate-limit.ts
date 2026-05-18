@@ -119,5 +119,6 @@ export const RATE_LIMITS = {
   PHOTOS_POST:      { max: 20,  windowMs: 3600_000 },      // 20/user/heure
   KYB_UPLOAD:       { max: 20,  windowMs: 3600_000 },      // 20/user/heure
   PROFILE_PATCH:    { max: 30,  windowMs: 3600_000 },      // 30/user/heure
+  ADMIN_ACTION:     { max: 120, windowMs: 3600_000 },      // 120/admin/heure (review/transition/approve)
   DEFAULT_POST_IP:  { max: 60,  windowMs: 60_000 },        // 60/IP/min
 } as const

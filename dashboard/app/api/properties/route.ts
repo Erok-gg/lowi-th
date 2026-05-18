@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { enforceRateLimit, RATE_LIMITS } from '@/lib/rate-limit'
 
-const PROPERTY_TYPES = ['villa', 'condo', 'hotel', 'land', 'other']
+const PROPERTY_TYPES = ['villa', 'condo', 'hotel', 'land', 'bungalow', 'eco-resort', 'co-living', 'boutique-hotel', 'other']
 
 function sanitize(val: unknown, max: number): string | null {
   if (typeof val !== 'string') return null

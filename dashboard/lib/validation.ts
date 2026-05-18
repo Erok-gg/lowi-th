@@ -37,7 +37,7 @@ export const propertyCreateSchema = z.object({
   description:         z.string().trim().max(2000).nullable().optional(),
   location_city:       z.string().trim().max(100).nullable().optional(),
   location_country:    z.string().trim().max(50).nullable().optional(),
-  property_type:       z.enum(['villa', 'condo', 'hotel', 'land', 'other']).nullable().optional(),
+  property_type:       z.enum(['villa', 'condo', 'hotel', 'land', 'bungalow', 'eco-resort', 'co-living', 'boutique-hotel', 'other']).nullable().optional(),
   estimated_value_thb: z.number().int().positive().nullable().optional(),
   surface_sqm:         z.number().int().positive().nullable().optional(),
   bedrooms:            z.number().int().nonnegative().nullable().optional(),

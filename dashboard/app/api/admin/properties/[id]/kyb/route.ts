@@ -1,19 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
+import { assertSuperadmin } from '@/lib/admin-auth'
+import { enforceRateLimit, RATE_LIMITS } from '@/lib/rate-limit'
 
 const BUCKET     = 'property-kyb'
 const SIGNED_TTL = 3600
 const DECISIONS  = ['approved', 'rejected'] as const
-
-async function assertSuperadmin() {
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
-  if (!user) return { user: null, status: 401, msg: 'Unauthorized' } as const
-  const { data: p } = await supabase.from('profiles').select('is_superadmin').eq('id', user.id).single()
-  if (!p?.is_superadmin) return { user: null, status: 403, msg: 'Forbidden' } as const
-  return { user, status: 200, msg: null } as const
-}
 
 // GET /api/admin/properties/[id]/kyb — liste docs + signed URLs pour review
 export async function GET(
@@ -68,6 +60,9 @@ export async function POST(
   const { id } = await params
   const { user, status, msg } = await assertSuperadmin()
   if (!user) return NextResponse.json({ error: msg }, { status })
+
+  const tooMany = enforceRateLimit(req, { scope: 'admin_kyb_review', key: user.id, ...RATE_LIMITS.ADMIN_ACTION })
+  if (tooMany) return tooMany
 
   let body: Record<string, unknown>
   try { body = await req.json() } catch { return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 }) }

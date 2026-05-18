@@ -1,15 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
-
-async function assertSuperadmin() {
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
-  if (!user) return { user: null, status: 401, msg: 'Unauthorized' } as const
-  const { data: p } = await supabase.from('profiles').select('is_superadmin').eq('id', user.id).single()
-  if (!p?.is_superadmin) return { user: null, status: 403, msg: 'Forbidden' } as const
-  return { user, status: 200, msg: null } as const
-}
+import { assertSuperadmin } from '@/lib/admin-auth'
 
 // GET /api/admin/properties?status=lead
 export async function GET(req: NextRequest) {

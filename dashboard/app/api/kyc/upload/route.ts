@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { ensureUserFolder, uploadFileToDrive } from '@/lib/google-drive'
+import { detectDocOrImageMime } from '@/lib/mime-detect'
 
 const ALLOWED_TYPES = ['id_front', 'id_back', 'address_proof', 'selfie', 'fund_origin']
 const MAX_SIZE = 10 * 1024 * 1024 // 10MB
@@ -60,15 +61,20 @@ export async function POST(req: NextRequest) {
     folderId = await ensureUserFolder(profile.public_id)
   }
 
-  // Upload to Drive
-  const buffer   = Buffer.from(await file.arrayBuffer())
-  const ext      = file.name.split('.').pop() ?? 'bin'
-  const fileName = `${documentType}.${ext}`
+  // Lecture buffer + validation magic bytes (refuse file.type non vérifié du client)
+  const buffer = Buffer.from(await file.arrayBuffer())
+  const detected = detectDocOrImageMime(buffer)
+  if (!detected) {
+    return NextResponse.json({ error: 'Format invalide. PDF, JPEG, PNG, WebP ou HEIC acceptés.' }, { status: 400 })
+  }
+
+  // Nom serveur : on remplace l'extension cliente par celle dérivée du magic byte
+  const fileName = `${documentType}.${detected.ext}`
 
   const { id: driveFileId, url: driveFileUrl } = await uploadFileToDrive(
     folderId,
     fileName,
-    file.type || 'application/octet-stream',
+    detected.mime,
     buffer
   )
 

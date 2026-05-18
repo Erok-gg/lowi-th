@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main, feat/**]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./dashboard
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: dashboard/package-lock.json
+
+      - run: npm ci
+
+      - name: TypeScript check
+        run: npx tsc --noEmit
+
+      - name: ESLint
+        run: npm run lint
+
+      - name: Build
+        run: npm run build
+        env:
+          # Valeurs factices uniquement pour passer le build (pages /api/* / pages SSR
+          # n'exécutent pas leur logique au build, juste collect des routes).
+          NEXT_PUBLIC_SUPABASE_URL: https://example.supabase.co
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: dummy-anon-key
+          SUPABASE_SERVICE_ROLE_KEY: dummy-service-role
+          SETUP_SECRET: dummy
+          SUPERADMIN_EMAIL: ci@example.com
+          SUPERADMIN_PASSWORD: dummy
+          GOOGLE_SERVICE_ACCOUNT_B64: dummy
+          GOOGLE_DRIVE_KYC_FOLDER_ID: dummy

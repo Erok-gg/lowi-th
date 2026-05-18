@@ -1,5 +1,5 @@
 'use client'
-import { createContext, useContext, useState, useEffect } from 'react'
+import { createContext, useContext, useState } from 'react'
 
 export type Lang = 'fr' | 'en' | 'th'
 
@@ -10,17 +10,20 @@ interface LangContextValue {
 
 const LangContext = createContext<LangContextValue>({ lang: 'fr', setLang: () => {} })
 
-export function LangProvider({ children }: { children: React.ReactNode }) {
-  const [lang, setLangState] = useState<Lang>('fr')
+// Lazy initial state : lit localStorage uniquement au montage côté client.
+// Pattern recommandé React 19 — évite useEffect + setState (anti-pattern).
+function readStoredLang(): Lang {
+  if (typeof window === 'undefined') return 'fr'
+  const stored = window.localStorage.getItem('lowi-lang')
+  return stored === 'en' || stored === 'th' ? stored : 'fr'
+}
 
-  useEffect(() => {
-    const stored = localStorage.getItem('lowi-lang') as Lang
-    if (stored && ['fr', 'en', 'th'].includes(stored)) setLangState(stored)
-  }, [])
+export function LangProvider({ children }: { children: React.ReactNode }) {
+  const [lang, setLangState] = useState<Lang>(readStoredLang)
 
   function setLang(l: Lang) {
     setLangState(l)
-    localStorage.setItem('lowi-lang', l)
+    if (typeof window !== 'undefined') window.localStorage.setItem('lowi-lang', l)
   }
 
   return <LangContext.Provider value={{ lang, setLang }}>{children}</LangContext.Provider>
