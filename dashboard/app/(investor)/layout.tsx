@@ -1,3 +1,5 @@
+import SignOutButton from './_components/SignOutButton'
+
 export default function InvestorLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="inv-page">
@@ -49,6 +51,8 @@ export default function InvestorLayout({ children }: { children: React.ReactNode
         marginTop: 40,
       }}>
         © 2025 LOWI · Investissement immobilier fractionné · Thaïlande
+        <span style={{ margin: '0 10px', opacity: 0.3 }}>·</span>
+        <SignOutButton />
       </footer>
     </div>
   )
