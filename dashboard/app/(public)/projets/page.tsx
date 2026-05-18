@@ -2,7 +2,24 @@
 import '../projets.css'
 import { useLang } from '../_components/LangContext'
 import Link from 'next/link'
-import { useState, useMemo } from 'react'
+import { useState, useEffect, useMemo } from 'react'
+
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL!
+
+type DbPhoto = { id: string; storage_path: string; position: number | null }
+type DbProperty = {
+  id: string
+  public_id: string
+  title: string
+  description: string | null
+  property_type: string | null
+  location_city: string | null
+  location_country: string | null
+  estimated_value_thb: number | null
+  surface_sqm: number | null
+  bedrooms: number | null
+  property_photos: DbPhoto[]
+}
 
 type ProjectStatus = 'open' | 'full' | 'soon'
 
@@ -57,6 +74,21 @@ const PROJECTS: Project[] = [
 ]
 
 const PER_PAGE = 25
+
+// i18n pour la section "Soumissions récentes" (DB-driven)
+const RECENT_T = {
+  fr: { title: 'Soumissions récentes', sub: 'Biens proposés par la communauté, en cours de validation finale.', badgeNew: 'Nouveau', cta: 'Voir le bien →' },
+  en: { title: 'Recent submissions',   sub: 'Properties listed by the community, undergoing final validation.', badgeNew: 'New',      cta: 'View property →' },
+  th: { title: 'รายการล่าสุด',           sub: 'อสังหาริมทรัพย์ที่ชุมชนเสนอ อยู่ระหว่างการตรวจสอบขั้นสุดท้าย',    badgeNew: 'ใหม่',      cta: 'ดูรายละเอียด →' },
+}
+
+const TYPE_LABEL_FALLBACK: Record<string, string> = {
+  villa: 'Villa', condo: 'Condo', hotel: 'Hôtel', land: 'Terrain', other: 'Autre',
+}
+
+function dbPhotoUrl(path: string): string {
+  return `${SUPABASE_URL}/storage/v1/object/public/property-photos/${path}`
+}
 
 const I18N = {
   fr: {
@@ -134,6 +166,17 @@ export default function ProjetsPage() {
   const [locFilter, setLocFilter] = useState('all')
   const [sort, setSort] = useState<SortKey>('tri-desc')
   const [page, setPage] = useState(1)
+
+  // Soumissions DB (status='active' depuis Supabase) — affichées en tête, sans TRI/funding/parts
+  const [dbProps, setDbProps] = useState<DbProperty[]>([])
+  useEffect(() => {
+    fetch('/api/public/properties')
+      .then(r => r.ok ? r.json() : [])
+      .then((data: DbProperty[] | { error: string }) => {
+        if (Array.isArray(data)) setDbProps(data)
+      })
+      .catch(() => { /* silencieux — pas critique */ })
+  }, [])
 
   const filtered = useMemo(() => {
     let r = PROJECTS.slice()
@@ -265,12 +308,71 @@ export default function ProjetsPage() {
     )
   }
 
+  const rt = RECENT_T[lang]
+
   return (
     <>
       <div className="projets-hero">
         <h1><span>{t.heroTitle1}</span> {t.heroTitle2}</h1>
         <p className="hero-subtitle">{t.heroSub}</p>
       </div>
+
+      {/* ── Soumissions récentes (DB-driven) ── */}
+      {dbProps.length > 0 && (
+        <section style={{
+          maxWidth: 1280, margin: '0 auto', padding: '0 4vw 1.5rem',
+          width: '100%', boxSizing: 'border-box',
+        }}>
+          <div style={{ marginBottom: 14 }}>
+            <h2 style={{ fontSize: 'clamp(1.2rem, 1.8vw, 1.5rem)', fontWeight: 800, color: 'var(--ink)', margin: 0, letterSpacing: '-0.02em' }}>
+              {rt.title}
+            </h2>
+            <p style={{ fontSize: '.9rem', color: 'var(--muted)', margin: '4px 0 0' }}>
+              {rt.sub}
+            </p>
+          </div>
+
+          <div className="project-grid">
+            {dbProps.map(p => {
+              const photo = p.property_photos?.[0]
+              const meta = [
+                p.surface_sqm ? `${p.surface_sqm} m²` : null,
+                p.bedrooms ? `${p.bedrooms} ch.` : null,
+                p.property_type ? (TYPE_LABEL_FALLBACK[p.property_type] ?? p.property_type) : null,
+              ].filter(Boolean).join(' · ')
+
+              return (
+                <article key={p.id} className="project-card">
+                  <div className="card-image-wrap">
+                    {photo ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={dbPhotoUrl(photo.storage_path)} alt={p.title} loading="lazy" width={600} height={200} />
+                    ) : (
+                      <div style={{ width: '100%', height: '100%', background: 'linear-gradient(135deg, #ddd, #f5f5f3)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 36 }}>🏠</div>
+                    )}
+                    <span className="card-status-badge badge-open">{rt.badgeNew}</span>
+                  </div>
+                  <div className="card-body">
+                    <div>
+                      <h3 className="card-title">{p.title}</h3>
+                      <p className="card-city">📍 {[p.location_city, p.location_country].filter(Boolean).join(', ') || '—'}</p>
+                    </div>
+                    {meta && (
+                      <p style={{ fontSize: '.85rem', color: 'var(--muted)', margin: '4px 0 8px' }}>{meta}</p>
+                    )}
+                    {p.estimated_value_thb && (
+                      <p style={{ fontSize: '1rem', fontWeight: 700, color: 'var(--ink)', margin: '0 0 12px' }}>
+                        {fmtThb(p.estimated_value_thb)}
+                      </p>
+                    )}
+                    <Link href={`/projets/${p.public_id}`} className="card-cta cta-invest">{rt.cta}</Link>
+                  </div>
+                </article>
+              )
+            })}
+          </div>
+        </section>
+      )}
 
       <div className="filter-bar">
         <div className="filter-group">

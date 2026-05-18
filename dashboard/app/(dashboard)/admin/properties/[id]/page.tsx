@@ -240,6 +240,23 @@ export default function AdminPropertyDetailPage({ params }: { params: Promise<{ 
             </div>
           )}
 
+          {/* Edit vitrine (WYSIWYG) — toujours visible (admin peut pré-remplir avant accept) */}
+          <div style={{ marginBottom: 16 }}>
+            <div style={{ fontSize: 11, fontWeight: 700, marginBottom: 6, color: 'var(--win-text-muted)' }}>VITRINE</div>
+            <Link href={`/projets/${property.public_id}/edit`} target="_blank">
+              <button className="win-btn" style={{ fontSize: 12, padding: '5px 10px', width: '100%', color: '#a16207', borderColor: '#a16207' }}>
+                ✏️ Éditer la fiche vitrine
+              </button>
+            </Link>
+            {property.status === 'active' && (
+              <Link href={`/projets/${property.public_id}`} target="_blank">
+                <button className="win-btn" style={{ fontSize: 11, padding: '3px 10px', width: '100%', marginTop: 4 }}>
+                  👁 Voir la page publique
+                </button>
+              </Link>
+            )}
+          </div>
+
           {/* Transitions */}
           <div style={{ marginBottom: 16 }}>
             <div style={{ fontSize: 11, fontWeight: 700, marginBottom: 8, color: 'var(--win-text-muted)' }}>ACTIONS</div>

@@ -66,7 +66,8 @@ export async function proxy(request: NextRequest) {
     pathname === '/' ||
     pathname.startsWith('/a-propos') ||
     pathname.startsWith('/comment-ca-marche') ||
-    pathname.startsWith('/projets')
+    pathname.startsWith('/projets') ||
+    pathname.startsWith('/api/public/')
 
   if (isVitrinePublic) return supabaseResponse
 
