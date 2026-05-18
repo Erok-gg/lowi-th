@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
 
 type Profile = {
@@ -14,6 +15,38 @@ type Profile = {
   email_confirmed_at: string | null
 }
 
+type PropertySummary = {
+  id: string
+  public_id: string
+  title: string
+  status: string
+  property_type: string | null
+  location_city: string | null
+  location_country: string | null
+  estimated_value_thb: number | null
+  created_at: string
+  property_photos: { count: number }[]
+}
+
+const STATUS_LABELS: Record<string, { label: string; bg: string; color: string }> = {
+  lead:       { label: 'En attente',    bg: '#f3f4f6', color: '#374151' },
+  reviewing:  { label: 'En examen',     bg: '#eff6ff', color: '#1d4ed8' },
+  accepted:   { label: 'Accepté',       bg: '#f0fdf4', color: '#15803d' },
+  rejected:   { label: 'Refusé',        bg: '#fef2f2', color: '#dc2626' },
+  active:     { label: 'En ligne',      bg: '#fefce8', color: '#a16207' },
+  closed:     { label: 'Clôturé',       bg: '#f9fafb', color: '#6b7280' },
+}
+
+const TYPE_LABELS: Record<string, string> = {
+  villa: 'Villa', condo: 'Condo', hotel: 'Hôtel', land: 'Terrain', other: 'Autre',
+}
+
+function formatThb(n: number): string {
+  if (n >= 1_000_000) return `${(n / 1_000_000).toFixed(1)} M฿`
+  if (n >= 1_000)     return `${(n / 1_000).toFixed(0)} K฿`
+  return `${n} ฿`
+}
+
 const NATIONALITIES = [
   'Française', 'Belge', 'Suisse', 'Canadienne', 'Américaine',
   'Britannique', 'Allemande', 'Italienne', 'Espagnole', 'Néerlandaise',
@@ -25,6 +58,7 @@ const NATIONALITIES = [
 export default function ProfilePage() {
   const router = useRouter()
   const [profile, setProfile] = useState<Profile | null>(null)
+  const [properties, setProperties] = useState<PropertySummary[]>([])
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [success, setSuccess] = useState(false)
@@ -44,14 +78,17 @@ export default function ProfilePage() {
         router.replace('/invest/login?redirect=/profile')
         return
       }
-      fetch('/api/profile')
-        .then(r => r.json())
-        .then((p: Profile) => {
+      Promise.all([
+        fetch('/api/profile').then(r => r.json()),
+        fetch('/api/properties').then(r => r.json()),
+      ])
+        .then(([p, props]: [Profile, PropertySummary[] | { error: string }]) => {
           setProfile(p)
           setFirstName(p.first_name ?? '')
           setLastName(p.last_name ?? '')
           setDisplayName(p.display_name ?? '')
           setNationality(p.nationality ?? '')
+          if (Array.isArray(props)) setProperties(props)
           setLoading(false)
         })
         .catch(() => { setError('Erreur chargement profil'); setLoading(false) })
@@ -302,6 +339,82 @@ export default function ProfilePage() {
             <span style={{ marginLeft: 'auto', fontSize: 11, fontWeight: 500, color: 'var(--inv-muted)' }}>Bientôt disponible</span>
           </button>
         </div>
+      </div>
+
+      {/* Mes soumissions */}
+      <div className="inv-card" style={{ padding: 24, marginBottom: 20 }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16, gap: 12, flexWrap: 'wrap' }}>
+          <h2 style={{ fontSize: 15, fontWeight: 700, color: 'var(--inv-navy)', margin: 0 }}>
+            Mes soumissions <span style={{ fontWeight: 400, color: 'var(--inv-muted)', fontSize: 13 }}>({properties.length})</span>
+          </h2>
+          <Link href="/properties/new" className="inv-btn inv-btn-gold" style={{ padding: '8px 16px', fontSize: 13, textDecoration: 'none' }}>
+            + Proposer un bien
+          </Link>
+        </div>
+
+        {properties.length === 0 ? (
+          <div style={{
+            border: '2px dashed var(--inv-border)', borderRadius: 8,
+            padding: '24px', textAlign: 'center',
+          }}>
+            <div style={{ fontSize: 28, marginBottom: 6 }}>🏠</div>
+            <div style={{ fontSize: 13, color: 'var(--inv-muted)' }}>
+              Aucune soumission pour l&apos;instant.
+            </div>
+          </div>
+        ) : (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            {properties.map(p => {
+              const st = STATUS_LABELS[p.status] ?? STATUS_LABELS.lead
+              const photoCount = p.property_photos?.[0]?.count ?? 0
+              return (
+                <Link key={p.id} href={`/properties/${p.id}`} style={{ textDecoration: 'none' }}>
+                  <div style={{
+                    padding: '12px 14px',
+                    border: '1px solid var(--inv-border)',
+                    borderRadius: 6,
+                    background: 'var(--inv-white)',
+                    transition: 'border-color .15s',
+                  }}>
+                    <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12 }}>
+                      <div style={{ flex: 1, minWidth: 0 }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4, flexWrap: 'wrap' }}>
+                          <span style={{
+                            padding: '2px 8px', borderRadius: 20, fontSize: 10, fontWeight: 700,
+                            background: st.bg, color: st.color,
+                          }}>
+                            {st.label}
+                          </span>
+                          {p.property_type && (
+                            <span style={{ fontSize: 11, color: 'var(--inv-muted)' }}>
+                              {TYPE_LABELS[p.property_type] ?? p.property_type}
+                            </span>
+                          )}
+                          {p.public_id && (
+                            <span style={{ fontSize: 10, color: 'var(--inv-muted)', fontFamily: 'monospace' }}>
+                              {p.public_id}
+                            </span>
+                          )}
+                        </div>
+                        <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--inv-navy)', marginBottom: 2, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                          {p.title}
+                        </div>
+                        <div style={{ fontSize: 11, color: 'var(--inv-muted)' }}>
+                          {[p.location_city, p.location_country].filter(Boolean).join(', ')}
+                          {p.estimated_value_thb ? ` · ${formatThb(p.estimated_value_thb)}` : ''}
+                          {` · ${photoCount} photo${photoCount !== 1 ? 's' : ''}`}
+                        </div>
+                      </div>
+                      <div style={{ fontSize: 11, color: 'var(--inv-muted)', whiteSpace: 'nowrap' }}>
+                        {new Date(p.created_at).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })}
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              )
+            })}
+          </div>
+        )}
       </div>
 
       {/* Danger zone */}

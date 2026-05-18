@@ -72,13 +72,19 @@ export default function LowiNav() {
       </Link>
 
       <ul className="nav-links">
-        {links.map(l => (
-          <li key={l.href}>
-            <Link href={l.href} className={pathname === l.href ? 'active' : ''}>
-              {l.label}
-            </Link>
-          </li>
-        ))}
+        {links.map(l => {
+          // "Proposer votre bien" : si connecté → /properties/new, sinon login avec redirect
+          const href = l.href === '/proposer'
+            ? (connected ? '/properties/new' : `/invest/login?redirect=${encodeURIComponent('/properties/new')}`)
+            : l.href
+          return (
+            <li key={l.href}>
+              <Link href={href} className={pathname === l.href ? 'active' : ''}>
+                {l.label}
+              </Link>
+            </li>
+          )
+        })}
       </ul>
 
       <div className="nav-right">
