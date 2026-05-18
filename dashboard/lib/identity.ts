@@ -31,8 +31,7 @@ export function identityComplete(data: IdentityData): boolean {
   )
 }
 
-export function identityFolderName(data: Pick<IdentityData, 'first_name' | 'last_name'>): string {
-  const fn = data.first_name.trim().toLowerCase().replace(/\s+/g, '-')
-  const ln = data.last_name.trim().toLowerCase().replace(/\s+/g, '-')
-  return `${fn}_${ln}`
-}
+// Sprint 9 : la convention Drive est maintenant `usr_xxx` (profiles.public_id),
+// gérée directement par lib/google-drive.ts:ensureUserFolder.
+// L'ancienne `identityFolderName(first_name, last_name)` est retirée — voir
+// scripts/migrate-drive-naming.ts pour la migration des dossiers existants.

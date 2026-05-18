@@ -1,7 +1,7 @@
 'use client'
 import { useState, useEffect, useRef } from 'react'
 import IdentityForm, { IdentityFormRef } from '@/components/IdentityForm'
-import { IdentityData, identityComplete, identityFolderName } from '@/lib/identity'
+import { IdentityData, identityComplete } from '@/lib/identity'
 
 const DOC_TYPES = [
   { key: 'id_front',      label: "Pièce d'identité (recto)",        icon: '🪪' },

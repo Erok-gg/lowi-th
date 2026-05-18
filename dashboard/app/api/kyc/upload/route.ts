@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { ensureUserFolder, uploadFileToDrive } from '@/lib/google-drive'
-import { identityFolderName } from '@/lib/identity'
 
 const ALLOWED_TYPES = ['id_front', 'id_back', 'address_proof', 'selfie', 'fund_origin']
 const MAX_SIZE = 10 * 1024 * 1024 // 10MB
@@ -35,6 +34,16 @@ export async function POST(req: NextRequest) {
   if (!identity?.first_name || !identity?.last_name)
     return NextResponse.json({ error: 'Complétez vos informations personnelles avant d\'uploader' }, { status: 400 })
 
+  // Récupère public_id du profil (usr_xxx — Sprint 9)
+  const { data: profile } = await admin
+    .from('profiles')
+    .select('public_id')
+    .eq('id', user.id)
+    .single()
+
+  if (!profile?.public_id)
+    return NextResponse.json({ error: 'Profil incomplet : public_id manquant' }, { status: 500 })
+
   // Get or create kyc_submission
   let { data: submission } = await admin
     .from('kyc_submissions')
@@ -45,11 +54,10 @@ export async function POST(req: NextRequest) {
   if (submission?.status === 'approved')
     return NextResponse.json({ error: 'KYC already approved' }, { status: 400 })
 
-  // Ensure Drive folder named prénom_nom
+  // Ensure Drive folder nommé `usr_xxx`
   let folderId = submission?.drive_folder_id
   if (!folderId) {
-    const folderName = identityFolderName(identity)
-    folderId = await ensureUserFolder(folderName)
+    folderId = await ensureUserFolder(profile.public_id)
   }
 
   // Upload to Drive
