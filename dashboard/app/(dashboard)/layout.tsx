@@ -42,6 +42,7 @@ const TREE = [
       { key: 'sui/nfts',        label: 'NFTs',        href: '/sui/nfts' },
     ]
   },
+  { key: 'admin/properties', label: 'Properties', icon: '🏠', href: '/admin/properties', children: [] },
   { key: 'bin', label: 'Bin', icon: '🗑️', href: '/bin', children: [] },
 ]
 
@@ -79,6 +80,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const activeKey = pathname === '/' ? 'users'
     : pathname.startsWith('/users/waitlist') ? 'users/waitlist'
     : pathname.startsWith('/users') ? 'users'
+    : pathname.startsWith('/admin/properties') ? 'admin/properties'
     : pathname.slice(1).replace(/\//g, '/')
 
   return (
