@@ -7,7 +7,8 @@ export default function InvestorLayout({ children }: { children: React.ReactNode
     <div className="inv-page">
       <LowiNav />
 
-      <main>{children}</main>
+      {/* paddingTop: 62 compense la hauteur de LowiNav (position: fixed) */}
+      <main style={{ paddingTop: 62 }}>{children}</main>
 
       <footer style={{
         borderTop: '1px solid var(--inv-border)',
