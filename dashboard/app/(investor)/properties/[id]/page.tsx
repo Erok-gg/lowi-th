@@ -242,6 +242,30 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
         )}
       </div>
 
+      {/* Bandeau CTA KYB si accepted */}
+      {property.status === 'accepted' && (
+        <div className="inv-card" style={{
+          padding: 20, marginBottom: 20,
+          borderColor: 'var(--inv-gold)',
+          background: '#fdfaf3',
+        }}>
+          <div style={{ fontSize: 14, fontWeight: 700, color: 'var(--inv-navy)', marginBottom: 6 }}>
+            🪪 Documents KYB à compléter
+          </div>
+          <p style={{ fontSize: 13, color: 'var(--inv-muted)', marginBottom: 12 }}>
+            Pour finaliser la mise en ligne de votre bien, téléversez les 4 documents demandés
+            (passeport, titre de propriété, extrait Kbis, acte de nomination).
+          </p>
+          <Link
+            href={`/properties/${property.id}/kyb`}
+            className="inv-btn inv-btn-gold"
+            style={{ fontSize: 13, padding: '8px 16px', textDecoration: 'none', display: 'inline-block' }}
+          >
+            Compléter les documents →
+          </Link>
+        </div>
+      )}
+
       {/* Formulaire infos */}
       <div className="inv-card" style={{ padding: 24, marginBottom: 20 }}>
         <h2 style={{ fontSize: 15, fontWeight: 700, color: 'var(--inv-navy)', marginBottom: 20 }}>

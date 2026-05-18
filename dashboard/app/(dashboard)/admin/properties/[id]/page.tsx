@@ -228,6 +228,18 @@ export default function AdminPropertyDetailPage({ params }: { params: Promise<{ 
         {/* Colonne droite : actions + notes */}
         <div style={{ width: 260, flexShrink: 0, padding: 12, overflow: 'auto' }}>
 
+          {/* KYB shortcut */}
+          {['accepted', 'active', 'closed'].includes(property.status) && (
+            <div style={{ marginBottom: 16 }}>
+              <div style={{ fontSize: 11, fontWeight: 700, marginBottom: 6, color: 'var(--win-text-muted)' }}>KYB</div>
+              <Link href={`/admin/properties/${propId}/kyb`}>
+                <button className="win-btn" style={{ fontSize: 12, padding: '5px 10px', width: '100%' }}>
+                  🪪 Revue documents KYB →
+                </button>
+              </Link>
+            </div>
+          )}
+
           {/* Transitions */}
           <div style={{ marginBottom: 16 }}>
             <div style={{ fontSize: 11, fontWeight: 700, marginBottom: 8, color: 'var(--win-text-muted)' }}>ACTIONS</div>
