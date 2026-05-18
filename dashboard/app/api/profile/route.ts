@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
+import { enforceRateLimit, RATE_LIMITS } from '@/lib/rate-limit'
+import { profilePatchSchema, parseOr400 } from '@/lib/validation'
 
 // GET /api/profile — profil de l'utilisateur connecté
 export async function GET() {
@@ -27,19 +29,21 @@ export async function PATCH(req: NextRequest) {
   const { data: { user }, error: authErr } = await supabase.auth.getUser()
   if (authErr || !user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
-  let body: Record<string, unknown>
-  try { body = await req.json() } catch { return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 }) }
+  const tooMany = enforceRateLimit(req, { scope: 'profile_patch', key: user.id, ...RATE_LIMITS.PROFILE_PATCH })
+  if (tooMany) return tooMany
 
-  // Champs autorisés — jamais is_superadmin, is_active, id
-  const ALLOWED = ['display_name', 'first_name', 'last_name', 'nationality'] as const
+  let raw: unknown
+  try { raw = await req.json() } catch { return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 }) }
+
+  // Validation Zod stricte (refuse les clés non listées, max 100 chars)
+  const parsed = parseOr400(profilePatchSchema, raw)
+  if (parsed instanceof NextResponse) return parsed
+
+  // Normaliser : strings vides → null (cohérent avec UI)
   const patch: Record<string, unknown> = {}
-  for (const key of ALLOWED) {
-    if (key in body) {
-      const val = body[key]
-      if (val !== undefined && (typeof val === 'string' || val === null)) {
-        patch[key] = typeof val === 'string' ? val.trim().slice(0, 100) : null
-      }
-    }
+  for (const [k, v] of Object.entries(parsed)) {
+    if (v === undefined) continue
+    patch[k] = typeof v === 'string' && v.trim() === '' ? null : v
   }
 
   if (Object.keys(patch).length === 0) {

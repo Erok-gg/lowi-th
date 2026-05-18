@@ -3,6 +3,7 @@ import { randomUUID } from 'crypto'
 import sharp from 'sharp'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
+import { enforceRateLimit, RATE_LIMITS } from '@/lib/rate-limit'
 
 const MAX_SIZE    = 10 * 1024 * 1024  // 10 Mo
 const MAX_PHOTOS  = 20
@@ -38,6 +39,9 @@ export async function POST(
   const supabase = await createClient()
   const { data: { user }, error: authErr } = await supabase.auth.getUser()
   if (authErr || !user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+
+  const tooMany = enforceRateLimit(req, { scope: 'photos_post', key: user.id, ...RATE_LIMITS.PHOTOS_POST })
+  if (tooMany) return tooMany
 
   // Vérifier ownership + statut
   const { data: prop } = await supabase

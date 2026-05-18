@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { randomUUID } from 'crypto'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
+import { enforceRateLimit, RATE_LIMITS } from '@/lib/rate-limit'
 
 const MAX_SIZE      = 25 * 1024 * 1024    // 25 Mo
 const BUCKET        = 'property-kyb'
@@ -73,6 +74,9 @@ export async function POST(
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+
+  const tooMany = enforceRateLimit(req, { scope: 'kyb_upload', key: user.id, ...RATE_LIMITS.KYB_UPLOAD })
+  if (tooMany) return tooMany
 
   // Ownership + statut accepted requis (RLS le ferait aussi mais on veut un message clair)
   const { data: prop } = await supabase

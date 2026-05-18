@@ -1,22 +1,31 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { generateInviteCode } from '@/lib/utils'
+import { enforceRateLimit, getClientIp, RATE_LIMITS } from '@/lib/rate-limit'
+import { signupSchema, parseOr400 } from '@/lib/validation'
 
-const RATE_LIMIT_PER_HOUR = 3
+const RATE_LIMIT_PER_HOUR = 5 // doublé : DB conserve l'historique, LRU bloque en amont
 
 export async function POST(req: NextRequest) {
-  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown'
+  const ip = getClientIp(req)
+
+  // Rate limit in-memory (fast first-line)
+  const tooMany = enforceRateLimit(req, { scope: 'signup', key: ip, ...RATE_LIMITS.SIGNUP })
+  if (tooMany) return tooMany
 
   try {
     const body = await req.json()
-    const email: string = (body.email ?? '').trim().toLowerCase()
 
-    // Honeypot
-    if (body._trap) return NextResponse.json({ error: 'Invalid request.' }, { status: 400 })
-
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      return NextResponse.json({ error: 'Invalid email address.' }, { status: 400 })
+    // Honeypot (bots remplissent les inputs hidden) — reject silencieux 200 OK
+    if (body && typeof body === 'object' && (body as { _trap?: unknown })._trap) {
+      return NextResponse.json({ ok: true })
     }
+
+    // Validation Zod
+    const parsed = parseOr400(signupSchema, body)
+    if (parsed instanceof NextResponse) return parsed
+    const email = parsed.email
 
     // Disposable email domains blacklist
     const BLOCKED_DOMAINS = ['mailinator.com','tempmail.com','guerrillamail.com','10minutemail.com','throwam.com']
@@ -25,11 +34,14 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Disposable email addresses are not accepted.' }, { status: 400 })
     }
 
+    // admin client bypasses RLS — required here because this route is anon
+    // and the underlying tables (signup_attempts, waitlist) are locked down to superadmin.
+    const admin    = createAdminClient()
     const supabase = await createClient()
 
-    // Rate limit: check signup_attempts
+    // Rate limit: check signup_attempts (admin, anon can't SELECT)
     const since = new Date(Date.now() - 3600 * 1000).toISOString()
-    const { count } = await supabase
+    const { count } = await admin
       .from('signup_attempts')
       .select('*', { count: 'exact', head: true })
       .eq('ip_address', ip)
@@ -42,11 +54,11 @@ export async function POST(req: NextRequest) {
       )
     }
 
-    // Log attempt
-    await supabase.from('signup_attempts').insert({ ip_address: ip, email })
+    // Log attempt (admin, anon has INSERT but no SELECT — write is fine via admin too)
+    await admin.from('signup_attempts').insert({ ip_address: ip, email })
 
-    // Check if email already in waitlist
-    const { data: existing } = await supabase
+    // Check if email already in waitlist (admin, anon can't SELECT)
+    const { data: existing } = await admin
       .from('waitlist')
       .select('id, status')
       .eq('email', email)
@@ -64,7 +76,8 @@ export async function POST(req: NextRequest) {
 
     const invite_code = generateInviteCode()
 
-    const { error } = await supabase.from('waitlist').upsert({
+    // UPSERT waitlist (admin — anon can INSERT but UPDATE on conflict requires bypass)
+    const { error } = await admin.from('waitlist').upsert({
       email,
       invite_code,
       status: 'pending',
@@ -75,7 +88,8 @@ export async function POST(req: NextRequest) {
 
     if (error) throw error
 
-    // Audit log
+    // Audit log — supabase (anon client) is fine: "anon insert logs" policy allows
+    // INSERT when actor_id IS NULL.
     await supabase.from('audit_logs').insert({
       action: 'signup_request',
       target_type: 'waitlist',
