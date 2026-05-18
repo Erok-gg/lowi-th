@@ -23,7 +23,7 @@ function LoginForm() {
 
   // Redirect : si absent ou retour sur l'accueil → espace investisseur
   const raw      = params.get('redirect') ?? ''
-  const redirect = !raw || raw === '/' ? '/properties/mine' : raw
+  const redirect = !raw || raw === '/' ? '/profile' : raw
 
   const [mode,     setMode]     = useState<'login' | 'signup'>('login')
   const [email,    setEmail]    = useState('')
@@ -57,7 +57,7 @@ function LoginForm() {
       if (error) { setError(error.message); setLoading(false); return }
     }
 
-    router.push(redirect.startsWith('http') ? '/properties/mine' : redirect)
+    router.push(redirect.startsWith('http') ? '/profile' : redirect)
   }
 
   if (loading) {

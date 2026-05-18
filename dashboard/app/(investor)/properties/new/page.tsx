@@ -60,10 +60,10 @@ export default function NewPropertyPage() {
       {/* En-tête */}
       <div style={{ marginBottom: 28 }}>
         <button
-          onClick={() => router.push('/properties/mine')}
+          onClick={() => router.push('/profile')}
           style={{ background: 'none', border: 'none', color: 'var(--inv-muted)', cursor: 'pointer', fontSize: 13, padding: 0, marginBottom: 12 }}
         >
-          ← Mes soumissions
+          ← Mon profil
         </button>
         <h1 style={{ fontSize: 22, fontWeight: 800, color: 'var(--inv-navy)', marginBottom: 4 }}>
           Proposer un bien

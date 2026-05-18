@@ -197,7 +197,7 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
     return (
       <div style={{ maxWidth: 680, margin: '0 auto', padding: '40px 16px', textAlign: 'center' }}>
         <div style={{ color: 'var(--inv-red)', marginBottom: 16 }}>⚠ {error || 'Introuvable'}</div>
-        <button onClick={() => router.push('/properties/mine')} className="inv-btn inv-btn-outline" style={{ padding: '9px 20px', fontSize: 13 }}>
+        <button onClick={() => router.push('/profile')} className="inv-btn inv-btn-outline" style={{ padding: '9px 20px', fontSize: 13 }}>
           ← Retour
         </button>
       </div>
@@ -212,8 +212,8 @@ export default function PropertyDetailPage({ params }: { params: Promise<{ id: s
 
       {/* Breadcrumb */}
       <div style={{ marginBottom: 20 }}>
-        <Link href="/properties/mine" style={{ fontSize: 13, color: 'var(--inv-muted)', textDecoration: 'none' }}>
-          ← Mes soumissions
+        <Link href="/profile" style={{ fontSize: 13, color: 'var(--inv-muted)', textDecoration: 'none' }}>
+          ← Mon profil
         </Link>
       </div>
 
