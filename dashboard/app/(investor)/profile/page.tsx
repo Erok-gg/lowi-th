@@ -61,7 +61,9 @@ const I18N = {
     emailUnverifiedTitle: 'Email non vérifié.',
     emailUnverifiedDesc: 'Consultez votre boîte mail et cliquez sur le lien de confirmation.',
     resendEmail: 'Renvoyer l\'email',
+    resending: 'Envoi…',
     resendSent: '✓ Email renvoyé',
+    resendIn: (s: number) => `Renvoyer dans ${s}s`,
     title: 'Mon profil',
     emailAddress: 'Adresse email',
     verified: '✓ Vérifié',
@@ -105,7 +107,9 @@ const I18N = {
     emailUnverifiedTitle: 'Email not verified.',
     emailUnverifiedDesc: 'Check your inbox and click the confirmation link.',
     resendEmail: 'Resend email',
+    resending: 'Sending…',
     resendSent: '✓ Email sent',
+    resendIn: (s: number) => `Resend in ${s}s`,
     title: 'My profile',
     emailAddress: 'Email address',
     verified: '✓ Verified',
@@ -149,7 +153,9 @@ const I18N = {
     emailUnverifiedTitle: 'อีเมลยังไม่ได้รับการยืนยัน',
     emailUnverifiedDesc: 'ตรวจสอบกล่องจดหมายของคุณและคลิกลิงก์ยืนยัน',
     resendEmail: 'ส่งอีเมลอีกครั้ง',
+    resending: 'กำลังส่ง…',
     resendSent: '✓ ส่งอีเมลแล้ว',
+    resendIn: (s: number) => `ส่งใหม่ใน ${s}วินาที`,
     title: 'โปรไฟล์ของฉัน',
     emailAddress: 'อีเมล',
     verified: '✓ ยืนยันแล้ว',
@@ -200,7 +206,18 @@ export default function ProfilePage() {
   const [saving, setSaving] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState('')
+  // Resend confirmation email : feedback + cooldown 120s
+  const [resending, setResending] = useState(false)
   const [resendSent, setResendSent] = useState(false)
+  const [cooldownUntil, setCooldownUntil] = useState<number>(0)
+  const [nowMs, setNowMs] = useState(() => Date.now())
+  useEffect(() => {
+    if (!cooldownUntil || cooldownUntil <= Date.now()) return
+    const id = setInterval(() => setNowMs(Date.now()), 1000)
+    return () => clearInterval(id)
+  }, [cooldownUntil])
+  const remaining = cooldownUntil > nowMs ? Math.ceil((cooldownUntil - nowMs) / 1000) : 0
+  const isCooling = remaining > 0
 
   const [firstName, setFirstName]   = useState('')
   const [lastName, setLastName]     = useState('')
@@ -257,10 +274,18 @@ export default function ProfilePage() {
   }
 
   async function handleResendVerification() {
-    if (!profile?.email) return
-    const supabase = createClient()
-    await supabase.auth.resend({ type: 'signup', email: profile.email })
-    setResendSent(true)
+    if (!profile?.email || resending || isCooling) return
+    setResending(true)
+    setResendSent(false)
+    try {
+      const supabase = createClient()
+      await supabase.auth.resend({ type: 'signup', email: profile.email })
+      setResendSent(true)
+      setCooldownUntil(Date.now() + 120_000) // 120s cooldown
+      setNowMs(Date.now())
+    } finally {
+      setResending(false)
+    }
   }
 
   async function handleSignOut() {
@@ -292,18 +317,32 @@ export default function ProfilePage() {
           <span style={{ color: '#92400e' }}>
             ⚠️ <strong>{t.emailUnverifiedTitle}</strong> {t.emailUnverifiedDesc}
           </span>
-          {resendSent ? (
-            <span style={{ color: '#15803d', fontSize: 12, fontWeight: 600 }}>{t.resendSent}</span>
-          ) : (
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            {resendSent && (
+              <span style={{ color: '#15803d', fontSize: 12, fontWeight: 600 }}>{t.resendSent}</span>
+            )}
             <button
               onClick={handleResendVerification}
+              disabled={resending || isCooling}
               style={{
-                background: '#f59e0b', color: '#fff', border: 'none',
-                borderRadius: 6, padding: '5px 12px', fontSize: 12,
-                fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap',
+                background: (resending || isCooling) ? '#d97706' : '#f59e0b',
+                color: '#fff', border: 'none',
+                borderRadius: 6, padding: '6px 14px', fontSize: 12,
+                fontWeight: 700,
+                cursor: (resending || isCooling) ? 'not-allowed' : 'pointer',
+                opacity: isCooling ? 0.7 : 1,
+                whiteSpace: 'nowrap', fontFamily: 'inherit',
+                display: 'inline-flex', alignItems: 'center',
+                minWidth: 150, justifyContent: 'center',
+                transition: 'opacity .2s, background .2s',
               }}
-            >{t.resendEmail}</button>
-          )}
+            >
+              {resending && <span className="lowi-spinner" />}
+              {resending ? t.resending
+                : isCooling ? t.resendIn(remaining)
+                : t.resendEmail}
+            </button>
+          </div>
         </div>
       )}
 

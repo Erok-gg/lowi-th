@@ -25,6 +25,8 @@ const I18N = {
     emailUnverifiedBody: (e: string) => <>Vous devez confirmer <strong>{e}</strong> avant de pouvoir lister un bien.</>,
     emailSentOk: '✓ Email renvoyé. Consultez votre boîte.',
     resendBtn: 'Renvoyer l\'email de vérification',
+    resending: 'Envoi…',
+    resendIn: (s: number) => `Renvoyer dans ${s}s`,
     kybInfoTitle: 'ℹ️ Documents requis à l\'acceptation',
     kybInfoBody: 'Si votre bien est sélectionné, nous vous demanderons : passeport du porteur, titre de propriété, extrait Kbis (DBD <3 mois) et acte de nomination du directeur.',
     // sections
@@ -78,6 +80,8 @@ const I18N = {
     emailUnverifiedBody: (e: string) => <>You must confirm <strong>{e}</strong> before you can list a property.</>,
     emailSentOk: '✓ Email sent. Check your inbox.',
     resendBtn: 'Resend verification email',
+    resending: 'Sending…',
+    resendIn: (s: number) => `Resend in ${s}s`,
     kybInfoTitle: 'ℹ️ Documents required upon acceptance',
     kybInfoBody: 'If your property is selected, we will request: porter passport, title deed, company DBD extract (<3 months) and director nomination.',
     sIdentity: '🏷️ Identity',
@@ -129,6 +133,8 @@ const I18N = {
     emailUnverifiedBody: (e: string) => <>คุณต้องยืนยัน <strong>{e}</strong> ก่อนจึงจะลงประกาศได้</>,
     emailSentOk: '✓ ส่งอีเมลแล้ว ตรวจสอบกล่องจดหมายของคุณ',
     resendBtn: 'ส่งอีเมลยืนยันอีกครั้ง',
+    resending: 'กำลังส่ง…',
+    resendIn: (s: number) => `ส่งใหม่ใน ${s}วินาที`,
     kybInfoTitle: 'ℹ️ เอกสารที่จำเป็นเมื่อได้รับการอนุมัติ',
     kybInfoBody: 'หากอสังหาริมทรัพย์ของคุณได้รับการคัดเลือก เราจะขอ: หนังสือเดินทางผู้ถือ โฉนด ใบ DBD (<3 เดือน) และใบแต่งตั้งกรรมการ',
     sIdentity: '🏷️ ข้อมูลทั่วไป',
@@ -237,6 +243,15 @@ export default function NewPropertyPage() {
   const [userEmail, setUserEmail] = useState<string>('')
   const [resending, setResending] = useState(false)
   const [resendOk, setResendOk] = useState(false)
+  const [cooldownUntil, setCooldownUntil] = useState<number>(0)
+  const [nowMs, setNowMs] = useState(() => Date.now())
+  useEffect(() => {
+    if (!cooldownUntil || cooldownUntil <= Date.now()) return
+    const id = setInterval(() => setNowMs(Date.now()), 1000)
+    return () => clearInterval(id)
+  }, [cooldownUntil])
+  const remaining = cooldownUntil > nowMs ? Math.ceil((cooldownUntil - nowMs) / 1000) : 0
+  const isCooling = remaining > 0
 
   useEffect(() => {
     const supabase = createClient()
@@ -295,11 +310,18 @@ export default function NewPropertyPage() {
   }
 
   async function handleResend() {
+    if (resending || isCooling || !userEmail) return
     setResending(true)
-    const supabase = createClient()
-    await supabase.auth.resend({ type: 'signup', email: userEmail })
-    setResending(false)
-    setResendOk(true)
+    setResendOk(false)
+    try {
+      const supabase = createClient()
+      await supabase.auth.resend({ type: 'signup', email: userEmail })
+      setResendOk(true)
+      setCooldownUntil(Date.now() + 120_000)
+      setNowMs(Date.now())
+    } finally {
+      setResending(false)
+    }
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -386,20 +408,31 @@ export default function NewPropertyPage() {
           <p style={{ color: '#78350f', margin: '0 0 10px' }}>
             {t.emailUnverifiedBody(userEmail)}
           </p>
-          {resendOk ? (
-            <span style={{ color: '#15803d', fontSize: 12, fontWeight: 600 }}>{t.emailSentOk}</span>
-          ) : (
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+            {resendOk && (
+              <span style={{ color: '#15803d', fontSize: 12, fontWeight: 600 }}>{t.emailSentOk}</span>
+            )}
             <button
               onClick={handleResend}
-              disabled={resending}
+              disabled={resending || isCooling}
               style={{
-                background: '#f59e0b', color: '#fff', border: 'none', borderRadius: 6,
-                padding: '7px 14px', fontSize: 12, fontWeight: 700, cursor: 'pointer',
+                background: (resending || isCooling) ? '#d97706' : '#f59e0b',
+                color: '#fff', border: 'none', borderRadius: 6,
+                padding: '8px 16px', fontSize: 12, fontWeight: 700,
+                cursor: (resending || isCooling) ? 'not-allowed' : 'pointer',
+                opacity: isCooling ? 0.7 : 1,
+                whiteSpace: 'nowrap', fontFamily: 'inherit',
+                display: 'inline-flex', alignItems: 'center',
+                minWidth: 220, justifyContent: 'center',
+                transition: 'opacity .2s, background .2s',
               }}
             >
-              {resending ? '⏳…' : t.resendBtn}
+              {resending && <span className="lowi-spinner" />}
+              {resending ? t.resending
+                : isCooling ? t.resendIn(remaining)
+                : t.resendBtn}
             </button>
-          )}
+          </div>
         </div>
       )}
 
