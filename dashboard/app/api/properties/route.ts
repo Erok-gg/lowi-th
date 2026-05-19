@@ -1,19 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
+import { createAdminClient } from '@/lib/supabase/admin'
 import { enforceRateLimit, RATE_LIMITS } from '@/lib/rate-limit'
+import { propertyCreateSchema, parseOr400 } from '@/lib/validation'
+import { sendEmail } from '@/lib/email'
+import { submissionPending, adminNewSubmission } from '@/lib/email-templates'
 
-const PROPERTY_TYPES = ['villa', 'condo', 'hotel', 'land', 'bungalow', 'eco-resort', 'co-living', 'boutique-hotel', 'other']
-
-function sanitize(val: unknown, max: number): string | null {
-  if (typeof val !== 'string') return null
-  const s = val.trim().slice(0, max)
-  return s || null
-}
-
-function toPositiveInt(val: unknown): number | null {
-  const n = Number(val)
-  return Number.isInteger(n) && n > 0 ? n : null
-}
+const SITE_URL  = process.env.NEXT_PUBLIC_SITE_URL || 'https://lowi-dashboard.vercel.app'
+const ADMIN_TO  = process.env.ADMIN_ALERT_EMAIL    || 'lowi.platform@gmail.com'
 
 // GET /api/properties — liste les soumissions de l'utilisateur connecté
 export async function GET() {
@@ -36,34 +30,64 @@ export async function POST(req: NextRequest) {
   const { data: { user }, error: authErr } = await supabase.auth.getUser()
   if (authErr || !user) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
+  // ── Email verification gate ─────────────────────────────────────────────
+  // Pas de soumission si l'email n'est pas confirmé (anti-spam, traçabilité).
+  if (!user.email_confirmed_at) {
+    return NextResponse.json(
+      { error: 'EMAIL_NOT_VERIFIED', message: 'Vérifiez votre email avant de soumettre un bien.' },
+      { status: 403 },
+    )
+  }
+
   const tooMany = enforceRateLimit(req, { scope: 'properties_post', key: user.id, ...RATE_LIMITS.PROPERTIES_POST })
   if (tooMany) return tooMany
 
-  let body: Record<string, unknown>
-  try { body = await req.json() } catch { return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 }) }
+  let raw: unknown
+  try { raw = await req.json() } catch { return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 }) }
 
-  const title = sanitize(body.title, 200)
-  if (!title) return NextResponse.json({ error: 'title requis' }, { status: 400 })
+  const parsed = parseOr400(propertyCreateSchema, raw)
+  if (parsed instanceof NextResponse) return parsed
 
-  const patch = {
-    title,
-    submitted_by: user.id,
-    description:          sanitize(body.description, 2000),
-    location_city:        sanitize(body.location_city, 100),
-    location_country:     sanitize(body.location_country, 50) ?? 'TH',
-    property_type:        PROPERTY_TYPES.includes(body.property_type as string) ? body.property_type : null,
-    estimated_value_thb:  toPositiveInt(body.estimated_value_thb),
-    surface_sqm:          toPositiveInt(body.surface_sqm),
-    bedrooms:             toPositiveInt(body.bedrooms),
-    contact_email:        sanitize(body.contact_email, 200),
-  }
-
-  const { data, error } = await supabase
+  const { data: created, error: insErr } = await supabase
     .from('properties')
-    .insert(patch)
-    .select('id, public_id, title, status')
+    .insert({ ...parsed, submitted_by: user.id })
+    .select('id, public_id, title, status, property_type, location_city, location_country, estimated_value_thb, surface_sqm, bedrooms')
     .single()
 
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 })
-  return NextResponse.json(data, { status: 201 })
+  if (insErr) return NextResponse.json({ error: insErr.message }, { status: 500 })
+
+  // ── Emails (fire-and-forget — n'attend pas pour répondre au client) ───
+  // 1) Confirmation au submitter
+  const recap = {
+    public_id:           created.public_id,
+    title:               created.title,
+    property_type:       created.property_type,
+    location_city:       created.location_city,
+    location_country:    created.location_country,
+    estimated_value_thb: created.estimated_value_thb,
+    surface_sqm:         created.surface_sqm,
+    bedrooms:            created.bedrooms,
+  }
+  const submitterEmail = parsed.contact_email || user.email!
+
+  Promise.all([
+    sendEmail({
+      to: submitterEmail,
+      ...submissionPending(recap, SITE_URL),
+      type: 'submission_pending',
+      propertyPublicId: created.public_id,
+      actorId: user.id,
+      actorEmail: user.email,
+    }),
+    sendEmail({
+      to: ADMIN_TO,
+      ...adminNewSubmission(recap, SITE_URL, user.email ?? '?'),
+      type: 'admin_new_submission',
+      propertyPublicId: created.public_id,
+      actorId: user.id,
+      actorEmail: user.email,
+    }),
+  ]).catch(e => console.error('[POST properties] email failed', e))
+
+  return NextResponse.json(created, { status: 201 })
 }

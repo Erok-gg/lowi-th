@@ -1,18 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
-
-const PROPERTY_TYPES = ['villa', 'condo', 'hotel', 'land', 'bungalow', 'eco-resort', 'co-living', 'boutique-hotel', 'other']
-
-function sanitize(val: unknown, max: number): string | null {
-  if (typeof val !== 'string') return null
-  const s = val.trim().slice(0, max)
-  return s || null
-}
-
-function toPositiveInt(val: unknown): number | null {
-  const n = Number(val)
-  return Number.isInteger(n) && n > 0 ? n : null
-}
+import { propertyUpdateSchema, parseOr400 } from '@/lib/validation'
 
 // GET /api/properties/[id] — détail propriété + photos
 export async function GET(
@@ -35,7 +23,7 @@ export async function GET(
   return NextResponse.json(data)
 }
 
-// PATCH /api/properties/[id] — mise à jour si status=lead
+// PATCH /api/properties/[id] — mise à jour si status=lead (Zod schema étendu)
 export async function PATCH(
   req: NextRequest,
   { params }: { params: Promise<{ id: string }> }
@@ -56,25 +44,17 @@ export async function PATCH(
     return NextResponse.json({ error: `Non modifiable (statut : ${prop.status})` }, { status: 403 })
   }
 
-  let body: Record<string, unknown>
-  try { body = await req.json() } catch { return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 }) }
+  let raw: unknown
+  try { raw = await req.json() } catch { return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 }) }
 
+  const parsed = parseOr400(propertyUpdateSchema, raw)
+  if (parsed instanceof NextResponse) return parsed
+
+  // Filtre les undefined pour éviter de NULL out des colonnes non envoyées
   const patch: Record<string, unknown> = {}
-  const title = sanitize(body.title, 200)
-  if (title) patch.title = title
-  if ('description' in body)       patch.description          = sanitize(body.description, 2000)
-  if ('location_city' in body)     patch.location_city        = sanitize(body.location_city, 100)
-  if ('location_country' in body)  patch.location_country     = sanitize(body.location_country, 50)
-  if ('property_type' in body && PROPERTY_TYPES.includes(body.property_type as string)) {
-    patch.property_type = body.property_type
+  for (const [k, v] of Object.entries(parsed)) {
+    if (v !== undefined) patch[k] = v
   }
-  const val = toPositiveInt(body.estimated_value_thb)
-  if (val !== null) patch.estimated_value_thb = val
-  const sqm = toPositiveInt(body.surface_sqm)
-  if (sqm !== null) patch.surface_sqm = sqm
-  const beds = toPositiveInt(body.bedrooms)
-  if (beds !== null) patch.bedrooms = beds
-  if ('contact_email' in body) patch.contact_email = sanitize(body.contact_email, 200)
 
   if (Object.keys(patch).length === 0) {
     return NextResponse.json({ error: 'Aucun champ valide' }, { status: 400 })
@@ -84,7 +64,7 @@ export async function PATCH(
     .from('properties')
     .update(patch)
     .eq('id', id)
-    .select('id, public_id, title, status, property_type, location_city, location_country, estimated_value_thb, surface_sqm, bedrooms, description, contact_email, created_at, updated_at')
+    .select('*')
     .single()
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
