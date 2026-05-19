@@ -11,7 +11,7 @@ export async function GET() {
 
   const { data, error } = await supabase
     .from('profiles')
-    .select('id, email, display_name, first_name, last_name, nationality, public_id, created_at')
+    .select('id, email, display_name, first_name, last_name, nationality, preferred_lang, public_id, created_at')
     .eq('id', user.id)
     .single()
 
@@ -54,7 +54,7 @@ export async function PATCH(req: NextRequest) {
     .from('profiles')
     .update(patch)
     .eq('id', user.id)
-    .select('id, email, display_name, first_name, last_name, nationality, public_id')
+    .select('id, email, display_name, first_name, last_name, nationality, preferred_lang, public_id')
     .single()
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })

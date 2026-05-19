@@ -13,7 +13,8 @@
 import { Resend } from 'resend'
 import { createAdminClient } from '@/lib/supabase/admin'
 
-const FROM = process.env.RESEND_FROM || 'onboarding@resend.dev'
+const FROM     = process.env.RESEND_FROM            || 'onboarding@resend.dev'
+const OVERRIDE = process.env.TEST_EMAIL_OVERRIDE    || ''  // si défini, tous les emails partent vers cette adresse (dev/test)
 
 let _resend: Resend | null = null
 function client(): Resend | null {
@@ -56,15 +57,22 @@ export async function sendEmail(args: SendEmailArgs): Promise<boolean> {
   let errMsg: string | null = null
   let messageId: string | null = null
 
+  // Test override : redirige tous les emails vers une seule adresse pour QA,
+  // avec préfixe sujet pour tracer l'original destinataire.
+  const actualTo      = OVERRIDE || args.to
+  const actualSubject = OVERRIDE
+    ? `[→ ${args.to}] ${args.subject}`
+    : args.subject
+
   if (!r) {
     errMsg = 'RESEND_API_KEY missing — email skipped'
-    console.warn('[email]', errMsg, args.type, '→', args.to)
+    console.warn('[email]', errMsg, args.type, '→', actualTo)
   } else {
     try {
       const { data, error } = await r.emails.send({
         from:    FROM,
-        to:      args.to,
-        subject: args.subject,
+        to:      actualTo,
+        subject: actualSubject,
         html:    args.html,
       })
       if (error) {
@@ -89,7 +97,15 @@ export async function sendEmail(args: SendEmailArgs): Promise<boolean> {
       action:      'email_sent',
       target_type: 'email',
       target_id:   args.propertyPublicId ?? args.to,
-      metadata:    { type: args.type, to: args.to, ok, message_id: messageId, error: errMsg },
+      metadata:    {
+        type:        args.type,
+        to:          args.to,        // original destinataire (avant override)
+        delivered_to: actualTo,       // adresse réellement utilisée (peut être override)
+        override:    OVERRIDE ? true : false,
+        ok,
+        message_id:  messageId,
+        error:       errMsg,
+      },
     })
   } catch (e) {
     console.error('[email] audit log failed', e)

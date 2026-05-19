@@ -56,8 +56,18 @@ export async function POST(req: NextRequest) {
 
   if (insErr) return NextResponse.json({ error: insErr.message }, { status: 500 })
 
+  // ── Récup lang préférée du submitter pour les emails ─────────────────
+  const { data: profileLang } = await supabase
+    .from('profiles')
+    .select('preferred_lang')
+    .eq('id', user.id)
+    .single()
+  const lang: 'fr' | 'en' | 'th' =
+    profileLang?.preferred_lang === 'en' || profileLang?.preferred_lang === 'th'
+      ? profileLang.preferred_lang
+      : 'fr'
+
   // ── Emails (fire-and-forget — n'attend pas pour répondre au client) ───
-  // 1) Confirmation au submitter
   const recap = {
     public_id:           created.public_id,
     title:               created.title,
@@ -73,7 +83,7 @@ export async function POST(req: NextRequest) {
   Promise.all([
     sendEmail({
       to: submitterEmail,
-      ...submissionPending(recap, SITE_URL),
+      ...submissionPending(recap, SITE_URL, lang),
       type: 'submission_pending',
       propertyPublicId: created.public_id,
       actorId: user.id,

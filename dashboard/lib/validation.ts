@@ -25,10 +25,11 @@ export const identitySchema = z.object({
 
 // Profile patch
 export const profilePatchSchema = z.object({
-  display_name: z.string().trim().max(100).nullable().optional(),
-  first_name:   z.string().trim().max(100).nullable().optional(),
-  last_name:    z.string().trim().max(100).nullable().optional(),
-  nationality:  z.string().trim().max(100).nullable().optional(),
+  display_name:   z.string().trim().max(100).nullable().optional(),
+  first_name:     z.string().trim().max(100).nullable().optional(),
+  last_name:      z.string().trim().max(100).nullable().optional(),
+  nationality:    z.string().trim().max(100).nullable().optional(),
+  preferred_lang: z.enum(['fr', 'en', 'th']).optional(),
 }).strict() // refuse les clés non listées
 
 // Property lead — schéma étendu (POST + PATCH)

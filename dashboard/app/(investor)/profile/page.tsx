@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
+import { useLang } from '@/app/(public)/_components/LangContext'
 
 type Profile = {
   id: string
@@ -11,6 +12,7 @@ type Profile = {
   first_name: string | null
   last_name: string | null
   nationality: string | null
+  preferred_lang: 'fr' | 'en' | 'th' | null
   public_id: string | null
   email_confirmed_at: string | null
 }
@@ -28,17 +30,14 @@ type PropertySummary = {
   property_photos: { count: number }[]
 }
 
-const STATUS_LABELS: Record<string, { label: string; bg: string; color: string }> = {
-  lead:       { label: 'En attente',    bg: '#f3f4f6', color: '#374151' },
-  reviewing:  { label: 'En examen',     bg: '#eff6ff', color: '#1d4ed8' },
-  accepted:   { label: 'Accepté',       bg: '#f0fdf4', color: '#15803d' },
-  rejected:   { label: 'Refusé',        bg: '#fef2f2', color: '#dc2626' },
-  active:     { label: 'En ligne',      bg: '#fefce8', color: '#a16207' },
-  closed:     { label: 'Clôturé',       bg: '#f9fafb', color: '#6b7280' },
-}
-
-const TYPE_LABELS: Record<string, string> = {
-  villa: 'Villa', condo: 'Condo', hotel: 'Hôtel', land: 'Terrain', other: 'Autre',
+// Status colors are shared; labels are translated via I18N below
+const STATUS_COLORS: Record<string, { bg: string; color: string }> = {
+  lead:       { bg: '#f3f4f6', color: '#374151' },
+  reviewing:  { bg: '#eff6ff', color: '#1d4ed8' },
+  accepted:   { bg: '#f0fdf4', color: '#15803d' },
+  rejected:   { bg: '#fef2f2', color: '#dc2626' },
+  active:     { bg: '#fefce8', color: '#a16207' },
+  closed:     { bg: '#f9fafb', color: '#6b7280' },
 }
 
 function formatThb(n: number): string {
@@ -55,8 +54,146 @@ const NATIONALITIES = [
   'Japonaise', 'Coréenne', 'Thaïlandaise', 'Autre',
 ]
 
+const I18N = {
+  fr: {
+    loading: 'Chargement…',
+    errLoad: 'Erreur chargement profil',
+    emailUnverifiedTitle: 'Email non vérifié.',
+    emailUnverifiedDesc: 'Consultez votre boîte mail et cliquez sur le lien de confirmation.',
+    resendEmail: 'Renvoyer l\'email',
+    resendSent: '✓ Email renvoyé',
+    title: 'Mon profil',
+    emailAddress: 'Adresse email',
+    verified: '✓ Vérifié',
+    notVerified: '⏳ Non vérifié',
+    personalInfo: 'Informations personnelles',
+    firstName: 'Prénom',
+    lastName: 'Nom',
+    displayName: 'Nom d\'affichage',
+    optional: '(optionnel)',
+    nationality: 'Nationalité',
+    selectPh: 'Sélectionnez…',
+    preferredLang: 'Langue préférée pour les emails',
+    preferredLangHint: 'Nous enverrons les emails transactionnels (soumission, KYB, etc.) dans cette langue.',
+    profileUpdated: '✓ Profil mis à jour',
+    saving: '⏳ Enregistrement…',
+    saveBtn: 'Enregistrer les modifications',
+    socialTitle: 'Connexions sociales',
+    socialDesc: 'Liez votre compte à Google ou Facebook pour vous connecter en un clic.',
+    google: 'Continuer avec Google',
+    facebook: 'Continuer avec Facebook',
+    soon: 'Bientôt disponible',
+    submissionsTitle: 'Mes soumissions',
+    proposeBtn: '+ Proposer un bien',
+    noSubmissions: 'Aucune soumission pour l\'instant.',
+    photosShort: (n: number) => `${n} photo${n !== 1 ? 's' : ''}`,
+    signOut: 'Se déconnecter',
+    status: {
+      lead: 'En attente', reviewing: 'En examen', accepted: 'Accepté',
+      rejected: 'Refusé', active: 'En ligne', closed: 'Clôturé',
+    },
+    types: {
+      villa: 'Villa', condo: 'Condo', hotel: 'Hôtel', land: 'Terrain',
+      bungalow: 'Bungalow', 'eco-resort': 'Éco-resort', 'co-living': 'Co-living',
+      'boutique-hotel': 'Boutique Hotel', other: 'Autre',
+    } as Record<string, string>,
+    locale: 'fr-FR',
+  },
+  en: {
+    loading: 'Loading…',
+    errLoad: 'Error loading profile',
+    emailUnverifiedTitle: 'Email not verified.',
+    emailUnverifiedDesc: 'Check your inbox and click the confirmation link.',
+    resendEmail: 'Resend email',
+    resendSent: '✓ Email sent',
+    title: 'My profile',
+    emailAddress: 'Email address',
+    verified: '✓ Verified',
+    notVerified: '⏳ Not verified',
+    personalInfo: 'Personal information',
+    firstName: 'First name',
+    lastName: 'Last name',
+    displayName: 'Display name',
+    optional: '(optional)',
+    nationality: 'Nationality',
+    selectPh: 'Select…',
+    preferredLang: 'Preferred email language',
+    preferredLangHint: 'We will send transactional emails (submissions, KYB, etc.) in this language.',
+    profileUpdated: '✓ Profile updated',
+    saving: '⏳ Saving…',
+    saveBtn: 'Save changes',
+    socialTitle: 'Social logins',
+    socialDesc: 'Link your account to Google or Facebook for one-click sign-in.',
+    google: 'Continue with Google',
+    facebook: 'Continue with Facebook',
+    soon: 'Coming soon',
+    submissionsTitle: 'My submissions',
+    proposeBtn: '+ List a property',
+    noSubmissions: 'No submissions yet.',
+    photosShort: (n: number) => `${n} photo${n !== 1 ? 's' : ''}`,
+    signOut: 'Sign out',
+    status: {
+      lead: 'Pending', reviewing: 'In review', accepted: 'Accepted',
+      rejected: 'Rejected', active: 'Live', closed: 'Closed',
+    },
+    types: {
+      villa: 'Villa', condo: 'Condo', hotel: 'Hotel', land: 'Land',
+      bungalow: 'Bungalow', 'eco-resort': 'Eco-resort', 'co-living': 'Co-living',
+      'boutique-hotel': 'Boutique Hotel', other: 'Other',
+    } as Record<string, string>,
+    locale: 'en-GB',
+  },
+  th: {
+    loading: 'กำลังโหลด…',
+    errLoad: 'เกิดข้อผิดพลาดในการโหลดโปรไฟล์',
+    emailUnverifiedTitle: 'อีเมลยังไม่ได้รับการยืนยัน',
+    emailUnverifiedDesc: 'ตรวจสอบกล่องจดหมายของคุณและคลิกลิงก์ยืนยัน',
+    resendEmail: 'ส่งอีเมลอีกครั้ง',
+    resendSent: '✓ ส่งอีเมลแล้ว',
+    title: 'โปรไฟล์ของฉัน',
+    emailAddress: 'อีเมล',
+    verified: '✓ ยืนยันแล้ว',
+    notVerified: '⏳ ยังไม่ยืนยัน',
+    personalInfo: 'ข้อมูลส่วนตัว',
+    firstName: 'ชื่อ',
+    lastName: 'นามสกุล',
+    displayName: 'ชื่อที่แสดง',
+    optional: '(ไม่บังคับ)',
+    nationality: 'สัญชาติ',
+    selectPh: 'เลือก…',
+    preferredLang: 'ภาษาที่ต้องการสำหรับอีเมล',
+    preferredLangHint: 'เราจะส่งอีเมลธุรกรรม (ใบสมัคร KYB ฯลฯ) ในภาษานี้',
+    profileUpdated: '✓ อัปเดตโปรไฟล์แล้ว',
+    saving: '⏳ กำลังบันทึก…',
+    saveBtn: 'บันทึกการเปลี่ยนแปลง',
+    socialTitle: 'เข้าสู่ระบบทางโซเชียล',
+    socialDesc: 'เชื่อมต่อบัญชีของคุณกับ Google หรือ Facebook เพื่อเข้าสู่ระบบในคลิกเดียว',
+    google: 'ดำเนินการต่อด้วย Google',
+    facebook: 'ดำเนินการต่อด้วย Facebook',
+    soon: 'เร็วๆ นี้',
+    submissionsTitle: 'รายการของฉัน',
+    proposeBtn: '+ เสนออสังหาริมทรัพย์',
+    noSubmissions: 'ยังไม่มีรายการ',
+    photosShort: (n: number) => `${n} ภาพ`,
+    signOut: 'ออกจากระบบ',
+    status: {
+      lead: 'รอ', reviewing: 'กำลังตรวจ', accepted: 'อนุมัติ',
+      rejected: 'ปฏิเสธ', active: 'ออนไลน์', closed: 'ปิด',
+    },
+    types: {
+      villa: 'วิลล่า', condo: 'คอนโด', hotel: 'โรงแรม', land: 'ที่ดิน',
+      bungalow: 'บังกะโล', 'eco-resort': 'รีสอร์ตเชิงนิเวศ', 'co-living': 'โคลิฟวิ่ง',
+      'boutique-hotel': 'บูทีคโฮเทล', other: 'อื่นๆ',
+    } as Record<string, string>,
+    locale: 'th-TH',
+  },
+} as const
+
 export default function ProfilePage() {
   const router = useRouter()
+  const { lang } = useLang()
+  const t = I18N[lang]
+
   const [profile, setProfile] = useState<Profile | null>(null)
   const [properties, setProperties] = useState<PropertySummary[]>([])
   const [loading, setLoading] = useState(true)
@@ -65,11 +202,11 @@ export default function ProfilePage() {
   const [error, setError] = useState('')
   const [resendSent, setResendSent] = useState(false)
 
-  // Form state
   const [firstName, setFirstName]   = useState('')
   const [lastName, setLastName]     = useState('')
   const [displayName, setDisplayName] = useState('')
   const [nationality, setNationality] = useState('')
+  const [preferredLang, setPreferredLang] = useState<'fr' | 'en' | 'th'>('fr')
 
   useEffect(() => {
     const supabase = createClient()
@@ -88,12 +225,13 @@ export default function ProfilePage() {
           setLastName(p.last_name ?? '')
           setDisplayName(p.display_name ?? '')
           setNationality(p.nationality ?? '')
+          setPreferredLang((p.preferred_lang ?? 'fr') as 'fr' | 'en' | 'th')
           if (Array.isArray(props)) setProperties(props)
           setLoading(false)
         })
-        .catch(() => { setError('Erreur chargement profil'); setLoading(false) })
+        .catch(() => { setError(t.errLoad); setLoading(false) })
     })
-  }, [router])
+  }, [router, t.errLoad])
 
   async function handleSave(e: React.FormEvent) {
     e.preventDefault()
@@ -104,15 +242,15 @@ export default function ProfilePage() {
       const res = await fetch('/api/profile', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ first_name: firstName, last_name: lastName, display_name: displayName, nationality }),
+        body: JSON.stringify({ first_name: firstName, last_name: lastName, display_name: displayName, nationality, preferred_lang: preferredLang }),
       })
-      if (!res.ok) throw new Error((await res.json()).error ?? 'Erreur')
+      if (!res.ok) throw new Error((await res.json()).error ?? 'Error')
       const updated = await res.json()
       setProfile(p => p ? { ...p, ...updated } : p)
       setSuccess(true)
       setTimeout(() => setSuccess(false), 3000)
     } catch (err: unknown) {
-      setError(err instanceof Error ? err.message : 'Erreur')
+      setError(err instanceof Error ? err.message : 'Error')
     } finally {
       setSaving(false)
     }
@@ -134,7 +272,7 @@ export default function ProfilePage() {
   if (loading) {
     return (
       <div style={{ minHeight: 'calc(100vh - 120px)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <div style={{ color: 'var(--inv-muted)', fontSize: 14 }}>⏳ Chargement…</div>
+        <div style={{ color: 'var(--inv-muted)', fontSize: 14 }}>⏳ {t.loading}</div>
       </div>
     )
   }
@@ -144,7 +282,6 @@ export default function ProfilePage() {
   return (
     <div style={{ maxWidth: 640, margin: '0 auto', padding: '32px 16px 64px' }}>
 
-      {/* Email non vérifié — bandeau */}
       {!isVerified && (
         <div style={{
           background: '#fffbeb', border: '1px solid #f59e0b',
@@ -153,10 +290,10 @@ export default function ProfilePage() {
           display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap',
         }}>
           <span style={{ color: '#92400e' }}>
-            ⚠️ <strong>Email non vérifié.</strong> Consultez votre boîte mail et cliquez sur le lien de confirmation.
+            ⚠️ <strong>{t.emailUnverifiedTitle}</strong> {t.emailUnverifiedDesc}
           </span>
           {resendSent ? (
-            <span style={{ color: '#15803d', fontSize: 12, fontWeight: 600 }}>✓ Email renvoyé</span>
+            <span style={{ color: '#15803d', fontSize: 12, fontWeight: 600 }}>{t.resendSent}</span>
           ) : (
             <button
               onClick={handleResendVerification}
@@ -165,35 +302,29 @@ export default function ProfilePage() {
                 borderRadius: 6, padding: '5px 12px', fontSize: 12,
                 fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap',
               }}
-            >
-              Renvoyer l&apos;email
-            </button>
+            >{t.resendEmail}</button>
           )}
         </div>
       )}
 
-      {/* Header */}
       <div style={{ marginBottom: 28 }}>
         <h1 style={{ fontSize: 22, fontWeight: 800, color: 'var(--inv-navy)', marginBottom: 4 }}>
-          Mon profil
+          {t.title}
         </h1>
         {profile?.public_id && (
           <span style={{
             display: 'inline-block', fontSize: 11, fontWeight: 600,
             color: 'var(--inv-muted)', background: 'var(--inv-gray)',
             borderRadius: 4, padding: '2px 8px', letterSpacing: '0.04em',
-          }}>
-            {profile.public_id}
-          </span>
+          }}>{profile.public_id}</span>
         )}
       </div>
 
-      {/* Email + statut */}
       <div className="inv-card" style={{ padding: '16px 20px', marginBottom: 20 }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
           <div>
             <div style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.07em', color: 'var(--inv-muted)', marginBottom: 4 }}>
-              Adresse email
+              {t.emailAddress}
             </div>
             <div style={{ fontSize: 15, fontWeight: 600, color: 'var(--inv-navy)' }}>
               {profile?.email}
@@ -204,151 +335,128 @@ export default function ProfilePage() {
             background: isVerified ? '#d1fae5' : '#fef3c7',
             color: isVerified ? '#065f46' : '#92400e',
           }}>
-            {isVerified ? '✓ Vérifié' : '⏳ Non vérifié'}
+            {isVerified ? t.verified : t.notVerified}
           </span>
         </div>
       </div>
 
-      {/* Formulaire */}
       <div className="inv-card" style={{ padding: 24, marginBottom: 20 }}>
         <h2 style={{ fontSize: 15, fontWeight: 700, color: 'var(--inv-navy)', marginBottom: 20 }}>
-          Informations personnelles
+          {t.personalInfo}
         </h2>
         <form onSubmit={handleSave} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
             <div>
-              <label className="inv-label">Prénom</label>
-              <input
-                type="text" className="inv-input"
+              <label className="inv-label">{t.firstName}</label>
+              <input type="text" className="inv-input"
                 value={firstName} onChange={e => setFirstName(e.target.value)}
-                placeholder="Jean" maxLength={100}
-              />
+                maxLength={100} />
             </div>
             <div>
-              <label className="inv-label">Nom</label>
-              <input
-                type="text" className="inv-input"
+              <label className="inv-label">{t.lastName}</label>
+              <input type="text" className="inv-input"
                 value={lastName} onChange={e => setLastName(e.target.value)}
-                placeholder="Dupont" maxLength={100}
-              />
+                maxLength={100} />
             </div>
           </div>
 
           <div>
-            <label className="inv-label">Nom d&apos;affichage <span style={{ color: 'var(--inv-muted)', fontWeight: 400 }}>(optionnel)</span></label>
-            <input
-              type="text" className="inv-input"
+            <label className="inv-label">
+              {t.displayName} <span style={{ color: 'var(--inv-muted)', fontWeight: 400 }}>{t.optional}</span>
+            </label>
+            <input type="text" className="inv-input"
               value={displayName} onChange={e => setDisplayName(e.target.value)}
-              placeholder="J. Dupont" maxLength={100}
-            />
+              maxLength={100} />
           </div>
 
           <div>
-            <label className="inv-label">Nationalité</label>
-            <select
-              className="inv-input"
-              value={nationality}
-              onChange={e => setNationality(e.target.value)}
-              style={{ appearance: 'auto' }}
-            >
-              <option value="">Sélectionnez…</option>
-              {NATIONALITIES.map(n => (
-                <option key={n} value={n}>{n}</option>
-              ))}
+            <label className="inv-label">{t.nationality}</label>
+            <select className="inv-input"
+              value={nationality} onChange={e => setNationality(e.target.value)}
+              style={{ appearance: 'auto' }}>
+              <option value="">{t.selectPh}</option>
+              {NATIONALITIES.map(n => <option key={n} value={n}>{n}</option>)}
             </select>
           </div>
 
+          <div>
+            <label className="inv-label">{t.preferredLang}</label>
+            <select className="inv-input"
+              value={preferredLang}
+              onChange={e => setPreferredLang(e.target.value as 'fr' | 'en' | 'th')}
+              style={{ appearance: 'auto' }}>
+              <option value="fr">🇫🇷 Français</option>
+              <option value="en">🇬🇧 English</option>
+              <option value="th">🇹🇭 ภาษาไทย</option>
+            </select>
+            <div style={{ marginTop: 4, fontSize: 12, color: 'var(--inv-muted)' }}>
+              {t.preferredLangHint}
+            </div>
+          </div>
+
           {error && (
-            <div style={{
-              padding: '10px 14px', background: '#fef2f2',
-              border: '1px solid #fecaca', borderRadius: 6,
-              fontSize: 13, color: 'var(--inv-red)',
-            }}>
+            <div style={{ padding: '10px 14px', background: '#fef2f2', border: '1px solid #fecaca', borderRadius: 6, fontSize: 13, color: 'var(--inv-red)' }}>
               ⚠ {error}
             </div>
           )}
-
           {success && (
-            <div style={{
-              padding: '10px 14px', background: '#f0fdf4',
-              border: '1px solid #bbf7d0', borderRadius: 6,
-              fontSize: 13, color: '#166534',
-            }}>
-              ✓ Profil mis à jour
+            <div style={{ padding: '10px 14px', background: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: 6, fontSize: 13, color: '#166534' }}>
+              {t.profileUpdated}
             </div>
           )}
 
-          <button
-            type="submit"
-            className="inv-btn inv-btn-gold"
-            disabled={saving}
-            style={{ padding: '11px', width: '100%' }}
-          >
-            {saving ? '⏳ Enregistrement…' : 'Enregistrer les modifications'}
+          <button type="submit" className="inv-btn inv-btn-gold" disabled={saving} style={{ padding: '11px', width: '100%' }}>
+            {saving ? t.saving : t.saveBtn}
           </button>
         </form>
       </div>
 
-      {/* Connexion sociale — UI prête, désactivée */}
       <div className="inv-card" style={{ padding: 24, marginBottom: 20 }}>
         <h2 style={{ fontSize: 15, fontWeight: 700, color: 'var(--inv-navy)', marginBottom: 6 }}>
-          Connexions sociales
+          {t.socialTitle}
         </h2>
         <p style={{ fontSize: 13, color: 'var(--inv-muted)', marginBottom: 16 }}>
-          Liez votre compte à Google ou Facebook pour vous connecter en un clic.
+          {t.socialDesc}
         </p>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
-          {/* Google */}
-          <button
-            disabled
-            style={{
+          {[
+            { label: t.google, icon: (
+              <svg width="18" height="18" viewBox="0 0 24 24">
+                <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/>
+                <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+              </svg>
+            )},
+            { label: t.facebook, icon: (
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="#1877F2">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+              </svg>
+            )},
+          ].map(({ label, icon }) => (
+            <button key={label} disabled style={{
               display: 'flex', alignItems: 'center', gap: 10,
               padding: '10px 14px', borderRadius: 6,
               border: '1px solid var(--inv-border)',
               background: 'var(--inv-gray)', cursor: 'not-allowed',
               opacity: 0.55, fontSize: 14, fontWeight: 600, color: 'var(--inv-text)',
               fontFamily: 'inherit',
-            }}
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24">
-              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/>
-              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-            </svg>
-            Continuer avec Google
-            <span style={{ marginLeft: 'auto', fontSize: 11, fontWeight: 500, color: 'var(--inv-muted)' }}>Bientôt disponible</span>
-          </button>
-
-          {/* Facebook */}
-          <button
-            disabled
-            style={{
-              display: 'flex', alignItems: 'center', gap: 10,
-              padding: '10px 14px', borderRadius: 6,
-              border: '1px solid var(--inv-border)',
-              background: 'var(--inv-gray)', cursor: 'not-allowed',
-              opacity: 0.55, fontSize: 14, fontWeight: 600, color: 'var(--inv-text)',
-              fontFamily: 'inherit',
-            }}
-          >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="#1877F2">
-              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-            </svg>
-            Continuer avec Facebook
-            <span style={{ marginLeft: 'auto', fontSize: 11, fontWeight: 500, color: 'var(--inv-muted)' }}>Bientôt disponible</span>
-          </button>
+            }}>
+              {icon}
+              {label}
+              <span style={{ marginLeft: 'auto', fontSize: 11, fontWeight: 500, color: 'var(--inv-muted)' }}>{t.soon}</span>
+            </button>
+          ))}
         </div>
       </div>
 
-      {/* Mes soumissions */}
       <div className="inv-card" style={{ padding: 24, marginBottom: 20 }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16, gap: 12, flexWrap: 'wrap' }}>
           <h2 style={{ fontSize: 15, fontWeight: 700, color: 'var(--inv-navy)', margin: 0 }}>
-            Mes soumissions <span style={{ fontWeight: 400, color: 'var(--inv-muted)', fontSize: 13 }}>({properties.length})</span>
+            {t.submissionsTitle} <span style={{ fontWeight: 400, color: 'var(--inv-muted)', fontSize: 13 }}>({properties.length})</span>
           </h2>
           <Link href="/properties/new" className="inv-btn inv-btn-gold" style={{ padding: '8px 16px', fontSize: 13, textDecoration: 'none' }}>
-            + Proposer un bien
+            {t.proposeBtn}
           </Link>
         </div>
 
@@ -359,13 +467,14 @@ export default function ProfilePage() {
           }}>
             <div style={{ fontSize: 28, marginBottom: 6 }}>🏠</div>
             <div style={{ fontSize: 13, color: 'var(--inv-muted)' }}>
-              Aucune soumission pour l&apos;instant.
+              {t.noSubmissions}
             </div>
           </div>
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
             {properties.map(p => {
-              const st = STATUS_LABELS[p.status] ?? STATUS_LABELS.lead
+              const c = STATUS_COLORS[p.status] ?? STATUS_COLORS.lead
+              const statusLabel = t.status[p.status as keyof typeof t.status] ?? p.status
               const photoCount = p.property_photos?.[0]?.count ?? 0
               return (
                 <Link key={p.id} href={`/properties/${p.id}`} style={{ textDecoration: 'none' }}>
@@ -381,13 +490,13 @@ export default function ProfilePage() {
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4, flexWrap: 'wrap' }}>
                           <span style={{
                             padding: '2px 8px', borderRadius: 20, fontSize: 10, fontWeight: 700,
-                            background: st.bg, color: st.color,
+                            background: c.bg, color: c.color,
                           }}>
-                            {st.label}
+                            {statusLabel}
                           </span>
                           {p.property_type && (
                             <span style={{ fontSize: 11, color: 'var(--inv-muted)' }}>
-                              {TYPE_LABELS[p.property_type] ?? p.property_type}
+                              {t.types[p.property_type] ?? p.property_type}
                             </span>
                           )}
                           {p.public_id && (
@@ -402,11 +511,11 @@ export default function ProfilePage() {
                         <div style={{ fontSize: 11, color: 'var(--inv-muted)' }}>
                           {[p.location_city, p.location_country].filter(Boolean).join(', ')}
                           {p.estimated_value_thb ? ` · ${formatThb(p.estimated_value_thb)}` : ''}
-                          {` · ${photoCount} photo${photoCount !== 1 ? 's' : ''}`}
+                          {` · ${t.photosShort(photoCount)}`}
                         </div>
                       </div>
                       <div style={{ fontSize: 11, color: 'var(--inv-muted)', whiteSpace: 'nowrap' }}>
-                        {new Date(p.created_at).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })}
+                        {new Date(p.created_at).toLocaleDateString(t.locale, { day: 'numeric', month: 'short' })}
                       </div>
                     </div>
                   </div>
@@ -417,7 +526,6 @@ export default function ProfilePage() {
         )}
       </div>
 
-      {/* Danger zone */}
       <div style={{ textAlign: 'right' }}>
         <button
           onClick={handleSignOut}
@@ -427,7 +535,7 @@ export default function ProfilePage() {
             color: 'var(--inv-muted)', cursor: 'pointer', fontFamily: 'inherit',
           }}
         >
-          Se déconnecter
+          {t.signOut}
         </button>
       </div>
     </div>

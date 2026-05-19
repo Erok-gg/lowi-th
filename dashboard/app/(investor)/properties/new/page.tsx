@@ -3,35 +3,174 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/lib/supabase/client'
+import { useLang } from '@/app/(public)/_components/LangContext'
 
 // ── Constantes (alignées avec lib/validation.ts) ─────────────────────────────
-const TYPES = [
-  { value: 'villa',          label: 'Villa' },
-  { value: 'condo',          label: 'Condominium' },
-  { value: 'hotel',          label: 'Hôtel / Resort' },
-  { value: 'bungalow',       label: 'Bungalow' },
-  { value: 'eco-resort',     label: 'Éco-resort' },
-  { value: 'co-living',      label: 'Co-living' },
-  { value: 'boutique-hotel', label: 'Boutique Hotel' },
-  { value: 'land',           label: 'Terrain' },
-  { value: 'other',          label: 'Autre' },
-]
+const POOL_TYPES = ['', 'private', 'shared', 'none'] as const
+type PoolKey = typeof POOL_TYPES[number]
+const TYPE_KEYS = ['villa', 'condo', 'hotel', 'bungalow', 'eco-resort', 'co-living', 'boutique-hotel', 'land', 'other'] as const
+type TypeKey = typeof TYPE_KEYS[number]
+const COUNTRY_KEYS = ['TH', 'FR', 'PT', 'ES', 'MA', 'OTHER'] as const
+type CountryKey = typeof COUNTRY_KEYS[number]
 
-const POOL_TYPES = [
-  { value: '',         label: '—' },
-  { value: 'private',  label: 'Privée' },
-  { value: 'shared',   label: 'Partagée' },
-  { value: 'none',     label: 'Aucune' },
-]
-
-const COUNTRIES = [
-  { value: 'TH',    label: '🇹🇭 Thaïlande' },
-  { value: 'FR',    label: '🇫🇷 France' },
-  { value: 'PT',    label: '🇵🇹 Portugal' },
-  { value: 'ES',    label: '🇪🇸 Espagne' },
-  { value: 'MA',    label: '🇲🇦 Maroc' },
-  { value: 'OTHER', label: 'Autre' },
-]
+// ── i18n ─────────────────────────────────────────────────────────────────────
+const I18N = {
+  fr: {
+    loading: 'Chargement…',
+    back: '← Mon profil',
+    title: 'Proposer un bien',
+    intro: 'Décrivez votre propriété en détail. Plus d\'infos = examen plus rapide. Les champs marqués',
+    introSuffix: 'sont obligatoires.',
+    emailUnverifiedTitle: 'Vérifiez votre email avant de soumettre',
+    emailUnverifiedBody: (e: string) => <>Vous devez confirmer <strong>{e}</strong> avant de pouvoir lister un bien.</>,
+    emailSentOk: '✓ Email renvoyé. Consultez votre boîte.',
+    resendBtn: 'Renvoyer l\'email de vérification',
+    kybInfoTitle: 'ℹ️ Documents requis à l\'acceptation',
+    kybInfoBody: 'Si votre bien est sélectionné, nous vous demanderons : passeport du porteur, titre de propriété, extrait Kbis (DBD <3 mois) et acte de nomination du directeur.',
+    // sections
+    sIdentity: '🏷️ Identité',
+    sValue: '📊 Valeur & surface',
+    sDescription: '🏡 Description',
+    sChars: '📐 Caractéristiques étendues',
+    sSituation: '📍 Situation',
+    sAmenities: '✅ Équipements',
+    sLease: '⚖️ Bail & structure juridique',
+    sContact: '✉️ Contact',
+    optional: 'Optionnel',
+    hintChars: 'Plus de détails physiques aident l\'examen.',
+    hintSituation: 'Accès, points d\'intérêt, distances.',
+    hintAmenities: 'Max 50 équipements · 80 caractères chacun.',
+    hintLease: 'Si vous ne connaissez pas ces infos, laissez vide — LOWI complètera.',
+    // fields
+    fTitle: 'Nom du bien',
+    fType: 'Type', fCountry: 'Pays', fCity: 'Ville / Zone',
+    selectPh: 'Sélectionnez…',
+    fValue: 'Valeur estimée (THB)', fSurface: 'Surface (m²)', fBedrooms: 'Chambres',
+    fDescription: 'Description du bien',
+    fDescPh: 'Présentation du bien, son histoire, atouts locatifs, particularités…',
+    fDescCount: (n: number) => `${n} / 4000 · minimum 20 caractères`,
+    fBathrooms: 'Salles de bain', fPool: 'Piscine', fView: 'Vue',
+    fBeach: 'Accès plage', fAirport: 'Aéroport', fHospital: 'Hôpital',
+    amenityPh: 'WiFi fibre, Piscine à débordement, Climatisation…',
+    amenityAdd: '+ Ajouter',
+    amenityNone: 'Aucun ajouté',
+    fLeaseYears: 'Durée bail (années)', fLeaseRemaining: 'Restant (années)', fLeaseExpiry: 'Année d\'expiration',
+    fLeaseType: 'Type de bail', fTrustee: 'Trustee', fArbitration: 'Clause d\'arbitrage',
+    fLegalNote: 'Note juridique complémentaire',
+    fLegalNotePh: 'Tout élément juridique pertinent (titre clean, sans hypothèque, etc.)',
+    fContactEmail: 'Email de contact',
+    contactHint: (curr: string) => `Cet email est utilisé pour les communications relatives à votre bien. Peut différer de votre email de compte (${curr || '—'}).`,
+    errEmailNotVerified: 'Vérifiez d\'abord votre email avant de soumettre.',
+    submitBtn: 'Soumettre mon bien →',
+    submitting: '⏳ Envoi en cours…',
+    photosLater: 'Vous pourrez ajouter des photos juste après la soumission.',
+    types: { villa: 'Villa', condo: 'Condominium', hotel: 'Hôtel / Resort', bungalow: 'Bungalow', 'eco-resort': 'Éco-resort', 'co-living': 'Co-living', 'boutique-hotel': 'Boutique Hotel', land: 'Terrain', other: 'Autre' } as Record<TypeKey, string>,
+    pools: { '': '—', private: 'Privée', shared: 'Partagée', none: 'Aucune' } as Record<PoolKey, string>,
+    countries: { TH: '🇹🇭 Thaïlande', FR: '🇫🇷 France', PT: '🇵🇹 Portugal', ES: '🇪🇸 Espagne', MA: '🇲🇦 Maroc', OTHER: 'Autre' } as Record<CountryKey, string>,
+  },
+  en: {
+    loading: 'Loading…',
+    back: '← My profile',
+    title: 'List a property',
+    intro: 'Describe your property in detail. More info = faster review. Fields marked',
+    introSuffix: 'are required.',
+    emailUnverifiedTitle: 'Verify your email before submitting',
+    emailUnverifiedBody: (e: string) => <>You must confirm <strong>{e}</strong> before you can list a property.</>,
+    emailSentOk: '✓ Email sent. Check your inbox.',
+    resendBtn: 'Resend verification email',
+    kybInfoTitle: 'ℹ️ Documents required upon acceptance',
+    kybInfoBody: 'If your property is selected, we will request: porter passport, title deed, company DBD extract (<3 months) and director nomination.',
+    sIdentity: '🏷️ Identity',
+    sValue: '📊 Value & surface',
+    sDescription: '🏡 Description',
+    sChars: '📐 Extended characteristics',
+    sSituation: '📍 Location',
+    sAmenities: '✅ Amenities',
+    sLease: '⚖️ Lease & legal structure',
+    sContact: '✉️ Contact',
+    optional: 'Optional',
+    hintChars: 'More physical detail helps review.',
+    hintSituation: 'Access, points of interest, distances.',
+    hintAmenities: 'Max 50 amenities · 80 characters each.',
+    hintLease: 'If you don\'t know these details, leave blank — LOWI will fill in.',
+    fTitle: 'Property name',
+    fType: 'Type', fCountry: 'Country', fCity: 'City / Area',
+    selectPh: 'Select…',
+    fValue: 'Estimated value (THB)', fSurface: 'Surface (sqm)', fBedrooms: 'Bedrooms',
+    fDescription: 'Property description',
+    fDescPh: 'Description, history, rental potential, distinctive features…',
+    fDescCount: (n: number) => `${n} / 4000 · minimum 20 characters`,
+    fBathrooms: 'Bathrooms', fPool: 'Pool', fView: 'View',
+    fBeach: 'Beach access', fAirport: 'Airport', fHospital: 'Hospital',
+    amenityPh: 'Fiber WiFi, Infinity pool, Air conditioning…',
+    amenityAdd: '+ Add',
+    amenityNone: 'None added',
+    fLeaseYears: 'Lease duration (years)', fLeaseRemaining: 'Remaining (years)', fLeaseExpiry: 'Expiry year',
+    fLeaseType: 'Lease type', fTrustee: 'Trustee', fArbitration: 'Arbitration clause',
+    fLegalNote: 'Additional legal note',
+    fLegalNotePh: 'Any relevant legal element (clean title, no mortgage, etc.)',
+    fContactEmail: 'Contact email',
+    contactHint: (curr: string) => `This email is used for communications about your property. May differ from your account email (${curr || '—'}).`,
+    errEmailNotVerified: 'Please verify your email first before submitting.',
+    submitBtn: 'Submit my property →',
+    submitting: '⏳ Submitting…',
+    photosLater: 'You can add photos right after submission.',
+    types: { villa: 'Villa', condo: 'Condominium', hotel: 'Hotel / Resort', bungalow: 'Bungalow', 'eco-resort': 'Eco-resort', 'co-living': 'Co-living', 'boutique-hotel': 'Boutique Hotel', land: 'Land', other: 'Other' } as Record<TypeKey, string>,
+    pools: { '': '—', private: 'Private', shared: 'Shared', none: 'None' } as Record<PoolKey, string>,
+    countries: { TH: '🇹🇭 Thailand', FR: '🇫🇷 France', PT: '🇵🇹 Portugal', ES: '🇪🇸 Spain', MA: '🇲🇦 Morocco', OTHER: 'Other' } as Record<CountryKey, string>,
+  },
+  th: {
+    loading: 'กำลังโหลด…',
+    back: '← โปรไฟล์ของฉัน',
+    title: 'เสนออสังหาริมทรัพย์',
+    intro: 'อธิบายอสังหาริมทรัพย์ของคุณโดยละเอียด ข้อมูลมากขึ้น = ตรวจสอบเร็วขึ้น ช่องที่มีเครื่องหมาย',
+    introSuffix: 'จำเป็นต้องกรอก',
+    emailUnverifiedTitle: 'กรุณายืนยันอีเมลก่อนส่ง',
+    emailUnverifiedBody: (e: string) => <>คุณต้องยืนยัน <strong>{e}</strong> ก่อนจึงจะลงประกาศได้</>,
+    emailSentOk: '✓ ส่งอีเมลแล้ว ตรวจสอบกล่องจดหมายของคุณ',
+    resendBtn: 'ส่งอีเมลยืนยันอีกครั้ง',
+    kybInfoTitle: 'ℹ️ เอกสารที่จำเป็นเมื่อได้รับการอนุมัติ',
+    kybInfoBody: 'หากอสังหาริมทรัพย์ของคุณได้รับการคัดเลือก เราจะขอ: หนังสือเดินทางผู้ถือ โฉนด ใบ DBD (<3 เดือน) และใบแต่งตั้งกรรมการ',
+    sIdentity: '🏷️ ข้อมูลทั่วไป',
+    sValue: '📊 มูลค่า & พื้นที่',
+    sDescription: '🏡 รายละเอียด',
+    sChars: '📐 คุณสมบัติเพิ่มเติม',
+    sSituation: '📍 ที่ตั้ง',
+    sAmenities: '✅ สิ่งอำนวยความสะดวก',
+    sLease: '⚖️ สัญญาเช่า & โครงสร้างทางกฎหมาย',
+    sContact: '✉️ ติดต่อ',
+    optional: 'ไม่บังคับ',
+    hintChars: 'ข้อมูลเพิ่มเติมช่วยให้การตรวจสอบเร็วขึ้น',
+    hintSituation: 'การเข้าถึง สถานที่สำคัญ ระยะทาง',
+    hintAmenities: 'สูงสุด 50 รายการ · 80 ตัวอักษรต่อรายการ',
+    hintLease: 'หากไม่ทราบข้อมูลเหล่านี้ ปล่อยว่างไว้ได้ — LOWI จะกรอกให้',
+    fTitle: 'ชื่อทรัพย์สิน',
+    fType: 'ประเภท', fCountry: 'ประเทศ', fCity: 'เมือง / พื้นที่',
+    selectPh: 'เลือก…',
+    fValue: 'มูลค่าประมาณ (บาท)', fSurface: 'พื้นที่ (ตร.ม.)', fBedrooms: 'ห้องนอน',
+    fDescription: 'คำอธิบายทรัพย์สิน',
+    fDescPh: 'การนำเสนอ ประวัติ ศักยภาพในการเช่า ลักษณะเฉพาะ…',
+    fDescCount: (n: number) => `${n} / 4000 · ขั้นต่ำ 20 ตัวอักษร`,
+    fBathrooms: 'ห้องน้ำ', fPool: 'สระว่ายน้ำ', fView: 'วิว',
+    fBeach: 'เข้าถึงชายหาด', fAirport: 'สนามบิน', fHospital: 'โรงพยาบาล',
+    amenityPh: 'WiFi ไฟเบอร์ สระว่ายน้ำขอบเรียบ แอร์…',
+    amenityAdd: '+ เพิ่ม',
+    amenityNone: 'ยังไม่ได้เพิ่ม',
+    fLeaseYears: 'ระยะเวลาเช่า (ปี)', fLeaseRemaining: 'คงเหลือ (ปี)', fLeaseExpiry: 'ปีหมดอายุ',
+    fLeaseType: 'ประเภทสัญญาเช่า', fTrustee: 'ผู้ดูแล (Trustee)', fArbitration: 'เงื่อนไขอนุญาโตตุลาการ',
+    fLegalNote: 'หมายเหตุทางกฎหมายเพิ่มเติม',
+    fLegalNotePh: 'รายละเอียดทางกฎหมายที่เกี่ยวข้อง (โฉนดสะอาด ไม่มีจำนอง ฯลฯ)',
+    fContactEmail: 'อีเมลติดต่อ',
+    contactHint: (curr: string) => `อีเมลนี้ใช้สำหรับการติดต่อเกี่ยวกับทรัพย์สินของคุณ อาจแตกต่างจากอีเมลบัญชี (${curr || '—'})`,
+    errEmailNotVerified: 'กรุณายืนยันอีเมลก่อนส่ง',
+    submitBtn: 'ส่งทรัพย์สินของฉัน →',
+    submitting: '⏳ กำลังส่ง…',
+    photosLater: 'คุณสามารถเพิ่มรูปภาพได้หลังการส่ง',
+    types: { villa: 'วิลล่า', condo: 'คอนโด', hotel: 'โรงแรม / รีสอร์ต', bungalow: 'บังกะโล', 'eco-resort': 'รีสอร์ตเชิงนิเวศ', 'co-living': 'โคลิฟวิ่ง', 'boutique-hotel': 'บูทีคโฮเทล', land: 'ที่ดิน', other: 'อื่นๆ' } as Record<TypeKey, string>,
+    pools: { '': '—', private: 'ส่วนตัว', shared: 'ส่วนกลาง', none: 'ไม่มี' } as Record<PoolKey, string>,
+    countries: { TH: '🇹🇭 ไทย', FR: '🇫🇷 ฝรั่งเศส', PT: '🇵🇹 โปรตุเกส', ES: '🇪🇸 สเปน', MA: '🇲🇦 โมร็อกโก', OTHER: 'อื่นๆ' } as Record<CountryKey, string>,
+  },
+} as const
 
 // ── UI helpers ───────────────────────────────────────────────────────────────
 const card: React.CSSProperties = {
@@ -57,7 +196,6 @@ const subLabel: React.CSSProperties = {
 const grid2: React.CSSProperties = { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }
 const grid3: React.CSSProperties = { display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12 }
 
-// ── Section avec collapse ────────────────────────────────────────────────────
 function Section({
   title, badge, hint, children, defaultOpen = true,
 }: {
@@ -92,8 +230,9 @@ function Required() { return <span style={reqStar}>*</span> }
 // ── Page principale ──────────────────────────────────────────────────────────
 export default function NewPropertyPage() {
   const router = useRouter()
+  const { lang } = useLang()
+  const t = I18N[lang]
 
-  // Email verification check
   const [emailVerified, setEmailVerified] = useState<boolean | null>(null)
   const [userEmail, setUserEmail] = useState<string>('')
   const [resending, setResending] = useState(false)
@@ -110,8 +249,8 @@ export default function NewPropertyPage() {
 
   // Required
   const [title, setTitle]               = useState('')
-  const [type, setType]                 = useState('')
-  const [country, setCountry]           = useState('TH')
+  const [type, setType]                 = useState<TypeKey | ''>('')
+  const [country, setCountry]           = useState<CountryKey>('TH')
   const [city, setCity]                 = useState('')
   const [value, setValue]               = useState('')
   const [surface, setSurface]           = useState('')
@@ -119,28 +258,20 @@ export default function NewPropertyPage() {
   const [description, setDescription]   = useState('')
   const [email, setEmail]               = useState('')
 
-  // Optional — characteristics
+  // Optional
   const [bathrooms, setBathrooms]       = useState('')
-  const [poolType, setPoolType]         = useState('')
+  const [poolType, setPoolType]         = useState<PoolKey>('')
   const [viewDesc, setViewDesc]         = useState('')
-
-  // Optional — situation
   const [beach, setBeach]               = useState('')
   const [airport, setAirport]           = useState('')
   const [hospital, setHospital]         = useState('')
-
-  // Optional — lease
   const [leaseYears, setLeaseYears]                 = useState('')
   const [leaseRemainingYears, setLeaseRemainingYears] = useState('')
   const [leaseExpiryYear, setLeaseExpiryYear]       = useState('')
-
-  // Optional — legal
   const [leaseType, setLeaseType]           = useState('')
   const [trustee, setTrustee]               = useState('')
   const [arbitration, setArbitration]       = useState('')
   const [legalNote, setLegalNote]           = useState('')
-
-  // Optional — amenities (chip list)
   const [amenityInput, setAmenityInput] = useState('')
   const [amenities, setAmenities]       = useState<string[]>([])
 
@@ -187,7 +318,6 @@ export default function NewPropertyPage() {
         description:         description.trim(),
         contact_email:       email.trim(),
       }
-      // Optionals — n'envoie que si renseigné
       if (bathrooms)               body.bathrooms              = num(bathrooms)
       if (poolType)                body.pool_type              = poolType
       if (viewDesc.trim())         body.view_description       = viewDesc.trim()
@@ -211,7 +341,7 @@ export default function NewPropertyPage() {
       const data = await res.json()
       if (!res.ok) {
         if (data.error === 'EMAIL_NOT_VERIFIED') {
-          setError('Vérifiez d\'abord votre email avant de soumettre.')
+          setError(t.errEmailNotVerified)
           setEmailVerified(false)
         } else {
           throw new Error(data.error ?? 'Erreur')
@@ -226,9 +356,8 @@ export default function NewPropertyPage() {
     }
   }
 
-  // Loading auth
   if (emailVerified === null) {
-    return <div style={{ padding: 60, textAlign: 'center', color: 'var(--inv-muted)' }}>⏳ Chargement…</div>
+    return <div style={{ padding: 60, textAlign: 'center', color: 'var(--inv-muted)' }}>⏳ {t.loading}</div>
   }
 
   return (
@@ -236,31 +365,29 @@ export default function NewPropertyPage() {
 
       <div style={{ marginBottom: 24 }}>
         <Link href="/profile" style={{ background: 'none', border: 'none', color: 'var(--inv-muted)', cursor: 'pointer', fontSize: 13, textDecoration: 'none', display: 'inline-block', marginBottom: 12 }}>
-          ← Mon profil
+          {t.back}
         </Link>
         <h1 style={{ fontSize: 22, fontWeight: 800, color: 'var(--inv-navy)', marginBottom: 4 }}>
-          Proposer un bien
+          {t.title}
         </h1>
         <p style={{ fontSize: 14, color: 'var(--inv-muted)', margin: 0 }}>
-          Décrivez votre propriété en détail. Plus d&apos;infos = examen plus rapide.
-          Les champs marqués <span style={reqStar}>*</span> sont obligatoires.
+          {t.intro} <span style={reqStar}>*</span> {t.introSuffix}
         </p>
       </div>
 
-      {/* Email non vérifié — bloqué */}
       {!emailVerified && (
         <div style={{
           background: '#fffbeb', border: '1px solid #f59e0b', borderRadius: 8,
           padding: '16px 18px', marginBottom: 20, fontSize: 13,
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: '#92400e', fontWeight: 700, marginBottom: 6 }}>
-            ⚠️ Vérifiez votre email avant de soumettre
+            ⚠️ {t.emailUnverifiedTitle}
           </div>
           <p style={{ color: '#78350f', margin: '0 0 10px' }}>
-            Vous devez confirmer <strong>{userEmail}</strong> avant de pouvoir lister un bien.
+            {t.emailUnverifiedBody(userEmail)}
           </p>
           {resendOk ? (
-            <span style={{ color: '#15803d', fontSize: 12, fontWeight: 600 }}>✓ Email renvoyé. Consultez votre boîte.</span>
+            <span style={{ color: '#15803d', fontSize: 12, fontWeight: 600 }}>{t.emailSentOk}</span>
           ) : (
             <button
               onClick={handleResend}
@@ -270,50 +397,47 @@ export default function NewPropertyPage() {
                 padding: '7px 14px', fontSize: 12, fontWeight: 700, cursor: 'pointer',
               }}
             >
-              {resending ? '⏳…' : 'Renvoyer l\'email de vérification'}
+              {resending ? '⏳…' : t.resendBtn}
             </button>
           )}
         </div>
       )}
 
-      {/* Bandeau KYB info */}
       <div style={{
         background: '#eff6ff', border: '1px solid #bfdbfe', borderRadius: 8,
         padding: '12px 16px', marginBottom: 24, fontSize: 13, color: '#1e40af',
       }}>
-        <strong>ℹ️ Documents requis à l&apos;acceptation</strong><br />
-        Si votre bien est sélectionné, nous vous demanderons : passeport du porteur,
-        titre de propriété, extrait Kbis (DBD &lt;3 mois) et acte de nomination du directeur.
+        <strong>{t.kybInfoTitle}</strong><br />
+        {t.kybInfoBody}
       </div>
 
       <form onSubmit={handleSubmit}>
 
-        {/* ── IDENTITÉ ─────────────────────────────────────────────────── */}
-        <Section title="🏷️ Identité" defaultOpen>
+        <Section title={t.sIdentity} defaultOpen>
           <div>
-            <label className="inv-label">Nom du bien <Required /></label>
+            <label className="inv-label">{t.fTitle} <Required /></label>
             <input type="text" className="inv-input" value={title}
               onChange={e => setTitle(e.target.value)}
               maxLength={200} required placeholder="Ex. Chalok Pool Villa — Koh Tao" />
           </div>
           <div style={{ ...grid3, marginTop: 12 }}>
             <div>
-              <label className="inv-label">Type <Required /></label>
-              <select className="inv-input" value={type} onChange={e => setType(e.target.value)}
+              <label className="inv-label">{t.fType} <Required /></label>
+              <select className="inv-input" value={type} onChange={e => setType(e.target.value as TypeKey)}
                 required style={{ appearance: 'auto' }}>
-                <option value="">Sélectionnez…</option>
-                {TYPES.map(t => <option key={t.value} value={t.value}>{t.label}</option>)}
+                <option value="">{t.selectPh}</option>
+                {TYPE_KEYS.map(k => <option key={k} value={k}>{t.types[k]}</option>)}
               </select>
             </div>
             <div>
-              <label className="inv-label">Pays <Required /></label>
-              <select className="inv-input" value={country} onChange={e => setCountry(e.target.value)}
+              <label className="inv-label">{t.fCountry} <Required /></label>
+              <select className="inv-input" value={country} onChange={e => setCountry(e.target.value as CountryKey)}
                 required style={{ appearance: 'auto' }}>
-                {COUNTRIES.map(c => <option key={c.value} value={c.value}>{c.label}</option>)}
+                {COUNTRY_KEYS.map(c => <option key={c} value={c}>{t.countries[c]}</option>)}
               </select>
             </div>
             <div>
-              <label className="inv-label">Ville / Zone <Required /></label>
+              <label className="inv-label">{t.fCity} <Required /></label>
               <input type="text" className="inv-input" value={city}
                 onChange={e => setCity(e.target.value)}
                 maxLength={100} required placeholder="Koh Tao" />
@@ -321,23 +445,22 @@ export default function NewPropertyPage() {
           </div>
         </Section>
 
-        {/* ── VALEUR & SURFACE ────────────────────────────────────────── */}
-        <Section title="📊 Valeur & surface" defaultOpen>
+        <Section title={t.sValue} defaultOpen>
           <div style={grid3}>
             <div>
-              <label className="inv-label">Valeur estimée (THB) <Required /></label>
+              <label className="inv-label">{t.fValue} <Required /></label>
               <input type="number" className="inv-input" value={value}
                 onChange={e => setValue(e.target.value)}
                 min={1} required placeholder="35 000 000" />
             </div>
             <div>
-              <label className="inv-label">Surface (m²) <Required /></label>
+              <label className="inv-label">{t.fSurface} <Required /></label>
               <input type="number" className="inv-input" value={surface}
                 onChange={e => setSurface(e.target.value)}
                 min={1} required placeholder="250" />
             </div>
             <div>
-              <label className="inv-label">Chambres <Required /></label>
+              <label className="inv-label">{t.fBedrooms} <Required /></label>
               <input type="number" className="inv-input" value={bedrooms}
                 onChange={e => setBedrooms(e.target.value)}
                 min={0} required placeholder="4" />
@@ -345,72 +468,62 @@ export default function NewPropertyPage() {
           </div>
         </Section>
 
-        {/* ── DESCRIPTION ─────────────────────────────────────────────── */}
-        <Section title="🏡 Description" defaultOpen>
-          <label className="inv-label">Description du bien <Required /></label>
+        <Section title={t.sDescription} defaultOpen>
+          <label className="inv-label">{t.fDescription} <Required /></label>
           <textarea
             className="inv-input" value={description}
             onChange={e => setDescription(e.target.value)}
             rows={6} minLength={20} maxLength={4000} required
-            placeholder="Présentation du bien, son histoire, atouts locatifs, particularités…"
+            placeholder={t.fDescPh}
             style={{ resize: 'vertical', fontFamily: 'inherit' }}
           />
-          <div style={subLabel}>{description.length} / 4000 · minimum 20 caractères</div>
+          <div style={subLabel}>{t.fDescCount(description.length)}</div>
         </Section>
 
-        {/* ── CARACTÉRISTIQUES OPTIONNELLES ───────────────────────────── */}
-        <Section title="📐 Caractéristiques étendues" badge="Optionnel" defaultOpen={false}
-          hint="Plus de détails physiques aident l'examen.">
+        <Section title={t.sChars} badge={t.optional} defaultOpen={false} hint={t.hintChars}>
           <div style={grid3}>
             <div>
-              <label className="inv-label">Salles de bain</label>
+              <label className="inv-label">{t.fBathrooms}</label>
               <input type="number" className="inv-input" value={bathrooms}
                 onChange={e => setBathrooms(e.target.value)} min={0} />
             </div>
             <div>
-              <label className="inv-label">Piscine</label>
+              <label className="inv-label">{t.fPool}</label>
               <select className="inv-input" value={poolType}
-                onChange={e => setPoolType(e.target.value)} style={{ appearance: 'auto' }}>
-                {POOL_TYPES.map(p => <option key={p.value} value={p.value}>{p.label}</option>)}
+                onChange={e => setPoolType(e.target.value as PoolKey)} style={{ appearance: 'auto' }}>
+                {POOL_TYPES.map(p => <option key={p} value={p}>{t.pools[p]}</option>)}
               </select>
             </div>
             <div>
-              <label className="inv-label">Vue</label>
+              <label className="inv-label">{t.fView}</label>
               <input type="text" className="inv-input" value={viewDesc}
                 onChange={e => setViewDesc(e.target.value)}
-                maxLength={200} placeholder="Vue mer panoramique" />
+                maxLength={200} />
             </div>
           </div>
         </Section>
 
-        {/* ── SITUATION ───────────────────────────────────────────────── */}
-        <Section title="📍 Situation" badge="Optionnel" defaultOpen={false}
-          hint="Accès, points d'intérêt, distances.">
+        <Section title={t.sSituation} badge={t.optional} defaultOpen={false} hint={t.hintSituation}>
           <div style={grid2}>
             <div>
-              <label className="inv-label">Accès plage</label>
+              <label className="inv-label">{t.fBeach}</label>
               <input type="text" className="inv-input" value={beach}
-                onChange={e => setBeach(e.target.value)}
-                maxLength={200} placeholder="8 min à pied" />
+                onChange={e => setBeach(e.target.value)} maxLength={200} />
             </div>
             <div>
-              <label className="inv-label">Aéroport</label>
+              <label className="inv-label">{t.fAirport}</label>
               <input type="text" className="inv-input" value={airport}
-                onChange={e => setAirport(e.target.value)}
-                maxLength={200} placeholder="Koh Samui (USM) — 45 min ferry" />
+                onChange={e => setAirport(e.target.value)} maxLength={200} />
             </div>
             <div style={{ gridColumn: '1 / -1' }}>
-              <label className="inv-label">Hôpital</label>
+              <label className="inv-label">{t.fHospital}</label>
               <input type="text" className="inv-input" value={hospital}
-                onChange={e => setHospital(e.target.value)}
-                maxLength={200} placeholder="Bangkok Hospital Samui — 55 min" />
+                onChange={e => setHospital(e.target.value)} maxLength={200} />
             </div>
           </div>
         </Section>
 
-        {/* ── ÉQUIPEMENTS ─────────────────────────────────────────────── */}
-        <Section title="✅ Équipements" badge="Optionnel" defaultOpen={false}
-          hint="Max 50 équipements · 80 caractères chacun.">
+        <Section title={t.sAmenities} badge={t.optional} defaultOpen={false} hint={t.hintAmenities}>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 10 }}>
             {amenities.map((a, i) => (
               <span key={i} style={{
@@ -423,11 +536,11 @@ export default function NewPropertyPage() {
                   type="button"
                   onClick={() => removeAmenity(i)}
                   style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'var(--inv-muted)', fontSize: 14, padding: 0, lineHeight: 1 }}
-                  title="Retirer"
+                  title="×"
                 >×</button>
               </span>
             ))}
-            {amenities.length === 0 && <span style={{ ...subLabel, marginTop: 0 }}>Aucun ajouté</span>}
+            {amenities.length === 0 && <span style={{ ...subLabel, marginTop: 0 }}>{t.amenityNone}</span>}
           </div>
           <div style={{ display: 'flex', gap: 8 }}>
             <input
@@ -435,81 +548,68 @@ export default function NewPropertyPage() {
               value={amenityInput}
               onChange={e => setAmenityInput(e.target.value)}
               onKeyDown={e => { if (e.key === 'Enter') { e.preventDefault(); addAmenity() } }}
-              placeholder="WiFi fibre, Piscine à débordement, Climatisation…"
+              placeholder={t.amenityPh}
               maxLength={80}
             />
-            <button
-              type="button"
-              onClick={addAmenity}
-              style={{
-                padding: '0 18px', background: 'var(--inv-navy)', color: '#fff',
-                border: 'none', borderRadius: 6, fontWeight: 700, fontSize: 13,
-                cursor: 'pointer', fontFamily: 'inherit',
-              }}
-            >+ Ajouter</button>
+            <button type="button" onClick={addAmenity} style={{
+              padding: '0 18px', background: 'var(--inv-navy)', color: '#fff',
+              border: 'none', borderRadius: 6, fontWeight: 700, fontSize: 13,
+              cursor: 'pointer', fontFamily: 'inherit',
+            }}>{t.amenityAdd}</button>
           </div>
         </Section>
 
-        {/* ── BAIL & JURIDIQUE ────────────────────────────────────────── */}
-        <Section title="⚖️ Bail & structure juridique" badge="Optionnel" defaultOpen={false}
-          hint="Si vous ne connaissez pas ces infos, laissez vide — LOWI complètera.">
+        <Section title={t.sLease} badge={t.optional} defaultOpen={false} hint={t.hintLease}>
           <div style={grid3}>
             <div>
-              <label className="inv-label">Durée bail (années)</label>
+              <label className="inv-label">{t.fLeaseYears}</label>
               <input type="number" className="inv-input" value={leaseYears}
                 onChange={e => setLeaseYears(e.target.value)} min={1} placeholder="20" />
             </div>
             <div>
-              <label className="inv-label">Restant (années)</label>
+              <label className="inv-label">{t.fLeaseRemaining}</label>
               <input type="number" className="inv-input" value={leaseRemainingYears}
                 onChange={e => setLeaseRemainingYears(e.target.value)} min={0} placeholder="18" />
             </div>
             <div>
-              <label className="inv-label">Année d&apos;expiration</label>
+              <label className="inv-label">{t.fLeaseExpiry}</label>
               <input type="number" className="inv-input" value={leaseExpiryYear}
                 onChange={e => setLeaseExpiryYear(e.target.value)} placeholder="2045" />
             </div>
           </div>
           <div style={{ ...grid2, marginTop: 12 }}>
             <div>
-              <label className="inv-label">Type de bail</label>
+              <label className="inv-label">{t.fLeaseType}</label>
               <input type="text" className="inv-input" value={leaseType}
-                onChange={e => setLeaseType(e.target.value)}
-                maxLength={200} placeholder="Emphytéotique enregistré" />
+                onChange={e => setLeaseType(e.target.value)} maxLength={200} />
             </div>
             <div>
-              <label className="inv-label">Trustee</label>
+              <label className="inv-label">{t.fTrustee}</label>
               <input type="text" className="inv-input" value={trustee}
-                onChange={e => setTrustee(e.target.value)}
-                maxLength={200} placeholder="Société internationale" />
+                onChange={e => setTrustee(e.target.value)} maxLength={200} />
             </div>
             <div style={{ gridColumn: '1 / -1' }}>
-              <label className="inv-label">Clause d&apos;arbitrage</label>
+              <label className="inv-label">{t.fArbitration}</label>
               <input type="text" className="inv-input" value={arbitration}
-                onChange={e => setArbitration(e.target.value)}
-                maxLength={500} placeholder="Convention de New York" />
+                onChange={e => setArbitration(e.target.value)} maxLength={500} />
             </div>
           </div>
           <div style={{ marginTop: 12 }}>
-            <label className="inv-label">Note juridique complémentaire</label>
+            <label className="inv-label">{t.fLegalNote}</label>
             <textarea className="inv-input" value={legalNote}
               onChange={e => setLegalNote(e.target.value)}
               rows={3} maxLength={2000}
               style={{ resize: 'vertical', fontFamily: 'inherit' }}
-              placeholder="Tout élément juridique pertinent (titre clean, sans hypothèque, etc.)" />
+              placeholder={t.fLegalNotePh} />
           </div>
         </Section>
 
-        {/* ── CONTACT ─────────────────────────────────────────────────── */}
-        <Section title="✉️ Contact" defaultOpen>
-          <label className="inv-label">Email de contact <Required /></label>
+        <Section title={t.sContact} defaultOpen>
+          <label className="inv-label">{t.fContactEmail} <Required /></label>
           <input type="email" className="inv-input" value={email}
             onChange={e => setEmail(e.target.value)}
             maxLength={200} required placeholder="votre@email.com" />
-          <div style={subLabel}>
-            Cet email est utilisé pour les communications relatives à votre bien. Peut différer
-            de votre email de compte ({userEmail || '—'}).
-          </div>
+          <div style={subLabel}>{t.contactHint(userEmail)}</div>
         </Section>
 
         {error && (
@@ -517,9 +617,7 @@ export default function NewPropertyPage() {
             padding: '12px 16px', background: '#fef2f2',
             border: '1px solid #fecaca', borderRadius: 6,
             fontSize: 13, color: 'var(--inv-red)', marginBottom: 16,
-          }}>
-            ⚠ {error}
-          </div>
+          }}>⚠ {error}</div>
         )}
 
         <button
@@ -528,10 +626,10 @@ export default function NewPropertyPage() {
           disabled={saving || !emailVerified}
           style={{ padding: '13px', width: '100%', fontSize: 14 }}
         >
-          {saving ? '⏳ Envoi en cours…' : 'Soumettre mon bien →'}
+          {saving ? t.submitting : t.submitBtn}
         </button>
         <p style={{ ...subLabel, textAlign: 'center', marginTop: 10 }}>
-          Vous pourrez ajouter des photos juste après la soumission.
+          {t.photosLater}
         </p>
       </form>
     </div>

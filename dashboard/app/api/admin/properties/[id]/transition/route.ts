@@ -107,11 +107,18 @@ async function sendTransitionEmails(args: {
 }) {
   const admin = createAdminClient()
 
-  // Récupère l'email du submitter (priorité : contact_email, fallback profile.email)
+  // Récupère email + lang préférée du submitter (priorité : contact_email pour
+  // l'adresse ; lang depuis profiles.preferred_lang quelle que soit l'adresse).
   let submitterEmail = args.submitterContactEmail
-  if (!submitterEmail && args.submitterId) {
-    const { data: profile } = await admin.from('profiles').select('email').eq('id', args.submitterId).single()
-    submitterEmail = profile?.email ?? null
+  let lang: 'fr' | 'en' | 'th' = 'fr'
+  if (args.submitterId) {
+    const { data: profile } = await admin
+      .from('profiles')
+      .select('email, preferred_lang')
+      .eq('id', args.submitterId)
+      .single()
+    if (!submitterEmail) submitterEmail = profile?.email ?? null
+    if (profile?.preferred_lang === 'en' || profile?.preferred_lang === 'th') lang = profile.preferred_lang
   }
 
   const recap = {
@@ -136,12 +143,12 @@ async function sendTransitionEmails(args: {
   }
 
   if (args.newStatus === 'accepted' && submitterEmail) {
-    await sendEmail({ to: submitterEmail, ...submissionAccepted(recap, SITE_URL),                ...meta, type: 'submission_accepted' })
+    await sendEmail({ to: submitterEmail, ...submissionAccepted(recap, SITE_URL, lang),                ...meta, type: 'submission_accepted' })
   } else if (args.newStatus === 'rejected' && submitterEmail) {
-    await sendEmail({ to: submitterEmail, ...submissionRejected(recap, SITE_URL, REJECT_TO),     ...meta, type: 'submission_rejected' })
+    await sendEmail({ to: submitterEmail, ...submissionRejected(recap, SITE_URL, REJECT_TO, lang),     ...meta, type: 'submission_rejected' })
   } else if (args.newStatus === 'active') {
     if (submitterEmail) {
-      await sendEmail({ to: submitterEmail, ...submissionActive(recap, SITE_URL),                ...meta, type: 'submission_active' })
+      await sendEmail({ to: submitterEmail, ...submissionActive(recap, SITE_URL, lang),                ...meta, type: 'submission_active' })
     }
     await sendEmail({   to: ADMIN_TO,       ...adminListingPublished(recap, SITE_URL, submitterEmail ?? '?'), ...meta, type: 'admin_listing_published' })
   }
