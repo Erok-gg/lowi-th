@@ -65,7 +65,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   async function handleLogout() {
     const supabase = createClient()
     await supabase.auth.signOut()
-    router.push('/login')
+    router.push('/dashboard/login')
   }
 
   function toggleFolder(key: string) {

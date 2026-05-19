@@ -50,7 +50,7 @@ export default function SignupPage() {
             </div>
             <hr className="win-divider" style={{ marginTop: 14 }} />
             <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 10 }}>
-              <Link href="/login">
+              <Link href="/dashboard/login">
                 <button className="win-btn win-btn-primary">OK</button>
               </Link>
             </div>
@@ -118,7 +118,7 @@ export default function SignupPage() {
           <hr className="win-divider" style={{ marginTop: 14 }} />
 
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 10 }}>
-            <Link href="/login" style={{ fontSize: 12, color: 'var(--win-navy)' }}>
+            <Link href="/dashboard/login" style={{ fontSize: 12, color: 'var(--win-navy)' }}>
               ← Back to login
             </Link>
             <button

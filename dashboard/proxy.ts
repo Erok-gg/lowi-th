@@ -72,7 +72,8 @@ export async function proxy(request: NextRequest) {
   if (isVitrinePublic) return supabaseResponse
 
   // ── Admin routes ──
-  const isPublic = pathname.startsWith('/login') ||
+  const isPublic = pathname.startsWith('/login') ||                  // legacy redirect → /dashboard/login
+                   pathname.startsWith('/dashboard/login') ||         // nouveau login staff
                    pathname.startsWith('/signup') ||
                    pathname.startsWith('/api/signup') ||
                    pathname.startsWith('/api/setup')
@@ -82,11 +83,13 @@ export async function proxy(request: NextRequest) {
     if (pathname.startsWith('/api/')) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
-    return NextResponse.redirect(new URL('/login', request.url))
+    const dest = new URL('/dashboard/login', request.url)
+    if (pathname && pathname !== '/') dest.searchParams.set('redirect', pathname)
+    return NextResponse.redirect(dest)
   }
 
-  if (user && (pathname === '/login' || pathname === '/signup')) {
-    return NextResponse.redirect(new URL('/', request.url))
+  if (user && (pathname === '/login' || pathname === '/dashboard/login' || pathname === '/signup')) {
+    return NextResponse.redirect(new URL('/admin/properties', request.url))
   }
 
   return supabaseResponse
