@@ -66,6 +66,12 @@ const I18N = {
     submitBtn: 'Soumettre mon bien →',
     submitting: '⏳ Envoi en cours…',
     photosLater: 'Vous pourrez ajouter des photos juste après la soumission.',
+    // success screen
+    successTitle: '✓ Soumission prise en compte',
+    successDesc: 'Votre propriété est en attente d\'examen. Vous pouvez la modifier depuis votre profil tant que le statut reste « En attente ».',
+    successRef: 'Référence',
+    successRedirectIn: (s: number) => `Redirection vers votre profil dans ${s}s…`,
+    successOk: 'OK, voir mon profil',
     types: { villa: 'Villa', condo: 'Condominium', hotel: 'Hôtel / Resort', bungalow: 'Bungalow', 'eco-resort': 'Éco-resort', 'co-living': 'Co-living', 'boutique-hotel': 'Boutique Hotel', land: 'Terrain', other: 'Autre' } as Record<TypeKey, string>,
     pools: { '': '—', private: 'Privée', shared: 'Partagée', none: 'Aucune' } as Record<PoolKey, string>,
     countries: { TH: '🇹🇭 Thaïlande', FR: '🇫🇷 France', PT: '🇵🇹 Portugal', ES: '🇪🇸 Espagne', MA: '🇲🇦 Maroc', OTHER: 'Autre' } as Record<CountryKey, string>,
@@ -119,6 +125,11 @@ const I18N = {
     submitBtn: 'Submit my property →',
     submitting: '⏳ Submitting…',
     photosLater: 'You can add photos right after submission.',
+    successTitle: '✓ Submission received',
+    successDesc: 'Your property is pending review. You can edit it from your profile while the status is "Pending".',
+    successRef: 'Reference',
+    successRedirectIn: (s: number) => `Redirecting to your profile in ${s}s…`,
+    successOk: 'OK, view my profile',
     types: { villa: 'Villa', condo: 'Condominium', hotel: 'Hotel / Resort', bungalow: 'Bungalow', 'eco-resort': 'Eco-resort', 'co-living': 'Co-living', 'boutique-hotel': 'Boutique Hotel', land: 'Land', other: 'Other' } as Record<TypeKey, string>,
     pools: { '': '—', private: 'Private', shared: 'Shared', none: 'None' } as Record<PoolKey, string>,
     countries: { TH: '🇹🇭 Thailand', FR: '🇫🇷 France', PT: '🇵🇹 Portugal', ES: '🇪🇸 Spain', MA: '🇲🇦 Morocco', OTHER: 'Other' } as Record<CountryKey, string>,
@@ -172,6 +183,11 @@ const I18N = {
     submitBtn: 'ส่งทรัพย์สินของฉัน →',
     submitting: '⏳ กำลังส่ง…',
     photosLater: 'คุณสามารถเพิ่มรูปภาพได้หลังการส่ง',
+    successTitle: '✓ รับใบสมัครแล้ว',
+    successDesc: 'อสังหาริมทรัพย์ของคุณกำลังรอการตรวจสอบ คุณสามารถแก้ไขได้จากโปรไฟล์ของคุณตราบใดที่สถานะเป็น "รอ"',
+    successRef: 'รหัสอ้างอิง',
+    successRedirectIn: (s: number) => `กำลังเปลี่ยนเส้นทางไปยังโปรไฟล์ใน ${s}วินาที…`,
+    successOk: 'ตกลง ดูโปรไฟล์',
     types: { villa: 'วิลล่า', condo: 'คอนโด', hotel: 'โรงแรม / รีสอร์ต', bungalow: 'บังกะโล', 'eco-resort': 'รีสอร์ตเชิงนิเวศ', 'co-living': 'โคลิฟวิ่ง', 'boutique-hotel': 'บูทีคโฮเทล', land: 'ที่ดิน', other: 'อื่นๆ' } as Record<TypeKey, string>,
     pools: { '': '—', private: 'ส่วนตัว', shared: 'ส่วนกลาง', none: 'ไม่มี' } as Record<PoolKey, string>,
     countries: { TH: '🇹🇭 ไทย', FR: '🇫🇷 ฝรั่งเศส', PT: '🇵🇹 โปรตุเกส', ES: '🇪🇸 สเปน', MA: '🇲🇦 โมร็อกโก', OTHER: 'อื่นๆ' } as Record<CountryKey, string>,
@@ -292,6 +308,15 @@ export default function NewPropertyPage() {
 
   const [saving, setSaving] = useState(false)
   const [error,  setError]  = useState('')
+  // Success screen
+  const [submitted, setSubmitted] = useState<{ public_id: string; title: string } | null>(null)
+  const [redirectIn, setRedirectIn] = useState(5)
+  useEffect(() => {
+    if (!submitted) return
+    if (redirectIn <= 0) { router.replace('/profile'); return }
+    const id = setTimeout(() => setRedirectIn(s => s - 1), 1000)
+    return () => clearTimeout(id)
+  }, [submitted, redirectIn, router])
 
   function addAmenity() {
     const v = amenityInput.trim().slice(0, 80)
@@ -370,7 +395,8 @@ export default function NewPropertyPage() {
         }
         return
       }
-      router.push(`/properties/${data.id}`)
+      // Affiche la success screen au lieu de rediriger directement
+      setSubmitted({ public_id: data.public_id, title: data.title })
     } catch (err: unknown) {
       setError(err instanceof Error ? err.message : 'Erreur')
     } finally {
@@ -380,6 +406,67 @@ export default function NewPropertyPage() {
 
   if (emailVerified === null) {
     return <div style={{ padding: 60, textAlign: 'center', color: 'var(--inv-muted)' }}>⏳ {t.loading}</div>
+  }
+
+  // ── Success screen : prend toute la zone après soumission ─────────────
+  if (submitted) {
+    return (
+      <div style={{
+        maxWidth: 560, margin: '0 auto', padding: '60px 16px',
+        textAlign: 'center', animation: 'lowi-fadein .35s ease-out',
+      }}>
+        <div style={{
+          fontSize: 64, lineHeight: 1, marginBottom: 18,
+          animation: 'lowi-pop .45s cubic-bezier(.34,1.56,.64,1)',
+        }}>✓</div>
+        <h1 style={{ fontSize: 22, fontWeight: 800, color: 'var(--inv-navy)', margin: '0 0 12px' }}>
+          {t.successTitle}
+        </h1>
+        <p style={{ fontSize: 14, color: 'var(--inv-muted)', lineHeight: 1.6, margin: '0 0 24px' }}>
+          {t.successDesc}
+        </p>
+
+        <div style={{
+          display: 'inline-flex', alignItems: 'center', gap: 8,
+          padding: '6px 14px', background: 'var(--inv-gray)',
+          border: '1px solid var(--inv-border)', borderRadius: 20,
+          fontSize: 12, fontWeight: 600, marginBottom: 32,
+        }}>
+          <span style={{ color: 'var(--inv-muted)' }}>{t.successRef}</span>
+          <code style={{ color: 'var(--inv-navy)', fontFamily: 'monospace' }}>{submitted.public_id}</code>
+        </div>
+
+        <div style={{ marginBottom: 16, fontSize: 13, color: 'var(--inv-muted)' }}>
+          {t.successRedirectIn(redirectIn)}
+        </div>
+
+        {/* Progress bar décompte */}
+        <div style={{
+          maxWidth: 240, margin: '0 auto 24px',
+          height: 4, background: 'var(--inv-gray)', borderRadius: 2, overflow: 'hidden',
+        }}>
+          <div style={{
+            height: '100%',
+            width: `${(redirectIn / 5) * 100}%`,
+            background: 'var(--inv-navy)',
+            transition: 'width 1s linear',
+          }} />
+        </div>
+
+        <button
+          onClick={() => router.replace('/profile')}
+          className="inv-btn inv-btn-gold"
+          style={{ padding: '11px 28px', fontSize: 14 }}
+        >
+          {t.successOk}
+        </button>
+
+        <style>{`
+          @keyframes lowi-fadein { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+          @keyframes lowi-pop { 0% { transform: scale(.3); opacity: 0; } 60% { transform: scale(1.15); opacity: 1; } 100% { transform: scale(1); } }
+        `}</style>
+      </div>
+    )
   }
 
   return (
