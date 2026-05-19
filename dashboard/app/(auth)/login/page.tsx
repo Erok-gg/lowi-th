@@ -25,7 +25,20 @@ export default function LoginPage() {
       return
     }
 
-    router.push('/')
+    // Redirect : si superadmin → queue properties (action la plus utile),
+    // sinon → /users (legacy admin home, sidebar visible).
+    const supabaseCheck = createClient()
+    const { data: { user: u } } = await supabaseCheck.auth.getUser()
+    let dest = '/users'
+    if (u) {
+      const { data: p } = await supabaseCheck
+        .from('profiles')
+        .select('is_superadmin')
+        .eq('id', u.id)
+        .single()
+      if (p?.is_superadmin) dest = '/admin/properties'
+    }
+    router.push(dest)
     router.refresh()
   }
 
