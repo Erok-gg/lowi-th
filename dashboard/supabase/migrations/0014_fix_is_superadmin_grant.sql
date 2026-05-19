@@ -1,0 +1,22 @@
+-- ===========================================================================
+-- 0014 — Fix régression migration 0010 sur is_superadmin
+-- ===========================================================================
+-- La migration 0010 a fait :
+--   REVOKE EXECUTE ON FUNCTION public.is_superadmin(uuid) FROM anon, authenticated, public;
+-- But policies RLS sur properties / property_photos / kyb / etc. utilisent
+-- is_superadmin((SELECT auth.uid())) dans leurs USING/WITH CHECK.
+-- Quand un user authentifié fait INSERT/SELECT, Postgres évalue TOUTES les
+-- policies applicables (OR-combined) — y compris "superadmin all X" — et
+-- l'évaluation échoue avec : "permission denied for function is_superadmin".
+--
+-- Fix : GRANT EXECUTE à authenticated + anon. La fonction est SECURITY DEFINER,
+-- elle s'exécute avec les droits du owner et fait SELECT 1 FROM profiles
+-- WHERE id=uid AND is_superadmin=true. Pas de fuite : ça renvoie juste
+-- un boolean. Un user peut déjà inférer son statut admin en tentant des
+-- routes /api/admin/*.
+--
+-- L'advisor Supabase peut continuer à flagger "exposed via RPC" — c'est
+-- accepté ici (gain perf RLS > risque exposition booléen).
+-- ===========================================================================
+
+GRANT EXECUTE ON FUNCTION public.is_superadmin(uuid) TO authenticated, anon;
