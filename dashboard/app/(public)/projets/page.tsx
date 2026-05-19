@@ -2,6 +2,7 @@
 import '../projets.css'
 import { useLang } from '../_components/LangContext'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useState, useEffect, useMemo } from 'react'
 
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL!
@@ -235,7 +236,7 @@ export default function ProjetsPage() {
     return (
       <article key={p.id} className="project-card">
         <div className="card-image-wrap">
-          <img src={p.img} alt={p.name} loading="lazy" width={600} height={200} />
+          <Image src={p.img} alt={p.name} fill sizes="(max-width: 768px) 100vw, 400px" style={{ objectFit: 'cover' }} />
           <span className="card-type-tag">{typeLabel(p.type, t.ecoLabel)}</span>
           <span className={`card-status-badge ${badgeClass}`}>{badgeText}</span>
           <div className="card-img-bar">

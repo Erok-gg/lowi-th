@@ -2,6 +2,7 @@
 import '../../projet-detail.css'
 import { useLang } from '../../_components/LangContext'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useState, useEffect } from 'react'
 import { notFound } from 'next/navigation'
 
@@ -214,10 +215,14 @@ function ChalokHardcoded() {
     <>
       {/* Hero */}
       <section className="pd-hero">
-        <img
+        <Image
           className="pd-hero-img"
           src={GALLERY_IMGS[0]}
           alt={t.title}
+          fill
+          priority
+          sizes="100vw"
+          style={{ objectFit: 'cover' }}
         />
         <div className="pd-hero-overlay" />
 
@@ -275,18 +280,23 @@ function ChalokHardcoded() {
           {/* Gallery */}
           <div className="pd-gallery">
             <div className="pd-gallery-main">
-              <img
+              <Image
                 src={GALLERY_IMGS[activeImg]}
                 alt={`${t.title} — photo ${activeImg + 1}`}
+                fill
+                sizes="(max-width: 1024px) 100vw, 720px"
+                style={{ objectFit: 'cover' }}
               />
               <span className="pd-gallery-counter">{activeImg + 1} / {GALLERY_IMGS.length}</span>
             </div>
             <div className="pd-filmstrip">
               {GALLERY_IMGS.map((src, i) => (
-                <img
+                <Image
                   key={i}
                   src={src}
                   alt=""
+                  width={90}
+                  height={62}
                   className={`pd-thumb${i === activeImg ? ' active' : ''}`}
                   onClick={() => setActiveImg(i)}
                 />

@@ -37,7 +37,6 @@ function KycForm() {
   const [parts, setParts]             = useState(partsParam >= MIN_PARTS ? partsParam : MIN_PARTS)
   const [rates, setRates]             = useState<Rates | null>(null)
   const [available, setAvailable]     = useState(TOTAL_PARTS)
-  const [partsConfirmed, setPartsConfirmed] = useState(false)
   const [reserving, setReserving]     = useState(false)
   const [reservationId, setReservationId] = useState<string | null>(null)
 
@@ -86,7 +85,6 @@ function KycForm() {
     const data = await res.json()
     if (!res.ok) { setError(data.error ?? 'Erreur'); setReserving(false); return }
     setReservationId(data.reservation_id)
-    setPartsConfirmed(true)
     setStep(2)
     setReserving(false)
   }

@@ -101,7 +101,15 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: true })
 
   } catch (err) {
-    console.error('[signup]', err)
+    // Pas de dump de l'objet err en prod : un attaquant pourrait deviner
+    // la structure (Supabase, table, contrainte) via les logs publics.
+    // En dev on garde la stack pour debug local.
+    const msg = err instanceof Error ? err.message : 'unknown'
+    if (process.env.NODE_ENV === 'production') {
+      console.error('[signup] failed')
+    } else {
+      console.error('[signup]', msg)
+    }
     return NextResponse.json({ error: 'Internal server error.' }, { status: 500 })
   }
 }

@@ -1,12 +1,29 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 
-// One-time superadmin setup — only works if no superadmin exists
-// Call: GET /api/setup?secret=YOUR_SETUP_SECRET
-export async function GET(req: NextRequest) {
-  const secret = req.nextUrl.searchParams.get('secret')
+// One-time superadmin setup — only works if no superadmin exists.
+// Auth via header (le secret en query param fuit dans les logs reverse proxy
+// et l'historique navigateur — Sprint 10 post-audit, P2).
+//
+//   curl -X POST https://<host>/api/setup \
+//     -H "Authorization: Bearer YOUR_SETUP_SECRET"
+//
+// Compat ascendante : on accepte aussi GET ?secret=... mais on log un warning.
 
-  if (!secret || secret !== process.env.SETUP_SECRET) {
+async function handle(req: NextRequest, fromQueryParam: boolean) {
+  const expected = process.env.SETUP_SECRET
+  if (!expected) return NextResponse.json({ error: 'SETUP_SECRET not set' }, { status: 500 })
+
+  // Header Authorization: Bearer <secret>
+  let provided = req.headers.get('authorization')?.replace(/^Bearer\s+/i, '').trim() ?? null
+
+  // Fallback : query param ?secret=... (deprecated)
+  if (!provided && fromQueryParam) {
+    provided = req.nextUrl.searchParams.get('secret')
+    if (provided) console.warn('[setup] secret reçu en query param — utiliser le header Authorization')
+  }
+
+  if (!provided || provided !== expected) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
   }
 
@@ -16,24 +33,22 @@ export async function GET(req: NextRequest) {
   if (!email || !password) {
     return NextResponse.json(
       { error: 'SUPERADMIN_EMAIL and SUPERADMIN_PASSWORD must be set in .env.local' },
-      { status: 500 }
+      { status: 500 },
     )
   }
 
   const admin = createAdminClient()
 
-  // Check if superadmin already exists
   const { data: existing } = await admin
     .from('profiles')
     .select('id')
     .eq('is_superadmin', true)
-    .single()
+    .maybeSingle()
 
   if (existing) {
     return NextResponse.json({ error: 'Superadmin already exists.' }, { status: 409 })
   }
 
-  // Create auth user
   const { data: newUser, error } = await admin.auth.admin.createUser({
     email,
     password,
@@ -42,7 +57,6 @@ export async function GET(req: NextRequest) {
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 })
 
-  // Set superadmin flag
   await admin
     .from('profiles')
     .update({ is_superadmin: true, is_active: true })
@@ -53,3 +67,6 @@ export async function GET(req: NextRequest) {
     message: `Superadmin created: ${email}. Login at /login. CHANGE YOUR PASSWORD.`,
   })
 }
+
+export async function POST(req: NextRequest) { return handle(req, false) }
+export async function GET(req: NextRequest)  { return handle(req, true) }

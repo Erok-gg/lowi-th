@@ -51,13 +51,18 @@ const SECURITY_HEADERS = [
 
 const nextConfig: NextConfig = {
   serverExternalPackages: ['sharp'],
+  images: {
+    // Hosts autorisés pour next/image (cohérent avec CSP img-src)
+    remotePatterns: [
+      { protocol: 'https', hostname: SUPABASE_HOST,           pathname: '/storage/v1/object/public/**' },
+      { protocol: 'https', hostname: '**.supabase.co',         pathname: '/storage/v1/object/public/**' },
+      { protocol: 'https', hostname: 'flagcdn.com',            pathname: '/**' },
+      { protocol: 'https', hostname: 'images.unsplash.com',    pathname: '/**' },
+    ],
+  },
   async headers() {
     return [
-      {
-        // Tous les chemins sauf assets _next (déjà sains)
-        source: '/:path*',
-        headers: SECURITY_HEADERS,
-      },
+      { source: '/:path*', headers: SECURITY_HEADERS },
     ]
   },
 }

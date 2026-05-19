@@ -3,11 +3,9 @@ import './landing.css'
 import { useLang, Lang } from './_components/LangContext'
 import { useRef, useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 /* ── Translations ──────────────────────────────────────────────────────────── */
-function gr(t: string) {
-  return `<em style="font-style:normal;background:linear-gradient(135deg,#C9A84C,#0D7C6E);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">${t}</em>`
-}
 
 const T = {
   fr: {
@@ -158,7 +156,7 @@ function PropertyCarousel({ t }: { t: typeof T.fr }) {
           {PROPS.map((p, i) => (
             <div key={i} className="prop-card">
               <div className="prop-img">
-                <img src={p.img} alt={p.alt} />
+                <Image src={p.img} alt={p.alt} fill sizes="(max-width: 768px) 100vw, 400px" style={{ objectFit: 'cover' }} />
                 <div className="prop-tag">{p.tag}</div>
                 <div className="prop-funded-bar">
                   <div className="prop-funded-bar-fill" style={{ width: `${p.pct}%` }} />

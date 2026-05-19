@@ -48,7 +48,6 @@ export default function WaitlistPage() {
   }
 
   const filtered = entries.filter(e => e.status === tab)
-  const counts = { pending: entries.length, approved: 0, rejected: 0 }
 
   return (
     <div className="win-panel" style={{ height: '100%', display: 'flex', flexDirection: 'column' }}>

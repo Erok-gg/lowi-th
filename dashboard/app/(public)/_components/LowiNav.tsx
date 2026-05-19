@@ -1,5 +1,6 @@
 'use client'
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useState, useEffect, useRef } from 'react'
 import { useLang, Lang } from './LangContext'
@@ -36,7 +37,16 @@ const PersonIcon = () => (
 )
 
 function FlagImg({ code }: { code: string }) {
-  return <img src={`https://flagcdn.com/20x15/${code}.png`} width="20" height="15" style={{ borderRadius: 2, verticalAlign: 'middle' }} alt="" />
+  return (
+    <Image
+      src={`https://flagcdn.com/20x15/${code}.png`}
+      width={20}
+      height={15}
+      style={{ borderRadius: 2, verticalAlign: 'middle' }}
+      alt=""
+      unoptimized
+    />
+  )
 }
 
 export default function LowiNav() {
