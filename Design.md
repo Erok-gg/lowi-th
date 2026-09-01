@@ -66,6 +66,35 @@ tags de bloc, ex. `.cell__tag`) — exception délibérée à la règle "tag =
 mono", demandée pour ce composant précis. Le chiffre lui-même
 (`.fact__v`) reste en MCTen, inchangé.
 
+## Barres de comparaison à teinte rouge→vert (`.bars`/`.bar`)
+
+Utilisé pour le classement des rendements par quartier (page Platform).
+Deux échelles superposées, l'une sur la longueur de la barre, l'autre sur
+la teinte de fond de la ligne :
+
+- **Longueur** (`.bar__fill`, inchangé dans son mécanisme) : ce n'est
+  **plus** une échelle `valeur/max` (qui écrasait visuellement les petits
+  écarts) mais une échelle **min-max bornée 50–100 %** — le quartier le
+  plus bas de la liste occupe 50 % de la piste, le plus haut 100 %,
+  formule `50 + 50 × (valeur − min) / (max − min)`.
+- **Teinte de fond** (`--tint:R,G,B` en style inline sur `.bar`, consommé
+  par `rgba(var(--tint,143,143,143),.09)` dans la règle CSS — fallback
+  neutre si l'attribut est absent) : interpolation linéaire entre rouge
+  (`#E07070`, `--pass`) au minimum et vert (`#5FB89A`, `--engage`) au
+  maximum, sur le **même** ratio min-max que la longueur — donc les deux
+  lectures (longueur, couleur) racontent toujours la même histoire.
+  Alpha très faible (.09 au repos, .16 au survol) : un repère d'appoint,
+  jamais un remplacement du chiffre affiché.
+- **Ne pas confondre avec `--bc`** sur `.bar__fill`, qui reste la
+  couleur catégorielle existante (violet = quartiers desservis par la
+  ligne Orange, or = autre, gris = prime central) — les deux teintes
+  (catégorielle sur la barre, magnitude sur la ligne) coexistent sans
+  se marcher dessus.
+- Les valeurs sources viennent de `study/snapshots/<date>.json` →
+  `khet_stats_01[<quartier>].yield_wc` ; la sélection des quartiers
+  affichés reste **manuelle** (liste courte pertinente pour la thèse
+  expat/international-school), seules les valeurs se rafraîchissent.
+
 ## Tableaux
 
 Tout le contenu des cellules (`table.data`, `table.fee`) est centré

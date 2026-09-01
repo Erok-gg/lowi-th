@@ -355,8 +355,8 @@ table.data tbody tr:last-child td{border-bottom:0}
 /* ---------- bars ---------- */
 
 .bars{display:flex; flex-direction:column; gap:8px}
-.bar{display:grid; grid-template-columns:minmax(102px,1.1fr) 3fr minmax(56px,auto); align-items:center; gap:14px; background:var(--surface); border:1px solid var(--line); border-radius:4px; padding:8px 16px; transition:background .14s ease, border-color .14s ease}
-.bar:hover{background:var(--surface-2)}
+.bar{display:grid; grid-template-columns:minmax(102px,1.1fr) 3fr minmax(56px,auto); align-items:center; gap:14px; background:linear-gradient(rgba(var(--tint,143,143,143),.09),rgba(var(--tint,143,143,143),.09)),var(--surface); border:1px solid var(--line); border-radius:4px; padding:8px 16px; transition:background .14s ease, border-color .14s ease}
+.bar:hover{background:linear-gradient(rgba(var(--tint,143,143,143),.16),rgba(var(--tint,143,143,143),.16)),var(--surface-2)}
 .bar__k{font-size:14px; color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
 .bar__track{height:7px; background:var(--line-soft); border-radius:1px; overflow:hidden}
 .bar__fill{height:100%; background:var(--bc,var(--violet)); transform-origin:left; transform:scaleX(0); transition:transform 1s cubic-bezier(.2,.7,.3,1)}
@@ -648,12 +648,12 @@ table.fee tbody tr:last-child td{border-bottom:0}
       <div class="fact"><span class="fact__v">8–10<small>&nbsp;%</small></span><span class="fact__k">target IRR</span></div>
       <div class="fact"><span class="fact__v">5–7<small>&nbsp;%</small></span><span class="fact__k">minimum gross yield</span></div>
       <div class="fact"><span class="fact__v">฿150<small>M</small></span><span class="fact__k">first-year raise &middot; &#3647;150M more, year 3</span></div>
-      <div class="fact"><span class="fact__v" data-count="53258">53 258</span><span class="fact__k">live listings tracked</span></div>
+      <div class="fact"><span class="fact__v" data-count="70532">70 532</span><span class="fact__k">live listings tracked</span></div>
       <div class="fact"><span class="fact__v" data-count="4514">4 514</span><span class="fact__k">buildings in reference set</span></div>
     </div>
 
     <p class="cover__note">
-      Market figures measured 2026-08-26 and reproducible from the platform database.
+      Market figures measured 2026-09-01 and reproducible from the platform database.
       Return figures are a model, not a promise — every section carries a provenance
       stamp saying which is which.
     </p>
@@ -997,7 +997,7 @@ table.fee tbody tr:last-child td{border-bottom:0}
       </div>
 
       <div class="bridge">
-        <div class="brow"><span class="brow__k">Gross rental yield at acquisition<span class="brow__n">Floor 5–7 %. Consistent with measured within-building yields: Bang Kapi 6.16 %, Suan Luang 6.36 %, Wang Thonglang 6.91 %.</span></span><span class="brow__v pos">+5.0 to 7.0 %</span></div>
+        <div class="brow"><span class="brow__k">Gross rental yield at acquisition<span class="brow__n">Floor 5–7 %. Consistent with measured within-building yields: Bang Kapi 6.49 %, Suan Luang 6.51 %, Wang Thonglang 6.76 %.</span></span><span class="brow__v pos">+5.0 to 7.0 %</span></div>
         <div class="brow"><span class="brow__k">Charges, management, vacancy, property tax<span class="brow__n">Common fees, internalised management, vacancy provision, insurance, annual property tax.</span></span><span class="brow__v neg">−1.8 to 2.2 %</span></div>
         <div class="brow"><span class="brow__k">Capital appreciation<span class="brow__n">Held at the low end of the +3 to 5 %/yr observed on transit-connected prime since 2022.</span></span><span class="brow__v pos">+2.5 to 3.5 %</span></div>
         <div class="brow"><span class="brow__k">Entry discount, amortised<span class="brow__n">A verified 20–30 % discount to the building median is latent equity, realised at exit. Spread across the hold.</span></span><span class="brow__v pos">+2.2 to 3.0 %</span></div>
@@ -1410,7 +1410,7 @@ table.fee tbody tr:last-child td{border-bottom:0}
     <p>
       LOWI® — Central, Hong Kong SAR.<br>
       © 2026 LOWI. All rights reserved.<br>
-      Market figures: 2026-08-26, reproducible from the platform database.<br>
+      Market figures: 2026-09-01, reproducible from the platform database.<br>
       Not an offer, not investment advice, not a solicitation.<br>
       schoenauer.anthony@gmail.com · live platform demo on request
     </p>
@@ -1732,7 +1732,7 @@ table.fee tbody tr:last-child td{border-bottom:0}
 <section class="view" id="v-platform">
   <div class="slide">
     <a class="backlink" href="#/" data-route>← Back to the deck</a>
-    <div class="rail"><span class="rail__n">D</span><span class="rail__l">Annex · Platform</span><span class="rail__r"></span><span class="stamp stamp--m">Measured 2026-08-26</span></div>
+    <div class="rail"><span class="rail__n">D</span><span class="rail__l">Annex · Platform</span><span class="rail__r"></span><span class="stamp stamp--m">Measured 2026-09-01</span></div>
     <h2 class="slide__t">Why these numbers hold up.</h2>
     <p class="slide__lede" style="margin-bottom:34px">
       Anyone can scrape 50,000 listings. The value is in five method choices, each of which came
@@ -1741,8 +1741,8 @@ table.fee tbody tr:last-child td{border-bottom:0}
 
     <div class="stack gap-l">
       <div class="cover__facts">
-        <div class="fact"><span class="fact__v" data-count="76942">76 942</span><span class="fact__k">listings in database</span></div>
-        <div class="fact"><span class="fact__v" data-count="53258">53 258</span><span class="fact__k">live</span></div>
+        <div class="fact"><span class="fact__v" data-count="97500">97 500</span><span class="fact__k">listings in database</span></div>
+        <div class="fact"><span class="fact__v" data-count="70532">70 532</span><span class="fact__k">live</span></div>
         <div class="fact"><span class="fact__v" data-count="4514">4 514</span><span class="fact__k">buildings</span></div>
         <div class="fact"><span class="fact__v" data-count="5">5</span><span class="fact__k">independent sources</span></div>
         <div class="fact"><span class="fact__v">1<small>&nbsp;d</small></span><span class="fact__k">collection cycle</span></div>
@@ -1787,22 +1787,24 @@ table.fee tbody tr:last-child td{border-bottom:0}
       </div>
 
       <div class="bars" data-bars>
-        <div class="bar"><span class="bar__k">Wang Thonglang</span><span class="bar__track"><span class="bar__fill" style="--bc:var(--violet);width:100%"></span></span><span class="bar__v">6.91 %</span></div>
-        <div class="bar"><span class="bar__k">Bueng Kum</span><span class="bar__track"><span class="bar__fill" style="--bc:var(--violet);width:93.5%"></span></span><span class="bar__v">6.46 %</span></div>
-        <div class="bar"><span class="bar__k">Suan Luang</span><span class="bar__track"><span class="bar__fill" style="--bc:var(--violet);width:92%"></span></span><span class="bar__v">6.36 %</span></div>
-        <div class="bar"><span class="bar__k">Bang Kapi</span><span class="bar__track"><span class="bar__fill" style="--bc:var(--violet);width:89.1%"></span></span><span class="bar__v">6.16 %</span></div>
-        <div class="bar"><span class="bar__k">Bang Na</span><span class="bar__track"><span class="bar__fill" style="--bc:var(--gold);width:85.5%"></span></span><span class="bar__v">5.91 %</span></div>
-        <div class="bar"><span class="bar__k">Huai Khwang</span><span class="bar__track"><span class="bar__fill" style="--bc:var(--gold);width:83.2%"></span></span><span class="bar__v">5.75 %</span></div>
-        <div class="bar"><span class="bar__k">Khlong Toei</span><span class="bar__track"><span class="bar__fill" style="--bc:var(--gold);width:78.3%"></span></span><span class="bar__v">5.41 %</span></div>
-        <div class="bar"><span class="bar__k">Vadhana</span><span class="bar__track"><span class="bar__fill" style="--bc:var(--gold);width:76.7%"></span></span><span class="bar__v">5.30 %</span></div>
-        <div class="bar"><span class="bar__k">Sathon</span><span class="bar__track"><span class="bar__fill" style="--bc:var(--ink-3);width:73.4%"></span></span><span class="bar__v">5.07 %</span></div>
-        <div class="bar"><span class="bar__k">Pathum Wan</span><span class="bar__track"><span class="bar__fill" style="--bc:var(--ink-3);width:71.1%"></span></span><span class="bar__v">4.91 %</span></div>
-        <div class="bar"><span class="bar__k">Bang Rak</span><span class="bar__track"><span class="bar__fill" style="--bc:var(--ink-3);width:69.3%"></span></span><span class="bar__v">4.79 %</span></div>
+        <div class="bar" style="--tint:95,184,154"><span class="bar__k">Wang Thonglang</span><span class="bar__track"><span class="bar__fill" style="--bc:var(--violet);width:100%"></span></span><span class="bar__v">6.76 %</span></div>
+        <div class="bar" style="--tint:109,177,150"><span class="bar__k">Bueng Kum</span><span class="bar__track"><span class="bar__fill" style="--bc:var(--violet);width:94.8%"></span></span><span class="bar__v">6.56 %</span></div>
+        <div class="bar" style="--tint:112,175,148"><span class="bar__k">Suan Luang</span><span class="bar__track"><span class="bar__fill" style="--bc:var(--violet);width:93.5%"></span></span><span class="bar__v">6.51 %</span></div>
+        <div class="bar" style="--tint:113,174,148"><span class="bar__k">Bang Kapi</span><span class="bar__track"><span class="bar__fill" style="--bc:var(--violet);width:92.9%"></span></span><span class="bar__v">6.49 %</span></div>
+        <div class="bar" style="--tint:156,150,134"><span class="bar__k">Bang Na</span><span class="bar__track"><span class="bar__fill" style="--bc:var(--gold);width:76.4%"></span></span><span class="bar__v">5.86 %</span></div>
+        <div class="bar" style="--tint:160,147,133"><span class="bar__k">Huai Khwang</span><span class="bar__track"><span class="bar__fill" style="--bc:var(--gold);width:74.6%"></span></span><span class="bar__v">5.79 %</span></div>
+        <div class="bar" style="--tint:187,133,124"><span class="bar__k">Khlong Toei</span><span class="bar__track"><span class="bar__fill" style="--bc:var(--gold);width:64.4%"></span></span><span class="bar__v">5.40 %</span></div>
+        <div class="bar" style="--tint:191,131,123"><span class="bar__k">Vadhana</span><span class="bar__track"><span class="bar__fill" style="--bc:var(--gold);width:62.8%"></span></span><span class="bar__v">5.34 %</span></div>
+        <div class="bar" style="--tint:205,123,118"><span class="bar__k">Sathon</span><span class="bar__track"><span class="bar__fill" style="--bc:var(--ink-3);width:57.3%"></span></span><span class="bar__v">5.13 %</span></div>
+        <div class="bar" style="--tint:224,112,112"><span class="bar__k">Pathum Wan</span><span class="bar__track"><span class="bar__fill" style="--bc:var(--ink-3);width:50%"></span></span><span class="bar__v">4.85 %</span></div>
+        <div class="bar" style="--tint:224,112,112"><span class="bar__k">Bang Rak</span><span class="bar__track"><span class="bar__fill" style="--bc:var(--ink-3);width:50%"></span></span><span class="bar__v">4.85 %</span></div>
       </div>
       <p class="cover__note" style="margin-top:0">
-        Within-building yield by district, studio/1BR stratum, measured 2026-08-26. Violet marks the
+        Within-building yield by district, studio/1BR stratum, measured 2026-08-31. Violet marks the
         districts the Orange line will serve in 2028-2030 — they carry both the highest current yield
-        and the appreciation thesis. Grey is central prime: safe, liquid, already expensive.
+        and the appreciation thesis. Grey is central prime: safe, liquid, already expensive. Bar length
+        is scaled between the lowest district shown (50 %) and the highest (100 %); row tint shades from
+        red (lowest) to green (highest) for the same read at a glance.
       </p>
 
       <div class="stack gap-s">
@@ -1915,7 +1917,7 @@ table.fee tbody tr:last-child td{border-bottom:0}
         <div class="cell role" style="--role:var(--violet)">
           <span class="cell__tag">Coverage</span>
           <span class="cell__t">Missing attributes</span>
-          <span class="cell__b">Year of construction: <strong>zero buildings out of 4,514</strong>. Foreign-quota status is exposed on roughly 1 % of listings. Both are resolved by inspection and title check, not by the database.</span>
+          <span class="cell__b">Year of construction: <strong>2,265 of 4,514 buildings</strong> (backfilled since, mostly from source-native data — still absent for the other half). Foreign-quota status is exposed on roughly 0.4 % of listings. Both gaps are closed by inspection and title check, not by the database.</span>
         </div>
       </div>
 
