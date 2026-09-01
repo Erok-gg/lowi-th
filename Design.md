@@ -63,6 +63,79 @@ Tout le contenu des cellules (`table.data`, `table.fee`) est centré
 vertical-align:middle`), y compris la première colonne (qui n'est plus
 alignée à gauche par défaut).
 
+## Espacement sous les titres de section
+
+`.slide__t{margin-bottom:34px}` (porté à cette valeur après retour terrain —
+18px collait le premier bloc au titre). S'applique à tout titre de section,
+pas seulement au premier cas corrigé.
+
+## Mise en cascade ("waterfall")
+
+Pour une séquence d'étapes qui se succèdent logiquement (`.flow`/`.node`,
+utilisé sur la slide Structure & Guarantees) : les blocs se chevauchent en
+escalier plutôt que de s'empiler avec un espace constant.
+`margin-top:-24px` sur chaque `.node` sauf le premier, décalage horizontal
+croissant (`margin-left:7%` par étape, `z-index` croissant pour que
+l'étape suivante recouvre partiellement la précédente). Repli mobile en
+`@media(max-width:720px)` : empilement simple, plus d'overlap ni de
+décalage horizontal (l'effet cascade suppose de la largeur).
+
+## Boutons de renvoi flottants (desktop)
+
+`.rf-btn` : un lien flottant à droite de l'écran (`position:fixed;
+right:26px`), un par page de renvoi référencée dans la slide courante,
+positionné à une hauteur fixe (`top` en %) pour ne jamais se chevaucher.
+Caché par défaut (`opacity:0; transform:translateX(-140vw)`), affiché
+seulement au-delà de `min-width:1040px` (l'animation n'a pas de sens sur
+mobile, où le lien inline suffit).
+
+Comportement scroll : un `IntersectionObserver` détecte quand la slide
+d'origine du lien entre/sort du viewport et bascule les classes `is-in` /
+`is-out` :
+- **Entrée** (`is-in`) : glisse depuis la gauche vers sa position finale
+  (`cubic-bezier(.15,.86,.32,1.02)`, 620ms) — un atterrissage, accélération
+  puis freinage net.
+- **Sortie** (`is-out`) : repart vers la droite (`cubic-bezier(.5,-.2,.85,.4)`,
+  500ms) — un décollage, départ franc puis relâche.
+
+Chaque lien inline dans le texte porte un attribut `data-rf-btn="id"` qui le
+relie à son bouton flottant correspondant — pas de lien flottant sans lien
+inline d'origine (le flottant est un raccourci, jamais la seule voie
+d'accès).
+
+## Traitement des images de bloc
+
+`.cell__photo{height:210px; opacity:.8; filter:saturate(.85)}` — l'image
+déborde le padding du bloc (`width:calc(100% + 42px); margin:-21px -21px
+4px`) pour venir affleurer les bords, mais reste légèrement assourdie
+(désaturée + opacité réduite) pour ne jamais dominer visuellement le texte
+du bloc.
+
+## Restructuration en pages de renvoi (deuxième vague)
+
+Deux mécanismes supplémentaires suivant le patron déjà établi
+(§ Pages de détail) :
+- **Slide entière devenue renvoi** : l'ancienne slide "Agent Pipeline"
+  (9 bots) a été retirée du flux principal et existe uniquement comme
+  `agent-pipeline.html`, liée depuis la slide "Why LOWI Wins" par un lien
+  texte discret — même patron qu'un renvoi de bloc, à l'échelle d'une slide
+  entière.
+- **Slides devenues miniatures cliquables** : les 4 études de cas
+  (Thonglor Art 25, Park Origin Chula-Samyan, Four Street Mansion, Master
+  View Executive Place) ne sont plus des slides séparées : elles sont
+  devenues 4 `.deal-card` dans la grille de la slide "The Investment
+  Universe" (9 vignettes au total avec les 5 déjà existantes), chacune
+  ouvrant son détail complet via `showDeal(key)` (toggle JS, pas de modal —
+  même mécanisme que les vignettes déjà présentes). Le contenu textuel de
+  ces 4 fiches reste à retravailler (format posé, contenu à revoir).
+
+## Notes de bas de page (légal)
+
+`.foot` porte : `LOWI®` (marque déposée), `© 2026 LOWI. All rights
+reserved.`, et une adresse **de quartier seulement** (`Central, Hong Kong
+SAR`) — jamais d'adresse exacte (immeuble, étage, rue) tant que la structure
+juridique n'est pas finalisée.
+
 ## Fond animé
 
 `.cloud-bg` (3 `<span>` avec `filter:blur(90px)`, couleurs violet / bleu
