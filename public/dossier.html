@@ -46,54 +46,6 @@
   --measure:66ch;
 }
 
-@media (prefers-color-scheme: light){
-  :root:not([data-theme="dark"]){
-    --bg:#F4F3F7;
-    --bg-2:#EDECF3;
-    --surface:#FCFCFE;
-    --surface-2:#F5F4FA;
-    --line:#D5D3E0;
-    --line-soft:#E4E2EC;
-    --ink:#16161F;
-    --ink-2:#4A4A60;
-    --ink-3:#7A7A94;
-    --violet:#6C34C8;
-    --violet-wash:rgba(108,52,200,.09);
-    --violet-line:rgba(108,52,200,.30);
-    --gold:#8A6F1F;
-    --gold-ink:#6E5715;
-    --gold-wash:rgba(138,111,31,.09);
-    --gold-line:rgba(138,111,31,.30);
-    --pass:#B34A44;
-    --engage:#2E7A63;
-    --reno:#158079;
-    --grid:rgba(0,0,0,.028);
-  }
-}
-
-:root[data-theme="light"]{
-  --bg:#F4F3F7;
-  --bg-2:#EDECF3;
-  --surface:#FCFCFE;
-  --surface-2:#F5F4FA;
-  --line:#D5D3E0;
-  --line-soft:#E4E2EC;
-  --ink:#16161F;
-  --ink-2:#4A4A60;
-  --ink-3:#7A7A94;
-  --violet:#6C34C8;
-  --violet-wash:rgba(108,52,200,.09);
-  --violet-line:rgba(108,52,200,.30);
-  --gold:#8A6F1F;
-  --gold-ink:#6E5715;
-  --gold-wash:rgba(138,111,31,.09);
-  --gold-line:rgba(138,111,31,.30);
-  --pass:#B34A44;
-  --engage:#2E7A63;
-  --reno:#158079;
-  --grid:rgba(0,0,0,.028);
-}
-
 *,*::before,*::after{box-sizing:border-box}
 
 body{
@@ -186,14 +138,6 @@ table{border-collapse:collapse}
 }
 .topnav a:hover{color:var(--ink); background:var(--surface-2)}
 .topnav a[aria-current="page"]{color:var(--gold-ink); background:var(--gold-wash)}
-.themebtn{
-  flex:0 0 auto; background:transparent; border:1px solid var(--line);
-  color:var(--ink-3); border-radius:3px; cursor:pointer;
-  font-family:'IBM Plex Mono',monospace; font-size:10px;
-  letter-spacing:.09em; padding:6px 9px; margin-left:8px;
-  transition:color .18s ease, border-color .18s ease;
-}
-.themebtn:hover{color:var(--ink); border-color:var(--ink-3)}
 
 /* ---------- floating "renvoi" chips — desktop only, plane-landing motion ---------- */
 .rf-btn{
@@ -621,9 +565,7 @@ table.fee tbody tr:last-child td{border-bottom:0}
     <a href="#/tax" data-route>Tax &amp; exit</a>
     <a href="#/platform" data-route>Platform</a>
     <a href="#/risk" data-route>Risk</a>
-    <a href="/deck.html">Slides ↗</a>
   </nav>
-  <button class="themebtn" id="themebtn" type="button" aria-label="Toggle theme">THEME</button>
 </header>
 
 <a id="rf-thesis" class="rf-btn" href="thesis.html" target="_blank" rel="noopener">Our thesis &#8599;</a>
@@ -1994,17 +1936,6 @@ table.fee tbody tr:last-child td{border-bottom:0}
 <script>
 (function(){
   "use strict";
-
-  var root = document.documentElement;
-  var btn  = document.getElementById("themebtn");
-  function current(){
-    var s = root.getAttribute("data-theme");
-    if (s) return s;
-    return window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
-  }
-  btn.addEventListener("click", function(){
-    root.setAttribute("data-theme", current() === "dark" ? "light" : "dark");
-  });
 
   var views = {
     "/":           "v-home",

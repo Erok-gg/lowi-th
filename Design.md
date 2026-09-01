@@ -206,6 +206,10 @@ de session pour le patron exact (extraction du bloc `<style>` de
 `dossier.html`, réinjection dans un gabarit minimal avec `topbar` +
 `.detail-wrap`).
 
+`deck.html` (le diaporama) suit la même logique mais **sans lien depuis
+la nav** (retiré le 2026-09-01) — toujours déployé, atteignable en
+direct, juste plus mis en avant dans le parcours principal.
+
 ## Cartes (données réelles, mêmes tuiles que le produit lowi_bkk)
 
 **Réécrit le 2026-09-01** — remplace la version précédente (reconstruction
@@ -285,8 +289,13 @@ choisie à l'œil :
 Le premier choix pour "Renovation" (`#5B8DEF`, bleu) échouait le contrôle
 vision-normale contre le violet (ΔE 12.7, sous le plancher de 15 —
 confondu même sans daltonisme). Remplacé par un teal qui passe tous les
-contrôles CVD. `--reno` a un token light-mode dédié (`#158079`), présent
-dans les 3 endroits où les tokens sont déclarés (`:root` sombre par
-défaut, `@media (prefers-color-scheme: light)`, `:root[data-theme="light"]`
-— **les trois doivent toujours être synchronisés**, un token oublié dans
-l'un des trois blocs casse silencieusement ce mode).
+contrôles CVD.
+
+**Thème clair retiré (2026-09-01).** Le site n'a plus qu'un seul jeu de
+tokens (`:root`, sombre) — le bouton de bascule, le second jeu de tokens
+`@media (prefers-color-scheme: light)` et le troisième `:root[data-theme=
+"light"]` ont tous les trois été supprimés (dead code, pas juste caché).
+Le design est pensé pour le sombre depuis le départ (nuages animés,
+glow or/violet) ; le clair n'apportait rien et doublait la maintenance à
+chaque nouveau token. Si un thème clair revient un jour, repartir d'un
+seul bloc conditionnel plutôt que de restaurer les trois.
