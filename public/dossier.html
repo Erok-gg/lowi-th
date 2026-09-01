@@ -296,7 +296,11 @@ h3.sub{font-size:clamp(19px,2.3vw,25px); margin-bottom:11px}
   display:grid; grid-template-columns:repeat(auto-fit,minmax(142px,1fr));
   gap:14px; width:100%;
 }
-.fact{background:var(--surface); border:1px solid var(--line); border-radius:4px; padding:16px 18px}
+.fact{
+  background:var(--surface); border:1px solid var(--line); border-radius:4px; padding:16px 18px;
+  transition:transform .18s ease, background-color .18s ease, border-color .18s ease;
+}
+.fact:hover{transform:scale(1.035); background-color:var(--gold-wash); border-color:var(--gold)}
 .fact__v{
   font-family:'MCTen',Archivo,sans-serif;
   font-size:clamp(22px,2.9vw,32px); color:var(--ink); display:block;
@@ -304,8 +308,8 @@ h3.sub{font-size:clamp(19px,2.3vw,25px); margin-bottom:11px}
 }
 .fact__v small{font-size:.5em; color:var(--ink-3); letter-spacing:0}
 .fact__k{
-  font-family:'IBM Plex Mono',monospace; font-size:9.5px;
-  letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3);
+  font-family:Aptos,Archivo,sans-serif; font-weight:600; font-size:10.5px;
+  letter-spacing:.06em; text-transform:uppercase; color:var(--ink-3);
   margin-top:7px; display:block; line-height:1.45;
 }
 .cover__note{margin-top:24px; font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:var(--ink-3); line-height:1.75; max-width:76ch}
@@ -507,6 +511,11 @@ table.data tbody tr:last-child td{border-bottom:0}
 .corr-legend span{
   font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:.08em;
   text-transform:uppercase; padding:5px 11px; border:1px solid currentColor; border-radius:2px;
+}
+.corr-legend span.dashed{border-style:dashed}
+.corr-legend-lbl{
+  font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--ink-3); text-align:center; margin-top:16px;
 }
 .corr-caption{text-align:center; font-size:11px; color:var(--ink-3); font-style:italic; margin-top:10px}
 
@@ -786,11 +795,15 @@ table.fee tbody tr:last-child td{border-bottom:0}
         </div>
       </div>
       <div id="momentum-map" class="live-map"></div>
+      <div class="corr-legend-lbl">Metro &mdash; current</div>
+      <div class="corr-legend" id="legend-metro-current"></div>
+      <div class="corr-legend-lbl">Metro &mdash; under construction</div>
+      <div class="corr-legend" id="legend-metro-future"></div>
+      <div class="corr-legend-lbl">Development &amp; demand zones</div>
       <div class="corr-legend">
         <span style="color:#3ad97f">Acted / delivered</span>
         <span style="color:#e8b84c">Pending, longer-dated</span>
         <span style="color:#4c9be8">Expat / rental demand corridor</span>
-        <span style="color:#F68B1F">Metro under construction</span>
       </div>
       <div class="corr-caption">Development corridors and expat demand zones &mdash; same layer as the live map product, not redrawn by hand.</div>
     </div>
@@ -2145,6 +2158,36 @@ table.fee tbody tr:last-child td{border-bottom:0}
     return name.split(" (")[0].split(" —")[0].split(" —")[0];
   }
 
+  function bboxOf(fc){
+    var minLng = Infinity, minLat = Infinity, maxLng = -Infinity, maxLat = -Infinity;
+    function walk(c){
+      if (typeof c[0] === "number") {
+        if (c[0] < minLng) minLng = c[0];
+        if (c[0] > maxLng) maxLng = c[0];
+        if (c[1] < minLat) minLat = c[1];
+        if (c[1] > maxLat) maxLat = c[1];
+      } else {
+        c.forEach(walk);
+      }
+    }
+    fc.features.forEach(function(f){ walk(f.geometry.coordinates); });
+    return [[minLng, minLat], [maxLng, maxLat]];
+  }
+
+  function buildLegend(containerId, features, dashed){
+    var el = document.getElementById(containerId);
+    if (!el) return;
+    var seen = {};
+    var order = [];
+    features.forEach(function(f){
+      var c = f.properties.color || "#8f9bb3";
+      if (!seen[c]) { seen[c] = f.properties.name || "?"; order.push(c); }
+    });
+    el.innerHTML = order.map(function(c){
+      return '<span class="' + (dashed ? "dashed" : "") + '" style="color:' + c + '">' + zoneLabel(seen[c]) + "</span>";
+    }).join("");
+  }
+
   function makeMap(container, center, zoom){
     var map = new maplibregl.Map({
       container: container,
@@ -2207,6 +2250,10 @@ table.fee tbody tr:last-child td{border-bottom:0}
             el.style.color = f.properties.color || "#8f9bb3";
             new maplibregl.Marker({ element:el, anchor:"center" }).setLngLat(c).addTo(map);
           });
+
+          map.fitBounds(bboxOf(zonesFC), { padding:36, duration:0 });
+          buildLegend("legend-metro-current", metroFC.features, false);
+          buildLegend("legend-metro-future", futureFC.features, true);
         }
 
         if (map === universeMap) {

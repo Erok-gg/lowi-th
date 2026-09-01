@@ -56,6 +56,16 @@ Règle simple, à ne jamais casser :
   `border-radius`, et un vrai `gap` la sépare de ses voisines. Même
   traitement sur `.case__nums`/`.casenum`.
 
+## Survol des cartes-chiffres (`.fact`)
+
+`.fact:hover{transform:scale(1.035); background-color:var(--gold-wash);
+border-color:var(--gold)}` — léger zoom + teinte or, sur les 5 cartes-
+chiffres du cover (`.cover__facts`). Le libellé sous le chiffre
+(`.fact__k`) est en Aptos (pas le mono-eyebrow utilisé ailleurs pour les
+tags de bloc, ex. `.cell__tag`) — exception délibérée à la règle "tag =
+mono", demandée pour ce composant précis. Le chiffre lui-même
+(`.fact__v`) reste en MCTen, inchangé.
+
 ## Tableaux
 
 Tout le contenu des cellules (`table.data`, `table.fee`) est centré
@@ -215,6 +225,21 @@ geojson (`public/data/bangkok-khet.geojson`, `pois.geojson`,
   restent en usage réel — c'est le graphique en ligne de la slide 03, une
   classe partagée par nom mais pas par fonction, à ne pas confondre avec
   les cartes.
+- **Légende de la carte momentum, générée depuis la donnée réelle
+  (2026-09-01)** : plutôt que d'énumérer les lignes de métro à la main
+  (7 lignes actuelles, 4 tronçons futurs de couleurs distinctes), `build
+  Legend()` déduplique par couleur sur `pois.geojson`/`corridors.geojson`
+  déjà chargés et injecte les pastilles en JS (`#legend-metro-current`,
+  `#legend-metro-future`, bordure `dashed` pour les tronçons futurs). Si
+  une ligne change de couleur ou qu'une nouvelle s'ajoute au jeu de
+  données, la légende suit sans retouche de code.
+- **Cadrage automatique sur les zones** : `momentumMap.fitBounds(bboxOf
+  (zonesFC), {padding:36})` calcule la boîte englobante des polygones
+  dev_zone/expat_zone et zoome au maximum tout en gardant toutes les
+  zones dans le cadre (remplace le center/zoom fixe initial, qui laissait
+  une marge injustifiée). `bboxOf()` marche sur n'importe quelle
+  FeatureCollection de polygones — réutilisable si une autre carte a
+  besoin du même calage.
 
 ## Palette des types de bien (yield / value / renovation / declined)
 
