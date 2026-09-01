@@ -167,29 +167,54 @@ de session pour le patron exact (extraction du bloc `<style>` de
 `dossier.html`, réinjection dans un gabarit minimal avec `topbar` +
 `.detail-wrap`).
 
-## Cartes (données réelles, jamais inventées)
+## Cartes (données réelles, mêmes tuiles que le produit lowi_bkk)
 
-Les deux cartes de Bangkok du dossier (slide 04 "Bangkok's Momentum" et
-slide 14 "Investment Universe") sont construites depuis les **fichiers
-geojson réels du projet** (`public/data/bangkok-khet.geojson`,
-`pois.geojson`, `corridors.geojson`), jamais dessinées à la main. Points
-mesurés en construisant ces cartes :
+**Réécrit le 2026-09-01** — remplace la version précédente (reconstruction
+SVG statique à partir des geojson). Les deux cartes de Bangkok du dossier
+(slide 04 "Bangkok's Momentum" et slide 14 "Investment Universe") sont
+désormais des cartes **vivantes MapLibre GL JS**, pas des SVG dessinés une
+fois par un script Python. C'est littéralement le même produit que
+`lowi_bkk` : même fournisseur de tuiles (`https://tiles.openfreemap.org/
+styles/dark`, OpenFreeMap — gratuit, sans clé), même re-teinte (fond
+`#0d0d12`, eau `#1e3a5f`, frontières admin masquées), mêmes fichiers
+geojson (`public/data/bangkok-khet.geojson`, `pois.geojson`,
+`corridors.geojson`, copiés depuis `Lowi_bkk/public/data/`, chargés par
+`fetch()` côté client — pas de traitement serveur).
 
-- **`overflow:hidden` obligatoire sur le `<svg>`** — un district dont le
-  centre tombe dans le cadre peut avoir une forme réelle qui s'étend très
-  loin (ex. Bang Khun Thian, Nong Chok). Avec `overflow:visible`, ces
-  pointes débordent du cadre et flottent sur le reste de la page. Avec
-  `overflow:hidden`, elles sont proprement coupées au bord — comportement
-  normal de n'importe quelle carte à fenêtre fixe.
-- Les lignes de métro dupliquées (un feature par sens de circulation) sont
-  dédupliquées par couleur, en gardant la géométrie **la plus longue** des
-  deux (pas la première trouvée, qui peut être un fragment court).
-- La catégorie OSM "monument" est bruitée (hôtels, arrêts de tram, marchés
-  mal tagués) — les monuments affichés sont une liste **triée à la main**
-  parmi les entrées réelles, pas un filtre automatique naïf.
-- Suvarnabhumi n'est pas dans `pois.geojson` (seuls Don Mueang et 2
-  aérodromes mineurs y sont) — ajouté manuellement avec sa coordonnée
-  publique documentée, annoté comme tel dans le commentaire du générateur.
+- **Chargement** : `maplibre-gl@4.7.1` via CDN unpkg (lien CSS + script
+  dans le head), une fois pour toute la page. Les deux cartes s'initialisent
+  dans une IIFE en fin de `<script>`, après le bloc de routing existant —
+  `if (typeof maplibregl === "undefined") return;` en garde en tête, la
+  page reste fonctionnelle si le CDN est injoignable.
+- **Attribution obligatoire** : `attributionControl:{compact:true}` —
+  licence ODbL d'OpenStreetMap, ne jamais désactiver.
+- **`cooperativeGestures:true`** — affiche "Use Ctrl + scroll to zoom" au
+  lieu de capter la molette de la page ; la carte est encastrée dans une
+  page qui défile, pas en plein écran comme sur `lowi_bkk`. Rotation/pitch
+  désactivés (`dragRotate.disable()`, `touchZoomRotate.disableRotation()`)
+  — carte à plat, pas d'usage pour l'inclinaison ici.
+- **Couches ajoutées par-dessus le fond** : districts khet (fill+line,
+  violet discret, même rôle que le produit principal), lignes de métro
+  (`pois.geojson`, catégorie `metro_line`, couleur officielle via
+  `["get","color"]` — pas de dédup par couleur nécessaire, MapLibre rend
+  les doublons de géométrie sans artefact visuel contrairement à un
+  chemin SVG concaténé à la main). Sur la carte momentum uniquement :
+  lignes futures (`corridors.geojson`, `future_line`, tiret) + zones de
+  développement/expat (`dev_zone`/`expat_zone`, remplissage + étiquette
+  posée au centroïde de chaque polygone, calculé côté client). Sur la
+  carte universe uniquement : aéroports (3 réels + Suvarnabhumi manuel,
+  absent du jeu de données — voir `SUVARNABHUMI` dans le script) et
+  monuments **triés à la main par nom** (`MONUMENT_NAMES`, catégorie OSM
+  bruitée), plus les 9 pins des biens du pool en vraies coordonnées
+  lng/lat (`PROPS`), chaque pin appelant `showDeal(key)` au clic — même
+  mécanisme que les vignettes de la grille en dessous.
+- **CSS mort retiré** : `.map-wrap`, `.map-district`, `.map-metro`,
+  `.map-future`, `.map-airport`, `.map-monument`, `.map-pin*` (l'ancien
+  habillage SVG) supprimés une fois les deux cartes converties ; `.map-
+  legend` conservé (toujours utilisé). `.corr-map-wrap`/`.corr-zone-label`
+  restent en usage réel — c'est le graphique en ligne de la slide 03, une
+  classe partagée par nom mais pas par fonction, à ne pas confondre avec
+  les cartes.
 
 ## Palette des types de bien (yield / value / renovation / declined)
 
