@@ -2,8 +2,47 @@
 
 Cahier des charges design pour `public/dossier.html` (et les pages de détail
 qui en dépendent : `thesis.html`, `momentum-leverage-analysis.html`,
-`deployment-timeline.html`). À respecter pour toute nouvelle section ou
-tout nouveau composant.
+`deployment-timeline.html`, `agent-pipeline.html`). À respecter pour toute
+nouvelle section ou tout nouveau composant.
+
+## Bilingue FR/EN (2026-09-01)
+
+Chaque page a un jumeau `-fr.html` (`dossier-fr.html`,
+`thesis-fr.html`, `momentum-leverage-analysis-fr.html`,
+`deployment-timeline-fr.html`, `agent-pipeline-fr.html`) — **fichiers
+séparés, pas un toggle JS sur un seul fichier.** Choix délibéré : le
+fichier anglais était déjà volumineux et abondamment testé ; dupliquer
+plutôt que d'instrumenter en place évite tout risque de corruption sur
+un fichier qui marchait, au prix d'une double maintenance à chaque futur
+changement de contenu.
+
+- **Lien de bascule** : `.langlink` dans le `<nav>` (`FR` côté anglais →
+  `dossier-fr.html`, `EN` côté français → `dossier.html`), même style
+  que `.topnav a` avec une bordure pour se distinguer des liens de
+  route.
+- **Tout est traduit sauf** : les noms propres (biens, quartiers,
+  lignes de métro/BTS — `Wang Thonglang`, `MRT Blue Line`, `Noble
+  Ploenchit`...), les montants et pourcentages (juste la ponctuation
+  décimale change : `20.2 %` → `20,2 %`), les URLs de routes (`#/risk`
+  reste `#/risk` dans les deux langues, seul le texte du lien change).
+- **Les renvois internes doivent pointer vers leur propre langue** :
+  chaque lien `thesis.html`/`momentum-leverage-analysis.html`/etc. dans
+  `dossier-fr.html` pointe vers son `-fr.html`, y compris dans le
+  sélecteur JS qui associe un lien inline à son bouton flottant
+  (`rfLinks` dans le `<script>`) — un piège rencontré et corrigé : le
+  texte du lien peut être traduit sans que son `href` le soit, ce qui
+  ramène silencieusement un lecteur français vers une page anglaise.
+- **CSS mort trouvé en cours de route** : les 4 pages de détail
+  portaient encore l'ancien jeu de tokens thème clair (retiré de
+  `dossier.html` le 2026-09-01 dans un tour précédent, jamais propagé
+  aux pages satellites). Nettoyé sur les 4 pages anglaises en même
+  temps que la construction des versions françaises, pour que les deux
+  langues restent visuellement identiques.
+- **Nouvelle traduction** : suivre le même patron de script Python
+  sûr (lire le fichier source, `assert html.count(ancien)==1`,
+  remplacer, réinjecter) que le reste de cette session — jamais de
+  traduction manuelle bloc par bloc dans l'éditeur, le fichier est trop
+  volumineux et le risque de désynchronisation trop élevé.
 
 ## Typographie
 

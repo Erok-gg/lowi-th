@@ -1,6 +1,5 @@
 <meta charset="utf-8">
-<title>LOWI — Our Thesis</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<title>LOWI — Pipeline d'agents</title><link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
 <style>
@@ -66,6 +65,30 @@ body::before{
   background-size:72px 72px;
 }
 
+.cloud-bg{position:fixed; inset:0; z-index:-1; overflow:hidden; pointer-events:none}
+.cloud-bg span{position:absolute; border-radius:50%; filter:blur(90px); will-change:transform}
+.cloud-bg span:nth-child(1){
+  width:56vw; height:56vw; top:-16%; left:-14%;
+  background:var(--violet); opacity:.28;
+  animation:cloudDrift1 46s ease-in-out infinite alternate;
+}
+.cloud-bg span:nth-child(2){
+  width:50vw; height:50vw; top:22%; right:-18%;
+  background:#3a5fd9; opacity:.24;
+  animation:cloudDrift2 58s ease-in-out infinite alternate;
+}
+.cloud-bg span:nth-child(3){
+  width:48vw; height:48vw; bottom:-18%; left:18%;
+  background:#2c2c3e; opacity:.4;
+  animation:cloudDrift3 52s ease-in-out infinite alternate;
+}
+@keyframes cloudDrift1{0%{transform:translate(0,0) scale(1)} 100%{transform:translate(9vw,11vh) scale(1.12)}}
+@keyframes cloudDrift2{0%{transform:translate(0,0) scale(1)} 100%{transform:translate(-11vw,-7vh) scale(1.08)}}
+@keyframes cloudDrift3{0%{transform:translate(0,0) scale(1)} 100%{transform:translate(7vw,-9vh) scale(1.1)}}
+@media (prefers-reduced-motion: reduce){
+  .cloud-bg span{animation:none}
+}
+
 h1,h2,h3,h4{
   font-family:'MCTen',Archivo,'Helvetica Neue',sans-serif;
   font-weight:normal;
@@ -121,6 +144,26 @@ table{border-collapse:collapse}
 }
 .themebtn:hover{color:var(--ink); border-color:var(--ink-3)}
 
+/* ---------- floating "renvoi" chips — desktop only, plane-landing motion ---------- */
+.rf-btn{
+  position:fixed; right:26px; z-index:55;
+  display:none; align-items:center; gap:8px;
+  background:var(--surface); border:1px solid var(--violet-line); border-radius:999px;
+  padding:11px 20px; box-shadow:0 12px 30px rgba(0,0,0,.4);
+  font-family:'IBM Plex Mono',monospace; font-size:11px; letter-spacing:.03em;
+  color:var(--violet); text-decoration:none; white-space:nowrap;
+  opacity:0; transform:translateX(-140vw);
+  transition:transform .62s cubic-bezier(.15,.86,.32,1.02), opacity .3s ease;
+  pointer-events:none;
+}
+.rf-btn.is-in{opacity:1; transform:translateX(0); pointer-events:auto}
+.rf-btn.is-out{opacity:0; transform:translateX(140vw); transition:transform .5s cubic-bezier(.5,-.2,.85,.4), opacity .35s ease}
+.rf-btn:hover{border-color:var(--violet)}
+#rf-thesis{top:30%}
+#rf-momentum{top:48%}
+#rf-timeline{top:66%}
+@media (min-width:1040px){ .rf-btn{display:flex} }
+
 /* ---------- routes ---------- */
 
 .view{display:none; position:relative; z-index:1}
@@ -154,10 +197,10 @@ table{border-collapse:collapse}
 .stamp--p{color:var(--gold)}
 .stamp--o{color:var(--pass)}
 
-.slide__t{font-size:clamp(30px,4.6vw,54px); max-width:100%; margin-bottom:18px}
+.slide__t{font-size:clamp(30px,4.6vw,54px); max-width:100%; margin-bottom:34px}
 .slide__lede{font-size:clamp(16.5px,1.9vw,19.5px); color:var(--ink-2); max-width:var(--measure); line-height:1.56}
 
-.prose{max-width:var(--measure); display:flex; flex-direction:column; gap:16px}
+.prose{width:100%; display:flex; flex-direction:column; gap:16px}
 .prose p{color:var(--ink-2)}
 .prose strong{color:var(--ink); font-weight:600}
 
@@ -199,10 +242,9 @@ h3.sub{font-size:clamp(19px,2.3vw,25px); margin-bottom:11px}
 }
 .cover__facts{
   display:grid; grid-template-columns:repeat(auto-fit,minmax(142px,1fr));
-  gap:1px; background:var(--line); border:1px solid var(--line);
-  border-radius:4px; overflow:hidden; max-width:920px;
+  gap:14px; width:100%;
 }
-.fact{background:var(--surface); padding:16px 18px}
+.fact{background:var(--surface); border:1px solid var(--line); border-radius:4px; padding:16px 18px}
 .fact__v{
   font-family:'MCTen',Archivo,sans-serif;
   font-size:clamp(22px,2.9vw,32px); color:var(--ink); display:block;
@@ -227,7 +269,7 @@ h3.sub{font-size:clamp(19px,2.3vw,25px); margin-bottom:11px}
 .grid--3{grid-template-columns:repeat(auto-fit,minmax(228px,1fr))}
 .grid--4{grid-template-columns:repeat(auto-fit,minmax(182px,1fr))}
 .cell{background:var(--surface); border:1px solid var(--line); border-radius:4px; padding:21px 21px 23px; display:flex; flex-direction:column; gap:8px}
-.cell__photo{display:block; width:calc(100% + 42px); height:150px; object-fit:cover; margin:-21px -21px 4px; border-radius:3px 3px 0 0}
+.cell__photo{display:block; width:calc(100% + 42px); height:210px; object-fit:cover; margin:-21px -21px 4px; border-radius:3px 3px 0 0; opacity:.8; filter:saturate(.85)}
 .cell__t{font-family:Aptos,Archivo,sans-serif; font-weight:600; font-size:18px; color:var(--ink); letter-spacing:.005em}
 .cell__b{font-size:14.5px; color:var(--ink-2); line-height:1.58}
 .cell__tag{font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-3)}
@@ -281,7 +323,7 @@ table.data tbody tr:last-child td{border-bottom:0}
 .callout{
   border:1px solid var(--line); border-left:2px solid var(--co,var(--violet));
   background:var(--surface); border-radius:0 4px 4px 0;
-  padding:17px 20px; display:flex; flex-direction:column; gap:8px; max-width:80ch;
+  padding:17px 20px; display:flex; flex-direction:column; gap:8px; width:100%;
 }
 .callout__t{font-family:'IBM Plex Mono',monospace; font-size:9.5px; letter-spacing:.13em; text-transform:uppercase; color:var(--co,var(--violet)); font-weight:600}
 .callout p{font-size:14.5px; color:var(--ink-2); line-height:1.58}
@@ -340,8 +382,22 @@ table.data tbody tr:last-child td{border-bottom:0}
 
 /* ---------- flow diagram ---------- */
 
-.flow{display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:4px; overflow:hidden}
-.node{background:var(--surface); padding:18px 20px; display:flex; flex-direction:column; gap:7px; position:relative}
+.flow{display:flex; flex-direction:column; padding:4px 0 44px}
+.node{
+  background:var(--surface); border:1px solid var(--line); border-radius:6px;
+  box-shadow:0 10px 24px rgba(0,0,0,.28);
+  padding:18px 22px; min-height:118px; display:flex; flex-direction:column; gap:7px;
+  position:relative; width:78%;
+}
+.node:not(:first-child){margin-top:-24px}
+.node:nth-child(1){margin-left:0; z-index:1}
+.node:nth-child(2){margin-left:7%; z-index:2}
+.node:nth-child(3){margin-left:14%; z-index:3}
+.node:nth-child(4){margin-left:21%; z-index:4}
+@media (max-width:720px){
+  .node{width:100%; margin-left:0 !important}
+  .node:not(:first-child){margin-top:12px}
+}
 .node__k{font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:.12em; text-transform:uppercase; color:var(--nc,var(--violet))}
 .node__t{font-family:Aptos,Archivo,sans-serif; font-weight:700; font-size:17px; color:var(--ink)}
 .node__b{font-size:13.5px; color:var(--ink-2); line-height:1.55}
@@ -388,6 +444,22 @@ table.data tbody tr:last-child td{border-bottom:0}
   border-radius:2px; white-space:nowrap;
 }
 .map-legend .lg-more{color:var(--ink-3); cursor:pointer}
+
+/* ---------- corridor / development map (slide 04) ---------- */
+.corr-map-wrap{position:relative; width:100%; max-width:680px; margin:22px auto 0}
+.corr-map-wrap svg{width:100%; height:auto; display:block; overflow:hidden}
+.corr-zone{stroke-width:1.6; stroke-dasharray:4 3; fill-opacity:.14}
+.corr-zone-label{
+  font-family:'IBM Plex Mono',monospace; font-size:10px; font-weight:600;
+  text-anchor:middle; pointer-events:none;
+  paint-order:stroke; stroke:var(--bg); stroke-width:3.5px; stroke-linejoin:round;
+}
+.corr-legend{display:flex; gap:9px; flex-wrap:wrap; justify-content:center; margin-top:14px}
+.corr-legend span{
+  font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:.08em;
+  text-transform:uppercase; padding:5px 11px; border:1px solid currentColor; border-radius:2px;
+}
+.corr-caption{text-align:center; font-size:11px; color:var(--ink-3); font-style:italic; margin-top:10px}
 
 /* ---------- deal thumbnails (click -> full .case detail below) ---------- */
 .deal-grid{
@@ -472,80 +544,72 @@ table.fee tbody tr:last-child td{border-bottom:0}
 }
 
 
-/* ---------- standalone detail page chrome ---------- */
-.detail-back{
-  font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.09em;
-  text-transform:uppercase; color:var(--ink-3); text-decoration:none;
-}
+.detail-back{font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-3); text-decoration:none}
 .detail-back:hover{color:var(--ink)}
-.detail-wrap{max-width:820px; margin:0 auto; padding:54px clamp(16px,4vw,40px) 90px}
+.detail-wrap{max-width:900px; margin:0 auto; padding:54px clamp(16px,4vw,40px) 90px}
 .detail-eyebrow{font-family:'IBM Plex Mono',monospace; font-size:10.5px; letter-spacing:.15em; text-transform:uppercase; color:var(--ink-3); margin-bottom:14px}
-.detail-title{font-size:clamp(30px,4.6vw,50px); margin-bottom:26px; max-width:100%}
+.detail-title{font-size:clamp(30px,4.6vw,50px); margin-bottom:34px; max-width:100%}
 
 </style>
 
 <header class="topbar">
-  <a class="brand" href="dossier.html">LOWI</a>
+  <a class="brand" href="dossier-fr.html">LOWI</a>
   <nav class="topnav">
-    <a class="detail-back" href="dossier.html">&larr; Back to dossier</a>
+    <a class="detail-back" href="dossier-fr.html">&larr; Retour au dossier</a>
   </nav>
 </header>
 
 <main>
   <div class="detail-wrap">
-    <div class="detail-eyebrow">Dossier · supplementary detail</div>
-    <h1 class="detail-title">Our thesis, in one measured number.</h1>
+    <div class="detail-eyebrow">Dossier · détail complémentaire</div>
+    <h1 class="detail-title">16 bots. Les agents ne font pas le travail &mdash; ils nous achètent le temps de mieux le faire sur le terrain.</h1>
     <div class="stack gap-m">
-      <p class="slide__lede">
-        The whole investment case rests on one measured fact: price dispersion inside a single
-        building is larger than most buyers assume, and larger than the choice of neighbourhood.
-        That gap is not noise &mdash; it is where a disciplined, data-equipped buyer wins.
-      </p>
 
-      <div class="callout" style="--co:var(--pass)">
-        <span class="callout__t">What the opacity costs, measured</span>
+      <div class="grid grid--4" style="grid-template-columns:repeat(4,1fr)">
+        <div class="cell"><span class="cell__tag">×6</span><span class="cell__t">Extraction</span><span class="cell__b">Données d'annonces et de marché tenues à jour depuis des sources pré-ciblées. Chacun sonde la structure des pages avant un scan complet, pour qu'une panne silencieuse à zéro résultat soit repérée le jour même.</span></div>
+        <div class="cell"><span class="cell__tag">×2</span><span class="cell__t">Surveillance</span><span class="cell__b">Exécute le programme de santé du système et identifie de nouvelles sources à intégrer.</span></div>
+        <div class="cell"><span class="cell__tag">×2</span><span class="cell__t">Analyse</span><span class="cell__b">Marchés locatif et de vente analysés séparément, puis recoupés par immeuble.</span></div>
+        <div class="cell"><span class="cell__tag">×2</span><span class="cell__t">Canaux communautaires</span><span class="cell__b">Surveille les groupes Facebook et canaux WhatsApp pour les signaux hors-marché et précoces.</span></div>
+        <div class="cell"><span class="cell__tag">×1</span><span class="cell__t">Organisation des données</span><span class="cell__b">Réconcilie les données entrantes et maintient la base propre. Aucune fusion ni suppression automatique &mdash; les paires ambiguës vont en revue humaine.</span></div>
+        <div class="cell"><span class="cell__tag">×1</span><span class="cell__t">Reporting</span><span class="cell__b">Construit les statistiques derrière les rapports hebdomadaires, mensuels et annuels, avec des paramètres figés et versionnés.</span></div>
+        <div class="cell"><span class="cell__tag">×1</span><span class="cell__t">Sécurité &amp; stockage</span><span class="cell__b">Maintient les données cohérentes, optimisées et dupliquées pour leur sauvegarde. Rien n'est purgé sans une copie vérifiée ligne par ligne.</span></div>
+        <div class="cell"><span class="cell__tag">×1</span><span class="cell__t">Supervision</span><span class="cell__b">Vérifie la sortie de chaque agent pour que toute la chaîne reste lisible et auditable d'un point de vue humain.</span></div>
+      </div>
+
+      <div class="callout" style="--co:var(--engage)">
+        <span class="callout__t">Le temps est la clé</span>
         <p>
-          Across the tracked portfolio, the gap between the cheapest listed unit and the median
-          of <em>its own building</em>, at comparable typology, routinely reaches
-          <strong>25 to 42&nbsp;%</strong>. Two neighbouring apartments, same building, same bed
-          count, a third apart in price. That spread &mdash; not the choice of city &mdash; is
-          where returns are won or lost.
+          Les données évoluent aussi vite que nos indicateurs. L'extraction continue signifie
+          qu'une erreur de prix est repérée le jour où elle apparaît, pas la semaine où quelqu'un
+          tombe par hasard sur la bonne annonce &mdash; l'avantage dans la thèse de décote est
+          largement un avantage de vitesse.
         </p>
       </div>
 
-      <div class="prose">
+      <div class="callout">
+        <span class="callout__t">Ce qui remplace le filtrage manuel</span>
         <p>
-          <strong>Why the gap exists.</strong> Thailand has no public transaction registry.
-          What circulates in listings is what sellers hope for, not what changes hands. Without a
-          reliable comparable, most buyers price off the loudest listing in a building rather than
-          its true median &mdash; and most sellers have no reason to correct that.
-        </p>
-        <p>
-          <strong>Why it persists.</strong> Foreign buyers face additional friction &mdash; the
-          49&nbsp;% foreign-quota constraint, the Thai bank account and remittance requirements, the
-          practical difficulty of viewing and verifying a building from abroad. That friction thins
-          the pool of buyers capable of acting on a genuine discount, which is exactly what keeps
-          the spread from closing on its own.
-        </p>
-        <p>
-          <strong>What closes it.</strong> A continuously refreshed, per-building reference price,
-          checked against a human on-ground audit before any commitment. See the four case studies
-          in the dossier for what that audit looks like in practice &mdash; including the one where
-          the algorithm's headline discount did not survive scrutiny.
+          Plutôt que de filtrer les opportunités à travers une douzaine d'applications et de
+          canaux, tout est tenu à jour sur une seule plateforme qui envoie rapports et
+          notifications en temps utile. L'effet mesurable n'est pas un meilleur jugement &mdash;
+          c'est que <strong>le jugement s'applique à un champ complet</strong> plutôt qu'à ce qui
+          est apparu par hasard cette semaine-là.
         </p>
       </div>
 
-      <div class="callout" style="--co:var(--violet)">
-        <span class="callout__t">What this is not</span>
+      <div class="callout" style="--co:var(--gold)">
+        <span class="callout__t">Où se situe l'IA &mdash; mesuré, pas supposé</span>
         <p>
-          This is not a claim that Bangkok real estate as a whole is undervalued. The broad market
-          is flat to contracting outside prime corridors. The thesis is narrower and more
-          defensible: <strong>within any given building, the spread between the cheapest unit and
-          its own median is where the return lives</strong> &mdash; and that spread is measurable,
-          not a story.
+          Un modèle de langage local est utilisé, sur un périmètre délibérément étroit
+          établi par plus de 650 appels sur des données réelles. Constat : questionné pour un
+          verdict, un petit modèle répond <em>à chaque fois</em> &mdash; y compris quand la question
+          est indécidable, avec 0 % d'abstention. La correction a été architecturale :
+          <strong>le modèle ne juge plus</strong>. Il énonce des faits élémentaires et du code
+          déterministe décide. Résultat mesuré : 99 % de précision avec 77 % d'abstention.
+          Chaque décision se retrace jusqu'à un fait vérifiable, pas à l'opinion d'un modèle.
         </p>
-      </div>
-    </div>
+          </div>
 
+  </div>
   </div>
 </main>
