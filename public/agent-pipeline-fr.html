@@ -562,19 +562,26 @@ table.fee tbody tr:last-child td{border-bottom:0}
 <main>
   <div class="detail-wrap">
     <div class="detail-eyebrow">Dossier · détail complémentaire</div>
-    <h1 class="detail-title">16 bots. Les agents ne font pas le travail &mdash; ils nous achètent le temps de mieux le faire sur le terrain.</h1>
+    <h1 class="detail-title">13 bots. Les agents ne font pas le travail &mdash; ils nous achètent le temps de mieux le faire sur le terrain.</h1>
     <div class="stack gap-m">
 
-      <div class="grid grid--4" style="grid-template-columns:repeat(4,1fr)">
-        <div class="cell"><span class="cell__tag">×6</span><span class="cell__t">Extraction</span><span class="cell__b">Données d'annonces et de marché tenues à jour depuis des sources pré-ciblées. Chacun sonde la structure des pages avant un scan complet, pour qu'une panne silencieuse à zéro résultat soit repérée le jour même.</span></div>
-        <div class="cell"><span class="cell__tag">×2</span><span class="cell__t">Surveillance</span><span class="cell__b">Exécute le programme de santé du système et identifie de nouvelles sources à intégrer.</span></div>
-        <div class="cell"><span class="cell__tag">×2</span><span class="cell__t">Analyse</span><span class="cell__b">Marchés locatif et de vente analysés séparément, puis recoupés par immeuble.</span></div>
-        <div class="cell"><span class="cell__tag">×2</span><span class="cell__t">Canaux communautaires</span><span class="cell__b">Surveille les groupes Facebook et canaux WhatsApp pour les signaux hors-marché et précoces.</span></div>
-        <div class="cell"><span class="cell__tag">×1</span><span class="cell__t">Organisation des données</span><span class="cell__b">Réconcilie les données entrantes et maintient la base propre. Aucune fusion ni suppression automatique &mdash; les paires ambiguës vont en revue humaine.</span></div>
-        <div class="cell"><span class="cell__tag">×1</span><span class="cell__t">Reporting</span><span class="cell__b">Construit les statistiques derrière les rapports hebdomadaires, mensuels et annuels, avec des paramètres figés et versionnés.</span></div>
-        <div class="cell"><span class="cell__tag">×1</span><span class="cell__t">Sécurité &amp; stockage</span><span class="cell__b">Maintient les données cohérentes, optimisées et dupliquées pour leur sauvegarde. Rien n'est purgé sans une copie vérifiée ligne par ligne.</span></div>
-        <div class="cell"><span class="cell__tag">×1</span><span class="cell__t">Supervision</span><span class="cell__b">Vérifie la sortie de chaque agent pour que toute la chaîne reste lisible et auditable d'un point de vue humain.</span></div>
+      <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:14px;">
+        <div class="cell" style="flex:0 1 170px; text-align:center;"><span class="cell__tag">×5</span><span class="cell__t">Extraction</span></div>
+        <span aria-hidden="true" style="color:var(--violet); font-size:22px; line-height:1;">&rarr;</span>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <div class="cell" style="flex:0 1 170px; text-align:center;"><span class="cell__tag">×1</span><span class="cell__t">Sécurité &amp; stockage</span></div>
+          <div class="cell" style="flex:0 1 170px; text-align:center;"><span class="cell__tag">×2</span><span class="cell__t">Surveillance</span></div>
+        </div>
+        <span aria-hidden="true" style="color:var(--violet); font-size:22px; line-height:1;">&rarr;</span>
+        <div class="cell" style="flex:0 1 170px; text-align:center;"><span class="cell__tag">×2</span><span class="cell__t">Analyse</span></div>
+        <span aria-hidden="true" style="color:var(--violet); font-size:22px; line-height:1;">&rarr;</span>
+        <div class="cell" style="flex:0 1 170px; text-align:center;"><span class="cell__tag">×1</span><span class="cell__t">Organisation des données</span></div>
+        <span aria-hidden="true" style="color:var(--violet); font-size:22px; line-height:1;">&rarr;</span>
+        <div class="cell" style="flex:0 1 170px; text-align:center;"><span class="cell__tag">×1</span><span class="cell__t">Reporting</span></div>
+        <span aria-hidden="true" style="color:var(--violet); font-size:22px; line-height:1;">&rarr;</span>
+        <div class="cell" style="flex:0 1 170px; text-align:center;"><span class="cell__tag">×1</span><span class="cell__t">Supervision</span></div>
       </div>
+      <p class="corr-caption" style="text-align:center;">Extraction alimente à la fois la publication vers la base et la surveillance de santé ; les deux rejoignent l'analyse, puis l'organisation des données, le reporting, et la supervision qui relit tout le cycle.</p>
 
       <div class="callout" style="--co:var(--engage)">
         <span class="callout__t">Le temps est la clé</span>
@@ -598,15 +605,18 @@ table.fee tbody tr:last-child td{border-bottom:0}
       </div>
 
       <div class="callout" style="--co:var(--gold)">
-        <span class="callout__t">Où se situe l'IA &mdash; mesuré, pas supposé</span>
+        <span class="callout__t">Les maths et l'IA</span>
         <p>
-          Un modèle de langage local est utilisé, sur un périmètre délibérément étroit
-          établi par plus de 650 appels sur des données réelles. Constat : questionné pour un
-          verdict, un petit modèle répond <em>à chaque fois</em> &mdash; y compris quand la question
-          est indécidable, avec 0 % d'abstention. La correction a été architecturale :
-          <strong>le modèle ne juge plus</strong>. Il énonce des faits élémentaires et du code
-          déterministe décide. Résultat mesuré : 99 % de précision avec 77 % d'abstention.
-          Chaque décision se retrace jusqu'à un fait vérifiable, pas à l'opinion d'un modèle.
+          Les modèles mathématiques utilisés pour rendre l'information digeste et lisible sont
+          écrits dans des scripts. Le résultat ne peut pas changer sans intervention humaine.
+        </p>
+        <p>
+          La donnée est collectée, traitée et comparée par une intelligence artificielle locale.
+          Elle alimente la base de données, qui alimente les modèles mathématiques.
+        </p>
+        <p>
+          Les agents lisent la donnée, les maths et les actualités pour s'assurer de la pertinence
+          du système. Tous les jours. Plus le temps passe, plus c'est solide.
         </p>
           </div>
 

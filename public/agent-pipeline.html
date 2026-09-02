@@ -563,19 +563,26 @@ table.fee tbody tr:last-child td{border-bottom:0}
 <main>
   <div class="detail-wrap">
     <div class="detail-eyebrow">Dossier · supplementary detail</div>
-    <h1 class="detail-title">16 bots. The agents don't do the work — they buy us time to do better work on the ground.</h1>
+    <h1 class="detail-title">13 bots. The agents don't do the work — they buy us time to do better work on the ground.</h1>
     <div class="stack gap-m">
 
-      <div class="grid grid--4" style="grid-template-columns:repeat(4,1fr)">
-        <div class="cell"><span class="cell__tag">×6</span><span class="cell__t">Extraction</span><span class="cell__b">Listing and market data kept current from pre-targeted sources. Each probes page structure before a full scan, so a silent zero-result break is caught the same day.</span></div>
-        <div class="cell"><span class="cell__tag">×2</span><span class="cell__t">Surveillance</span><span class="cell__b">Runs the health programme and identifies new sources to bring into coverage.</span></div>
-        <div class="cell"><span class="cell__tag">×2</span><span class="cell__t">Analysis</span><span class="cell__b">Rental and sales markets analysed separately, then cross-matched per building.</span></div>
-        <div class="cell"><span class="cell__tag">×2</span><span class="cell__t">Community channels</span><span class="cell__b">Monitors Facebook groups and WhatsApp channels for off-market and early signals.</span></div>
-        <div class="cell"><span class="cell__tag">×1</span><span class="cell__t">Data organizing</span><span class="cell__b">Reconciles incoming data and keeps the database clean. No automatic merge or deletion — ambiguous pairs go to human review.</span></div>
-        <div class="cell"><span class="cell__tag">×1</span><span class="cell__t">Data reporting</span><span class="cell__b">Builds the statistics behind weekly, monthly and yearly reports, with parameters frozen and versioned.</span></div>
-        <div class="cell"><span class="cell__tag">×1</span><span class="cell__t">Security &amp; storage</span><span class="cell__b">Keeps data consistent, optimised and duplicated for safekeeping. Nothing is purged without a row-by-row verified copy.</span></div>
-        <div class="cell"><span class="cell__tag">×1</span><span class="cell__t">Overseeing</span><span class="cell__b">Verifies every agent's output so the whole chain can be read and audited from a human perspective.</span></div>
+      <div style="display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:14px;">
+        <div class="cell" style="flex:0 1 170px; text-align:center;"><span class="cell__tag">×5</span><span class="cell__t">Extraction</span></div>
+        <span aria-hidden="true" style="color:var(--violet); font-size:22px; line-height:1;">&rarr;</span>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <div class="cell" style="flex:0 1 170px; text-align:center;"><span class="cell__tag">×1</span><span class="cell__t">Security &amp; storage</span></div>
+          <div class="cell" style="flex:0 1 170px; text-align:center;"><span class="cell__tag">×2</span><span class="cell__t">Surveillance</span></div>
+        </div>
+        <span aria-hidden="true" style="color:var(--violet); font-size:22px; line-height:1;">&rarr;</span>
+        <div class="cell" style="flex:0 1 170px; text-align:center;"><span class="cell__tag">×2</span><span class="cell__t">Analysis</span></div>
+        <span aria-hidden="true" style="color:var(--violet); font-size:22px; line-height:1;">&rarr;</span>
+        <div class="cell" style="flex:0 1 170px; text-align:center;"><span class="cell__tag">×1</span><span class="cell__t">Data organizing</span></div>
+        <span aria-hidden="true" style="color:var(--violet); font-size:22px; line-height:1;">&rarr;</span>
+        <div class="cell" style="flex:0 1 170px; text-align:center;"><span class="cell__tag">×1</span><span class="cell__t">Data reporting</span></div>
+        <span aria-hidden="true" style="color:var(--violet); font-size:22px; line-height:1;">&rarr;</span>
+        <div class="cell" style="flex:0 1 170px; text-align:center;"><span class="cell__tag">×1</span><span class="cell__t">Overseeing</span></div>
       </div>
+      <p class="corr-caption" style="text-align:center;">Extraction feeds both the publish-to-database step and health monitoring; both feed analysis, then data organizing, reporting, and the overseeing step that reviews the whole cycle.</p>
 
       <div class="callout" style="--co:var(--engage)">
         <span class="callout__t">Time is key</span>
@@ -597,14 +604,18 @@ table.fee tbody tr:last-child td{border-bottom:0}
       </div>
 
       <div class="callout" style="--co:var(--gold)">
-        <span class="callout__t">Where AI sits — measured, not assumed</span>
+        <span class="callout__t">The maths and the AI</span>
         <p>
-          A local language model is used, on a deliberately narrow perimeter established by 650+
-          calls on real data. The finding: asked for a verdict, a small model answers
-          <em>every time</em> — including when the question is undecidable, with 0 % abstention.
-          The fix was architectural: <strong>the model no longer judges</strong>. It states
-          elementary facts and deterministic code decides. Measured result: 99 % accuracy with
-          77 % abstention. Every decision traces to a checkable fact, not to a model's opinion.
+          The mathematical models used to turn the data into something digestible and readable are
+          written in scripts. The result cannot change without human intervention.
+        </p>
+        <p>
+          The data is collected, processed, and compared by a local artificial intelligence. It
+          feeds the database, which feeds the mathematical models.
+        </p>
+        <p>
+          The agents read the data, the maths, and the news to make sure the system stays relevant.
+          Every day. The more time passes, the more solid it gets.
         </p>
           </div>
 
