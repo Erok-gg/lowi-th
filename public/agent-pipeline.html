@@ -67,24 +67,23 @@ body::before{
 }
 
 .cloud-bg{position:fixed; inset:0; z-index:-1; overflow:hidden; pointer-events:none}
-/* Nuages en dégradé radial, SANS filter:blur. Trois disques de ~56vw floutés à
-   90px et animés, sous une barre en backdrop-filter, faisaient scintiller le fond
-   (calques GPU géants lâchés puis repeints, 2026-09-29). Même rendu, sans filtre. */
-.cloud-bg span{position:absolute; border-radius:50%}
+/* Nuages FIGÉS (2026-09-29). Animés, ces trois disques de ~56vw floutés à 90px
+   se repeignaient à chaque image sous la barre en backdrop-filter : le fond
+   scintillait sur Chrome PC. Les passer en dégradé radial (sans will-change) a
+   empiré le scintillement. Pour réanimer : remettre les lignes `animation:` —
+   les @keyframes cloudDrift* sont conservées plus bas. */
+.cloud-bg span{position:absolute; border-radius:50%; filter:blur(90px)}
 .cloud-bg span:nth-child(1){
   width:56vw; height:56vw; top:-16%; left:-14%;
-  background:radial-gradient(closest-side,var(--violet) 30%,transparent); opacity:.28;
-  animation:cloudDrift1 46s ease-in-out infinite alternate;
+  background:var(--violet); opacity:.28;
 }
 .cloud-bg span:nth-child(2){
   width:50vw; height:50vw; top:22%; right:-18%;
-  background:radial-gradient(closest-side,#3a5fd9 30%,transparent); opacity:.24;
-  animation:cloudDrift2 58s ease-in-out infinite alternate;
+  background:#3a5fd9; opacity:.24;
 }
 .cloud-bg span:nth-child(3){
   width:48vw; height:48vw; bottom:-18%; left:18%;
-  background:radial-gradient(closest-side,#2c2c3e 30%,transparent); opacity:.4;
-  animation:cloudDrift3 52s ease-in-out infinite alternate;
+  background:#2c2c3e; opacity:.4;
 }
 @keyframes cloudDrift1{0%{transform:translate(0,0) scale(1)} 100%{transform:translate(9vw,11vh) scale(1.12)}}
 @keyframes cloudDrift2{0%{transform:translate(0,0) scale(1)} 100%{transform:translate(-11vw,-7vh) scale(1.08)}}
