@@ -67,20 +67,23 @@ body::before{
 }
 
 .cloud-bg{position:fixed; inset:0; z-index:-1; overflow:hidden; pointer-events:none}
-.cloud-bg span{position:absolute; border-radius:50%; filter:blur(90px); will-change:transform}
+/* Nuages en dégradé radial, SANS filter:blur. Trois disques de ~56vw floutés à
+   90px et animés, sous une barre en backdrop-filter, faisaient scintiller le fond
+   (calques GPU géants lâchés puis repeints, 2026-09-29). Même rendu, sans filtre. */
+.cloud-bg span{position:absolute; border-radius:50%}
 .cloud-bg span:nth-child(1){
   width:56vw; height:56vw; top:-16%; left:-14%;
-  background:var(--violet); opacity:.28;
+  background:radial-gradient(closest-side,var(--violet) 30%,transparent); opacity:.28;
   animation:cloudDrift1 46s ease-in-out infinite alternate;
 }
 .cloud-bg span:nth-child(2){
   width:50vw; height:50vw; top:22%; right:-18%;
-  background:#3a5fd9; opacity:.24;
+  background:radial-gradient(closest-side,#3a5fd9 30%,transparent); opacity:.24;
   animation:cloudDrift2 58s ease-in-out infinite alternate;
 }
 .cloud-bg span:nth-child(3){
   width:48vw; height:48vw; bottom:-18%; left:18%;
-  background:#2c2c3e; opacity:.4;
+  background:radial-gradient(closest-side,#2c2c3e 30%,transparent); opacity:.4;
   animation:cloudDrift3 52s ease-in-out infinite alternate;
 }
 @keyframes cloudDrift1{0%{transform:translate(0,0) scale(1)} 100%{transform:translate(9vw,11vh) scale(1.12)}}
