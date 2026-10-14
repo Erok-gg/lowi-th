@@ -649,6 +649,74 @@ table.fee tbody tr:last-child td{border-bottom:0}
 }
 @media (max-width:900px){ .eqsum{grid-template-columns:minmax(0,1fr); gap:24px} .eqsum__v{font-size:56px} }
 @media (max-width:560px){ .eq{grid-template-columns:minmax(0,1fr)} }
+
+/* ---------- Teaser + Dossier (2026-10-14) ---------- */
+.topnav__sep{width:1px; height:18px; background:var(--line); margin:0 8px; flex:0 0 auto}
+.cover{justify-content:flex-start; padding-top:clamp(56px,11vh,112px)}
+.cover__h1{font-size:clamp(52px,7vw,92px); line-height:.98; letter-spacing:-.045em; font-weight:500; margin:0 0 28px}
+.cover__h1 span{color:var(--violet)}
+.cover--teaser{min-height:0; padding-bottom:0}
+.cover--teaser .cover__h1{margin-bottom:0}
+
+.btn{display:inline-flex; align-items:center; gap:8px; height:44px; padding:0 18px; border-radius:var(--r-sm); font:600 14px var(--sans); text-decoration:none; border:1px solid var(--line); background:var(--surface); color:var(--ink); transition:filter .15s ease, border-color .15s ease}
+.btn:hover{border-color:var(--ink-3)}
+.btn--primary{background:var(--violet); border-color:var(--violet); color:#0B0C0F}
+.btn--primary:hover{filter:brightness(1.08)}
+
+.teaser__rest{max-width:1160px; margin:0 auto; padding:28px clamp(20px,4vw,40px) 48px;
+  clip-path:inset(0 0 0 0); transition:clip-path 2.6s cubic-bezier(.65,0,.35,1), opacity 2.6s ease}
+.teaser__rest.is-collapsing{clip-path:inset(0 0 100% 0); opacity:0; max-height:100vh; overflow:hidden; pointer-events:none}
+.teaser__rest > .slide{padding-left:0; padding-right:0}
+.teaser__hero{display:grid; grid-template-columns:minmax(0,1.35fr) minmax(0,1fr); gap:64px; align-items:end}
+.teaser__ctas{display:flex; gap:12px; flex-wrap:wrap; margin-top:40px}
+.panel{background:var(--surface); border:1px solid var(--line-soft); border-radius:var(--r); padding:24px; display:flex; flex-direction:column}
+.panel__head{display:flex; justify-content:space-between; gap:12px; font:12px var(--mono); color:var(--ink-3)}
+.panel__head span:first-child{color:var(--ink-2)}
+.panel__big{font:500 56px/1 var(--sans); letter-spacing:-.03em; font-variant-numeric:tabular-nums; margin-top:28px}
+.panel__mid{display:block; font:500 28px/1.2 var(--sans); letter-spacing:-.03em; font-variant-numeric:tabular-nums}
+.panel__k{display:block; font-size:13.5px; color:var(--ink-2); margin-top:6px}
+.panel__row{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; margin-top:24px; padding-top:24px; border-top:1px solid var(--line-soft)}
+.kpis{display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); margin-top:72px; background:var(--surface); border:1px solid var(--line-soft); border-radius:var(--r); overflow:hidden}
+.kpis > div{padding:24px; border-right:1px solid var(--line-soft)}
+.kpis > div:last-child{border-right:0}
+.kpis__k{display:block; font:12px var(--mono); color:var(--ink-3)}
+.kpis__v{display:block; font:500 40px/1.2 var(--sans); letter-spacing:-.03em; margin-top:8px; font-variant-numeric:tabular-nums}
+.kpis__v small{font-size:.6em; color:var(--ink-3)}
+.teaser__note{font-size:13px; color:var(--ink-3); margin-top:16px}
+.teaser__title{display:flex; flex-wrap:wrap; gap:24px; align-items:flex-end; justify-content:space-between; margin-top:120px; padding-top:28px; border-top:1px solid var(--ink)}
+.teaser__title h2{font-size:clamp(56px,7vw,88px); line-height:1; letter-spacing:-.05em}
+.teaser__title p{margin-top:16px; color:var(--ink-2); max-width:560px}
+.tcard{display:flex; flex-direction:column; background:var(--surface); border:1px solid var(--line-soft); border-radius:var(--r); overflow:hidden; text-decoration:none; transition:border-color .15s ease}
+.tcard:hover{border-color:var(--line)}
+.tcard img{width:100%; aspect-ratio:3/2; object-fit:cover; display:block}
+.tcard__tag{font:11px var(--mono); letter-spacing:.08em; text-transform:uppercase; margin:20px 20px 0}
+.tcard__t{font-weight:600; font-size:18px; margin:8px 20px 4px}
+.tcard__b{font-size:13.5px; color:var(--ink-2); margin:0 20px 20px}
+.teaser__end{display:flex; flex-wrap:wrap; gap:40px; justify-content:space-between; align-items:flex-end; background:var(--accent-soft); border:1px solid var(--line); border-radius:var(--r); padding:72px 56px; margin-top:24px}
+.teaser__end h2{font-size:48px; line-height:1.05; letter-spacing:-.04em; margin-top:16px}
+.teaser__end h2 span{color:var(--violet)}
+
+/* Déploiement du deck après le teaser : slide par slide, de haut en bas */
+@keyframes unfold{from{opacity:0; transform:translateY(40px); clip-path:inset(0 0 100% 0)} to{opacity:1; transform:none; clip-path:inset(0 0 0 0)}}
+.is-unfolding.view.is-active{animation:none}
+.is-unfolding .cover > :not(.cover__h1),.is-unfolding > .slide{animation:unfold 1s cubic-bezier(.2,.7,.2,1) both}
+.is-unfolding .cover > :nth-child(2){animation-delay:.1s}
+.is-unfolding .cover > :nth-child(3){animation-delay:.2s}
+.is-unfolding .cover > :nth-child(4){animation-delay:.3s}
+.is-unfolding .cover > :nth-child(5){animation-delay:.4s}
+.is-unfolding > .slide:nth-of-type(2){animation-delay:.5s}
+.is-unfolding > .slide:nth-of-type(3){animation-delay:.65s}
+.is-unfolding > .slide:nth-of-type(4){animation-delay:.8s}
+.is-unfolding > .slide:nth-of-type(n+5){animation-delay:.95s}
+
+@media (max-width:900px){
+  .teaser__hero{grid-template-columns:minmax(0,1fr); gap:32px}
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .kpis > div:nth-child(2){border-right:0}
+  .kpis > div:nth-child(-n+2){border-bottom:1px solid var(--line-soft)}
+  .teaser__end{padding:40px 24px}
+  .topnav__sep{display:none}
+}
 </style>
 
 <div class="cloud-bg"><span></span><span></span><span></span></div>
@@ -656,7 +724,9 @@ table.fee tbody tr:last-child td{border-bottom:0}
 <header class="topbar">
   <a class="brand" href="#/" data-route>LOWI</a>
   <nav class="topnav">
-    <a href="#/" data-route>Dossier</a>
+    <a href="#/" data-route>Teaser</a>
+    <a href="#/dossier" data-route data-to-dossier>Dossier</a>
+    <span class="topnav__sep" aria-hidden="true"></span>
     <a href="#/allocation" data-route>Allocation</a>
     <a href="#/structure" data-route>Structure</a>
     <a href="#/tax" data-route>Tax &amp; exit</a>
@@ -674,15 +744,88 @@ table.fee tbody tr:last-child td{border-bottom:0}
 <main id="app">
 
 <!-- ============================================================
+     ROUTE : TEASER — page d'atterrissage (2026-10-14, Design-ledger.md)
+     Problem, Return et Fees sont CLONÉS au chargement depuis le dossier
+     (data-clone-from) : une seule source de contenu, pas de base64 en double.
+     ============================================================ -->
+<section class="view is-active" id="v-teaser">
+  <div class="cover cover--teaser">
+    <h1 class="cover__h1">Data. Discipline.<br><span>Dividend.</span></h1>
+  </div>
+  <div class="teaser__rest">
+    <div class="teaser__hero">
+      <div class="teaser__intro">
+        <p class="cover__sub">Fractional real estate investment in Bangkok — every unit screened against a live, multi-source market database before a human ever visits it.</p>
+        <div class="teaser__ctas">
+          <a class="btn btn--primary" href="mailto:schoenauer.anthony@gmail.com?subject=LOWI%20data%20room">Request the data room</a>
+          <a class="btn" href="#/dossier" data-to-dossier>Read the dossier</a>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel__head"><span>Platform</span><span>as of 2026-09-01</span></div>
+        <span class="panel__big" data-count="70532">70 532</span>
+        <span class="panel__k">listings tracked across 5 independent portals</span>
+        <div class="panel__row">
+          <div><span class="panel__mid" data-count="4514">4 514</span><span class="panel__k">reference buildings</span></div>
+          <div><span class="panel__mid">Daily</span><span class="panel__k">extraction cycle</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="kpis">
+      <div><span class="kpis__k">Target IRR</span><span class="kpis__v">8–10 %</span></div>
+      <div><span class="kpis__k">Min. gross yield</span><span class="kpis__v">5–7 %</span></div>
+      <div><span class="kpis__k">Conservative case</span><span class="kpis__v">6–8 %</span></div>
+      <div><span class="kpis__k">Raise · Y1 + Y3</span><span class="kpis__v">฿150M <small>+150M</small></span></div>
+    </div>
+    <p class="teaser__note">Return figures are a model, not a promise. Market figures measured 2026-09-01, reproducible from the platform database. No leverage.</p>
+
+    <div class="teaser__title">
+      <div>
+        <h2>Teaser</h2>
+        <p>The short version — problem, return, pipeline, fees. The full dossier runs 17 slides and five annexes.</p>
+      </div>
+      <a class="btn" href="#/dossier" data-to-dossier>Open the full dossier</a>
+    </div>
+
+    <div data-clone-from="s-problem"></div>
+    <div data-clone-from="s-return"></div>
+
+    <div class="slide">
+      <div class="rail"><span class="rail__n">14</span><span class="rail__l">The Investment Universe</span><span class="rail__r"></span></div>
+      <h2 class="slide__t">A pool, not a fixed set of holdings.</h2>
+      <div class="stack">
+        <div class="grid" style="grid-template-columns:repeat(3,1fr)">
+          <a class="tcard" href="#/dossier" data-to-dossier><img data-src-from="thumb-noble" alt="Noble Ploenchit"><span class="tcard__tag" style="color:var(--engage)">Yield</span><span class="tcard__t">Noble Ploenchit</span><span class="tcard__b">BTS Phloen Chit</span></a>
+          <a class="tcard" href="#/dossier" data-to-dossier><img data-src-from="thumb-parkorigin" alt="Park Origin Chula-Samyan"><span class="tcard__tag" style="color:var(--violet)">Value</span><span class="tcard__t">Park Origin Chula-Samyan</span><span class="tcard__b">MRT Sam Yan</span></a>
+          <a class="tcard" href="#/dossier" data-to-dossier><img data-src-from="thumb-masterview" alt="Master View Executive Place"><span class="tcard__tag" style="color:var(--ink-3)">Declined</span><span class="tcard__t">Master View Executive Place</span><span class="tcard__b">40.8 % headline discount did not survive scrutiny</span></a>
+        </div>
+      </div>
+    </div>
+
+    <div data-clone-from="s-fees"></div>
+
+    <div class="teaser__end">
+      <div>
+        <span class="kpis__k">Next</span>
+        <h2>Seventeen slides.<br><span>Every number sourced.</span></h2>
+      </div>
+      <div class="teaser__ctas">
+        <a class="btn btn--primary" href="#/dossier" data-to-dossier>Open the full dossier</a>
+        <a class="btn" href="mailto:schoenauer.anthony@gmail.com?subject=LOWI%20data%20room">Request the data room</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
      ROUTE : THE DECK — slides 1-16, original order
      ============================================================ -->
-<section class="view is-active" id="v-home">
+<section class="view" id="v-home">
 
   <!-- 01 COVER -->
   <div class="cover">
-    <div class="cover__mark">LOWI</div>
+    <h1 class="cover__h1">Data. Discipline.<br><span>Dividend.</span></h1>
     <p class="cover__sub">Fractional real estate investment in Bangkok, Thailand.</p>
-    <p class="cover__tag">Data. Discipline. Dividend.</p>
 
     <div class="cover__facts">
       <div class="fact"><span class="fact__v">8–10<small>&nbsp;%</small></span><span class="fact__k">target IRR</span></div>
@@ -701,7 +844,7 @@ table.fee tbody tr:last-child td{border-bottom:0}
   </div>
 
   <!-- 02 THE PROBLEM -->
-  <div class="slide rv">
+  <div class="slide rv" id="s-problem">
     <div class="rail"><span class="rail__n">02</span><span class="rail__l">The Problem</span><span class="rail__r"></span></div>
     <h2 class="slide__t">Foreign investors navigate blind.</h2>
     <div class="stack gap-m">
@@ -1040,7 +1183,7 @@ table.fee tbody tr:last-child td{border-bottom:0}
   <!-- Équation (2026-10-14) : les cinq termes n'ont pas la même nature — un flux,
        des charges, un taux composé, un gain ponctuel, un coût ponctuel. Chacun a
        sa forme ; seule la somme finale est une échelle. -->
-  <div class="slide rv">
+  <div class="slide rv" id="s-return">
     <div class="rail"><span class="rail__n">08</span><span class="rail__l">Where the 8–10 % Comes From</span><span class="rail__r"></span></div>
     <h2 class="slide__t">Where 8–10 % comes from, line by line.</h2>
     <p class="slide__lede">Without the entry discount, the model returns the conservative 6–8 %, not the headline.</p>
@@ -1415,7 +1558,7 @@ table.fee tbody tr:last-child td{border-bottom:0}
   </div>
 
   <!-- 14 FEE STRUCTURE -->
-  <div class="slide rv">
+  <div class="slide rv" id="s-fees">
     <div class="rail"><span class="rail__n">15</span><span class="rail__l">Fee Structure</span><span class="rail__r"></span></div>
     <h2 class="slide__t">What we're paid, and for what.</h2>
     <div class="stack gap-m">
@@ -1518,7 +1661,7 @@ table.fee tbody tr:last-child td{border-bottom:0}
      ============================================================ -->
 <section class="view" id="v-allocation">
   <div class="slide">
-    <a class="backlink" href="#/" data-route>← Back to the deck</a>
+    <a class="backlink" href="#/dossier" data-route>← Back to the deck</a>
     <div class="rail"><span class="rail__n">A</span><span class="rail__l">Annex · Allocation model</span><span class="rail__r"></span></div>
     <h2 class="slide__t">How the four roles combine into one return.</h2>
     <p class="slide__lede" style="margin-bottom:34px">
@@ -1610,7 +1753,7 @@ table.fee tbody tr:last-child td{border-bottom:0}
      ============================================================ -->
 <section class="view" id="v-structure">
   <div class="slide">
-    <a class="backlink" href="#/" data-route>← Back to the deck</a>
+    <a class="backlink" href="#/dossier" data-route>← Back to the deck</a>
     <div class="rail"><span class="rail__n">B</span><span class="rail__l">Annex · Structure</span><span class="rail__r"></span></div>
     <h2 class="slide__t">The quota, the company, the club.</h2>
 
@@ -1708,7 +1851,7 @@ table.fee tbody tr:last-child td{border-bottom:0}
      ============================================================ -->
 <section class="view" id="v-tax">
   <div class="slide">
-    <a class="backlink" href="#/" data-route>← Back to the deck</a>
+    <a class="backlink" href="#/dossier" data-route>← Back to the deck</a>
     <div class="rail"><span class="rail__n">C</span><span class="rail__l">Annex · Tax &amp; exit</span><span class="rail__r"></span></div>
     <h2 class="slide__t">What the Thai state takes, and when.</h2>
 
@@ -1820,7 +1963,7 @@ table.fee tbody tr:last-child td{border-bottom:0}
      ============================================================ -->
 <section class="view" id="v-platform">
   <div class="slide">
-    <a class="backlink" href="#/" data-route>← Back to the deck</a>
+    <a class="backlink" href="#/dossier" data-route>← Back to the deck</a>
     <div class="rail"><span class="rail__n">D</span><span class="rail__l">Annex · Platform</span><span class="rail__r"></span></div>
     <h2 class="slide__t">Why these numbers hold up.</h2>
     <p class="slide__lede" style="margin-bottom:34px">
@@ -1968,7 +2111,7 @@ table.fee tbody tr:last-child td{border-bottom:0}
      ============================================================ -->
 <section class="view" id="v-risk">
   <div class="slide">
-    <a class="backlink" href="#/" data-route>← Back to the deck</a>
+    <a class="backlink" href="#/dossier" data-route>← Back to the deck</a>
     <div class="rail"><span class="rail__n">E</span><span class="rail__l">Annex · Risk &amp; limits</span><span class="rail__r"></span></div>
     <h2 class="slide__t">What can make this fail.</h2>
     <p class="slide__lede" style="margin-bottom:34px">
@@ -2084,7 +2227,8 @@ table.fee tbody tr:last-child td{border-bottom:0}
   "use strict";
 
   var views = {
-    "/":           "v-home",
+    "/":           "v-teaser",
+    "/dossier":    "v-home",
     "/allocation": "v-allocation",
     "/structure":  "v-structure",
     "/tax":        "v-tax",
@@ -2095,6 +2239,11 @@ table.fee tbody tr:last-child td{border-bottom:0}
   function route(){
     var path = (location.hash || "#/").replace(/^#/, "");
     if (!views[path]) path = "/";
+    var home = document.getElementById("v-home");
+    if (home) home.classList.toggle("is-unfolding", path === "/dossier" && unfoldNext);
+    unfoldNext = false;
+    var rest = document.querySelector(".teaser__rest");
+    if (rest) rest.classList.remove("is-collapsing");
     Object.keys(views).forEach(function(p){
       var el = document.getElementById(views[p]);
       if (el) el.classList.toggle("is-active", p === path);
@@ -2108,6 +2257,45 @@ table.fee tbody tr:last-child td{border-bottom:0}
     observeAll();
   }
   window.addEventListener("hashchange", route);
+
+  // Teaser : clones du dossier (une seule source) + vignettes des biens.
+  document.querySelectorAll("[data-clone-from]").forEach(function(slot){
+    var src = document.getElementById(slot.getAttribute("data-clone-from"));
+    if (!src) return;
+    var c = src.cloneNode(true);
+    c.removeAttribute("id");
+    c.querySelectorAll("[id]").forEach(function(x){ x.removeAttribute("id"); });
+    slot.replaceWith(c);
+  });
+  document.querySelectorAll("img[data-src-from]").forEach(function(img){
+    var src = document.querySelector("#" + img.getAttribute("data-src-from") + " img");
+    if (src) img.src = src.getAttribute("src");
+  });
+
+  // Teaser -> Dossier : tout s'efface du bas vers le haut (≈ 3 s), seul
+  // « Data. Discipline. Dividend. » reste, puis le deck se déploie slide par slide.
+  // Lien direct vers #/dossier, ou réduction des animations : bascule immédiate.
+  var unfoldNext = false, collapsing = false;
+  document.addEventListener("click", function(ev){
+    var a = ev.target.closest && ev.target.closest("[data-to-dossier]");
+    if (!a) return;
+    var onTeaser = (location.hash || "#/") === "#/" || location.hash === "";
+    if (!onTeaser) return;
+    ev.preventDefault();
+    if (collapsing) return;
+    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce){ location.hash = "#/dossier"; return; }
+    collapsing = true;
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    setTimeout(function(){
+      document.querySelector(".teaser__rest").classList.add("is-collapsing");
+      setTimeout(function(){
+        collapsing = false;
+        unfoldNext = true;
+        location.hash = "#/dossier";
+      }, 2600);
+    }, 400);
+  });
 
   var io = null;
   if ("IntersectionObserver" in window){
