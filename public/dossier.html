@@ -253,10 +253,12 @@ h3.sub{font-size:clamp(19px,2.3vw,25px); margin-bottom:11px}
   transition:transform .18s ease, background-color .18s ease, border-color .18s ease;
 }
 .fact:hover{transform:scale(1.035); background-color:var(--gold-wash); border-color:var(--gold)}
+/* Chiffres hors MCTen (2026-10-14) : la police pixel n'a pas de glyphe U+2013,
+   « 8–10 % » s'affichait « 8¯10 % » sur la 1re carte du cover. */
 .fact__v{
-  font-family:'MCTen',Archivo,sans-serif;
+  font-family:Aptos,Archivo,'Helvetica Neue',sans-serif; font-weight:600; letter-spacing:-.02em;
   font-size:clamp(22px,2.9vw,32px); color:var(--ink); display:block;
-  line-height:1.08; font-variant-numeric:tabular-nums;
+  line-height:1.08; font-variant-numeric:tabular-nums lining-nums;
 }
 .fact__v small{font-size:.5em; color:var(--ink-3); letter-spacing:0}
 .fact__k{
@@ -369,7 +371,7 @@ table.data tbody tr:last-child td{border-bottom:0}
 
 .case__nums{display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:10px; padding:0 22px 16px; border-bottom:1px solid var(--line-soft)}
 .casenum{background:var(--surface); border:1px solid var(--line); border-radius:4px; padding:14px 18px}
-.casenum__v{font-family:'MCTen',Archivo,sans-serif; font-size:29px; line-height:1.05; font-variant-numeric:tabular-nums; display:block}
+.casenum__v{font-family:Aptos,Archivo,'Helvetica Neue',sans-serif; font-weight:600; letter-spacing:-.02em; font-size:29px; line-height:1.05; font-variant-numeric:tabular-nums; display:block}
 .casenum__k{font-family:'IBM Plex Mono',monospace; font-size:9px; letter-spacing:.11em; text-transform:uppercase; color:var(--ink-3); margin-top:6px; display:block; line-height:1.5}
 .casenum--algo .casenum__v{color:var(--ink-3)}
 .casenum--human .casenum__v{color:var(--gold-ink)}
