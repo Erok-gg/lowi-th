@@ -664,7 +664,7 @@ table.fee tbody tr:last-child td{border-bottom:0}
 .btn--primary:hover{filter:brightness(1.08)}
 
 .teaser__rest{max-width:1160px; margin:0 auto; padding:28px clamp(20px,4vw,40px) 48px;
-  clip-path:inset(0 0 0 0); transition:clip-path 2.6s cubic-bezier(.65,0,.35,1), opacity 2.6s ease}
+  clip-path:inset(0 0 0 0); transition:clip-path 1.3s cubic-bezier(.65,0,.35,1), opacity 1.3s ease}
 .teaser__rest.is-collapsing{clip-path:inset(0 0 100% 0); opacity:0; max-height:100vh; overflow:hidden; pointer-events:none}
 .teaser__rest > .slide{padding-left:0; padding-right:0}
 .teaser__hero{display:grid; grid-template-columns:minmax(0,1.35fr) minmax(0,1fr); gap:64px; align-items:end}
@@ -699,15 +699,15 @@ table.fee tbody tr:last-child td{border-bottom:0}
 /* Déploiement du deck après le teaser : slide par slide, de haut en bas */
 @keyframes unfold{from{opacity:0; transform:translateY(40px); clip-path:inset(0 0 100% 0)} to{opacity:1; transform:none; clip-path:inset(0 0 0 0)}}
 .is-unfolding.view.is-active{animation:none}
-.is-unfolding .cover > :not(.cover__h1),.is-unfolding > .slide{animation:unfold 1s cubic-bezier(.2,.7,.2,1) both}
-.is-unfolding .cover > :nth-child(2){animation-delay:.1s}
-.is-unfolding .cover > :nth-child(3){animation-delay:.2s}
-.is-unfolding .cover > :nth-child(4){animation-delay:.3s}
-.is-unfolding .cover > :nth-child(5){animation-delay:.4s}
-.is-unfolding > .slide:nth-of-type(2){animation-delay:.5s}
-.is-unfolding > .slide:nth-of-type(3){animation-delay:.65s}
-.is-unfolding > .slide:nth-of-type(4){animation-delay:.8s}
-.is-unfolding > .slide:nth-of-type(n+5){animation-delay:.95s}
+.is-unfolding .cover > :not(.cover__h1),.is-unfolding > .slide{animation:unfold .5s cubic-bezier(.2,.7,.2,1) both}
+.is-unfolding .cover > :nth-child(2){animation-delay:.05s}
+.is-unfolding .cover > :nth-child(3){animation-delay:.1s}
+.is-unfolding .cover > :nth-child(4){animation-delay:.15s}
+.is-unfolding .cover > :nth-child(5){animation-delay:.2s}
+.is-unfolding > .slide:nth-of-type(2){animation-delay:.25s}
+.is-unfolding > .slide:nth-of-type(3){animation-delay:.325s}
+.is-unfolding > .slide:nth-of-type(4){animation-delay:.4s}
+.is-unfolding > .slide:nth-of-type(n+5){animation-delay:.475s}
 
 @media (max-width:900px){
   .teaser__hero{grid-template-columns:minmax(0,1fr); gap:32px}
@@ -722,8 +722,8 @@ table.fee tbody tr:last-child td{border-bottom:0}
    animations (plus haut, `*{animation-duration:.001ms !important}`) : décision
    du 2026-10-14, elle est jouée pour tous. */
 @media (prefers-reduced-motion: reduce){
-  .teaser__rest{transition-duration:2.6s !important}
-  .is-unfolding .cover > :not(.cover__h1),.is-unfolding > .slide{animation-duration:1s !important}
+  .teaser__rest{transition-duration:1.3s !important}
+  .is-unfolding .cover > :not(.cover__h1),.is-unfolding > .slide{animation-duration:.5s !important}
 }
 </style>
 
@@ -2318,7 +2318,7 @@ table.fee tbody tr:last-child td{border-bottom:0}
     if (src) img.src = src.getAttribute("src");
   });
 
-  // Teaser -> Dossier : tout s'efface du bas vers le haut (≈ 3 s), seul
+  // Teaser -> Dossier : tout s'efface du bas vers le haut (≈ 1,5 s — 3 s jugées trop longues), seul
   // « Data. Discipline. Dividend. » reste, puis le deck se déploie slide par slide.
   // Joué pour TOUS, y compris avec « réduire les animations » (décision du
   // 2026-10-14 : Windows « Effets d'animation » coupés suffisaient à le masquer).
@@ -2339,8 +2339,8 @@ table.fee tbody tr:last-child td{border-bottom:0}
         collapsing = false;
         unfoldNext = true;
         location.hash = "#/dossier";
-      }, 2600);
-    }, 400);
+      }, 1300);
+    }, 200);
   });
 
   var io = null;
