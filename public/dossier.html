@@ -725,6 +725,26 @@ table.fee tbody tr:last-child td{border-bottom:0}
   .teaser__rest{transition-duration:1.3s !important}
   .is-unfolding .cover > :not(.cover__h1),.is-unfolding > .slide{animation-duration:.5s !important}
 }
+
+/* Slide 14 du teaser : carte des 9 biens + aperçu au survol (2026-10-14) */
+.tmap__lede{grid-column:2; margin-bottom:24px !important}
+.tmap{margin-top:8px; aspect-ratio:16/9}
+.tmap__legend{justify-content:flex-start}
+.maplibregl-marker:has(.live-pin:hover){z-index:10}
+.live-pin-card{position:absolute; bottom:calc(100% + 10px); left:50%; transform:translateX(-50%) translateY(4px);
+  width:240px; background:var(--surface); border:1px solid var(--line); border-radius:var(--r); overflow:hidden;
+  box-shadow:0 16px 40px rgba(0,0,0,.5); opacity:0; pointer-events:none; transition:opacity .15s ease, transform .15s ease; z-index:20;
+  text-align:left; cursor:pointer}
+.live-pin:hover .live-pin-card,.live-pin:focus-within .live-pin-card{opacity:1; transform:translateX(-50%) translateY(0)}
+.live-pin-card img{display:block; width:100%; height:120px; object-fit:cover}
+.live-pin-card__b{display:flex; flex-direction:column; gap:3px; padding:12px 14px 14px}
+.live-pin-card__k{font:11px var(--mono); letter-spacing:.06em; text-transform:uppercase; color:var(--ink-3)}
+.live-pin-card__t{font:600 15px/1.3 var(--sans); color:var(--ink)}
+.live-pin-card__s{font:12px/1.45 var(--mono); color:var(--ink-2)}
+.live-pin-card__v{font:600 12px var(--sans); color:var(--engage)}
+.live-pin-card__o{font:12px var(--sans); color:var(--violet); margin-top:4px}
+.live-pin.c-declined .live-pin-card__v{color:var(--pass)}
+@media (max-width:900px){ .tmap{aspect-ratio:4/5} .tmap__lede{grid-column:1} }
 </style>
 
 <div class="cloud-bg"><span></span><span></span><span></span></div>
@@ -802,10 +822,13 @@ table.fee tbody tr:last-child td{border-bottom:0}
       <div class="rail"><span class="rail__n">14</span><span class="rail__l">The Investment Universe</span><span class="rail__r"></span></div>
       <h2 class="slide__t">A pool, not a fixed set of holdings.</h2>
       <div class="stack">
-        <div class="grid" style="grid-template-columns:repeat(3,1fr)">
-          <a class="tcard" href="#/dossier" data-to-dossier><img data-src-from="thumb-noble" alt="Noble Ploenchit"><span class="tcard__tag" style="color:var(--engage)">Yield</span><span class="tcard__t">Noble Ploenchit</span><span class="tcard__b">BTS Phloen Chit</span></a>
-          <a class="tcard" href="#/dossier" data-to-dossier><img data-src-from="thumb-parkorigin" alt="Park Origin Chula-Samyan"><span class="tcard__tag" style="color:var(--violet)">Value</span><span class="tcard__t">Park Origin Chula-Samyan</span><span class="tcard__b">MRT Sam Yan</span></a>
-          <a class="tcard" href="#/dossier" data-to-dossier><img data-src-from="thumb-masterview" alt="Master View Executive Place"><span class="tcard__tag" style="color:var(--ink-3)">Declined</span><span class="tcard__t">Master View Executive Place</span><span class="tcard__b">40.8 % headline discount did not survive scrutiny</span></a>
+        <p class="slide__lede tmap__lede">Nine properties screened and priced against the thesis — not all acquired. Hover a pin for a preview; click to open the full case in the dossier.</p>
+        <div id="teaser-map" class="live-map tmap"></div>
+        <div class="map-legend tmap__legend">
+          <span style="color:var(--gold)">&#9679; Yield</span>
+          <span style="color:var(--violet)">&#9679; Value</span>
+          <span style="color:var(--reno)">&#9679; Renovation</span>
+          <span style="color:var(--pass)">&#9679; Declined</span>
         </div>
       </div>
     </div>
@@ -2390,7 +2413,8 @@ table.fee tbody tr:last-child td{border-bottom:0}
   if (typeof maplibregl === "undefined") return;
   var momentumEl = document.getElementById("momentum-map");
   var universeEl = document.getElementById("universe-map");
-  if (!momentumEl && !universeEl) return;
+  var teaserEl = document.getElementById("teaser-map");
+  if (!momentumEl && !universeEl && !teaserEl) return;
 
   var THEME_BG = "#0d0d12";
   var THEME_WATER = "#1e3a5f";
@@ -2490,6 +2514,29 @@ table.fee tbody tr:last-child td{border-bottom:0}
 
   var momentumMap = momentumEl ? makeMap("momentum-map", [100.55, 13.78], 10.3) : null;
   var universeMap = universeEl ? makeMap("universe-map", [100.565, 13.735], 11.4) : null;
+  var teaserMap = teaserEl ? makeMap("teaser-map", [100.565, 13.755], 11.6) : null;
+
+  // Aperçu au survol d'un bien (2026-10-14) : lu dans la fiche du dossier
+  // (#thumb-<clé>, #case-<clé>) — une seule source, rien à recopier ici.
+  function preview(key){
+    var card = document.createElement("span");
+    card.className = "live-pin-card";
+    var img = document.querySelector("#thumb-" + key + " img");
+    var c = document.getElementById("case-" + key);
+    var q = function(sel){ var e = c && c.querySelector(sel); return e ? e.textContent.replace(/\s+/g, " ").trim() : ""; };
+    if (img){ var i = document.createElement("img"); i.src = img.getAttribute("src"); i.alt = ""; card.appendChild(i); }
+    var body = document.createElement("span"); body.className = "live-pin-card__b";
+    var tag = document.querySelector("#thumb-" + key + " .deal-card__tag");
+    [["live-pin-card__k", tag ? tag.textContent.trim() : ""],
+     ["live-pin-card__t", q(".case__name")],
+     ["live-pin-card__s", q(".case__spec")],
+     ["live-pin-card__v", q(".verdict")],
+     ["live-pin-card__o", "{t['open']} →"]].forEach(function(r){
+      if (!r[1]) return; var s = document.createElement("span"); s.className = r[0]; s.textContent = r[1]; body.appendChild(s);
+    });
+    card.appendChild(body);
+    return card;
+  }
 
   Promise.all([
     fetch("data/bangkok-khet.geojson").then(function(r){ return r.json(); }),
@@ -2506,9 +2553,11 @@ table.fee tbody tr:last-child td{border-bottom:0}
     var monuments = pois.features.filter(function(f){ return f.properties.category === "monument" && MONUMENT_NAMES.indexOf(f.properties.name) !== -1; })
       .map(function(f){ return { name:f.properties.name, lng:f.geometry.coordinates[0], lat:f.geometry.coordinates[1] }; });
 
-    [momentumMap, universeMap].forEach(function(map){
+    [momentumMap, universeMap, teaserMap].forEach(function(map){
       if (!map) return;
-      map.on("load", function(){
+      // Course possible : si le style a fini de charger avant les GeoJSON locaux,
+      // « load » est déjà passé et les couches/repères ne s'ajoutaient jamais.
+      (map.isStyleLoaded() ? function(fn){ fn(); } : function(fn){ map.once("load", fn); })(function(){
         applyTheme(map);
         map.addSource("khet", { type:"geojson", data:khet });
         map.addLayer({ id:"khet-fill-" + map._container.id, type:"fill", source:"khet", paint:{ "fill-color":"#7c3aed", "fill-opacity":0.05 } });
@@ -2539,7 +2588,7 @@ table.fee tbody tr:last-child td{border-bottom:0}
           buildLegend("legend-metro-future", futureFC.features, true);
         }
 
-        if (map === universeMap) {
+        if (map === universeMap || map === teaserMap) {
           airports.forEach(function(a){
             var el = document.createElement("div");
             el.className = "live-poi";
@@ -2555,11 +2604,16 @@ table.fee tbody tr:last-child td{border-bottom:0}
           PROPS.forEach(function(p){
             var el = document.createElement("div");
             el.className = "live-pin c-" + p.tag;
-            var label = document.createElement("span");
-            label.className = "live-pin-label";
-            label.textContent = p.name;
-            el.appendChild(label);
-            el.addEventListener("click", function(){ if (window.showDeal) window.showDeal(p.key); });
+            el.appendChild(preview(p.key));
+            el.setAttribute("role", "button");
+            el.setAttribute("aria-label", p.name);
+            el.addEventListener("click", function(){
+              if (map === teaserMap){
+                // depuis le teaser : on ouvre le dossier, puis la fiche du bien
+                location.hash = "#/dossier";
+                setTimeout(function(){ if (window.showDeal) window.showDeal(p.key); }, 450);
+              } else if (window.showDeal) window.showDeal(p.key);
+            });
             new maplibregl.Marker({ element:el, anchor:"center" }).setLngLat([p.lng, p.lat]).addTo(map);
           });
         }
