@@ -4,9 +4,9 @@
 > `public/dossier-fr.html` (branche `design/ledger-2026-10`). `Design.md`
 > reste en place pour l'historique et les règles qu'il porte (bilingue, tableaux,
 > barres de rendement…) ; là où les deux divergent — polices, rayons, tampons,
-> palette — **ce document prime**. Non encore appliqué : `deck.html` et les 4
-> pages satellites (`thesis`, `momentum-leverage-analysis`,
-> `deployment-timeline`, `agent-pipeline`).
+> palette — **ce document prime**. Pages satellites (`thesis`,
+> `momentum-leverage-analysis`, `deployment-timeline`, `agent-pipeline`, EN+FR)
+> passées au même style le 2026-10-14. Non encore appliqué : `deck.html`.
 >
 > Maquettes (canevas privé, à partager depuis la page) :
 > https://claude.ai/artifact/Cp4vsj92sa1uH5mEX4nNEm
@@ -192,8 +192,18 @@ Six commits, un par étape, chacun vérifié dans le navigateur :
 
 ## Ce qui n'est PAS fait
 
-- **`deck.html` et les 4 pages satellites** gardent l'ancien style (et leur
-  propre absence de `viewport`).
+- **`deck.html`** garde l'ancien style (diaporama de 5,7 Mo, format slides
+  distinct ; il a déjà sa balise `viewport`).
+- **Pages satellites (2026-10-14)** : même conversion que le dossier, plus
+  trois corrections communes — `viewport` ajouté, retour vers
+  `dossier.html#/dossier` (et non plus `dossier.html`, qui ouvre désormais le
+  Teaser), barre « suite » en bas de page. Contenu de `thesis` réaligné sur le
+  dossier : l'écart de 25–42 % est le chiffre du *filtrage* ; les décotes
+  *vérifiées* sont plus basses (Thonglor −20,2 %, Park Origin −33,2 %) et le
+  modèle retient 20–30 % ; « quatre études de cas » devient neuf biens filtrés
+  dont quatre détaillés, avec Master View (−40,8 % → ~−15 %, écarté).
+  Contenu des 3 autres pages non relu ligne à ligne : seuls les chiffres
+  croisables avec le dossier (13 bots) ont été vérifiés.
 - **Compteur d'annonces en direct** : chiffre figé au 2026-09-01, animé de 0
   au chargement. Un vrai compteur demanderait un appel à la base ou une
   régénération du HTML à chaque cycle — à trancher.
