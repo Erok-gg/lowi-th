@@ -66,8 +66,10 @@ Sans version FR, l'anglais s'affiche.
 
 ## Mise en production — à faire
 
-1. **Resend** : créer le compte, ajouter le domaine `lowi.asia`, poser les
-   3 enregistrements DNS qu'il donne, créer une clé API.
+1. ~~**Resend**~~ — fait le 2026-10-14 : `lowi.asia` était déjà vérifié
+   (région ap-northeast-1) ; clé `lowi-dataroom` créée, **envoi seul,
+   limitée à ce domaine**, rangée dans `.env.local`. Envoi réel vérifié vers
+   l'adresse de test `delivered@resend.dev` (statut *delivered*).
 2. **Variables Vercel** (projet du site lowi.asia, Production) — valeurs dans
    `.env.local` sur ce poste, sauf les deux dernières :
    `DATAROOM_DATABASE_URL`, `DATAROOM_SESSION_SECRET`,
