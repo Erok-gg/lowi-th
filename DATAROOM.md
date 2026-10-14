@@ -74,10 +74,10 @@ Sans version FR, l'anglais s'affiche.
    `.env.local` sur ce poste, sauf les deux dernières :
    `DATAROOM_DATABASE_URL`, `DATAROOM_SESSION_SECRET`,
    `DATAROOM_OWNER_EMAIL`, `DATAROOM_BASE_URL=https://lowi.asia`,
-   `RESEND_API_KEY`, `DATAROOM_FROM=LOWI Data Room <dataroom@lowi.asia>`.
+   `DATAROOM_RESEND_API_KEY`, `DATAROOM_FROM=LOWI Data Room <dataroom@lowi.asia>`.
 3. Déposer les vrais documents et marquer les clés (★).
 
-Sans `RESEND_API_KEY`, aucun e-mail ne part : il est écrit dans les logs du
+Sans `DATAROOM_RESEND_API_KEY`, aucun e-mail ne part : il est écrit dans les logs du
 serveur (pratique en local, **bloquant en production**).
 
 ## Sécurité — choix et limites
