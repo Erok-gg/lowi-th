@@ -752,6 +752,11 @@ table.fee tbody tr:last-child td{border-bottom:0}
 #v-home .cover{min-height:0; padding-bottom:16px}
 #v-home .cover .cue{margin-top:28px}
 #v-home .cover + .slide{padding-top:clamp(40px,6vh,64px)}
+
+/* Barres de rendement par quartier : .bar__track et .bar__fill sont des <span>,
+   donc en ligne — largeur et hauteur ignorées, les barres ne se dessinaient pas
+   (annexe Platform comme teaser). Trouvé le 2026-10-14. */
+.bar__track,.bar__fill{display:block}
 </style>
 
 <div class="cloud-bg"><span></span><span></span><span></span></div>
@@ -817,18 +822,39 @@ table.fee tbody tr:last-child td{border-bottom:0}
     <div class="teaser__title">
       <div>
         <h2>Teaser</h2>
-        <p>La version courte — problème, rendement, portefeuille, frais. Le dossier complet compte 17 sections et cinq annexes.</p>
+        <p>La version courte — le problème, puis Data. Discipline. Dividend. Le dossier complet compte 17 sections et cinq annexes.</p>
       </div>
       <a class="btn" href="#/dossier" data-to-dossier>Ouvrir le dossier complet</a>
     </div>
 
-    <div data-clone-from="s-problem"></div>
-    <div data-clone-from="s-return"></div>
+    <div data-clone-from="s-problem" data-rail-n="01" data-rail-l="Le problème"></div>
+
+    <!-- Teaser = Problem puis Data. Discipline. Dividend. (2026-10-14) -->
+    <div class="slide">
+      <div class="rail"><span class="rail__n">02</span><span class="rail__l">Data</span><span class="rail__r"></span></div>
+      <h2 class="slide__t">Nous chiffrons chaque immeuble avant de regarder un seul lot.</h2>
+      <p class="slide__lede">La Thaïlande n'a pas de registre public des transactions : nous avons construit la référence nous-mêmes — chaque annonce de cinq portails indépendants, collectée chaque jour, comparée lot par lot au sein du même immeuble.</p>
+      <div class="stack gap-m">
+        <div data-clone-from="s-facts"></div>
+        <div class="callout" style="--co:var(--violet)">
+          <span class="callout__t">Ce que cela mesure</span>
+          <p>Au sein d'un même immeuble, à typologie comparable, l'annonce la moins chère se situe régulièrement <strong>25 à 42&nbsp;%</strong> sous la médiane de l'immeuble &mdash; le chiffre du filtrage. Après l'audit de terrain, les décotes retenues sont plus basses : &minus;20,2&nbsp;% vérifiée à Thonglor Art 25, &minus;33,2&nbsp;% confirmée à Park Origin Chula-Samyan.</p>
+        </div>
+        <div data-clone-from="s-bars"></div>
+        <div data-clone-from="s-bars-note"></div>
+        <p><a class="ilink" href="thesis-fr.html">Notre thèse, en un chiffre mesuré &#8599;</a></p>
+      </div>
+    </div>
 
     <div class="slide">
-      <div class="rail"><span class="rail__n">14</span><span class="rail__l">L'univers d'investissement</span><span class="rail__r"></span></div>
-      <h2 class="slide__t">Un pool, pas un ensemble figé de lots.</h2>
-      <div class="stack">
+      <div class="rail"><span class="rail__n">03</span><span class="rail__l">Discipline</span><span class="rail__r"></span></div>
+      <h2 class="slide__t">Quatre règles &mdash; et la discipline de renoncer.</h2>
+      <div class="stack gap-m">
+        <div data-clone-from="s-rules"></div>
+        <div class="callout" style="--co:var(--pass)">
+          <span class="callout__t">La discipline de renoncer</span>
+          <p>Master View Executive Place affichait &minus;40,8&nbsp;% au filtrage, sur seulement quatre ventes comparables. L'audit a trouvé environ &minus;15&nbsp;%. Nous avons renoncé.</p>
+        </div>
         <p class="slide__lede tmap__lede">Neuf biens filtrés et chiffrés selon la thèse — pas tous acquis. Survolez un repère pour un aperçu ; cliquez pour ouvrir le cas complet dans le dossier.</p>
         <div id="teaser-map" class="live-map tmap"></div>
         <div class="map-legend tmap__legend">
@@ -840,7 +866,7 @@ table.fee tbody tr:last-child td{border-bottom:0}
       </div>
     </div>
 
-    <div data-clone-from="s-fees"></div>
+    <div data-clone-from="s-return" data-rail-n="04" data-rail-l="Dividend"></div>
 
     <div class="teaser__end">
       <div>
@@ -1184,7 +1210,7 @@ table.fee tbody tr:last-child td{border-bottom:0}
         <div class="fact"><span class="fact__v">฿150<small>M</small>+150<small>M</small></span><span class="fact__k">levée année 1 + année 3 &middot; ~4,2 M$ chacune, sans effet de levier</span></div>
       </div>
 
-      <div class="grid grid--2" style="grid-template-columns:repeat(2,1fr)">
+      <div class="grid grid--2" id="s-rules" style="grid-template-columns:repeat(2,1fr)">
         <div class="cell role" style="--role:var(--engage)">
           <span class="cell__tag">Critère de sélection 1</span>
           <span class="cell__t">Des plus grandes surfaces</span>
@@ -2035,7 +2061,7 @@ table.fee tbody tr:last-child td{border-bottom:0}
     </p>
 
     <div class="stack gap-l">
-      <div class="cover__facts">
+      <div class="cover__facts" id="s-facts">
         <div class="fact"><span class="fact__v" data-count="97500">97 500</span><span class="fact__k">annonces en base</span></div>
         <div class="fact"><span class="fact__v" data-count="70532">70 532</span><span class="fact__k">actives</span></div>
         <div class="fact"><span class="fact__v" data-count="4514">4 514</span><span class="fact__k">immeubles</span></div>
@@ -2081,7 +2107,7 @@ table.fee tbody tr:last-child td{border-bottom:0}
         </div>
       </div>
 
-      <div class="bars" data-bars>
+      <div class="bars" data-bars id="s-bars">
         <div class="bar" style="--tint:95,184,154"><span class="bar__k">Wang Thonglang</span><span class="bar__track"><span class="bar__fill" style="--bc:var(--violet);width:100%"></span></span><span class="bar__v">6.76 %</span></div>
         <div class="bar" style="--tint:109,177,150"><span class="bar__k">Bueng Kum</span><span class="bar__track"><span class="bar__fill" style="--bc:var(--violet);width:94.8%"></span></span><span class="bar__v">6.56 %</span></div>
         <div class="bar" style="--tint:112,175,148"><span class="bar__k">Suan Luang</span><span class="bar__track"><span class="bar__fill" style="--bc:var(--violet);width:93.5%"></span></span><span class="bar__v">6.51 %</span></div>
@@ -2094,7 +2120,7 @@ table.fee tbody tr:last-child td{border-bottom:0}
         <div class="bar" style="--tint:224,112,112"><span class="bar__k">Pathum Wan</span><span class="bar__track"><span class="bar__fill" style="--bc:var(--ink-3);width:50%"></span></span><span class="bar__v">4.85 %</span></div>
         <div class="bar" style="--tint:224,112,112"><span class="bar__k">Bang Rak</span><span class="bar__track"><span class="bar__fill" style="--bc:var(--ink-3);width:50%"></span></span><span class="bar__v">4.85 %</span></div>
       </div>
-      <p class="cover__note" style="margin-top:0">
+      <p class="cover__note" id="s-bars-note" style="margin-top:0">
         Rendement intra-immeuble par quartier, strate studio/1 chambre, mesuré le 2026-08-31. Le
         violet marque les quartiers que la ligne Orange desservira en 2028-2030 &mdash; ils portent à
         la fois le rendement actuel le plus élevé et la thèse d'appréciation. Le gris est le prime
@@ -2340,6 +2366,9 @@ table.fee tbody tr:last-child td{border-bottom:0}
     if (!src) return;
     var c = src.cloneNode(true);
     c.removeAttribute("id");
+    var rn = slot.getAttribute("data-rail-n"), rl = slot.getAttribute("data-rail-l");
+    if (rn && c.querySelector(".rail__n")) c.querySelector(".rail__n").textContent = rn;
+    if (rl && c.querySelector(".rail__l")) c.querySelector(".rail__l").textContent = rl;
     c.querySelectorAll("[id]").forEach(function(x){ x.removeAttribute("id"); });
     slot.replaceWith(c);
   });
