@@ -717,6 +717,14 @@ table.fee tbody tr:last-child td{border-bottom:0}
   .teaser__end{padding:40px 24px}
   .topnav__sep{display:none}
 }
+
+/* L'animation Teaser -> Dossier échappe à la règle globale de réduction des
+   animations (plus haut, `*{animation-duration:.001ms !important}`) : décision
+   du 2026-10-14, elle est jouée pour tous. */
+@media (prefers-reduced-motion: reduce){
+  .teaser__rest{transition-duration:2.6s !important}
+  .is-unfolding .cover > :not(.cover__h1),.is-unfolding > .slide{animation-duration:1s !important}
+}
 </style>
 
 <div class="cloud-bg"><span></span><span></span><span></span></div>
@@ -2312,7 +2320,9 @@ table.fee tbody tr:last-child td{border-bottom:0}
 
   // Teaser -> Dossier : tout s'efface du bas vers le haut (≈ 3 s), seul
   // « Data. Discipline. Dividend. » reste, puis le deck se déploie slide par slide.
-  // Lien direct vers #/dossier, ou réduction des animations : bascule immédiate.
+  // Joué pour TOUS, y compris avec « réduire les animations » (décision du
+  // 2026-10-14 : Windows « Effets d'animation » coupés suffisaient à le masquer).
+  // Lien direct vers #/dossier : bascule immédiate.
   var unfoldNext = false, collapsing = false;
   document.addEventListener("click", function(ev){
     var a = ev.target.closest && ev.target.closest("[data-to-dossier]");
@@ -2321,8 +2331,6 @@ table.fee tbody tr:last-child td{border-bottom:0}
     if (!onTeaser) return;
     ev.preventDefault();
     if (collapsing) return;
-    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduce){ location.hash = "#/dossier"; return; }
     collapsing = true;
     window.scrollTo({ top: 0, behavior: "smooth" });
     setTimeout(function(){
