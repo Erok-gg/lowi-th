@@ -745,6 +745,13 @@ table.fee tbody tr:last-child td{border-bottom:0}
 .live-pin-card__o{font:12px var(--sans); color:var(--violet); margin-top:4px}
 .live-pin.c-declined .live-pin-card__v{color:var(--pass)}
 @media (max-width:900px){ .tmap{aspect-ratio:4/5} .tmap__lede{grid-column:1} }
+
+/* Dossier : la cover gardait min-height:100vh, et la slide 02 ajoutait jusqu'à
+   120 px au-dessus — un vide d'environ un écran entre les chiffres et « The
+   problem » (signalé le 2026-10-14). Le teaser n'est pas concerné. */
+#v-home .cover{min-height:0; padding-bottom:16px}
+#v-home .cover .cue{margin-top:28px}
+#v-home .cover + .slide{padding-top:clamp(40px,6vh,64px)}
 </style>
 
 <div class="cloud-bg"><span></span><span></span><span></span></div>
