@@ -617,6 +617,38 @@ table.fee tbody tr:last-child td{border-bottom:0}
 @media (max-width:560px){
   .grid[style*="repeat("]{grid-template-columns:minmax(0,1fr) !important}
 }
+
+/* ---------- The return : équation (2026-10-14) ---------- */
+.eq{display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:32px}
+.term{position:relative; background:var(--surface); border:1px solid var(--line-soft); border-radius:var(--r); padding:22px; display:flex; flex-direction:column; gap:14px}
+.term__op{position:absolute; left:-31px; top:44px; width:30px; text-align:center; font:500 18px var(--mono); color:var(--ink-2)}
+.term__k{font-family:var(--mono); font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-3)}
+.term__v{font-family:var(--sans); font-weight:500; font-size:30px; line-height:1; letter-spacing:-.03em; font-variant-numeric:tabular-nums lining-nums}
+.term svg{display:block; width:100%; height:auto; overflow:visible}
+.term__c{font-size:13px; line-height:1.5; color:var(--ink-2); margin-top:auto}
+.term__list,.term__kv{list-style:none; margin:0; padding:0; border-bottom:1px solid var(--line-soft)}
+.term__list li,.term__kv li{font-size:13.5px; padding:6px 0; border-top:1px solid var(--line-soft); display:flex; justify-content:space-between; gap:8px}
+.term__kv li span:last-child{font-family:var(--mono); color:var(--ink-2); white-space:nowrap}
+.eqsum{display:grid; grid-template-columns:minmax(0,.9fr) minmax(0,1.6fr); gap:48px; align-items:center; padding:32px; border-radius:var(--r); background:var(--accent-soft); border:1px solid var(--line)}
+.eqsum__v{display:block; font-family:var(--sans); font-weight:500; font-size:72px; line-height:1; letter-spacing:-.04em; color:var(--violet); margin-top:10px}
+.eqsum__track{position:relative; height:12px; background:var(--surface-2); border-radius:999px}
+.eqsum__band{position:absolute; top:0; height:12px; width:16.66%}
+.eqsum__band--base{left:50%; background:#4A4F5B; border-radius:999px 0 0 999px}
+.eqsum__band--target{left:66.66%; background:var(--violet); border-radius:0 999px 999px 0}
+.eqsum__ticks{position:relative; height:18px; margin-top:8px; font-family:var(--mono); font-size:12px; color:var(--ink-3)}
+.eqsum__ticks span{position:absolute; transform:translateX(-50%); white-space:nowrap}
+.eqsum__ticks span:first-child{transform:none}
+.eqsum__ticks span:last-child{transform:translateX(-100%)}
+.eqsum__legend{display:flex; gap:24px; flex-wrap:wrap; margin-top:16px; font-size:13.5px; color:var(--ink-2)}
+.eqsum__legend span{display:inline-flex; align-items:center; gap:8px}
+.eqsum__legend i{position:static; display:inline-block; width:10px; height:10px; border-radius:2px}
+.eqnote{font-size:12.5px; color:var(--ink-3)}
+@media (max-width:1100px){
+  .eq{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .term__op{display:none}
+}
+@media (max-width:900px){ .eqsum{grid-template-columns:minmax(0,1fr); gap:24px} .eqsum__v{font-size:56px} }
+@media (max-width:560px){ .eq{grid-template-columns:minmax(0,1fr)} }
 </style>
 
 <div class="cloud-bg"><span></span><span></span><span></span></div>
@@ -1005,27 +1037,84 @@ table.fee tbody tr:last-child td{border-bottom:0}
   </div>
 
   <!-- 08 WHERE THE 8-10% COMES FROM -->
+  <!-- Équation (2026-10-14) : les cinq termes n'ont pas la même nature — un flux,
+       des charges, un taux composé, un gain ponctuel, un coût ponctuel. Chacun a
+       sa forme ; seule la somme finale est une échelle. -->
   <div class="slide rv">
     <div class="rail"><span class="rail__n">08</span><span class="rail__l">Where the 8–10 % Comes From</span><span class="rail__r"></span></div>
     <h2 class="slide__t">Where 8–10 % comes from, line by line.</h2>
+    <p class="slide__lede">Without the entry discount, the model returns the conservative 6–8 %, not the headline.</p>
     <div class="stack gap-m">
-      <p class="slide__lede">
-        A target IRR is not a claim, it is a decomposition. Gross rental yield of 5–7 % at
-        acquisition, less roughly 2 points of charges, management, vacancy and property tax;
-        plus corridor appreciation held at the low end of the observed 3–5 % prime range; plus
-        the entry discount amortised over the hold; less 5–6 % of exit cost. Targets are gross of
-        Thai corporate costs and <strong>contingent on discounted acquisitions</strong> — without
-        the discount, the model returns the conservative 6–8 %, not the headline.
-      </p>
-
-      <div class="bridge">
-        <div class="brow"><span class="brow__k">Gross rental yield at acquisition<span class="brow__n">Floor 5–7 %. Consistent with measured within-building yields: Bang Kapi 6.49 %, Suan Luang 6.51 %, Wang Thonglang 6.76 %.</span></span><span class="brow__v pos">+5.0 to 7.0 %</span></div>
-        <div class="brow"><span class="brow__k">Charges, management, vacancy, property tax<span class="brow__n">Common fees, internalised management, vacancy provision, insurance, annual property tax.</span></span><span class="brow__v neg">−1.8 to 2.2 %</span></div>
-        <div class="brow"><span class="brow__k">Capital appreciation<span class="brow__n">Held at the low end of the +3 to 5 %/yr observed on transit-connected prime since 2022.</span></span><span class="brow__v pos">+2.5 to 3.5 %</span></div>
-        <div class="brow"><span class="brow__k">Entry discount, amortised<span class="brow__n">A verified 20–30 % discount to the building median is latent equity, realised at exit. Spread across the hold.</span></span><span class="brow__v pos">+2.2 to 3.0 %</span></div>
-        <div class="brow"><span class="brow__k">Acquisition and exit costs<span class="brow__n">2 % transfer, 3.3 % specific business tax (always due for a company), 1 % withholding. Amortised.</span></span><span class="brow__v neg">−0.8 to 1.0 %</span></div>
-        <div class="brow brow--total"><span class="brow__k">Target IRR, 10-year horizon</span><span class="brow__v">8 – 10 %</span></div>
+      <div class="eq">
+        <div class="term">
+          <span class="term__k">Rental income</span>
+          <span class="term__v pos">+5.0–7.0 %</span>
+          <svg viewBox="0 0 200 64" role="img" aria-label="Floor band 5 to 7 percent; measured within-building yields 6.49, 6.51 and 6.76 percent">
+            <line x1="0" y1="30" x2="200" y2="30" style="stroke:var(--line)" stroke-width="1"/>
+            <rect x="50" y="18" width="100" height="24" rx="4" style="fill:var(--engage)" fill-opacity=".14"/>
+            <circle cx="124.5" cy="30" r="5" style="fill:var(--engage)"/><circle cx="125.5" cy="30" r="5" style="fill:var(--engage)" opacity=".7"/><circle cx="138" cy="30" r="5" style="fill:var(--engage)"/>
+            <text x="0" y="60" style="fill:var(--ink-3)" font-family="JetBrains Mono" font-size="13">4 %</text><text x="92" y="60" style="fill:var(--ink-3)" font-family="JetBrains Mono" font-size="13">6 %</text><text x="200" y="60" style="fill:var(--ink-3)" font-family="JetBrains Mono" font-size="13" text-anchor="end">8 %</text>
+          </svg>
+          <p class="term__c">Gross yield at acquisition. Measured within-building: Bang Kapi 6.49 %, Suan Luang 6.51 %, Wang Thonglang 6.76 %.</p>
+        </div>
+        <div class="term">
+          <span class="term__op" aria-hidden="true">−</span>
+          <span class="term__k">Running costs</span>
+          <span class="term__v neg">1.8–2.2 %</span>
+          <ul class="term__list"><li>Common fees</li><li>Management, internalised</li><li>Vacancy provision</li><li>Insurance, property tax</li></ul>
+          <p class="term__c">Deducted every year, per unit.</p>
+        </div>
+        <div class="term">
+          <span class="term__op" aria-hidden="true">+</span>
+          <span class="term__k">Appreciation</span>
+          <span class="term__v pos">+2.5–3.5 %</span>
+          <svg viewBox="0 0 200 64" role="img" aria-label="Value index over ten years: times 1.34 at 3 percent a year, times 1.63 at 5 percent">
+            <path d="M0 64 L40 55.8 L80 46.8 L120 36.8 L160 25.8 L200 13.7" fill="none" style="stroke:var(--ink-3)" stroke-width="1.5" stroke-dasharray="3 4"/>
+            <path d="M0 64 L40 59.1 L80 54 L120 48.5 L160 42.7 L200 36.5" fill="none" style="stroke:var(--engage)" stroke-width="2"/>
+            <circle cx="200" cy="36.5" r="3.5" style="fill:var(--engage)"/>
+            <text x="196" y="9" style="fill:var(--ink-3)" font-family="JetBrains Mono" font-size="13" text-anchor="end">5 %/yr ×1.63</text>
+            <text x="196" y="52" style="fill:var(--engage)" font-family="JetBrains Mono" font-size="13" text-anchor="end">3 %/yr ×1.34</text>
+          </svg>
+          <p class="term__c">Compounds over the hold. Held at the low end of the +3–5 %/yr observed on transit-connected prime since 2022.</p>
+        </div>
+        <div class="term">
+          <span class="term__op" aria-hidden="true">+</span>
+          <span class="term__k">Entry discount</span>
+          <span class="term__v pos">+2.2–3.0 %</span>
+          <svg viewBox="0 0 200 64" role="img" aria-label="Entry price 20 to 30 percent below the building median">
+            <text x="0" y="10" style="fill:var(--ink-3)" font-family="JetBrains Mono" font-size="13">Building median</text>
+            <line x1="200" y1="16" x2="200" y2="62" style="stroke:var(--ink)" stroke-width="1.5"/>
+            <text x="0" y="40" style="fill:var(--ink-3)" font-family="JetBrains Mono" font-size="13">Our entry</text>
+            <rect x="140" y="46" width="20" height="14" rx="3" style="fill:var(--engage)" fill-opacity=".25"/>
+            <line x1="150" y1="44" x2="150" y2="62" style="stroke:var(--engage)" stroke-width="2"/>
+            <path d="M160 53 L196 53" style="stroke:var(--engage)" stroke-width="1" stroke-dasharray="2 3"/>
+            <text x="178" y="40" style="fill:var(--engage)" font-family="JetBrains Mono" font-size="13" text-anchor="middle">−20–30 %</text>
+          </svg>
+          <p class="term__c">A verified discount to the building median is latent equity, realised at exit and spread across the hold.</p>
+        </div>
+        <div class="term">
+          <span class="term__op" aria-hidden="true">−</span>
+          <span class="term__k">Transaction costs</span>
+          <span class="term__v neg">0.8–1.0 %</span>
+          <ul class="term__kv"><li><span>Transfer fee</span><span>2 %</span></li><li><span>Specific business tax</span><span>3.3 %</span></li><li><span>Withholding</span><span>1 %</span></li></ul>
+          <p class="term__c">Paid once — SBT is always due for a company — and amortised over ten years.</p>
+        </div>
       </div>
+
+      <div class="eqsum">
+        <div>
+          <span class="term__k">= Target IRR · 10-year horizon</span>
+          <span class="eqsum__v">8–10 %</span>
+        </div>
+        <div>
+          <div class="eqsum__track" role="img" aria-label="Scale 0 to 12 percent: 6 to 8 percent without entry discount, 8 to 10 percent with a verified discount">
+            <span class="eqsum__band eqsum__band--base"></span><span class="eqsum__band eqsum__band--target"></span>
+          </div>
+          <div class="eqsum__ticks" aria-hidden="true"><span style="left:0">0 %</span><span style="left:50%">6</span><span style="left:66.66%">8</span><span style="left:83.33%">10</span><span style="left:100%">12 %</span></div>
+          <div class="eqsum__legend"><span><i class="eqsum__band--base"></i>6–8 % without entry discount</span><span><i class="eqsum__band--target"></i>8–10 % with a verified discount</span></div>
+        </div>
+      </div>
+      <p class="eqnote">Gross of Thai corporate costs and contingent on discounted acquisitions. Projection, not a promise.</p>
     </div>
   </div>
 
