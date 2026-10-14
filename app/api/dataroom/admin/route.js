@@ -7,6 +7,17 @@ import { getOwner } from '@/lib/dataroom/auth'
 export async function POST(req) {
   const owner = await getOwner()
   if (!owner) return new Response('Forbidden', { status: 403 })
+
+  // Description éditée en place depuis la liste des fichiers (fetch JSON).
+  if (req.headers.get('content-type')?.includes('application/json')) {
+    const b = await req.json().catch(() => ({}))
+    if (b.action !== 'describe' || !/^[0-9a-f-]{36}$/.test(String(b.id))) return new Response(null, { status: 400 })
+    const col = b.lang === 'fr' ? 'desc_fr' : 'desc_en'
+    const text = String(b.text ?? '').trim().slice(0, 300) || null
+    await q(`update dataroom.files set ${col} = $2 where id = $1`, [b.id, text])
+    return new Response(null, { status: 204 })
+  }
+
   const f = await req.formData()
   const action = f.get('action')
   const id = String(f.get('id') || '')

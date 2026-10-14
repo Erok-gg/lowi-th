@@ -5,6 +5,7 @@ import { getMember } from '@/lib/dataroom/auth'
 import { q } from '@/lib/dataroom/db'
 import { getLang, t, loc } from '@/lib/dataroom/i18n'
 import { TopBar, fmtSize, fmtDate, KIND_LABEL, FolderIcon, StarIcon, GridIcon } from './parts'
+import DescCell from './DescCell'
 
 export const dynamic = 'force-dynamic'
 
@@ -99,6 +100,7 @@ export default async function DataRoom({ searchParams }) {
   const keys = view === 'all' ? files.filter((f) => f.highlighted && !f.pinned) : []
   const href = (f) => `/data-room?lang=${lang}${f === 'all' ? '' : `&f=${f}`}`
   const open = (f) => `/data-room/view/${f.id}?lang=${lang}`
+  const isOwner = member.role === 'owner'
 
   return (
     <>
@@ -155,7 +157,7 @@ export default async function DataRoom({ searchParams }) {
                 <thead>
                   <tr>
                     <th>{L.colName}</th>
-                    <th className="dr-hide-sm">{L.colFolder}</th>
+                    <th className="dr-hide-sm dr-col-desc">{L.colDesc}</th>
                     <th className="dr-hide-sm">{L.colUpdated}</th>
                     <th className="dr-hide-sm">{L.colSize}</th>
                   </tr>
@@ -173,8 +175,16 @@ export default async function DataRoom({ searchParams }) {
                           </span>
                         </a>
                       </td>
-                      <td className="dr-hide-sm">{folderName(f.folder)}</td>
-                      <td className="num dr-hide-sm">{fmtDate(f.updated_at, lang)}</td>
+                      <td className="dr-hide-sm dr-col-desc">
+                        <DescCell
+                          id={f.id}
+                          lang={lang}
+                          editable={isOwner}
+                          initial={isOwner ? f[`desc_${lang}`] : loc(f, 'desc', lang)}
+                          placeholder={L.addDesc}
+                        />
+                      </td>
+                      <td className="num dr-hide-sm">{fmtDate(f.updated_at)}</td>
                       <td className="num dr-hide-sm">{fmtSize(f.size_bytes)}</td>
                     </tr>
                   ))}

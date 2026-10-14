@@ -38,8 +38,12 @@ export function TopBar({ lang, member, path = '/data-room', extra = '' }) {
 export const fmtSize = (n) =>
   !n ? '—' : n < 1024 ? `${n} B` : n < 1048576 ? `${(n / 1024).toFixed(0)} KB` : `${(n / 1048576).toFixed(1)} MB`
 
-export const fmtDate = (d, lang) =>
-  new Date(d).toLocaleDateString(lang === 'fr' ? 'fr-FR' : 'en-GB', { day: '2-digit', month: 'short', year: 'numeric' })
+// Format réduit jj/mm/aa, identique en EN et FR (pas d'ambiguïté mois/jour
+// pour un lecteur européen ou asiatique ; l'investisseur US est minoritaire).
+export const fmtDate = (d) => {
+  const x = new Date(d)
+  return `${String(x.getDate()).padStart(2, '0')}/${String(x.getMonth() + 1).padStart(2, '0')}/${String(x.getFullYear()).slice(2)}`
+}
 
 export const KIND_LABEL = { pdf: 'PDF', markdown: 'MD', other: 'FILE' }
 

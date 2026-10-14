@@ -125,6 +125,18 @@ body:has(.dr){margin:0; background:#0B0C0F}
 .dr-pill--bad{background:rgba(240,144,122,.14); color:var(--neg)}
 .dr-inline{display:inline}
 
+/* Description éditable en place (propriétaire) — remplace la colonne « Propriétaire » de Drive */
+.dr-col-desc{width:38%}
+.dr-desc{display:block; color:var(--ink-2); font-size:13.5px; line-height:1.45}
+.dr-desc--edit{width:100%; min-height:34px; text-align:left; background:none; border:1px solid transparent; border-radius:var(--r-sm);
+  padding:6px 8px; margin:-6px -8px; font:inherit; font-size:13.5px; color:var(--ink-2); cursor:text}
+.dr-desc--edit:hover{border-color:var(--line-soft); background:var(--bg)}
+.dr-desc__ph{color:transparent}
+.dr-desc--edit:hover .dr-desc__ph,.dr-desc--edit:focus-visible .dr-desc__ph{color:var(--ink-3)}
+.dr-desc--err{border-color:var(--neg)}
+.dr-desc__input{width:100%; height:34px; margin:-6px -8px; padding:6px 8px; background:var(--bg); color:var(--ink);
+  border:1px solid var(--accent); border-radius:var(--r-sm); font:inherit; font-size:13.5px; outline:none}
+
 @media (max-width:900px){
   .dr-gate{grid-template-columns:minmax(0,1fr)}
   .dr-app{grid-template-columns:minmax(0,1fr)}
