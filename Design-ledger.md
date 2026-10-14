@@ -1,13 +1,15 @@
-# LOWI dossier — Design « Ledger » (proposition 2026-10-14)
+# LOWI dossier — Design « Ledger » (2026-10-14)
 
-> Nouvelle direction visuelle, **pas encore appliquée** à `public/dossier.html`.
-> `Design.md` reste la référence du site en ligne tant que ce document n'est
-> pas validé et implémenté — il ne le remplace pas.
+> **Implémenté le 2026-10-14** dans `public/dossier.html` et
+> `public/dossier-fr.html` (branche `design/ledger-2026-10`). `Design.md`
+> reste en place pour l'historique et les règles qu'il porte (bilingue, tableaux,
+> barres de rendement…) ; là où les deux divergent — polices, rayons, tampons,
+> palette — **ce document prime**. Non encore appliqué : `deck.html` et les 4
+> pages satellites (`thesis`, `momentum-leverage-analysis`,
+> `deployment-timeline`, `agent-pipeline`).
 >
 > Maquettes (canevas privé, à partager depuis la page) :
-> https://claude.ai/artifact/Cp4vsj92sa1uH5mEX4nNEm — artboard
-> **« B · Ledger — foncé (prototype Teaser → Dossier) »**, interactif (bouton
-> Play). L'artboard clair existe mais n'a pas reçu le prototype Teaser/Dossier.
+> https://claude.ai/artifact/Cp4vsj92sa1uH5mEX4nNEm
 
 ## Pourquoi changer — ce qui a été mesuré sur lowi.asia (2026-10-14)
 
@@ -167,20 +169,39 @@ Opérateurs `−` / `+` placés dans la gouttière entre les cartes (masqués so
 « Without the entry discount, the model returns the conservative 6–8 %, not
 the headline. »
 
+## Implémentation (2026-10-14)
+
+Six commits, un par étape, chacun vérifié dans le navigateur :
+
+1. Chiffres-vedettes hors MCTen (tiret du cover).
+2. Tokens, polices, rayons ; nuages et quadrillage masqués.
+3. Colonne d'index, pastilles retirées (8 rails + légende + 2 phrases),
+   Problem sur une ligne. **Trouvé en route** : `dossier*.html` n'avaient pas
+   de `<meta name="viewport">` — un téléphone recevait la page de 980 px
+   dézoomée — et les grilles à colonnes fixées en ligne élargissaient la page
+   à 519 px sur un écran de 375. Les deux sont corrigés ; vérifié sans
+   débordement sur les 7 routes à 375 px.
+4. « The return » en équation.
+5. Teaser en route `/`, dossier en `#/dossier`. Le Teaser **clone au
+   chargement** Problem, Return et Fees depuis le dossier
+   (`data-clone-from`) : une seule source, pas d'image base64 en double.
+   Séquence chronométrée : effacement à 0,4 s, dossier à 3,0 s, H1 à la même
+   hauteur (163 px) dans les deux vues.
+6. Report à l'identique sur `dossier-fr.html` (mêmes scripts de remplacement
+   vérifiés, textes traduits).
+
 ## Ce qui n'est PAS fait
 
-- **Rien n'est implémenté dans `public/dossier.html`** (ni `-fr`, ni `deck.html`,
-  ni les 4 pages satellites). Ce document et les maquettes sont la spec.
-- **Compteur d'annonces en direct** : la maquette affiche un chiffre figé
-  (« 70 532 · as of 2026-09-01 »). Le site est statique et autoportant ;
-  un compteur vivant demanderait un appel à la base (ou une régénération
-  du HTML à chaque cycle) — à trancher.
-- **Thème clair** : tokens définis et maquette faite, mais le prototype
-  Teaser → Dossier n'existe qu'en foncé.
-- **Placeholders** : graphique de la slide 03, cartes des slides 04 et 14,
-  photos des biens et de l'équipe. À reprendre de `dossier.html`, pas à
-  redessiner.
-- **Numérotation 10–13** : laissée telle quelle (09 → 14) pour coller au
-  site actuel ; à renuméroter 01–13 ou à expliquer.
-- **Version française** : non traitée.
-- **`prefers-reduced-motion`** sur l'animation Teaser → Dossier : non fait.
+- **`deck.html` et les 4 pages satellites** gardent l'ancien style (et leur
+  propre absence de `viewport`).
+- **Compteur d'annonces en direct** : chiffre figé au 2026-09-01, animé de 0
+  au chargement. Un vrai compteur demanderait un appel à la base ou une
+  régénération du HTML à chaque cycle — à trancher.
+- **Animation non vue à l'œil** : le navigateur de test avait « réduire les
+  animations » activé ; la séquence a été vérifiée par chronométrage des
+  classes, pas visuellement. À regarder sur un vrai poste.
+- **Placeholders** de la maquette (graphique, cartes, photos) : sans objet ici,
+  le site garde ses vrais graphiques, cartes MapLibre et photos.
+- **Grand logo animé LOWI** retiré de la cover (le slogan devient le H1) ; la
+  marque reste dans la barre du haut. Réversible si on le regrette.
+- **Numérotation 10–13** : laissée telle quelle (09 → 14).
