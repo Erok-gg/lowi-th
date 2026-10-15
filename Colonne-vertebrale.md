@@ -70,13 +70,40 @@ C'est le temps le plus dense ; il porte les deux nouvelles slides.
 
 ### 5. Dividend — ce que l'investisseur obtient, et comment il le détient
 
+> Leçon du benchmark (RealX, pool coté de condos prime Park Origin : émis à 182 ฿, coté 58,50 ฿ au
+> relevé) : la question de la **sortie** viendra. À préparer pour la data room.
+
 | | |
 |---|---|
 | **Idée** | Mêmes immeubles, mêmes loyers : acheter 20 à 30 % sous la médiane relève le rendement sur le prix payé, et l'écart se récupère à la revente. |
-| **Preuve (Teaser)** | 1 chiffre : *rendement après décote 4,9–7,1 %*, avec le visuel avant / après. |
-| **Preuves (Dossier)** | L'objectif de TRI (**à arbitrer**, voir plus bas) ; *loyers prime +5,1 % sur un an* (JLL). |
+| **Preuve (Teaser)** | **« 8–10 % visés »** (décidé le 2026-10-15), avec un début d'explication : les leviers ci-dessous, en une ligne chacun. **Aucune mention des frais dans le Teaser.** |
+| **Preuves (Dossier)** | *8–10 % visés* ; *loyers prime +5,1 % sur un an* (JLL). Le calcul et les scénarios : data room. |
 | **Le véhicule** | Séquestre, holding HK propriétaire des titres, exploitation séparée (slide 06 actuelle). |
-| **Ce que ça coûte** | Les frais (slide 15 actuelle). |
+| **Ce que ça coûte** | Les frais (slide 15 actuelle) — **Dossier seulement**, pas le Teaser. |
+
+#### Les leviers qui expliquent l'objectif (Teaser : une ligne chacun)
+
+Retenus par toi :
+
+1. **Le comportement du prime — la règle de la localisation** : une adresse centrale, le long des
+   rails, se loue moins cher mais se revend et se loue toujours.
+2. **L'expertise terrain** : chaque bien est vu, audité et rechiffré avant engagement.
+3. **La négociation en direct** avec le vendeur, sans intermédiaire qui défend son prix.
+4. **La donnée de comparaison** sur des biens identiques ou similaires du même immeuble.
+5. **La disponibilité du cash** : un acheteur qui peut signer vite pèse sur le prix.
+
+Proposés en plus (à valider) :
+
+6. **Le déstockage des promoteurs** : des blocs de lots achevés invendus se cèdent sous le prix de
+   marché (Harrison, 74 lots au Park Origin Phrom Phong, juillet 2026 ; JLL : 20–30 % historiques).
+   Preuve publique de la source de décote — voir `Benchmark-groupes-investissement.md`.
+7. **Les vendeurs pressés** : acheteurs chinois en retrait (−23,8 % au S1 2026, REIC) qui revendent.
+8. **Le locataire choisi** : familles d'écoles internationales et cadres expatriés, baux
+   pluriannuels → moins de vacance.
+9. **La gestion internalisée** : pas de marge d'agence entre le loyer et l'investisseur.
+10. **La sortie à tout acheteur étranger** : un lot du quota étranger se revend à n'importe quel
+    acheteur étranger, sans restriction.
+11. **Un pool, pas un pari** : chaque lot a un rôle (rendement, valeur, liquidité, rénovation).
 | **Visuel** | Avant / après décote. **Le tableau des scénarios sur 10 ans part en data room.** |
 | **Transition** | « Les chiffres complets, les biens et le modèle sont dans la data room. » → CTA. |
 
@@ -146,10 +173,8 @@ Il en résulterait un Dossier d'environ **11 sections** dans l'ordre du récit, 
 
 ## À trancher avant de reconstruire
 
-1. **L'objectif de TRI affiché.** Le titre « 8–10 % » ne tient qu'avec une entrée vers −30 % et une
-   valorisation d'au moins +3 %/an (scénario principal : 7,4–9,5 % pour une entrée à −20/−30 %).
-   Options : garder 8–10 % comme « visé » en public et le détail en data room ; ou afficher
-   « 7–9 % » ; ou ne pas afficher de TRI en public.
+1. ~~L'objectif de TRI affiché~~ — **décidé le 2026-10-15** : « 8–10 % visés » en public, le
+   détail (scénarios, calcul) en data room ; pas de frais dans le Teaser.
 2. **La source du « +3 à 5 %/an » prime** (attribuée à CBRE, non vérifiée). Si tu as le rapport,
    il devient la source principale.
 3. **Les slides Leverage et Network** : leur contenu concret (exemples de vendeurs, composition du
