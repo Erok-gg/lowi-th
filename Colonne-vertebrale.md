@@ -114,12 +114,7 @@ Ajouté le 2026-10-15 — **à valider** :
       charges imposé par la taille.
     - **Ce qu'on ne dit pas :** « pas de contrainte, seule limite le budget ». Ça sonne comme
       une absence de discipline et contredit les quatre règles de sélection.
-    - **Formulation proposée (EN) :** *« Unit-sized by design. Institutions deploy by the
-      building; the best prime stock trades by the unit. Our rules decide what we buy — not
-      our size. »*
-    - **Formulation proposée (FR) :** *« Taillés pour le lot. Les institutionnels investissent
-      par immeuble entier ; le meilleur du prime se vend à l'unité. Ce sont nos règles qui
-      choisissent, pas notre taille. »*
+    - **Formulation :** à écrire.
     - **Preuve (data room) :** LHRREIT, un REIT figé sur trois immeubles depuis sa création, à
       40 % de sa NAV, dont l'actif en bail a perdu 20 % en six mois. Voir `LHRREIT-rapports.md`.
 | **Visuel** | Avant / après décote. **Le tableau des scénarios sur 10 ans part en data room.** |
