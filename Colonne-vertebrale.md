@@ -20,14 +20,18 @@
 
 ## Les cinq temps
 
-### 0. Préambule — d'où part LOWI
+### 0. Contexte — un article pour situer le dossier (Dossier uniquement)
 
 | | |
 |---|---|
-| **Idée** | L'article du fondateur, traité comme un **historique** : il explique la situation actuelle du marché, avant LOWI. *« Analyse : la crise des logements vides à BKK. État des lieux »*, Anthony Schoenauer, lexpat.blog, 5 octobre 2026 — https://www.lexpat.blog/posts/condos-vides-bangkok |
+| **Idée** | L'article du fondateur, présenté comme un **article de contextualisation** qui aide à mieux comprendre le dossier. Ce n'est ni la base ni la thèse de LOWI. *« Analyse : la crise des logements vides à BKK. État des lieux »*, Anthony Schoenauer, lexpat.blog, 5 octobre 2026 — https://www.lexpat.blog/posts/condos-vides-bangkok |
 | **Ce qu'on en reprend** | Un condo sur quatre vide dans le Grand Bangkok (730 000+, TREVC nov. 2025) ; une production pensée pour la prévente, pas pour l'usage ; le retrait des acheteurs chinois ; le prime à part, qui se vend. |
 | **Ce qu'on n'en reprend pas** | Le rebond attribué à la baisse des frais de transfert (accessoire, selon toi) ; la conclusion « la meilleure raison d'acheter est d'y vivre ». |
-| **Où** | Dossier : un court bloc « Préambule » entre la couverture et le Problème, avec le lien. Teaser : rien. Data room : l'article en entier. |
+| **Où** | Dossier uniquement : un court bloc « Contexte » entre la couverture et le Problème, avec le lien. Ni Teaser, ni data room. |
+
+**Historique**
+
+- *Préambule (v1, Claude)* : titre « D'où part LOWI. », se terminant par « LOWI part de ce constat. » — présentait l'article comme le point de départ de la thèse ; data room : l'article en entier.
 
 ### 1. Accroche — « Pooled Bangkok assets that deliver. »
 
@@ -75,6 +79,7 @@
 **Historique**
 
 - *Idée (v1, Claude)* : « Chaque annonce de cinq portails, collectée chaque jour, rapportée à la médiane de son propre immeuble. »
+- *Teaser, slide 2 (2026-10-15, utilisateur)* : titre « A system built to surface opportunities. » ; texte « In an opaque market, every institution measures for its own purpose. So we built a measure for ours: a system that reads and updates Bangkok's property data every day. It shows that within the same building, the same one-bedroom unit can be listed with a 40 % price spread — and that is before any negotiation. » (version de l'utilisateur, langue corrigée ; remplace « The market, read every day. » dans le Teaser — le Dossier garde l'ancienne).
 - *Pistes d'idée (v2, Claude)* : ① « From Bangkok down to the building: every listing, every day, priced against its own condominium. » · ② « Every listing, every day — read at four scales: the city, the khet, the street, the building. » · ③ « Portals, agents, owner groups — read every day, from the city down to the building. »
 - *Preuves Dossier (v1, Claude)* : « 187 926 annonces collectées, 4 514 immeubles, 5 portails, cycle quotidien. »
 
@@ -84,7 +89,7 @@ C'est le temps le plus dense ; il porte les deux nouvelles slides.
 
 | | |
 |---|---|
-| **Idée** | Du prime uniquement, le long des rails, en quota étranger, et uniquement à nos conditions. |
+| **Idée** | *« We buy prime real estate, along the rails, in the foreign quota — and only on our terms. »* — FR : « Nous achetons de l'immobilier prime, le long des rails, en quota étranger — et uniquement à nos conditions. » (Teaser et Dossier) |
 | **Pourquoi le prime** | Liquidité, locataires solvables (expatriés, écoles internationales), demande indépendante du cycle touristique. |
 | **Le compromis assumé** | La valeur du foncier prime augmente, mais pas les salaires : une opportunité n'est suivie que si elle permet d'atteindre nos objectifs dans le contexte actuel. |
 | **Quota étranger** | Plus cher par nature, mais seul véhicule 100 % légal pour la structure HK. |
@@ -98,6 +103,7 @@ C'est le temps le plus dense ; il porte les deux nouvelles slides.
 
 **Historique**
 
+- *Idée (v2, utilisateur)* : « Du prime uniquement, le long des rails, en quota étranger, et uniquement à nos conditions. »
 - *Idée (v1, Claude)* : « Du prime uniquement, le long des rails, en quota étranger, et seulement avec une décote. » — la décote ne s'annonce pas, elle se laisse entendre.
 - *Compromis assumé (v1, Claude)* : « Le prime se loue moins cher : on n'achète qu'à −20/−30 %. »
 - *Signature (v1, Claude)* : « Ton article « Condos vides à Bangkok » (lexpat.blog), assumé comme écrit par le fondateur : il montre, avant LOWI, pourquoi la vacance se situe hors du prime. Dossier : une ligne + lien en appui de « Pourquoi le prime ». » — remplacé par le **Préambule** (avant le temps 1) : l'article est un historique, pas une preuve.
