@@ -47,7 +47,11 @@
 | **Preuve (Teaser)** | 1 chiffre : *25 à 42 % d'écart dans un même immeuble* (filtrage plateforme). |
 | **Preuves (Dossier)** | La vacance se situe hors du prime : *24,8 % de logements vides à Bangkok* (TREVC, nov. 2025) ; *93–95 % du stock de luxe vendu* (CBRE). |
 | **Visuel** | Les 4 cartes photo du problème. |
-| **Transition** | « Quand les prix sont opaques, l'avantage revient à celui qui les mesure. » |
+| **Transition** | « Dans un marché opaque, chaque organisme mesure selon son objectif ; il faut donc bâtir notre mesure pour notre objectif. » — EN *(proposition)* : *« In an opaque market, every institution measures for its own purpose. So we built a measure for ours. »* Appui data room : la Banque de Thaïlande mesure la tendance à partir des expertises bancaires, le REIC mesure le neuf, le cadastre mesure l'assiette des taxes (`dataroom/methodology/public-price-sources.fr.md`). |
+
+**Historique**
+
+- *Transition (v1, Claude)* : « Quand les prix sont opaques, l'avantage revient à celui qui les mesure. »
 
 ### 3. Data — nous mesurons chaque immeuble
 
