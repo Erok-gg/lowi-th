@@ -20,6 +20,15 @@
 
 ## Les cinq temps
 
+### 0. Préambule — d'où part LOWI
+
+| | |
+|---|---|
+| **Idée** | L'article du fondateur, traité comme un **historique** : il explique la situation actuelle du marché, avant LOWI. *« Analyse : la crise des logements vides à BKK. État des lieux »*, Anthony Schoenauer, lexpat.blog, 5 octobre 2026 — https://www.lexpat.blog/posts/condos-vides-bangkok |
+| **Ce qu'on en reprend** | Un condo sur quatre vide dans le Grand Bangkok (730 000+, TREVC nov. 2025) ; une production pensée pour la prévente, pas pour l'usage ; le retrait des acheteurs chinois ; le prime à part, qui se vend. |
+| **Ce qu'on n'en reprend pas** | Le rebond attribué à la baisse des frais de transfert (accessoire, selon toi) ; la conclusion « la meilleure raison d'acheter est d'y vivre ». |
+| **Où** | Dossier : un court bloc « Préambule » entre la couverture et le Problème, avec le lien. Teaser : rien. Data room : l'article en entier. |
+
 ### 1. Accroche — « Pooled Bangkok assets that deliver. »
 
 | | |
@@ -76,7 +85,6 @@ C'est le temps le plus dense ; il porte les deux nouvelles slides.
 | | |
 |---|---|
 | **Idée** | Du prime uniquement, le long des rails, en quota étranger, et uniquement à nos conditions. |
-| **Signature** *(à valider)* | Ton article « Condos vides à Bangkok » (lexpat.blog), assumé comme écrit par le fondateur : il montre, avant LOWI, pourquoi la vacance se situe hors du prime. Dossier : une ligne + lien en appui de « Pourquoi le prime » ; data room : l'article en entier. |
 | **Pourquoi le prime** | Liquidité, locataires solvables (expatriés, écoles internationales), demande indépendante du cycle touristique. |
 | **Le compromis assumé** | La valeur du foncier prime augmente, mais pas les salaires : une opportunité n'est suivie que si elle permet d'atteindre nos objectifs dans le contexte actuel. |
 | **Quota étranger** | Plus cher par nature, mais seul véhicule 100 % légal pour la structure HK. |
@@ -92,6 +100,7 @@ C'est le temps le plus dense ; il porte les deux nouvelles slides.
 
 - *Idée (v1, Claude)* : « Du prime uniquement, le long des rails, en quota étranger, et seulement avec une décote. » — la décote ne s'annonce pas, elle se laisse entendre.
 - *Compromis assumé (v1, Claude)* : « Le prime se loue moins cher : on n'achète qu'à −20/−30 %. »
+- *Signature (v1, Claude)* : « Ton article « Condos vides à Bangkok » (lexpat.blog), assumé comme écrit par le fondateur : il montre, avant LOWI, pourquoi la vacance se situe hors du prime. Dossier : une ligne + lien en appui de « Pourquoi le prime ». » — remplacé par le **Préambule** (avant le temps 1) : l'article est un historique, pas une preuve.
 - *Network (v1, Claude)* : « Le réseau qui apporte les biens sous-cotés : comment une offre repérée par la plateforme devient une acquisition. »
 - *Network (v2, utilisateur, mot d'origine)* : « … avant de faire une offre publique de vente » — « offre publique de vente » désigne une opération boursière.
 - *Network (v3, Claude)* : « … avant leur mise en vente publique » — remplacé par « avant leur annonce en ligne », plus neutre.
