@@ -789,6 +789,9 @@ table.fee tbody tr:last-child td{border-bottom:0}
   .tv-ba__track{grid-column:1 / -1; order:3}
   .tv-ba__axis{margin:0}
 }
+
+/* Mini-graphiques de l'équation : plafonnés, sinon énormes quand l'équation passe sur 2 colonnes */
+.term svg{max-width:240px}
 </style>
 
 <div class="cloud-bg"><span></span><span></span><span></span></div>
@@ -845,9 +848,9 @@ table.fee tbody tr:last-child td{border-bottom:0}
       </div>
     </div>
     <div class="kpis">
-      <div><span class="kpis__k">Prime gross yield, market</span><span class="kpis__v">4.0–5.0 %</span></div>
+      <div><span class="kpis__k">Prime yield by the rail, market</span><span class="kpis__v">3.9–5.0 %</span></div>
       <div><span class="kpis__k">Entry discount</span><span class="kpis__v">−20–30 %</span></div>
-      <div><span class="kpis__k">Yield after discount</span><span class="kpis__v">5.0–7.2 %</span></div>
+      <div><span class="kpis__k">Yield after discount</span><span class="kpis__v">4.9–7.1 %</span></div>
       <div><span class="kpis__k">Raise · Y1 + Y3</span><span class="kpis__v">฿150M <small>+150M</small></span></div>
     </div>
     <p class="teaser__note">Market figures measured 2026-10-13 from the platform database. Return figures are a model, not a promise. No leverage.</p>
@@ -896,7 +899,7 @@ table.fee tbody tr:last-child td{border-bottom:0}
         <div class="grid" style="grid-template-columns:repeat(3,1fr)"><div class="cell"><span class="cell__t">Liquidity</span><span class="cell__b">A recognisable address in a known building, which any foreign buyer can price without help — the exit stays open.</span></div><div class="cell"><span class="cell__t">Solvent tenants</span><span class="cell__b">Expat professionals and international-school families, on multi-year leases tied to the school calendar.</span></div><div class="cell"><span class="cell__t">Resilience</span><span class="cell__b">Rental demand in the expat corridors — Sukhumvit, Silom/Sathon, Riverside — does not follow the tourist cycle.</span></div></div>
         <div class="callout" style="--co:var(--gold)">
           <span class="callout__t">The trade-off we accept</span>
-          <p>Prime rents less: <strong>4.0 to 5.0&nbsp;% gross</strong> on the market (middle half of 357 prime buildings measured). So we only buy at <strong>&minus;20 to &minus;30&nbsp;%</strong> below the building's median.</p>
+          <p>Prime by the rail rents less: <strong>3.9 to 5.0&nbsp;% gross</strong> on the market (middle half of the 206 prime buildings within 500&nbsp;m of an operating station). We do not buy away from the rail. So we only buy at <strong>&minus;20 to &minus;30&nbsp;%</strong> below the building's median.</p>
         </div>
         <h3 class="tv-sub">How we find those units</h3>
         <div class="grid" style="grid-template-columns:repeat(2,1fr)"><div class="cell tv-how"><span class="cell__t">AI market platform</span><span class="cell__b">Measures, inventories and sounds the whole Bangkok market every day — every building has a reference price.</span></div><div class="cell tv-how"><span class="cell__t">Dedicated network</span><span class="cell__b">Agents, lawyers and owners on the ground who bring and secure the offers the data flags, with cash ready to close.</span></div></div>
@@ -921,25 +924,25 @@ table.fee tbody tr:last-child td{border-bottom:0}
       <h2 class="slide__t">What the discount does to the return.</h2>
       <p class="slide__lede">Same buildings, same rents. Buying 20 to 30 % below the building's median lifts the yield on what we paid — and the gap is recovered at resale.</p>
       <div class="stack gap-m">
-        <div class="tv-ba" role="img" aria-label="Prime market 4.0–5.0 % ; LOWI, after −20/−30 % 5.0–7.2 %">
+        <div class="tv-ba" role="img" aria-label="Prime market 3.9–5.0 % ; LOWI, after −20/−30 % 4.9–7.1 %">
           <div class="tv-ba__row"><span class="tv-ba__k">Prime market</span>
-            <span class="tv-ba__track"><span class="tv-ba__band tv-ba__band--mkt" style="left:50.00%;width:12.50%"></span></span>
-            <span class="tv-ba__v">4.0–5.0 %</span></div>
+            <span class="tv-ba__track"><span class="tv-ba__band tv-ba__band--mkt" style="left:48.75%;width:13.75%"></span></span>
+            <span class="tv-ba__v">3.9–5.0 %</span></div>
           <div class="tv-ba__row"><span class="tv-ba__k">LOWI, after −20/−30 %</span>
-            <span class="tv-ba__track"><span class="tv-ba__band tv-ba__band--us" style="left:62.50%;width:27.50%"></span></span>
-            <span class="tv-ba__v tv-ba__v--us">5.0–7.2 %</span></div>
+            <span class="tv-ba__track"><span class="tv-ba__band tv-ba__band--us" style="left:61.25%;width:27.50%"></span></span>
+            <span class="tv-ba__v tv-ba__v--us">4.9–7.1 %</span></div>
           <div class="tv-ba__axis"><span style="left:0">0 %</span><span style="left:50%">4 %</span><span style="left:75%">6 %</span><span style="left:100%">8 % · gross yield</span></div>
         </div>
         <div class="fees">
           <table class="fee tv-tbl">
             <thead><tr><th>10-year return, net</th><th>Market price</th><th>Entry −20 %</th><th>Entry −30 %</th></tr></thead>
             <tbody>
-              <tr><td>A · prime follows the Bangkok index (+3.1 %/yr)</td><td class="n">4.8–5.2 %</td><td class="n">7.4–7.9 %</td><td class="n">9.1–9.6 %</td></tr>
-              <tr><td>B · prime follows Knight Frank asking prices (+0.6 %/yr)</td><td class="n">2.3–2.7 %</td><td class="n">4.9–5.3 %</td><td class="n">6.5–7.0 %</td></tr>
+              <tr><td>Main · Bangkok condo index (+3.1 %/yr)</td><td class="n">4.7–5.1 %</td><td class="n">7.4–7.8 %</td><td class="n">9.0–9.5 %</td></tr>
+              <tr><td>Prudent · CBD asking prices flat (0 %/yr)</td><td class="n">1.7–2.1 %</td><td class="n">4.2–4.7 %</td><td class="n">5.8–6.3 %</td></tr>
             </tbody>
           </table>
         </div>
-        <p class="eqnote">Net of running costs (1.8–2.2 pts), 2 % entry and 4.3 % exit costs; median prime yield 4.53 %. Appreciation: A — Bank of Thailand condo price index, Bangkok & vicinities, 2020→2025 annual averages; B — Knight Frank prime asking prices, end-2020 → end-2024. Projection, not a promise.</p>
+        <p class="eqnote">Net of running costs (1.8–2.2 pts), 2 % entry and 4.3 % exit costs; median yield 4.47 % (206 prime buildings within 500 m of a station, measured 2026-10-14). Appreciation: main — Bank of Thailand condo price index, Bangkok & vicinities, 2020→2025 annual averages; prudent — Knight Frank CBD average asking price, end-2021 → Q2 2025. A CBRE-attributed +3–5 %/yr for prime CBD exists but could not be verified. Projection, not a promise.</p>
       </div>
     </div>
 
@@ -1330,14 +1333,15 @@ table.fee tbody tr:last-child td{border-bottom:0}
       <div class="eq">
         <div class="term">
           <span class="term__k">Rental income</span>
-          <span class="term__v pos">+5.0–7.0 %</span>
-          <svg viewBox="0 0 200 64" role="img" aria-label="Floor band 5 to 7 percent; measured within-building yields 6.49, 6.51 and 6.76 percent">
-            <line x1="0" y1="30" x2="200" y2="30" style="stroke:var(--line)" stroke-width="1"/>
-            <rect x="50" y="18" width="100" height="24" rx="4" style="fill:var(--engage)" fill-opacity=".14"/>
-            <circle cx="124.5" cy="30" r="5" style="fill:var(--engage)"/><circle cx="125.5" cy="30" r="5" style="fill:var(--engage)" opacity=".7"/><circle cx="138" cy="30" r="5" style="fill:var(--engage)"/>
-            <text x="0" y="60" style="fill:var(--ink-3)" font-family="JetBrains Mono" font-size="13">4 %</text><text x="92" y="60" style="fill:var(--ink-3)" font-family="JetBrains Mono" font-size="13">6 %</text><text x="200" y="60" style="fill:var(--ink-3)" font-family="JetBrains Mono" font-size="13" text-anchor="end">8 %</text>
+          <span class="term__v pos">+4.9–7.1 %</span>
+          <svg viewBox="0 0 200 76" role="img" aria-label="Prime by the rail: 3.9 to 5.0 percent at market price; after a 20 to 30 percent entry discount, 4.9 to 7.1 percent">
+            <text x="0" y="12" style="fill:var(--ink-3)" font-family="JetBrains Mono" font-size="13">Market</text>
+            <rect x="36.0" y="18" width="44.0" height="10" rx="5" style="fill:var(--ink-3)" fill-opacity=".55"/>
+            <text x="0" y="44" style="fill:var(--engage)" font-family="JetBrains Mono" font-size="13">LOWI</text>
+            <rect x="76.0" y="50" width="88.0" height="10" rx="5" style="fill:var(--engage)"/>
+            <text x="0" y="76" style="fill:var(--ink-3)" font-family="JetBrains Mono" font-size="13">3 %</text><text x="80" y="76" style="fill:var(--ink-3)" font-family="JetBrains Mono" font-size="13" text-anchor="middle">5 %</text><text x="160" y="76" style="fill:var(--ink-3)" font-family="JetBrains Mono" font-size="13" text-anchor="middle">7 %</text>
           </svg>
-          <p class="term__c">Gross yield at acquisition. Measured within-building: Bang Kapi 6.49 %, Suan Luang 6.51 %, Wang Thonglang 6.76 %.</p>
+          <p class="term__c">Prime by the rail: <strong>3.9–5.0 %</strong> gross at market price — middle half of 206 buildings within 500 m of a station, measured 2026-10-14. After a −20/−30 % entry: 4.9–7.1 %.</p>
         </div>
         <div class="term">
           <span class="term__op" aria-hidden="true">−</span>
@@ -1389,14 +1393,14 @@ table.fee tbody tr:last-child td{border-bottom:0}
           <span class="eqsum__v">8–10 %</span>
         </div>
         <div>
-          <div class="eqsum__track" role="img" aria-label="Scale 0 to 12 percent: 6 to 8 percent without entry discount, 8 to 10 percent with a verified discount">
-            <span class="eqsum__band eqsum__band--base"></span><span class="eqsum__band eqsum__band--target"></span>
+          <div class="eqsum__track" role="img" aria-label="Scale 0 to 12 percent: 4.7 to 5.1 percent at market price, 7.4 to 9.5 percent with a 20 to 30 percent entry discount">
+            <span class="eqsum__band eqsum__band--base" style="left:39.17%;width:3.33%;border-radius:999px"></span><span class="eqsum__band eqsum__band--target" style="left:61.67%;width:17.5%;border-radius:999px"></span>
           </div>
-          <div class="eqsum__ticks" aria-hidden="true"><span style="left:0">0 %</span><span style="left:50%">6</span><span style="left:66.66%">8</span><span style="left:83.33%">10</span><span style="left:100%">12 %</span></div>
-          <div class="eqsum__legend"><span><i class="eqsum__band--base"></i>6–8 % without entry discount</span><span><i class="eqsum__band--target"></i>8–10 % with a verified discount</span></div>
+          <div class="eqsum__ticks" aria-hidden="true"><span style="left:0">0 %</span><span style="left:33.33%">4</span><span style="left:50%">6</span><span style="left:66.66%">8</span><span style="left:83.33%">10</span><span style="left:100%">12 %</span></div>
+          <div class="eqsum__legend"><span><i class="eqsum__band--base"></i>4.7–5.1 % at market price</span><span><i class="eqsum__band--target"></i>7.4–9.5 % with a −20/−30 % entry</span></div>
         </div>
       </div>
-      <p class="eqnote">Gross of Thai corporate costs and contingent on discounted acquisitions. Projection, not a promise.</p>
+      <p class="eqnote">Main scenario: prime by the rail (median yield 4.47 %) appreciating with the Bank of Thailand Bangkok condo index, +3.1 %/yr (2020→2025); net of running, entry and exit costs. Prudent scenario (CBD asking prices flat): 4.2–6.3 %. Projection, not a promise.</p>
     </div>
   </div>
 

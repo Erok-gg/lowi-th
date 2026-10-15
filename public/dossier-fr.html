@@ -789,6 +789,9 @@ table.fee tbody tr:last-child td{border-bottom:0}
   .tv-ba__track{grid-column:1 / -1; order:3}
   .tv-ba__axis{margin:0}
 }
+
+/* Mini-graphiques de l'équation : plafonnés, sinon énormes quand l'équation passe sur 2 colonnes */
+.term svg{max-width:240px}
 </style>
 
 <div class="cloud-bg"><span></span><span></span><span></span></div>
@@ -845,9 +848,9 @@ table.fee tbody tr:last-child td{border-bottom:0}
       </div>
     </div>
     <div class="kpis">
-      <div><span class="kpis__k">Rendement brut prime, marché</span><span class="kpis__v">4,0–5,0 %</span></div>
+      <div><span class="kpis__k">Rendement prime près des rails, marché</span><span class="kpis__v">3,9–5,0 %</span></div>
       <div><span class="kpis__k">Décote d'entrée</span><span class="kpis__v">−20–30 %</span></div>
-      <div><span class="kpis__k">Rendement après décote</span><span class="kpis__v">5,0–7,2 %</span></div>
+      <div><span class="kpis__k">Rendement après décote</span><span class="kpis__v">4,9–7,1 %</span></div>
       <div><span class="kpis__k">Levée · A1 + A3</span><span class="kpis__v">฿150M <small>+150M</small></span></div>
     </div>
     <p class="teaser__note">Chiffres de marché mesurés le 2026-10-13 dans la base de la plateforme. Les chiffres de rendement sont un modèle, pas une promesse. Sans effet de levier.</p>
@@ -896,7 +899,7 @@ table.fee tbody tr:last-child td{border-bottom:0}
         <div class="grid" style="grid-template-columns:repeat(3,1fr)"><div class="cell"><span class="cell__t">Liquidité</span><span class="cell__b">Une adresse connue dans un immeuble reconnu, que tout acheteur étranger sait chiffrer seul : la sortie reste ouverte.</span></div><div class="cell"><span class="cell__t">Locataires solvables</span><span class="cell__b">Cadres expatriés et familles d'écoles internationales, en baux pluriannuels calés sur le calendrier scolaire.</span></div><div class="cell"><span class="cell__t">Résistance</span><span class="cell__b">La demande locative des corridors expatriés — Sukhumvit, Silom/Sathon, Riverside — ne suit pas le cycle touristique.</span></div></div>
         <div class="callout" style="--co:var(--gold)">
           <span class="callout__t">Le compromis que nous assumons</span>
-          <p>Le prime se loue moins cher : <strong>4,0 à 5,0&nbsp;% brut</strong> sur le marché (moitié centrale de 357 immeubles prime mesurés). Nous n'achetons donc qu'à <strong>&minus;20 à &minus;30&nbsp;%</strong> sous la médiane de l'immeuble.</p>
+          <p>Le prime près des rails se loue moins cher : <strong>3,9 à 5,0&nbsp;% brut</strong> sur le marché (moitié centrale des 206 immeubles prime à moins de 500&nbsp;m d'une station en service). Nous n'achetons pas loin des rails. Nous n'achetons donc qu'à <strong>&minus;20 à &minus;30&nbsp;%</strong> sous la médiane de l'immeuble.</p>
         </div>
         <h3 class="tv-sub">Comment nous trouvons ces lots</h3>
         <div class="grid" style="grid-template-columns:repeat(2,1fr)"><div class="cell tv-how"><span class="cell__t">Plateforme d'IA</span><span class="cell__b">Mesure, inventorie et sonde chaque jour tout le marché de Bangkok — chaque immeuble a un prix de référence.</span></div><div class="cell tv-how"><span class="cell__t">Réseau dédié</span><span class="cell__b">Agents, avocats et propriétaires sur le terrain, qui apportent et sécurisent les offres repérées par la donnée, avec du cash prêt à conclure.</span></div></div>
@@ -921,25 +924,25 @@ table.fee tbody tr:last-child td{border-bottom:0}
       <h2 class="slide__t">Ce que la décote fait au rendement.</h2>
       <p class="slide__lede">Mêmes immeubles, mêmes loyers. Acheter 20 à 30 % sous la médiane de l'immeuble relève le rendement sur le prix payé — et l'écart se récupère à la revente.</p>
       <div class="stack gap-m">
-        <div class="tv-ba" role="img" aria-label="Marché prime 4,0–5,0 % ; LOWI, après −20/−30 % 5,0–7,2 %">
+        <div class="tv-ba" role="img" aria-label="Marché prime 3,9–5,0 % ; LOWI, après −20/−30 % 4,9–7,1 %">
           <div class="tv-ba__row"><span class="tv-ba__k">Marché prime</span>
-            <span class="tv-ba__track"><span class="tv-ba__band tv-ba__band--mkt" style="left:50.00%;width:12.50%"></span></span>
-            <span class="tv-ba__v">4,0–5,0 %</span></div>
+            <span class="tv-ba__track"><span class="tv-ba__band tv-ba__band--mkt" style="left:48.75%;width:13.75%"></span></span>
+            <span class="tv-ba__v">3,9–5,0 %</span></div>
           <div class="tv-ba__row"><span class="tv-ba__k">LOWI, après −20/−30 %</span>
-            <span class="tv-ba__track"><span class="tv-ba__band tv-ba__band--us" style="left:62.50%;width:27.50%"></span></span>
-            <span class="tv-ba__v tv-ba__v--us">5,0–7,2 %</span></div>
+            <span class="tv-ba__track"><span class="tv-ba__band tv-ba__band--us" style="left:61.25%;width:27.50%"></span></span>
+            <span class="tv-ba__v tv-ba__v--us">4,9–7,1 %</span></div>
           <div class="tv-ba__axis"><span style="left:0">0 %</span><span style="left:50%">4 %</span><span style="left:75%">6 %</span><span style="left:100%">8 % · rendement brut</span></div>
         </div>
         <div class="fees">
           <table class="fee tv-tbl">
             <thead><tr><th>Rendement sur 10 ans, net</th><th>Prix du marché</th><th>Entrée −20 %</th><th>Entrée −30 %</th></tr></thead>
             <tbody>
-              <tr><td>A · le prime suit l'indice de Bangkok (+3,1 %/an)</td><td class="n">4,8–5,2 %</td><td class="n">7,4–7,9 %</td><td class="n">9,1–9,6 %</td></tr>
-              <tr><td>B · le prime suit les prix demandés Knight Frank (+0,6 %/an)</td><td class="n">2,3–2,7 %</td><td class="n">4,9–5,3 %</td><td class="n">6,5–7,0 %</td></tr>
+              <tr><td>Principal · indice des condos de Bangkok (+3,1 %/an)</td><td class="n">4,7–5,1 %</td><td class="n">7,4–7,8 %</td><td class="n">9,0–9,5 %</td></tr>
+              <tr><td>Prudent · prix demandés du CBD stables (0 %/an)</td><td class="n">1,7–2,1 %</td><td class="n">4,2–4,7 %</td><td class="n">5,8–6,3 %</td></tr>
             </tbody>
           </table>
         </div>
-        <p class="eqnote">Net des charges courantes (1,8–2,2 pts), de 2 % de frais d'entrée et 4,3 % de sortie ; rendement prime médian 4,53 %. Valorisation : A — indice des prix des condominiums de la Banque de Thaïlande, Bangkok et environs, moyennes annuelles 2020→2025 ; B — prix demandés prime Knight Frank, fin 2020 → fin 2024. Projection, pas une promesse.</p>
+        <p class="eqnote">Net des charges courantes (1,8–2,2 pts), de 2 % de frais d'entrée et 4,3 % de sortie ; rendement médian 4,47 % (206 immeubles prime à moins de 500 m d'une station, mesuré le 2026-10-14). Valorisation : principal — indice des prix des condominiums de la Banque de Thaïlande, Bangkok et environs, moyennes annuelles 2020→2025 ; prudent — prix demandé moyen du CBD, Knight Frank, fin 2021 → T2 2025. Une estimation attribuée à CBRE (+3–5 %/an pour le prime CBD) existe mais n'a pas pu être vérifiée. Projection, pas une promesse.</p>
       </div>
     </div>
 
@@ -1338,14 +1341,15 @@ table.fee tbody tr:last-child td{border-bottom:0}
       <div class="eq">
         <div class="term">
           <span class="term__k">Revenu locatif</span>
-          <span class="term__v pos">+5,0–7,0 %</span>
-          <svg viewBox="0 0 200 64" role="img" aria-label="Bande plancher de 5 à 7 % ; rendements intra-immeuble mesurés de 6,49, 6,51 et 6,76 %">
-            <line x1="0" y1="30" x2="200" y2="30" style="stroke:var(--line)" stroke-width="1"/>
-            <rect x="50" y="18" width="100" height="24" rx="4" style="fill:var(--engage)" fill-opacity=".14"/>
-            <circle cx="124.5" cy="30" r="5" style="fill:var(--engage)"/><circle cx="125.5" cy="30" r="5" style="fill:var(--engage)" opacity=".7"/><circle cx="138" cy="30" r="5" style="fill:var(--engage)"/>
-            <text x="0" y="60" style="fill:var(--ink-3)" font-family="JetBrains Mono" font-size="13">4 %</text><text x="92" y="60" style="fill:var(--ink-3)" font-family="JetBrains Mono" font-size="13">6 %</text><text x="200" y="60" style="fill:var(--ink-3)" font-family="JetBrains Mono" font-size="13" text-anchor="end">8 %</text>
+          <span class="term__v pos">+4,9–7,1 %</span>
+          <svg viewBox="0 0 200 76" role="img" aria-label="Prime près des rails : 3,9 à 5,0 % au prix du marché ; après une décote d'entrée de 20 à 30 %, 4,9 à 7,1 %">
+            <text x="0" y="12" style="fill:var(--ink-3)" font-family="JetBrains Mono" font-size="13">Marché</text>
+            <rect x="36.0" y="18" width="44.0" height="10" rx="5" style="fill:var(--ink-3)" fill-opacity=".55"/>
+            <text x="0" y="44" style="fill:var(--engage)" font-family="JetBrains Mono" font-size="13">LOWI</text>
+            <rect x="76.0" y="50" width="88.0" height="10" rx="5" style="fill:var(--engage)"/>
+            <text x="0" y="76" style="fill:var(--ink-3)" font-family="JetBrains Mono" font-size="13">3 %</text><text x="80" y="76" style="fill:var(--ink-3)" font-family="JetBrains Mono" font-size="13" text-anchor="middle">5 %</text><text x="160" y="76" style="fill:var(--ink-3)" font-family="JetBrains Mono" font-size="13" text-anchor="middle">7 %</text>
           </svg>
-          <p class="term__c">Rendement brut à l'acquisition. Mesuré intra-immeuble : Bang Kapi 6,49 %, Suan Luang 6,51 %, Wang Thonglang 6,76 %.</p>
+          <p class="term__c">Prime près des rails : <strong>3,9–5,0 %</strong> brut au prix du marché — moitié centrale de 206 immeubles à moins de 500 m d'une station, mesuré le 2026-10-14. Après une entrée à −20/−30 % : 4,9–7,1 %.</p>
         </div>
         <div class="term">
           <span class="term__op" aria-hidden="true">−</span>
@@ -1397,14 +1401,14 @@ table.fee tbody tr:last-child td{border-bottom:0}
           <span class="eqsum__v">8–10 %</span>
         </div>
         <div>
-          <div class="eqsum__track" role="img" aria-label="Échelle de 0 à 12 % : 6 à 8 % sans décote d'entrée, 8 à 10 % avec une décote vérifiée">
-            <span class="eqsum__band eqsum__band--base"></span><span class="eqsum__band eqsum__band--target"></span>
+          <div class="eqsum__track" role="img" aria-label="Échelle de 0 à 12 % : 4,7 à 5,1 % au prix du marché, 7,4 à 9,5 % avec une décote d'entrée de 20 à 30 %">
+            <span class="eqsum__band eqsum__band--base" style="left:39.17%;width:3.33%;border-radius:999px"></span><span class="eqsum__band eqsum__band--target" style="left:61.67%;width:17.5%;border-radius:999px"></span>
           </div>
-          <div class="eqsum__ticks" aria-hidden="true"><span style="left:0">0 %</span><span style="left:50%">6</span><span style="left:66.66%">8</span><span style="left:83.33%">10</span><span style="left:100%">12 %</span></div>
-          <div class="eqsum__legend"><span><i class="eqsum__band--base"></i>6–8 % sans décote d'entrée</span><span><i class="eqsum__band--target"></i>8–10 % avec une décote vérifiée</span></div>
+          <div class="eqsum__ticks" aria-hidden="true"><span style="left:0">0 %</span><span style="left:33.33%">4</span><span style="left:50%">6</span><span style="left:66.66%">8</span><span style="left:83.33%">10</span><span style="left:100%">12 %</span></div>
+          <div class="eqsum__legend"><span><i class="eqsum__band--base"></i>4,7–5,1 % au prix du marché</span><span><i class="eqsum__band--target"></i>7,4–9,5 % avec une entrée à −20/−30 %</span></div>
         </div>
       </div>
-      <p class="eqnote">Bruts des coûts de société thaïlandaise et conditionnés à des acquisitions décotées. Projection, pas une promesse.</p>
+      <p class="eqnote">Scénario principal : prime près des rails (rendement médian 4,47 %) valorisé comme l'indice des condos de Bangkok de la Banque de Thaïlande, +3,1 %/an (2020→2025) ; net des charges, frais d'entrée et de sortie. Scénario prudent (prix demandés du CBD stables) : 4,2–6,3 %. Projection, pas une promesse.</p>
     </div>
   </div>
 
