@@ -20,14 +20,18 @@
 
 ## Les cinq temps
 
-### 0. Préambule — d'où part LOWI
+### 0. Contexte — un article pour situer le dossier (Dossier uniquement)
 
 | | |
 |---|---|
-| **Idée** | L'article du fondateur, traité comme un **historique** : il explique la situation actuelle du marché, avant LOWI. *« Analyse : la crise des logements vides à BKK. État des lieux »*, Anthony Schoenauer, lexpat.blog, 5 octobre 2026 — https://www.lexpat.blog/posts/condos-vides-bangkok |
+| **Idée** | L'article du fondateur, présenté comme un **article de contextualisation** qui aide à mieux comprendre le dossier. Ce n'est ni la base ni la thèse de LOWI. *« Analyse : la crise des logements vides à BKK. État des lieux »*, Anthony Schoenauer, lexpat.blog, 5 octobre 2026 — https://www.lexpat.blog/posts/condos-vides-bangkok |
 | **Ce qu'on en reprend** | Un condo sur quatre vide dans le Grand Bangkok (730 000+, TREVC nov. 2025) ; une production pensée pour la prévente, pas pour l'usage ; le retrait des acheteurs chinois ; le prime à part, qui se vend. |
 | **Ce qu'on n'en reprend pas** | Le rebond attribué à la baisse des frais de transfert (accessoire, selon toi) ; la conclusion « la meilleure raison d'acheter est d'y vivre ». |
-| **Où** | Dossier : un court bloc « Préambule » entre la couverture et le Problème, avec le lien. Teaser : rien. Data room : l'article en entier. |
+| **Où** | Dossier uniquement : un court bloc « Contexte » entre la couverture et le Problème, avec le lien. Ni Teaser, ni data room. |
+
+**Historique**
+
+- *Préambule (v1, Claude)* : titre « D'où part LOWI. », se terminant par « LOWI part de ce constat. » — présentait l'article comme le point de départ de la thèse ; data room : l'article en entier.
 
 ### 1. Accroche — « Pooled Bangkok assets that deliver. »
 
