@@ -238,9 +238,29 @@ Il en résulterait un Dossier d'environ **11 sections** dans l'ordre du récit, 
 
 1. ~~L'objectif de TRI affiché~~ — **décidé le 2026-10-15** : « 8–10 % visés » en public, le
    détail (scénarios, calcul) en data room ; pas de frais dans le Teaser.
-2. **La source du « +3 à 5 %/an » prime** (attribuée à CBRE, non vérifiée). Si tu as le rapport,
-   il devient la source principale.
+2. ~~La source du « +3 à 5 %/an » prime~~ — **recherché le 2026-10-15 : aucun rapport CBRE ne
+   le dit.** Le chiffre circule sur des blogs d'agents, attribué à CBRE sans lien vers un rapport.
+   Ce que CBRE a réellement publié :
+   - **2015** (The Nation, 22 mai 2015, MD de CBRE Thailand) : la revente du luxe en centre-ville a
+     pris **7 à 12 % par an** sur deux ans ; les **immeubles anciens** (années 1990), **3 à 5 %
+     par an**. Le « 3–5 % » d'origine vise donc les vieux immeubles, sur une période révolue.
+   - **Février 2026** (perspectives 2026) : prix **affichés** du centre-ville jusqu'à **+15 %** sur
+     un an, dû à la part croissante de lancements super-luxe. CBRE précise que ce n'est pas une
+     prévision pour le marché. C'est du prix de lancement, pas de la revalorisation.
+   - **Août 2026** (S1 2026) : ventes en hausse, taux de vente du luxe livré **95 %** ; **aucun
+     chiffre de prix**.
+
+   Ce que dit JLL (luxe, centre de Bangkok) : valeurs **+0,1 % sur un an** au T4 2025 (prévision
+   +3,1 % fin 2026) ; au T1 2026, **loyers +5,1 % sur un an** et rendement brut 5,4 %, mais
+   **valeurs −1,3 % sur le trimestre** (concurrence, promotions des promoteurs).
+
+   **Décision proposée :** on abandonne le « +3–5 %/an ». Le scénario principal reste l'indice
+   condo BoT (+3,1 %/an), sourcé et méthodologiquement documenté
+   (`dataroom/methodology/public-price-sources.fr.md`). JLL sert de contexte : le prime loue
+   bien, ses prix stagnent à court terme — exactement pourquoi on n'achète qu'à nos conditions.
 3. **Les slides Leverage et Network** : leur contenu concret (exemples de vendeurs, composition du
-   réseau, un cas d'acquisition de bout en bout).
+   réseau, un cas d'acquisition de bout en bout). **2026-10-15 :** tu as deux exemples concrets,
+   publiés sur un réseau social — gardés pour la **data room uniquement**. Sur le site, les slides
+   restent génériques.
 4. **Les risques** : leur reformulation courte, et l'endroit où ils vivent (probablement la data
    room seulement).
