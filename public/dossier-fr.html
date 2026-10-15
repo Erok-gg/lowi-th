@@ -667,6 +667,12 @@ table.fee tbody tr:last-child td{border-bottom:0}
   clip-path:inset(0 0 0 0); transition:clip-path 1.3s cubic-bezier(.65,0,.35,1), opacity 1.3s ease}
 .teaser__rest.is-collapsing{clip-path:inset(0 0 100% 0); opacity:0; max-height:100vh; overflow:hidden; pointer-events:none}
 .teaser__rest > .slide{padding-left:0; padding-right:0}
+/* 2026-10-15 : « Data. Discipline. Dividend. » arrive en dernier, juste avant la 1re slide.
+   Au clic sur Dossier, le haut se replie (hauteur -> 0) et le titre remonte à sa place de couverture. */
+.teaser__top{max-height:2400px; overflow:hidden; padding-bottom:0; transition:max-height 1.3s cubic-bezier(.65,0,.35,1), opacity 1s ease, padding 1.3s cubic-bezier(.65,0,.35,1)}
+.teaser__top.is-collapsing{max-height:0; opacity:0; padding-top:0; padding-bottom:0; clip-path:none}
+.cover.cover--teaser{padding-top:clamp(28px,5vh,56px); transition:padding-top 1.3s cubic-bezier(.65,0,.35,1)}
+.teaser__top.is-collapsing + .cover--teaser{padding-top:clamp(56px,11vh,112px)}
 .teaser__hero{display:grid; grid-template-columns:minmax(0,1.35fr) minmax(0,1fr); gap:64px; align-items:end}
 .teaser__ctas{display:flex; gap:12px; flex-wrap:wrap; margin-top:40px}
 .panel{background:var(--surface); border:1px solid var(--line-soft); border-radius:var(--r); padding:24px; display:flex; flex-direction:column}
@@ -816,6 +822,12 @@ table.fee tbody tr:last-child td{border-bottom:0}
 .levers .cell li{font-size:14px; line-height:1.45; color:var(--ink-2)}
 .levers .cell li strong{color:var(--ink); font-weight:600}
 @media (max-width:760px){ .inv{grid-template-columns:1fr 1fr} .levers{grid-template-columns:1fr} }
+
+/* Teaser, en-tête (2026-10-15) : logo + conditions clés */
+.tv-terms{justify-content:flex-start}
+.tv-logo{font-family:'MCTen',Archivo,sans-serif; font-size:clamp(40px,5vw,60px); line-height:1; color:var(--ink); letter-spacing:.02em}
+.tv-terms__grid{display:grid; grid-template-columns:1fr 1fr; gap:22px 24px; margin-top:26px; padding-top:24px; border-top:1px solid var(--line-soft)}
+.tv-terms__grid > div{display:flex; flex-direction:column; gap:6px}
 </style>
 
 <div class="cloud-bg"><span></span><span></span><span></span></div>
@@ -847,31 +859,22 @@ table.fee tbody tr:last-child td{border-bottom:0}
      (data-clone-from) : une seule source de contenu, pas de base64 en double.
      ============================================================ -->
 <section class="view is-active" id="v-teaser">
-  <div class="cover cover--teaser">
-    <h1 class="cover__h1">Données. Discipline.<br><span>Dividende.</span></h1>
-  </div>
-  <div class="teaser__rest">
+  <div class="teaser__rest teaser__top">
     <div class="teaser__hero">
       <div class="teaser__intro">
         <p class="tv-hook">Pooled Bangkok assets that deliver.</p>
-        <p class="cover__sub">Les investisseurs détiennent une part d&rsquo;un pool de condos prime en pleine propriété à Bangkok. Un système complet, à disposition d&rsquo;un réseau de professionnels, pour exécuter rapidement et de manière plus certaine.</p>
+        <p class="cover__sub">Les investisseurs détiennent des parts d&rsquo;un pool de condos prime en pleine propriété à Bangkok. Un système complet, à disposition d&rsquo;un réseau de professionnels, permet d&rsquo;agir sur les opportunités rapidement et avec davantage de certitude. Nous détenons les biens 7 à 10 ans, distribuons les loyers, puis les revendons à l&rsquo;issue de la période d&rsquo;engagement.</p>
         <div class="teaser__ctas">
           <a class="btn btn--primary" href="/data-room?lang=fr">Demander l'accès à la data room</a>
           <a class="btn" href="#/dossier" data-to-dossier>Lire le dossier</a>
         </div>
       </div>
-      <div class="panel">
-        <div class="panel__head"><span>Plateforme</span><span>au 2026-10-15</span></div>
-        <span class="panel__big" data-count="124914">124 914</span>
-        <span class="panel__k">annonces actives suivies par l&rsquo;IA, mises à jour quotidiennement</span>
-        <div class="panel__row">
-          <div><span class="panel__mid" data-count="189518">189 518</span><span class="panel__k">annonces collectées</span></div>
-          <div><span class="panel__mid">4 500+</span><span class="panel__k">immeubles de référence</span></div>
-        </div>
+      <div class="panel tv-terms">
+        <span class="tv-logo" aria-label="LOWI">LOWI</span>
+        <div class="tv-terms__grid"><div><span class="panel__k">TRI cible</span><span class="panel__mid">8–10 %</span></div><div><span class="panel__k">Levée initiale</span><span class="panel__mid">฿150M</span></div><div><span class="panel__k">Format</span><span class="panel__mid">Club deal</span></div><div><span class="panel__k">Durée de détention</span><span class="panel__mid">7–10 ans</span></div></div>
       </div>
     </div>
-    <div class="kpis"><div><span class="kpis__k">TRI cible, 10 ans</span><span class="kpis__v">8–10 %</span></div><div><span class="kpis__k">Prime uniquement, d'une station</span><span class="kpis__v">&lt; 500 m</span></div><div><span class="kpis__k">Pleine propriété, quota étranger</span><span class="kpis__v">100 %</span></div><div><span class="kpis__k">Levée · A1 + A3</span><span class="kpis__v">฿150M <small>+150M</small></span></div></div>
-    <p class="teaser__note">Chiffres de la plateforme mesurés le 2026-10-15. Les chiffres de rendement sont un modèle, pas une promesse. Sans effet de levier.</p>
+    <p class="teaser__note">Les chiffres de rendement sont un modèle, pas une promesse. Sans effet de levier.</p>
 
     <div class="teaser__title">
       <div>
@@ -881,6 +884,11 @@ table.fee tbody tr:last-child td{border-bottom:0}
       <a class="btn" href="#/dossier" data-to-dossier>Ouvrir le dossier complet</a>
     </div>
 
+  </div>
+  <div class="cover cover--teaser">
+    <h1 class="cover__h1">Données. Discipline.<br><span>Dividende.</span></h1>
+  </div>
+  <div class="teaser__rest">
     <!-- Teaser v4 (2026-10-15) : récit de Colonne-vertebrale.md -->
     <div class="slide">
       <div class="rail"><span class="rail__n">01</span><span class="rail__l">Le Problème</span><span class="rail__r"></span></div>
@@ -2258,8 +2266,9 @@ table.fee tbody tr:last-child td{border-bottom:0}
     var home = document.getElementById("v-home");
     if (home) home.classList.toggle("is-unfolding", path === "/dossier" && unfoldNext);
     unfoldNext = false;
-    var rest = document.querySelector(".teaser__rest");
-    if (rest) rest.classList.remove("is-collapsing");
+    document.querySelectorAll(".teaser__rest").forEach(function(r){ r.classList.remove("is-collapsing"); });
+    var top = document.querySelector(".teaser__top");
+    if (top) top.style.maxHeight = "";
     Object.keys(views).forEach(function(p){
       var el = document.getElementById(views[p]);
       if (el) el.classList.toggle("is-active", p === path);
@@ -2307,7 +2316,9 @@ table.fee tbody tr:last-child td{border-bottom:0}
     collapsing = true;
     window.scrollTo({ top: 0, behavior: "smooth" });
     setTimeout(function(){
-      document.querySelector(".teaser__rest").classList.add("is-collapsing");
+      var top = document.querySelector(".teaser__top");
+      if (top) { top.style.maxHeight = top.scrollHeight + "px"; void top.offsetHeight; top.style.maxHeight = "0px"; }
+      document.querySelectorAll(".teaser__rest").forEach(function(r){ r.classList.add("is-collapsing"); });
       setTimeout(function(){
         collapsing = false;
         unfoldNext = true;
