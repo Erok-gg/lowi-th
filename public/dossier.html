@@ -792,6 +792,16 @@ table.fee tbody tr:last-child td{border-bottom:0}
 
 /* Mini-graphiques de l'équation : plafonnés, sinon énormes quand l'équation passe sur 2 colonnes */
 .term svg{max-width:240px}
+
+/* Teaser : chiffres sourcés de la vacance (2026-10-15) */
+.tv-stats{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px}
+.tv-stats > div{background:var(--surface); border:1px solid var(--line-soft); border-radius:var(--r); padding:20px 22px; display:flex; flex-direction:column; gap:6px}
+.tv-stats__v{font:500 34px/1 var(--sans); letter-spacing:-.03em; color:var(--pass)}
+.tv-stats__v--ok{color:var(--engage)}
+.tv-stats__k{font-size:14px; color:var(--ink-2)}
+.tv-stats__s{font:11px var(--mono); color:var(--ink-3)}
+.tv-stats__note{font-size:15px; color:var(--ink-2)}
+@media (max-width:700px){ .tv-stats{grid-template-columns:minmax(0,1fr)} }
 </style>
 
 <div class="cloud-bg"><span></span><span></span><span></span></div>
@@ -806,7 +816,6 @@ table.fee tbody tr:last-child td{border-bottom:0}
     <a href="#/structure" data-route>Structure</a>
     <a href="#/tax" data-route>Tax &amp; exit</a>
     <a href="#/platform" data-route>Platform</a>
-    <a href="#/risk" data-route>Risk</a>
     <a class="langlink" href="dossier-fr.html">FR</a>
   </nav>
 </header>
@@ -858,7 +867,7 @@ table.fee tbody tr:last-child td{border-bottom:0}
     <div class="teaser__title">
       <div>
         <h2>Teaser</h2>
-        <p>The short version — the problem, then Data. Discipline. Dividend. The full dossier runs 17 slides and five annexes.</p>
+        <p>The short version — the problem, then Data. Discipline. Dividend. The full dossier runs 17 slides and four annexes.</p>
       </div>
       <a class="btn" href="#/dossier" data-to-dossier>Open the full dossier</a>
     </div>
@@ -868,7 +877,13 @@ table.fee tbody tr:last-child td{border-bottom:0}
       <div class="rail"><span class="rail__n">01</span><span class="rail__l">The problem</span><span class="rail__r"></span></div>
       <h2 class="slide__t">No public sales registry. A market that has to be measured.</h2>
       <p class="slide__lede">What circulates is what sellers hope for, not what changes hands. In the same building, two identical apartments can be a third apart in price — 25 to 42 %.</p>
-      <div class="stack"><div data-clone-from="s-problem-grid"></div></div>
+      <div class="stack gap-m"><div data-clone-from="s-problem-grid"></div>
+        <div class="tv-stats">
+          <div><span class="tv-stats__v">24.8 %</span><span class="tv-stats__k">of Bangkok homes stand empty — over 730,000 units</span><span class="tv-stats__s">TREVC, Nov 2025</span></div>
+          <div><span class="tv-stats__v">21.1 %</span><span class="tv-stats__k">vacancy in entry-level units</span><span class="tv-stats__s">AREA</span></div>
+          <div><span class="tv-stats__v tv-stats__v--ok">93–95 %</span><span class="tv-stats__k">of luxury stock sold, existing and completed</span><span class="tv-stats__s">CBRE</span></div>
+        </div>
+        <p class="tv-stats__note">The empty stock is cheap and peripheral. Prime is the part of the market that sells.</p></div>
     </div>
 
     <div class="slide">
@@ -900,6 +915,10 @@ table.fee tbody tr:last-child td{border-bottom:0}
         <div class="callout" style="--co:var(--gold)">
           <span class="callout__t">The trade-off we accept</span>
           <p>Prime by the rail rents less: <strong>3.9 to 5.0&nbsp;% gross</strong> on the market (middle half of the 206 prime buildings within 500&nbsp;m of an operating station). We do not buy away from the rail. So we only buy at <strong>&minus;20 to &minus;30&nbsp;%</strong> below the building's median.</p>
+        </div>
+        <div class="callout" style="--co:var(--violet)">
+          <span class="callout__t">Where the discount comes from</span>
+          <p>Motivated sellers. Chinese buyers' unit purchases fell 23.8&nbsp;% in H1 2026 (REIC), and many now resell their Thai units to raise cash at home. A buyer with cash ready, who already knows each building's price, is the one they close with.</p>
         </div>
         <h3 class="tv-sub">How we find those units</h3>
         <div class="grid" style="grid-template-columns:repeat(2,1fr)"><div class="cell tv-how"><span class="cell__t">AI market platform</span><span class="cell__b">Measures, inventories and sounds the whole Bangkok market every day — every building has a reference price.</span></div><div class="cell tv-how"><span class="cell__t">Dedicated network</span><span class="cell__b">Agents, lawyers and owners on the ground who bring and secure the offers the data flags, with cash ready to close.</span></div></div>
@@ -933,6 +952,7 @@ table.fee tbody tr:last-child td{border-bottom:0}
             <span class="tv-ba__v tv-ba__v--us">4.9–7.1 %</span></div>
           <div class="tv-ba__axis"><span style="left:0">0 %</span><span style="left:50%">4 %</span><span style="left:75%">6 %</span><span style="left:100%">8 % · gross yield</span></div>
         </div>
+        <p class="tv-stats__note">Prime rents are moving: <strong>+5.1&nbsp;%</strong> year on year in Q1 2026, to ฿765/m²/month (JLL) — against +0.29&nbsp;% for rents nationally (CPI, June 2026).</p>
         <div class="fees">
           <table class="fee tv-tbl">
             <thead><tr><th>10-year return, net</th><th>Market price</th><th>Entry −20 %</th><th>Entry −30 %</th></tr></thead>
@@ -982,7 +1002,7 @@ table.fee tbody tr:last-child td{border-bottom:0}
       Return figures are a model, not a promise.
     </p>
 
-    <div class="cue"><span></span> Scroll · 16 sections · 5 annexes</div>
+    <div class="cue"><span></span> Scroll · 16 sections · 4 annexes</div>
   </div>
 
   <!-- 02 THE PROBLEM -->
@@ -1032,7 +1052,7 @@ table.fee tbody tr:last-child td{border-bottom:0}
         <div class="cell role" style="--role:var(--gold)">
           <span class="cell__tag">Window</span>
           <span class="cell__t">Baht entry point</span>
-          <span class="cell__b">Currency depreciation gives foreign capital a favourable entry. Cuts both ways over a 10-year hold — see <a class="ilink" href="#/risk" data-route>risk</a>.</span>
+          <span class="cell__b">Currency depreciation gives foreign capital a favourable entry.</span>
         </div>
         <div class="cell role" style="--role:var(--gold)">
           <span class="cell__tag">Cycle</span>
@@ -1071,12 +1091,14 @@ table.fee tbody tr:last-child td{border-bottom:0}
       <div class="corr-caption">Illustrative &mdash; order of magnitude, calibrated on public REIC / Bank of Thailand series. Not an official index.</div>
 
       <div class="callout" style="--co:var(--gold)">
-        <span class="callout__t">1.6 M vacant condos is not a warning. It is the mechanism.</span>
+        <span class="callout__t">Vacancy is real — and it sits outside prime.</span>
         <p>
-          Oversupply caps land-value appreciation for a time: it leaves "common" stock sitting on
-          the market longer, which weakens sellers' positions. The prime residential segment, by
-          contrast, is not in crisis &mdash; time on market is longer than three years ago, but
-          value on this segment has never stopped rising.
+          Thailand counts <strong>1.64 million vacant homes</strong>, over 730,000 of them in greater
+          Bangkok — a 24.8&nbsp;% vacancy rate (Thai Real Estate Research and Valuation Centre,
+          electricity-meter census, November 2025). It is concentrated in entry-level, peripheral
+          stock: 21.1&nbsp;% of entry-level units stand empty (AREA). Luxury moves: 93&nbsp;% of
+          existing and 95&nbsp;% of completed luxury stock is sold (CBRE). Oversupply weakens sellers
+          of common stock and leaves prime scarce.
         </p>
       </div>
 
@@ -1114,12 +1136,12 @@ table.fee tbody tr:last-child td{border-bottom:0}
         <div class="cell role" style="--role:var(--violet)">
           <span class="cell__tag">Demand side</span>
           <span class="cell__t">Demographic tailwinds</span>
-          <span class="cell__b">Thai young professionals converging on Bangkok; expat corridors — Sukhumvit, Silom/Sathon, Riverside — sustain rental demand independent of the tourist cycle.</span>
+          <span class="cell__b">Thai young professionals converging on Bangkok; expat corridors — Sukhumvit, Silom/Sathon, Riverside — sustain rental demand independent of the tourist cycle. Prime rents rose 5.1&nbsp;% year on year in Q1 2026, to ฿765/m²/month (JLL).</span>
         </div>
         <div class="cell role" style="--role:var(--gold)">
           <span class="cell__tag">The inversion</span>
           <span class="cell__t">Macro headwinds → micro opportunity</span>
-          <span class="cell__b">Political uncertainty and household debt suppress the broad market — precisely what creates discounted entries for selective foreign capital. We treat political risk as a monitored input, not a footnote.</span>
+          <span class="cell__b">Political uncertainty and household debt suppress the broad market — precisely what creates discounted entries for selective foreign capital. The sellers are there: Chinese buyers' unit purchases fell 23.8&nbsp;% in H1 2026 (REIC), and many now resell their Thai units to raise cash.</span>
         </div>
       </div>
       <div id="momentum-map" class="live-map"></div>
@@ -1302,17 +1324,6 @@ table.fee tbody tr:last-child td{border-bottom:0}
           <span class="cell__t">Freehold only, premium only</span>
           <span class="cell__b">No leasehold, ever — it is filtered out at collection, not later. No fixer-uppers except where renovation is the explicit value-add thesis of role 4.</span>
         </div>
-      </div>
-
-      <div class="callout" style="--co:var(--pass)">
-        <span class="callout__t">Not in this number</span>
-        <p>
-          <strong>No bank leverage</strong> — credit to a foreign buyer in Thailand is scarce,
-          expensive, and would make the structure fragile. <strong>No currency hedge</strong>:
-          an investor subscribing in euros or dollars carries the baht for the full term, both
-          ways. <strong>No investor-level tax</strong>: taxation of distributions in the
-          subscriber's home country sits on top and differs for every subscriber.
-        </p>
       </div>
 
       <p style="margin-top:4px;">
@@ -1783,7 +1794,6 @@ table.fee tbody tr:last-child td{border-bottom:0}
         <a class="xref" href="#/structure" data-route><span class="xref__k">Annex B</span><span class="xref__t">Structure</span><span class="xref__b">Foreign quota, HK vs Singapore vs Malaysia, club-deal thresholds.</span></a>
         <a class="xref" href="#/tax" data-route><span class="xref__k">Annex C</span><span class="xref__t">Tax &amp; exit</span><span class="xref__b">Disposal taxes, the FET form, repatriation, renovation deductibility.</span></a>
         <a class="xref" href="#/platform" data-route><span class="xref__k">Annex D</span><span class="xref__t">Platform</span><span class="xref__b">How the data is collected, and the five method choices behind the numbers.</span></a>
-        <a class="xref" href="#/risk" data-route><span class="xref__k">Annex E</span><span class="xref__t">Risk &amp; limits</span><span class="xref__b">What is missing, what is fragile, what looks like a measurement but isn't.</span></a>
       </div>
     </div>
   </div>
@@ -2240,128 +2250,14 @@ table.fee tbody tr:last-child td{border-bottom:0}
         <span class="callout__t">What this buys an investor</span>
         <p>
           Every decision traces to a checkable fact rather than a model's opinion, and it is
-          auditable row by row. It is also why this dossier can publish its own limits without
-          collapsing: they were found by the system and its own error log, and recorded with dates.
-          <a class="ilink" href="#/risk" data-route>Risk &amp; limits</a>.
+          auditable row by row. 
         </p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============================================================
-     ANNEX E — RISK
-     ============================================================ -->
-<section class="view" id="v-risk">
-  <div class="slide">
-    <a class="backlink" href="#/dossier" data-route>← Back to the deck</a>
-    <div class="rail"><span class="rail__n">E</span><span class="rail__l">Annex · Risk &amp; limits</span><span class="rail__r"></span></div>
-    <h2 class="slide__t">What can make this fail.</h2>
-    <p class="slide__lede" style="margin-bottom:34px">
-      An investment case without this annex is not incomplete — it is suspect. Everything below is
-      checkable against the database in ten minutes.
-    </p>
 
-    <div class="stack gap-l">
-      <div class="grid grid--2" style="grid-template-columns:repeat(2,1fr)">
-        <div class="cell role" style="--role:var(--pass)">
-          <span class="cell__tag">Regulatory · most serious</span>
-          <span class="cell__t">The quota can move</span>
-          <span class="cell__b">The 49 % ceiling has stood since 1979, but two opposite moves are under discussion in 2026: a rise to 75 % in special economic zones, and a cut to 30-39 %. No bill has been tabled. A cut would shrink both the eligible stock and exit liquidity — it is the single largest exogenous risk to the thesis.</span>
-        </div>
-        <div class="cell role" style="--role:var(--pass)">
-          <span class="cell__tag">Currency</span>
-          <span class="cell__t">The baht, both ways</span>
-          <span class="cell__b">Subscribing in euros or dollars and holding in baht creates exposure for the full term. Unhedged: a ten-year hedge would cost more than the expected gain. To be carried knowingly, not discovered.</span>
-        </div>
-        <div class="cell role" style="--role:var(--gold)">
-          <span class="cell__tag">Liquidity</span>
-          <span class="cell__t">180 to 240 days to resell</span>
-          <span class="cell__b">Roughly double 2021, against 25-30 months of standing stock. This is the entire reason role 3 exists in the pool — see <a class="ilink" href="#/allocation" data-route>allocation</a>.</span>
-        </div>
-        <div class="cell role" style="--role:var(--gold)">
-          <span class="cell__tag">Execution</span>
-          <span class="cell__t">Off-market network is an intention</span>
-          <span class="cell__b">Community-channel monitoring runs, but a rewarded human sourcing network — the thing that reaches deals before publication — is not yet built. The data platform is in production; these two must not be presented as equally mature.</span>
-        </div>
-        <div class="cell role" style="--role:var(--violet)">
-          <span class="cell__tag">Measurement</span>
-          <span class="cell__t">Listing prices, not transactions</span>
-          <span class="cell__b">There is no transaction-price data in this system. A delisting is not a sale. Thailand's registry is not public, so this does not get fixed — it gets stated.</span>
-        </div>
-        <div class="cell role" style="--role:var(--violet)">
-          <span class="cell__tag">Coverage</span>
-          <span class="cell__t">Missing attributes</span>
-          <span class="cell__b">Year of construction: <strong>2,265 of 4,514 buildings</strong> (backfilled since, mostly from source-native data — still absent for the other half). Foreign-quota status is exposed on roughly 0.4 % of listings. Both gaps are closed by inspection and title check, not by the database.</span>
-        </div>
-      </div>
-
-      <div class="stack gap-s">
-        <div class="eyebrow">Blocking for any trend claim</div>
-        <h3 class="sub">The series is short</h3>
-        <div class="prose">
-          <p>
-            First observation <strong>2026-06-21</strong>. No claim of trend, seasonality or cycle is
-            supportable at this depth. What is solid today is the <em>photograph</em> of the market
-            and the method; the series is a documented promise, not a deliverable.
-          </p>
-          <p>
-            The reverse is worth stating in both directions: a competitor starting tomorrow gets
-            tomorrow's snapshot, never the history. <strong>Delisted listings cannot be collected
-            retroactively.</strong> A price series does not backfill — it accrues at one day per day.
-          </p>
-        </div>
-      </div>
-
-      <div class="stack gap-s">
-        <div class="eyebrow">Artefact</div>
-        <h3 class="sub">Listing duration is not time-on-market</h3>
-        <div class="prose">
-          <p>
-            The database gives an average duration between first observation and delisting. That
-            figure <strong>must not be presented as time-on-market</strong>: first observation is not
-            publication, it is when collection happened to cross the listing. On a daily cycle the
-            measure is bounded by our own rhythm, not the market's.
-          </p>
-          <p>
-            One source's declared publication date was tested: median gap against first observation
-            was <strong>−16 days</strong> — the listing seen sixteen days <em>before</em> its declared
-            publication. The field actually measures being bumped to the top of results, so it
-            measures agents' diligence rather than the market. It was discarded.
-          </p>
-        </div>
-      </div>
-
-      <div class="stack gap-s">
-        <div class="eyebrow">Technical fragility</div>
-        <h3 class="sub">Collection breaks, and will break again</h3>
-        <div class="prose">
-          <p>
-            One source changed its page structure and the collector kept running without error while
-            returning zero listings, for several days. That is structural — a third-party site does
-            not give notice. What changed is that the break is now detected the same day and
-            escalated. <strong>The risk is not removed, it is made visible quickly.</strong>
-          </p>
-          <p>
-            Collection also runs on a <strong>single machine</strong> that must be powered on at
-            scheduled times. A hardware failure interrupts the series, and an interrupted series does
-            not backfill. A full archive is replicated locally, which protects the history
-            <em>already acquired</em> — but not the continuity of collection.
-          </p>
-        </div>
-      </div>
-
-      <div class="callout">
-        <span class="callout__t">Why this annex exists</span>
-        <p>
-          Every weakness listed here was found by the system or its own error log and recorded with a
-          date. That traceability, more than the figures themselves, is what makes the rest
-          defensible — and it is the reason a reader can trust the numbers given as measured.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
 
 </main>
 
@@ -2375,8 +2271,7 @@ table.fee tbody tr:last-child td{border-bottom:0}
     "/allocation": "v-allocation",
     "/structure":  "v-structure",
     "/tax":        "v-tax",
-    "/platform":   "v-platform",
-    "/risk":       "v-risk"
+    "/platform":   "v-platform"
   };
 
   function route(){
