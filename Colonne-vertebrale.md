@@ -79,6 +79,7 @@
 **Historique**
 
 - *Idée (v1, Claude)* : « Chaque annonce de cinq portails, collectée chaque jour, rapportée à la médiane de son propre immeuble. »
+- *Teaser, slide 2 (2026-10-15, utilisateur)* : titre « A system built to surface opportunities. » ; texte « In an opaque market, every institution measures for its own purpose. So we built a measure for ours: a system that reads and updates Bangkok's property data every day. It shows that within the same building, the same one-bedroom unit can be listed with a 40 % price spread — and that is before any negotiation. » (version de l'utilisateur, langue corrigée ; remplace « The market, read every day. » dans le Teaser — le Dossier garde l'ancienne).
 - *Pistes d'idée (v2, Claude)* : ① « From Bangkok down to the building: every listing, every day, priced against its own condominium. » · ② « Every listing, every day — read at four scales: the city, the khet, the street, the building. » · ③ « Portals, agents, owner groups — read every day, from the city down to the building. »
 - *Preuves Dossier (v1, Claude)* : « 187 926 annonces collectées, 4 514 immeubles, 5 portails, cycle quotidien. »
 
