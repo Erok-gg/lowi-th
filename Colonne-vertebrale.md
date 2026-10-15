@@ -78,10 +78,10 @@ C'est le temps le plus dense ; il porte les deux nouvelles slides.
 | **Idée** | Du prime uniquement, le long des rails, en quota étranger, et uniquement à nos conditions. |
 | **Signature** *(à valider)* | Ton article « Condos vides à Bangkok » (lexpat.blog), assumé comme écrit par le fondateur : il montre, avant LOWI, pourquoi la vacance se situe hors du prime. Dossier : une ligne + lien en appui de « Pourquoi le prime » ; data room : l'article en entier. |
 | **Pourquoi le prime** | Liquidité, locataires solvables (expatriés, écoles internationales), demande indépendante du cycle touristique. |
-| **Le compromis assumé** | La valeur du foncier prime augmente, mais pas les salaires : le déclenchement dépend de l'objectif retenu pour le bien (%). *(Lecture : les loyers suivent les salaires des expatriés, pas le prix du foncier ; le seuil d'achat dépend du rôle du bien dans le pool — rendement, valeur, liquidité, rénovation. À confirmer.)* |
+| **Le compromis assumé** | La valeur du foncier prime augmente, mais pas les salaires : une opportunité n'est suivie que si elle permet d'atteindre nos objectifs dans le contexte actuel. |
 | **Quota étranger** | Plus cher par nature, mais seul véhicule 100 % légal pour la structure HK. |
 | **Leverage** *(slide à créer)* | Le levier de négociation : acheteur au comptant face à des vendeurs pressés (acheteurs chinois en retrait, reventes pour liquidités). Base : `momentum-leverage-analysis.html`. |
-| **Network** *(slide à créer)* | Un réseau inconnu des particuliers, capable de sourcer des opportunités introuvables autrement : vendeurs étrangers, fonds en besoin de trésorerie, accès à un pool de vendeurs avant leur mise en vente publique. |
+| **Network** *(slide à créer)* | Un réseau inconnu des particuliers, capable de sourcer des opportunités introuvables autrement : vendeurs étrangers, fonds en besoin de trésorerie, accès à un pool de vendeurs avant leur annonce en ligne. |
 | **Règles** | Les 4 critères de sélection ; Master View comme preuve qu'on sait renoncer. |
 | **Preuve (Teaser)** | 1 chiffre : *−20 à −30 % à l'achat*. |
 | **Preuves (Dossier)** | *3,9–5,0 % de rendement brut sur le prime près des rails* (206 immeubles) ; *achats chinois −23,8 % au S1 2026* (REIC). |
@@ -93,7 +93,9 @@ C'est le temps le plus dense ; il porte les deux nouvelles slides.
 - *Idée (v1, Claude)* : « Du prime uniquement, le long des rails, en quota étranger, et seulement avec une décote. » — la décote ne s'annonce pas, elle se laisse entendre.
 - *Compromis assumé (v1, Claude)* : « Le prime se loue moins cher : on n'achète qu'à −20/−30 %. »
 - *Network (v1, Claude)* : « Le réseau qui apporte les biens sous-cotés : comment une offre repérée par la plateforme devient une acquisition. »
-- *Network (v2, utilisateur, mot d'origine)* : « … avant de faire une offre publique de vente » — remplacé par « avant leur mise en vente publique » (« offre publique de vente » désigne une opération boursière).
+- *Network (v2, utilisateur, mot d'origine)* : « … avant de faire une offre publique de vente » — « offre publique de vente » désigne une opération boursière.
+- *Network (v3, Claude)* : « … avant leur mise en vente publique » — remplacé par « avant leur annonce en ligne », plus neutre.
+- *Compromis assumé (v2, utilisateur)* : « … le déclenchement dépend de l'objectif retenu pour le bien %. » Lecture de Claude, écartée : « le seuil de décote qui déclenche un achat dépend du rôle du bien dans le pool — rendement, valeur, liquidité, rénovation ».
 
 ### 5. Dividend — ce que l'investisseur obtient, et comment il le détient
 
