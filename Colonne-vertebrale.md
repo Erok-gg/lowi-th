@@ -15,9 +15,6 @@
 3. **Aucune projection de rendement détaillée en public.** Le Teaser et le Dossier peuvent citer
    l'objectif ; le calcul, les scénarios et le modèle vivent dans la data room (accès validé).
 4. **Les risques ne sont pas sur le site pour l'instant** — voir `Risques-a-reformuler.md`.
-5. **Historique des modifications.** Quand tu corriges un élément, ta version prend la place
-   principale ; la version précédente reste juste en dessous, en *Historique*, pour garder la
-   trace. On ne supprime rien.
 
 ---
 
