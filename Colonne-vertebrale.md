@@ -109,49 +109,66 @@ C'est le temps le plus dense ; il porte les deux nouvelles slides.
 | **Preuves (Dossier)** | *8–10 % visés* ; *loyers prime +5,1 % sur un an* (JLL). Le calcul et les scénarios : data room. |
 | **Le véhicule** | Séquestre, holding HK propriétaire des titres, exploitation séparée (slide 06 actuelle). |
 | **Ce que ça coûte** | Les frais (slide 15 actuelle) — **Dossier seulement**, pas le Teaser. |
+| **Visuel** | Avant / après décote. **Le tableau des scénarios sur 10 ans part en data room.** |
+| **Transition** | « Les chiffres complets, les biens et le modèle sont dans la data room. » → CTA. |
+
+> **Note — les leviers qui expliquent l'objectif** (Teaser : une ligne chacun, sans chiffre)
+>
+> 1. **La règle de la localisation** : le prime le long des rails se loue moins cher, mais se revend et se loue toujours.
+> 2. **L'expertise terrain** : chaque bien est vu, audité et rechiffré avant de s'engager.
+> 3. **La négociation en direct** avec le vendeur, sans intermédiaire qui défend son prix.
+> 4. **La donnée de comparaison** : des biens identiques dans le même immeuble.
+> 5. **Le cash disponible** : un acheteur qui peut signer vite pèse sur le prix.
+> 6. **Le déstockage des promoteurs** : des lots neufs invendus, cédés en bloc sous le prix du marché.
+> 7. **Les vendeurs pressés** : les acheteurs chinois se retirent et revendent.
+> 8. **Le locataire choisi** : familles d'écoles internationales et cadres expatriés, en baux de plusieurs années, donc moins de vacance.
+> 9. **La gestion internalisée** : pas de marge d'agence entre le loyer et l'investisseur.
+> 10. **La sortie à tout acheteur étranger** : un lot du quota étranger se revend sans restriction.
+> 11. **Un pool, pas un pari** : chaque lot a un rôle (rendement, valeur, liquidité, rénovation).
+> 12. **Une agilité qui permet la granularité** : nous avons les mains libres pour agir sur les opportunités auxquelles les foncières et autres groupes doivent renoncer, car trop petites. *(Preuve data room : LHRREIT, voir `LHRREIT-rapports.md`.)*
+>
+> Sources des leviers 6 et 7 : Harrison, 74 lots au Park Origin Phrom Phong (juillet 2026), JLL 20–30 % historiques (`Benchmark-groupes-investissement.md`) ; achats chinois −23,8 % au S1 2026 (REIC).
 
 **Historique**
 
 - *Idée (v1, Claude)* : « Mêmes immeubles, mêmes loyers : acheter 20 à 30 % sous la médiane relève le rendement sur le prix payé, et l'écart se récupère à la revente. »
 
-#### Les leviers qui expliquent l'objectif (Teaser : une ligne chacun)
+- *Leviers (v1, Claude, version détaillée)* :
 
-Retenus par toi :
+  Retenus par toi :
 
-1. **Le comportement du prime — la règle de la localisation** : une adresse centrale, le long des
-   rails, se loue moins cher mais se revend et se loue toujours.
-2. **L'expertise terrain** : chaque bien est vu, audité et rechiffré avant engagement.
-3. **La négociation en direct** avec le vendeur, sans intermédiaire qui défend son prix.
-4. **La donnée de comparaison** sur des biens identiques ou similaires du même immeuble.
-5. **La disponibilité du cash** : un acheteur qui peut signer vite pèse sur le prix.
+  1. **Le comportement du prime — la règle de la localisation** : une adresse centrale, le long des
+     rails, se loue moins cher mais se revend et se loue toujours.
+  2. **L'expertise terrain** : chaque bien est vu, audité et rechiffré avant engagement.
+  3. **La négociation en direct** avec le vendeur, sans intermédiaire qui défend son prix.
+  4. **La donnée de comparaison** sur des biens identiques ou similaires du même immeuble.
+  5. **La disponibilité du cash** : un acheteur qui peut signer vite pèse sur le prix.
 
-Proposés en plus — **validés le 2026-10-15** :
+  Proposés en plus — **validés le 2026-10-15** :
 
-6. **Le déstockage des promoteurs** : des blocs de lots achevés invendus se cèdent sous le prix de
-   marché (Harrison, 74 lots au Park Origin Phrom Phong, juillet 2026 ; JLL : 20–30 % historiques).
-   Preuve publique de la source de décote — voir `Benchmark-groupes-investissement.md`.
-7. **Les vendeurs pressés** : acheteurs chinois en retrait (−23,8 % au S1 2026, REIC) qui revendent.
-8. **Le locataire choisi** : familles d'écoles internationales et cadres expatriés, baux
-   pluriannuels → moins de vacance.
-9. **La gestion internalisée** : pas de marge d'agence entre le loyer et l'investisseur.
-10. **La sortie à tout acheteur étranger** : un lot du quota étranger se revend à n'importe quel
-    acheteur étranger, sans restriction.
-11. **Un pool, pas un pari** : chaque lot a un rôle (rendement, valeur, liquidité, rénovation).
+  6. **Le déstockage des promoteurs** : des blocs de lots achevés invendus se cèdent sous le prix de
+     marché (Harrison, 74 lots au Park Origin Phrom Phong, juillet 2026 ; JLL : 20–30 % historiques).
+     Preuve publique de la source de décote — voir `Benchmark-groupes-investissement.md`.
+  7. **Les vendeurs pressés** : acheteurs chinois en retrait (−23,8 % au S1 2026, REIC) qui revendent.
+  8. **Le locataire choisi** : familles d'écoles internationales et cadres expatriés, baux
+     pluriannuels → moins de vacance.
+  9. **La gestion internalisée** : pas de marge d'agence entre le loyer et l'investisseur.
+  10. **La sortie à tout acheteur étranger** : un lot du quota étranger se revend à n'importe quel
+      acheteur étranger, sans restriction.
+  11. **Un pool, pas un pari** : chaque lot a un rôle (rendement, valeur, liquidité, rénovation).
 
-Ajouté le 2026-10-15 — **à valider** :
+  Ajouté le 2026-10-15 — **à valider** :
 
-12. **La bonne taille** : nous achetons lot par lot, là où les grands véhicules doivent acheter
-    des immeubles entiers. Modèle : les fonds de rachat secondaire non coté, qui montrent que
-    les petits tickets répondent à un besoin que les gros acteurs ne peuvent pas servir.
-    - **Ce qu'on veut dire :** notre agilité nous laisse choisir chaque bien, pas un cahier des
-      charges imposé par la taille.
-    - **Ce qu'on ne dit pas :** « pas de contrainte, seule limite le budget ». Ça sonne comme
-      une absence de discipline et contredit les quatre règles de sélection.
-    - **Formulation :** à écrire.
-    - **Preuve (data room) :** LHRREIT, un REIT figé sur trois immeubles depuis sa création, à
-      40 % de sa NAV, dont l'actif en bail a perdu 20 % en six mois. Voir `LHRREIT-rapports.md`.
-| **Visuel** | Avant / après décote. **Le tableau des scénarios sur 10 ans part en data room.** |
-| **Transition** | « Les chiffres complets, les biens et le modèle sont dans la data room. » → CTA. |
+  12. **La bonne taille** : nous achetons lot par lot, là où les grands véhicules doivent acheter
+      des immeubles entiers. Modèle : les fonds de rachat secondaire non coté, qui montrent que
+      les petits tickets répondent à un besoin que les gros acteurs ne peuvent pas servir.
+      - **Ce qu'on veut dire :** notre agilité nous laisse choisir chaque bien, pas un cahier des
+        charges imposé par la taille.
+      - **Ce qu'on ne dit pas :** « pas de contrainte, seule limite le budget ». Ça sonne comme
+        une absence de discipline et contredit les quatre règles de sélection.
+      - **Formulation :** à écrire.
+      - **Preuve (data room) :** LHRREIT, un REIT figé sur trois immeubles depuis sa création, à
+        40 % de sa NAV, dont l'actif en bail a perdu 20 % en six mois. Voir `LHRREIT-rapports.md`.
 
 **Après les cinq temps :** l'équipe (qui porte ça), puis l'appel à l'action (Dossier complet / Data room).
 
