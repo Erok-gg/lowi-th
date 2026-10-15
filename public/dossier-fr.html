@@ -792,6 +792,16 @@ table.fee tbody tr:last-child td{border-bottom:0}
 
 /* Mini-graphiques de l'équation : plafonnés, sinon énormes quand l'équation passe sur 2 colonnes */
 .term svg{max-width:240px}
+
+/* Teaser : chiffres sourcés de la vacance (2026-10-15) */
+.tv-stats{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px}
+.tv-stats > div{background:var(--surface); border:1px solid var(--line-soft); border-radius:var(--r); padding:20px 22px; display:flex; flex-direction:column; gap:6px}
+.tv-stats__v{font:500 34px/1 var(--sans); letter-spacing:-.03em; color:var(--pass)}
+.tv-stats__v--ok{color:var(--engage)}
+.tv-stats__k{font-size:14px; color:var(--ink-2)}
+.tv-stats__s{font:11px var(--mono); color:var(--ink-3)}
+.tv-stats__note{font-size:15px; color:var(--ink-2)}
+@media (max-width:700px){ .tv-stats{grid-template-columns:minmax(0,1fr)} }
 </style>
 
 <div class="cloud-bg"><span></span><span></span><span></span></div>
@@ -806,7 +816,6 @@ table.fee tbody tr:last-child td{border-bottom:0}
     <a href="#/structure" data-route>Structure</a>
     <a href="#/tax" data-route>Fiscalité &amp; sortie</a>
     <a href="#/platform" data-route>Plateforme</a>
-    <a href="#/risk" data-route>Risque</a>
     <a class="langlink" href="dossier.html">EN</a>
   </nav>
 </header>
@@ -858,7 +867,7 @@ table.fee tbody tr:last-child td{border-bottom:0}
     <div class="teaser__title">
       <div>
         <h2>Teaser</h2>
-        <p>La version courte — le problème, puis Data. Discipline. Dividend. Le dossier complet compte 17 sections et cinq annexes.</p>
+        <p>La version courte — le problème, puis Data. Discipline. Dividend. Le dossier complet compte 17 sections et quatre annexes.</p>
       </div>
       <a class="btn" href="#/dossier" data-to-dossier>Ouvrir le dossier complet</a>
     </div>
@@ -868,7 +877,13 @@ table.fee tbody tr:last-child td{border-bottom:0}
       <div class="rail"><span class="rail__n">01</span><span class="rail__l">Le problème</span><span class="rail__r"></span></div>
       <h2 class="slide__t">Pas de registre public des ventes. Un marché qui doit être mesuré.</h2>
       <p class="slide__lede">Ce qui circule, c'est ce que les vendeurs espèrent, pas ce qui change de mains. Dans un même immeuble, deux appartements identiques peuvent avoir un tiers d'écart de prix — 25 à 42 %.</p>
-      <div class="stack"><div data-clone-from="s-problem-grid"></div></div>
+      <div class="stack gap-m"><div data-clone-from="s-problem-grid"></div>
+        <div class="tv-stats">
+          <div><span class="tv-stats__v">24,8 %</span><span class="tv-stats__k">des logements de Bangkok sont vides — plus de 730 000</span><span class="tv-stats__s">TREVC, nov. 2025</span></div>
+          <div><span class="tv-stats__v">21,1 %</span><span class="tv-stats__k">de vacance sur l'entrée de gamme</span><span class="tv-stats__s">AREA</span></div>
+          <div><span class="tv-stats__v tv-stats__v--ok">93–95 %</span><span class="tv-stats__k">du stock de luxe vendu, existant et achevé</span><span class="tv-stats__s">CBRE</span></div>
+        </div>
+        <p class="tv-stats__note">Le stock vide est bon marché et périphérique. Le prime est la partie du marché qui se vend.</p></div>
     </div>
 
     <div class="slide">
@@ -900,6 +915,10 @@ table.fee tbody tr:last-child td{border-bottom:0}
         <div class="callout" style="--co:var(--gold)">
           <span class="callout__t">Le compromis que nous assumons</span>
           <p>Le prime près des rails se loue moins cher : <strong>3,9 à 5,0&nbsp;% brut</strong> sur le marché (moitié centrale des 206 immeubles prime à moins de 500&nbsp;m d'une station en service). Nous n'achetons pas loin des rails. Nous n'achetons donc qu'à <strong>&minus;20 à &minus;30&nbsp;%</strong> sous la médiane de l'immeuble.</p>
+        </div>
+        <div class="callout" style="--co:var(--violet)">
+          <span class="callout__t">D'où vient la décote</span>
+          <p>Des vendeurs pressés. Les achats de lots par les acheteurs chinois ont reculé de 23,8&nbsp;% au S1 2026 (REIC), et beaucoup revendent leurs biens thaïlandais pour se procurer des liquidités. Un acheteur au comptant, qui connaît déjà le prix de chaque immeuble, est celui avec qui ils concluent.</p>
         </div>
         <h3 class="tv-sub">Comment nous trouvons ces lots</h3>
         <div class="grid" style="grid-template-columns:repeat(2,1fr)"><div class="cell tv-how"><span class="cell__t">Plateforme d'IA</span><span class="cell__b">Mesure, inventorie et sonde chaque jour tout le marché de Bangkok — chaque immeuble a un prix de référence.</span></div><div class="cell tv-how"><span class="cell__t">Réseau dédié</span><span class="cell__b">Agents, avocats et propriétaires sur le terrain, qui apportent et sécurisent les offres repérées par la donnée, avec du cash prêt à conclure.</span></div></div>
@@ -933,6 +952,7 @@ table.fee tbody tr:last-child td{border-bottom:0}
             <span class="tv-ba__v tv-ba__v--us">4,9–7,1 %</span></div>
           <div class="tv-ba__axis"><span style="left:0">0 %</span><span style="left:50%">4 %</span><span style="left:75%">6 %</span><span style="left:100%">8 % · rendement brut</span></div>
         </div>
+        <p class="tv-stats__note">Les loyers prime bougent : <strong>+5,1&nbsp;%</strong> sur un an au T1 2026, à 765 ฿/m²/mois (JLL) — contre +0,29&nbsp;% pour les loyers nationaux (IPC, juin 2026).</p>
         <div class="fees">
           <table class="fee tv-tbl">
             <thead><tr><th>Rendement sur 10 ans, net</th><th>Prix du marché</th><th>Entrée −20 %</th><th>Entrée −30 %</th></tr></thead>
@@ -983,7 +1003,7 @@ table.fee tbody tr:last-child td{border-bottom:0}
       promesse.
     </p>
 
-    <div class="cue"><span></span> Défiler · 16 sections · 5 annexes</div>
+    <div class="cue"><span></span> Défiler · 16 sections · 4 annexes</div>
   </div>
 
   <!-- 02 THE PROBLEM -->
@@ -1034,7 +1054,7 @@ table.fee tbody tr:last-child td{border-bottom:0}
         <div class="cell role" style="--role:var(--gold)">
           <span class="cell__tag">Fenêtre</span>
           <span class="cell__t">Point d'entrée sur le baht</span>
-          <span class="cell__b">La dépréciation de la devise offre au capital étranger un point d'entrée favorable. Un effet à double tranchant sur une détention de 10 ans &mdash; voir <a class="ilink" href="#/risk" data-route>risques</a>.</span>
+          <span class="cell__b">La dépréciation de la devise offre au capital étranger un point d'entrée favorable.</span>
         </div>
         <div class="cell role" style="--role:var(--gold)">
           <span class="cell__tag">Cycle</span>
@@ -1073,13 +1093,14 @@ table.fee tbody tr:last-child td{border-bottom:0}
       <div class="corr-caption">Illustratif &mdash; ordre de grandeur, calibré sur les séries publiques REIC / Banque de Thaïlande. Ce n'est pas un indice officiel.</div>
 
       <div class="callout" style="--co:var(--gold)">
-        <span class="callout__t">1,6 M de condos vacants n'est pas un avertissement. C'est le mécanisme.</span>
+        <span class="callout__t">La vacance est réelle — et elle se situe hors du prime.</span>
         <p>
-          La suroffre plafonne l'appréciation du foncier pour un temps : elle laisse les biens
-          « communs » plus longtemps sur le marché, ce qui dégrade la position des vendeurs. Le
-          segment de la résidence prime, lui, ne connaît pas la crise &mdash; les délais de vente
-          sont plus longs qu'il y a trois ans, mais la valeur n'a jamais cessé de progresser sur
-          ce segment.
+          La Thaïlande compte <strong>1,64 million de logements vides</strong>, dont plus de 730 000
+          dans le Grand Bangkok — un taux de vacance de 24,8&nbsp;% (Thai Real Estate Research and
+          Valuation Centre, recensement par compteurs électriques, novembre 2025). Elle se concentre
+          sur l'entrée de gamme et la périphérie : 21,1&nbsp;% des lots d'entrée de gamme sont vides
+          (AREA). Le luxe s'écoule : 93&nbsp;% du stock existant et 95&nbsp;% du stock achevé sont
+          vendus (CBRE). La suroffre affaiblit les vendeurs du stock courant et laisse le prime rare.
         </p>
       </div>
 
@@ -1117,12 +1138,12 @@ table.fee tbody tr:last-child td{border-bottom:0}
         <div class="cell role" style="--role:var(--violet)">
           <span class="cell__tag">Côté demande</span>
           <span class="cell__t">Vents porteurs démographiques</span>
-          <span class="cell__b">Les jeunes actifs thaïlandais convergent vers Bangkok ; les corridors expat &mdash; Sukhumvit, Silom/Sathon, Riverside &mdash; soutiennent la demande locative indépendamment du cycle touristique.</span>
+          <span class="cell__b">Les jeunes actifs thaïlandais convergent vers Bangkok ; les corridors expat &mdash; Sukhumvit, Silom/Sathon, Riverside &mdash; soutiennent la demande locative indépendamment du cycle touristique. Les loyers prime ont progressé de 5,1&nbsp;% sur un an au T1 2026, à 765 ฿/m²/mois (JLL).</span>
         </div>
         <div class="cell role" style="--role:var(--gold)">
           <span class="cell__tag">L'inversion</span>
           <span class="cell__t">Vents contraires macro → opportunité micro</span>
-          <span class="cell__b">L'incertitude politique et l'endettement des ménages compriment le marché global &mdash; précisément ce qui crée des points d'entrée décotés pour un capital étranger sélectif. Nous traitons le risque politique comme une donnée surveillée, pas comme une note de bas de page.</span>
+          <span class="cell__b">L'incertitude politique et l'endettement des ménages compriment le marché global &mdash; précisément ce qui crée des points d'entrée décotés pour un capital étranger sélectif. Les vendeurs sont là : les achats de lots par les acheteurs chinois ont reculé de 23,8&nbsp;% au S1 2026 (REIC), et beaucoup revendent désormais leurs biens thaïlandais pour se procurer des liquidités.</span>
         </div>
       </div>
       <div id="momentum-map" class="live-map"></div>
@@ -1309,18 +1330,6 @@ table.fee tbody tr:last-child td{border-bottom:0}
           <span class="cell__t">Pleine propriété uniquement, haut de gamme uniquement</span>
           <span class="cell__b">Jamais de bail emphytéotique &mdash; filtré dès la collecte, pas après. Pas de biens à rénover, sauf lorsque la rénovation est explicitement la thèse de valeur ajoutée du rôle 4.</span>
         </div>
-      </div>
-
-      <div class="callout" style="--co:var(--pass)">
-        <span class="callout__t">Ce que ce chiffre n'inclut pas</span>
-        <p>
-          <strong>Aucun effet de levier bancaire</strong> &mdash; le crédit à un acheteur étranger en
-          Thaïlande est rare, coûteux, et fragiliserait la structure. <strong>Aucune couverture de
-          change</strong> : un investisseur souscrivant en euros ou en dollars porte le baht sur
-          toute la durée, dans les deux sens. <strong>Aucune fiscalité au niveau
-          investisseur</strong> : l'imposition des distributions dans le pays de résidence du
-          souscripteur s'ajoute par-dessus et diffère pour chacun.
-        </p>
       </div>
 
       <p style="margin-top:4px;">
@@ -1792,7 +1801,6 @@ table.fee tbody tr:last-child td{border-bottom:0}
         <a class="xref" href="#/structure" data-route><span class="xref__k">Annexe B</span><span class="xref__t">Structure</span><span class="xref__b">Quota étranger, HK vs Singapour vs Malaisie, seuils du club deal.</span></a>
         <a class="xref" href="#/tax" data-route><span class="xref__k">Annexe C</span><span class="xref__t">Fiscalité &amp; sortie</span><span class="xref__b">Taxes de cession, le formulaire FET, rapatriement, déductibilité des rénovations.</span></a>
         <a class="xref" href="#/platform" data-route><span class="xref__k">Annexe D</span><span class="xref__t">Plateforme</span><span class="xref__b">Comment les données sont collectées, et les cinq choix de méthode derrière les chiffres.</span></a>
-        <a class="xref" href="#/risk" data-route><span class="xref__k">Annexe E</span><span class="xref__t">Risque &amp; limites</span><span class="xref__b">Ce qui manque, ce qui est fragile, ce qui ressemble à une mesure sans en être une.</span></a>
       </div>
     </div>
   </div>
@@ -2270,136 +2278,14 @@ table.fee tbody tr:last-child td{border-bottom:0}
         <span class="callout__t">Ce que cela apporte à un investisseur</span>
         <p>
           Chaque décision se retrace jusqu'à un fait vérifiable plutôt qu'à l'opinion d'un
-          modèle, et c'est auditable ligne par ligne. C'est aussi pourquoi ce dossier peut publier
-          ses propres limites sans se décrier : elles ont été trouvées par le système et son
-          propre journal d'erreurs, et datées.
-          <a class="ilink" href="#/risk" data-route>Risque &amp; limites</a>.
+          modèle, et c'est auditable ligne par ligne. 
         </p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============================================================
-     ANNEX E — RISK
-     ============================================================ -->
-<section class="view" id="v-risk">
-  <div class="slide">
-    <a class="backlink" href="#/dossier" data-route>← Retour au dossier</a>
-    <div class="rail"><span class="rail__n">E</span><span class="rail__l">Annexe · Risque &amp; limites</span><span class="rail__r"></span></div>
-    <h2 class="slide__t">Ce qui peut faire échouer ce dossier.</h2>
-    <p class="slide__lede" style="margin-bottom:34px">
-      Un dossier d'investissement sans cette annexe n'est pas incomplet &mdash; il est suspect.
-      Tout ce qui suit est vérifiable en dix minutes dans la base de données.
-    </p>
 
-    <div class="stack gap-l">
-      <div class="grid grid--2" style="grid-template-columns:repeat(2,1fr)">
-        <div class="cell role" style="--role:var(--pass)">
-          <span class="cell__tag">Réglementaire · le plus sérieux</span>
-          <span class="cell__t">Le quota peut bouger</span>
-          <span class="cell__b">Le plafond de 49 % est en vigueur depuis 1979, mais deux mouvements opposés sont en discussion en 2026 : une hausse à 75 % dans les zones économiques spéciales, et une baisse à 30-39 %. Aucun projet de loi n'a été déposé. Une baisse réduirait à la fois le stock éligible et la liquidité de sortie &mdash; c'est le plus grand risque exogène à la thèse.</span>
-        </div>
-        <div class="cell role" style="--role:var(--pass)">
-          <span class="cell__tag">Devise</span>
-          <span class="cell__t">Le baht, dans les deux sens</span>
-          <span class="cell__b">Souscrire en euros ou en dollars et détenir en baht crée une exposition sur toute la durée. Non couverte : une couverture sur dix ans coûterait plus que le gain attendu. À assumer sciemment, pas à découvrir.</span>
-        </div>
-        <div class="cell role" style="--role:var(--gold)">
-          <span class="cell__tag">Liquidité</span>
-          <span class="cell__t">180 à 240 jours pour revendre</span>
-          <span class="cell__b">Environ le double de 2021, face à 25-30 mois de stock disponible. C'est toute la raison d'être du rôle 3 dans le pool &mdash; voir <a class="ilink" href="#/allocation" data-route>allocation</a>.</span>
-        </div>
-        <div class="cell role" style="--role:var(--gold)">
-          <span class="cell__tag">Exécution</span>
-          <span class="cell__t">Le réseau hors-marché est une intention</span>
-          <span class="cell__b">La surveillance des canaux communautaires fonctionne, mais un réseau humain de sourcing rémunéré &mdash; celui qui atteint les affaires avant publication &mdash; n'est pas encore construit. La plateforme de données est en production ; ces deux éléments ne doivent pas être présentés comme également matures.</span>
-        </div>
-        <div class="cell role" style="--role:var(--violet)">
-          <span class="cell__tag">Mesure</span>
-          <span class="cell__t">Prix affichés, pas transactions</span>
-          <span class="cell__b">Ce système ne contient aucune donnée de prix de transaction. Un retrait d'annonce n'est pas une vente. Le registre thaïlandais n'est pas public, donc cela ne se corrige pas &mdash; cela se déclare.</span>
-        </div>
-        <div class="cell role" style="--role:var(--violet)">
-          <span class="cell__tag">Couverture</span>
-          <span class="cell__t">Attributs manquants</span>
-          <span class="cell__b">Année de construction : <strong>2 265 immeubles sur 4 514</strong> (renseignée depuis, surtout via des données natives des sources &mdash; toujours absente pour l'autre moitié). Le statut de quota étranger est exposé sur environ 0,4 % des annonces. Ces deux lacunes se comblent par l'inspection et la vérification de titre, pas par la base de données.</span>
-        </div>
-      </div>
-
-      <div class="stack gap-s">
-        <div class="eyebrow">Bloquant pour toute affirmation de tendance</div>
-        <h3 class="sub">La série est courte</h3>
-        <div class="prose">
-          <p>
-            Première observation <strong>2026-06-21</strong>. Aucune affirmation de tendance, de
-            saisonnalité ou de cycle n'est soutenable à cette profondeur. Ce qui est solide
-            aujourd'hui, c'est la <em>photographie</em> du marché et la méthode ; la série est une
-            promesse documentée, pas encore un livrable.
-          </p>
-          <p>
-            L'inverse mérite d'être dit dans les deux sens : un concurrent qui démarre demain
-            obtient l'instantané de demain, jamais l'historique. <strong>Les annonces retirées ne
-            peuvent pas être collectées rétroactivement.</strong> Une série de prix ne se
-            reconstitue pas a posteriori &mdash; elle s'accumule un jour à la fois.
-          </p>
-        </div>
-      </div>
-
-      <div class="stack gap-s">
-        <div class="eyebrow">Artefact</div>
-        <h3 class="sub">La durée d'annonce n'est pas le temps sur le marché</h3>
-        <div class="prose">
-          <p>
-            La base de données donne une durée moyenne entre première observation et retrait.
-            Ce chiffre <strong>ne doit pas être présenté comme le temps passé sur le
-            marché</strong> : la première observation n'est pas la publication, c'est le moment où la
-            collecte a croisé l'annonce. Sur un cycle quotidien, la mesure est bornée par notre
-            propre rythme, pas par celui du marché.
-          </p>
-          <p>
-            La date de publication déclarée d'une source a été testée : l'écart médian avec la
-            première observation était de <strong>&minus;16 jours</strong> &mdash; l'annonce vue seize
-            jours <em>avant</em> sa publication déclarée. Le champ mesure en réalité la remontée en
-            tête des résultats, donc il mesure l'assiduité des agents plutôt que le marché. Il a
-            été écarté.
-          </p>
-        </div>
-      </div>
-
-      <div class="stack gap-s">
-        <div class="eyebrow">Fragilité technique</div>
-        <h3 class="sub">La collecte se casse, et se recassera</h3>
-        <div class="prose">
-          <p>
-            Une source a changé la structure de ses pages et le collecteur a continué de tourner
-            sans erreur tout en renvoyant zéro annonce, pendant plusieurs jours. C'est structurel
-            &mdash; un site tiers ne prévient pas. Ce qui a changé, c'est que la panne est désormais
-            détectée le jour même et escaladée. <strong>Le risque n'est pas supprimé, il est rendu
-            visible rapidement.</strong>
-          </p>
-          <p>
-            La collecte tourne aussi sur une <strong>seule machine</strong> qui doit être allumée à
-            des heures programmées. Une panne matérielle interrompt la série, et une série
-            interrompue ne se reconstitue pas a posteriori. Une archive complète est répliquée
-            localement, ce qui protège l'historique <em>déjà acquis</em> &mdash; mais pas la
-            continuité de la collecte.
-          </p>
-        </div>
-      </div>
-
-      <div class="callout">
-        <span class="callout__t">Pourquoi cette annexe existe</span>
-        <p>
-          Chaque faiblesse listée ici a été trouvée par le système ou son propre journal
-          d'erreurs et datée. Cette traçabilité, plus que les chiffres eux-mêmes, est ce qui rend
-          le reste défendable &mdash; et c'est pourquoi un lecteur peut faire confiance aux chiffres
-          donnés comme mesurés.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
 
 </main>
 
@@ -2413,8 +2299,7 @@ table.fee tbody tr:last-child td{border-bottom:0}
     "/allocation": "v-allocation",
     "/structure":  "v-structure",
     "/tax":        "v-tax",
-    "/platform":   "v-platform",
-    "/risk":       "v-risk"
+    "/platform":   "v-platform"
   };
 
   function route(){

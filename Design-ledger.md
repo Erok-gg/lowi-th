@@ -227,6 +227,8 @@ Six commits, un par étape, chacun vérifié dans le navigateur :
   acquisition.
 - Arbitrer le « 8–10 % » des titres (cover, 07, 08) : le scénario principal
   donne 7,4–9,5 % (entrée −20/−30 %).
-- Intégrer les éléments sourcés de l'article « La crise des logements vides à
-  BKK » (lexpat.blog, 2026-10-05) — liste et réserves dans l'échange du
-  2026-10-15 ; chiffres sans source primaire exclus.
+- ~~Intégrer les éléments sourcés de l'article « La crise des logements vides à
+  BKK »~~ — fait le 2026-10-15 (vacance TREVC/AREA/CBRE, acheteurs chinois REIC,
+  loyers prime JLL). Les risques ont été **retirés du site** et consignés mot
+  pour mot dans `Risques-a-reformuler.md`, à reformuler en en disant le moins
+  possible.
