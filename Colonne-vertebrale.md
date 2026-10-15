@@ -15,21 +15,32 @@
 3. **Aucune projection de rendement détaillée en public.** Le Teaser et le Dossier peuvent citer
    l'objectif ; le calcul, les scénarios et le modèle vivent dans la data room (accès validé).
 4. **Les risques ne sont pas sur le site pour l'instant** — voir `Risques-a-reformuler.md`.
+5. **Historique des modifications.** Quand tu corriges un élément, ta version prend la place
+   principale ; la version précédente reste juste en dessous, en *Historique*, pour garder la
+   trace. On ne supprime rien.
 
 ---
 
 ## Les cinq temps
 
-### 1. Accroche — « Pooled prime Bangkok, bought right. » *(à valider)*
+### 1. Accroche — « Pooled Bangkok assets that deliver. »
 
 | | |
 |---|---|
-| **Idée** | Des condos prime à Bangkok, achetés sous le prix de leur propre immeuble, détenus en pool. **On ne dit pas « décote » en accroche** : un professionnel est censé acheter sous le marché, l'annoncer fait amateur. On le laisse entendre. |
-| **Accroche — pistes** | Base retenue : *« Pooled Bangkok assets that deliver. »* Pistes pour insinuer le bon prix d'entrée : ① *« Pooled prime Bangkok, bought right. »* (*bought right* = acheté sous sa valeur, dans le jargon) · ② *« Prime Bangkok, bought right. Pooled to deliver. »* · ③ *« Prime Bangkok, bought the way professionals buy. »* — FR : *« Le prime de Bangkok, acheté au bon prix, détenu en pool. »* |
-| **USP — pistes** | Base : un système complet mis à disposition d'un réseau de professionnels, pour exécuter plus vite et plus sûrement. ① *« Notre IA voit chaque annonce. Notre réseau conclut sur les bonnes — plus vite, et plus sûrement. »* · ② *« Un système complet entre les mains d'un réseau de professionnels : repérer, vérifier, conclure. »* — EN : *« Our AI sees every listing. Our network closes on the right ones — faster, and with more certainty. »* |
-| **Preuve (Teaser)** | 1 chiffre : *123 345 annonces actives suivies par l'IA, mises à jour chaque jour* (base Lowi_bkk, 2026-10-13). |
-| **Visuel** | Le titre « Data. Discipline. Dividend. » (animation Teaser → Dossier). |
-| **Transition** | « Sur ce marché, l'investisseur navigue à l'aveugle. » — EN : *« In this market, investors fly blind. »* |
+| **Idée** | *« Pooled Bangkok assets that deliver. »* — presque une USP. Laisser entendre qu'on achète sous le prix (attendu d'un professionnel face à un particulier), **sans jamais écrire « décote »**. |
+| **USP** | Un système complet, à disposition d'un réseau de professionnels, pour exécuter rapidement et de manière plus certaine. *(« pas mal, mais peut mieux faire » — à affiner)* |
+| **Preuve (Teaser)** | *123 345 annonces actives suivies par l'IA, mises à jour quotidiennement* (base Lowi_bkk, 2026-10-13). |
+| **Visuel** | Le titre « Data. Discipline. Dividend. » (animation Teaser → Dossier). ✔ validé |
+| **Transition** | « L'investisseur navigue à l'aveugle. » — EN : *« Investors fly blind. »* |
+
+**Historique**
+
+- *Idée (v1, Claude)* : « Des condos prime à Bangkok, achetés sous le prix de leur propre immeuble, détenus en pool. » Titre v1 : « Pooled, discounted prime Bangkok condos. » — juste mais pas assez sexy, et la décote ne s'annonce pas.
+- *Pistes d'accroche (v2, Claude)* : ① « Pooled prime Bangkok, bought right. » · ② « Prime Bangkok, bought right. Pooled to deliver. » · ③ « Prime Bangkok, bought the way professionals buy. » — FR : « Le prime de Bangkok, acheté au bon prix, détenu en pool. »
+- *USP (v1, Claude)* : « Une plateforme d'IA mesure, inventorie et sonde tout le marché ; un réseau dédié sur le terrain apporte et sécurise les biens qu'elle repère. »
+- *Pistes d'USP (v2, Claude)* : ① « Notre IA voit chaque annonce. Notre réseau conclut sur les bonnes — plus vite, et plus sûrement. » (EN : « Our AI sees every listing. Our network closes on the right ones — faster, and with more certainty. ») · ② « Un système complet entre les mains d'un réseau de professionnels : repérer, vérifier, conclure. »
+- *Preuve (v1, Claude)* : « 123 345 annonces actives suivies » (base Lowi_bkk, 2026-10-13).
+- *Transition (v1, Claude)* : « Pourquoi mesurer ? Parce que ce marché ne publie pas ses prix. » — trop explicatif. Plus juste aussi depuis la vérification : des prix publics existent, mais en agrégat (voir `dataroom/methodology/public-price-sources.fr.md`).
 
 ### 2. Problème — un marché qui doit être mesuré
 
