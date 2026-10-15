@@ -215,3 +215,18 @@ Six commits, un par étape, chacun vérifié dans le navigateur :
 - **Grand logo animé LOWI** retiré de la cover (le slogan devient le H1) ; la
   marque reste dans la barre du haut. Réversible si on le regrette.
 - **Numérotation 10–13** : laissée telle quelle (09 → 14).
+
+## À faire — demandé le 2026-10-15
+
+- **Slide « Leverage »** : le levier de négociation sur les biens prime
+  sous-cotés (acheteur cash face à des vendeurs pressés — p. ex. acheteurs
+  chinois en retrait, −23,8 % au S1 2026, REIC). S'appuyer sur la page
+  existante `momentum-leverage-analysis.html`.
+- **Slide « Network »** : le réseau qui apporte ces biens (agents, avocats,
+  propriétaires) — comment une offre repérée par la plateforme devient une
+  acquisition.
+- Arbitrer le « 8–10 % » des titres (cover, 07, 08) : le scénario principal
+  donne 7,4–9,5 % (entrée −20/−30 %).
+- Intégrer les éléments sourcés de l'article « La crise des logements vides à
+  BKK » (lexpat.blog, 2026-10-05) — liste et réserves dans l'échange du
+  2026-10-15 ; chiffres sans source primaire exclus.
