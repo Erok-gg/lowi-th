@@ -2499,6 +2499,19 @@ table.fee tbody tr:last-child td{border-bottom:0}
     map.addControl(new maplibregl.NavigationControl({ showCompass:false }), "top-right");
     map.dragRotate.disable();
     map.touchZoomRotate.disableRotation();
+    // Une carte créée dans une vue masquée (Teaser -> Dossier) garde sa taille
+    // par défaut de 400x300 : on la redimensionne dès que son cadre a une taille,
+    // et on recadre à chaque réapparition.
+    if ("ResizeObserver" in window) {
+      var lastW = 0;
+      new ResizeObserver(function(){
+        var w = map.getContainer().clientWidth;
+        if (!w) { lastW = 0; return; }
+        map.resize();
+        if (!lastW && map._lowiFit) map._lowiFit();
+        lastW = w;
+      }).observe(map.getContainer());
+    }
     return map;
   }
 
@@ -2573,7 +2586,8 @@ table.fee tbody tr:last-child td{border-bottom:0}
             new maplibregl.Marker({ element:el, anchor:"center" }).setLngLat(c).addTo(map);
           });
 
-          map.fitBounds(bboxOf(zonesFC), { padding:36, duration:0 });
+          map._lowiFit = function(){ map.fitBounds(bboxOf(zonesFC), { padding:36, duration:0 }); };
+          map._lowiFit();
           buildLegend("legend-metro-current", metroFC.features, false);
           buildLegend("legend-metro-future", futureFC.features, true);
         }
