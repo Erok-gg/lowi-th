@@ -20,13 +20,14 @@
 
 ## Les cinq temps
 
-### 1. Accroche — « Pooled, discounted prime Bangkok condos. »
+### 1. Accroche — « Pooled prime Bangkok, bought right. » *(à valider)*
 
 | | |
 |---|---|
-| **Idée** | Des condos prime à Bangkok, achetés sous le prix de leur propre immeuble, détenus en pool. |
-| **USP** | Une plateforme d'IA mesure, inventorie et sonde tout le marché ; un réseau dédié sur le terrain apporte et sécurise les biens qu'elle repère. |
-| **Preuve (Teaser)** | 1 chiffre : *123 345 annonces actives suivies* (base Lowi_bkk, 2026-10-13). |
+| **Idée** | Des condos prime à Bangkok, achetés sous le prix de leur propre immeuble, détenus en pool. **On ne dit pas « décote » en accroche** : un professionnel est censé acheter sous le marché, l'annoncer fait amateur. On le laisse entendre. |
+| **Accroche — pistes** | Base retenue : *« Pooled Bangkok assets that deliver. »* Pistes pour insinuer le bon prix d'entrée : ① *« Pooled prime Bangkok, bought right. »* (*bought right* = acheté sous sa valeur, dans le jargon) · ② *« Prime Bangkok, bought right. Pooled to deliver. »* · ③ *« Prime Bangkok, bought the way professionals buy. »* — FR : *« Le prime de Bangkok, acheté au bon prix, détenu en pool. »* |
+| **USP — pistes** | Base : un système complet mis à disposition d'un réseau de professionnels, pour exécuter plus vite et plus sûrement. ① *« Notre IA voit chaque annonce. Notre réseau conclut sur les bonnes — plus vite, et plus sûrement. »* · ② *« Un système complet entre les mains d'un réseau de professionnels : repérer, vérifier, conclure. »* — EN : *« Our AI sees every listing. Our network closes on the right ones — faster, and with more certainty. »* |
+| **Preuve (Teaser)** | 1 chiffre : *123 345 annonces actives suivies par l'IA, mises à jour chaque jour* (base Lowi_bkk, 2026-10-13). |
 | **Visuel** | Le titre « Data. Discipline. Dividend. » (animation Teaser → Dossier). |
 | **Transition** | « Pourquoi mesurer ? Parce que ce marché ne publie pas ses prix. » |
 
