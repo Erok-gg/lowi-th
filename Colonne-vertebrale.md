@@ -1,0 +1,158 @@
+# LOWI — colonne vertébrale du récit
+
+> Document de travail (2026-10-15). Une seule histoire, racontée à trois profondeurs :
+> **Teaser** (donner envie) → **Dossier** (convaincre que ça tient) → **Data room** (permettre de vérifier).
+> Le Dossier développe chaque temps de cette colonne, dans **le même ordre** ; le Teaser en est un
+> extrait (il clone déjà ses blocs depuis le Dossier). À corriger ici d'abord, puis on reconstruit.
+
+## Règles
+
+1. **Un temps = une idée.** Chaque temps a : l'idée en une phrase, sa preuve, son visuel, sa transition.
+2. **Budget de chiffres.**
+   - Teaser : **un chiffre par temps**, environ 5 au total, choisis pour frapper.
+   - Dossier : **2 à 3 par section**, chacun avec sa source en une ligne. Pas de tableau.
+   - Data room : **tout le reste**, avec la méthode, les séries et les sources.
+3. **Aucune projection de rendement détaillée en public.** Le Teaser et le Dossier peuvent citer
+   l'objectif ; le calcul, les scénarios et le modèle vivent dans la data room (accès validé).
+4. **Les risques ne sont pas sur le site pour l'instant** — voir `Risques-a-reformuler.md`.
+
+---
+
+## Les cinq temps
+
+### 1. Accroche — « Pooled, discounted prime Bangkok condos. »
+
+| | |
+|---|---|
+| **Idée** | Des condos prime à Bangkok, achetés sous le prix de leur propre immeuble, détenus en pool. |
+| **USP** | Une plateforme d'IA mesure, inventorie et sonde tout le marché ; un réseau dédié sur le terrain apporte et sécurise les biens qu'elle repère. |
+| **Preuve (Teaser)** | 1 chiffre : *123 345 annonces actives suivies* (base Lowi_bkk, 2026-10-13). |
+| **Visuel** | Le titre « Data. Discipline. Dividend. » (animation Teaser → Dossier). |
+| **Transition** | « Pourquoi mesurer ? Parce que ce marché ne publie pas ses prix. » |
+
+### 2. Problème — un marché qui doit être mesuré
+
+| | |
+|---|---|
+| **Idée** | Pas de registre public des ventes : ce qui circule, c'est ce que les vendeurs espèrent. Dans un même immeuble, deux appartements identiques peuvent avoir un tiers d'écart de prix. |
+| **Preuve (Teaser)** | 1 chiffre : *25 à 42 % d'écart dans un même immeuble* (filtrage plateforme). |
+| **Preuves (Dossier)** | La vacance se situe hors du prime : *24,8 % de logements vides à Bangkok* (TREVC, nov. 2025) ; *93–95 % du stock de luxe vendu* (CBRE). |
+| **Visuel** | Les 4 cartes photo du problème. |
+| **Transition** | « Quand les prix sont opaques, l'avantage revient à celui qui les mesure. » |
+
+### 3. Data — nous mesurons chaque immeuble
+
+| | |
+|---|---|
+| **Idée** | Chaque annonce de cinq portails, collectée chaque jour, rapportée à la médiane de son propre immeuble. |
+| **Preuve (Teaser)** | Le visuel suffit, sans chiffre ajouté. |
+| **Preuves (Dossier)** | *187 926 annonces collectées, 4 514 immeubles, 5 portails, cycle quotidien.* |
+| **Visuel** | **XT Ekkamai** : dix appartements d'une chambre d'environ 30 m², de 3,79 à 6,8 M฿, la moins chère à −30 % de la médiane. |
+| **Transition** | « Mesurer ne suffit pas : encore faut-il savoir quoi acheter, et l'obtenir. » |
+
+### 4. Discipline — ce que nous achetons, et comment nous l'obtenons
+
+C'est le temps le plus dense ; il porte les deux nouvelles slides.
+
+| | |
+|---|---|
+| **Idée** | Du prime uniquement, le long des rails, en quota étranger, et seulement avec une décote. |
+| **Pourquoi le prime** | Liquidité, locataires solvables (expatriés, écoles internationales), demande indépendante du cycle touristique. |
+| **Le compromis assumé** | Le prime se loue moins cher : on n'achète qu'à −20/−30 %. |
+| **Quota étranger** | Plus cher par nature, mais seul véhicule 100 % légal pour la structure HK. |
+| **Leverage** *(slide à créer)* | Le levier de négociation : acheteur au comptant face à des vendeurs pressés (acheteurs chinois en retrait, reventes pour liquidités). Base : `momentum-leverage-analysis.html`. |
+| **Network** *(slide à créer)* | Le réseau qui apporte les biens sous-cotés : comment une offre repérée par la plateforme devient une acquisition. |
+| **Règles** | Les 4 critères de sélection ; Master View comme preuve qu'on sait renoncer. |
+| **Preuve (Teaser)** | 1 chiffre : *−20 à −30 % à l'achat*. |
+| **Preuves (Dossier)** | *3,9–5,0 % de rendement brut sur le prime près des rails* (206 immeubles) ; *achats chinois −23,8 % au S1 2026* (REIC). |
+| **Visuel** | La carte des 9 biens du pool, avec aperçu au survol. |
+| **Transition** | « Acheter sous le prix de l'immeuble change ce que rapporte chaque bien. » |
+
+### 5. Dividend — ce que l'investisseur obtient, et comment il le détient
+
+| | |
+|---|---|
+| **Idée** | Mêmes immeubles, mêmes loyers : acheter 20 à 30 % sous la médiane relève le rendement sur le prix payé, et l'écart se récupère à la revente. |
+| **Preuve (Teaser)** | 1 chiffre : *rendement après décote 4,9–7,1 %*, avec le visuel avant / après. |
+| **Preuves (Dossier)** | L'objectif de TRI (**à arbitrer**, voir plus bas) ; *loyers prime +5,1 % sur un an* (JLL). |
+| **Le véhicule** | Séquestre, holding HK propriétaire des titres, exploitation séparée (slide 06 actuelle). |
+| **Ce que ça coûte** | Les frais (slide 15 actuelle). |
+| **Visuel** | Avant / après décote. **Le tableau des scénarios sur 10 ans part en data room.** |
+| **Transition** | « Les chiffres complets, les biens et le modèle sont dans la data room. » → CTA. |
+
+**Après les cinq temps :** l'équipe (qui porte ça), puis l'appel à l'action (Dossier complet / Data room).
+
+---
+
+## Les slides actuelles du Dossier, rangées dans la colonne
+
+| Slide actuelle | Va dans | Décision proposée |
+|---|---|---|
+| 01 Cover | 1. Accroche | Garder, avec l'USP |
+| 02 The problem | 2. Problème | Garder |
+| 03 Market opportunity | 2. Problème | Fusionner avec 02 ; graphique offre/prix → data room |
+| 04 Bangkok's momentum | 4. Discipline (« le long des rails ») | Réduire à la carte des lignes ; le reste → data room |
+| 05 Pooled asset strategy (4 rôles) | 4. Discipline | Garder, raccourcir |
+| 06 Structure & guarantees | 5. Dividend (« le véhicule ») | Garder, avec le quota étranger |
+| 07 Investment thesis | 4. Discipline | Fusionner : les 4 règles restent, la bande de chiffres part |
+| 08 The return | 5. Dividend | Simplifier : visuel avant / après ; l'équation complète → data room |
+| 09 Why LOWI wins | 3. Data + 4. Discipline | Éclater : plateforme → Data ; terrain/réseau → Network |
+| 14 Investment universe | 4. Discipline | Garder (la carte des 9 biens) ; fiches détaillées → data room |
+| 15 Fee structure | 5. Dividend | Garder |
+| 16 The team | Après les cinq temps | Garder |
+| 17 Close | Fin | Garder, CTA vers la data room |
+| *Nouvelle* Leverage | 4. Discipline | À créer |
+| *Nouvelle* Network | 4. Discipline | À créer |
+
+| Annexe / page actuelle | Proposition |
+|---|---|
+| A — Allocation model | Data room |
+| B — Structure (HK vs Singapour vs Malaisie) | Garder en annexe courte ; détail juridique → data room |
+| C — Tax & exit | Data room |
+| D — Platform (méthode) | Data room (c'est la méthode de mesure) |
+| `thesis.html` | Fusionner dans le temps 2 ; la page devient un document de data room |
+| `momentum-leverage-analysis.html` | Base de la slide Leverage |
+| `deployment-timeline.html` | Data room |
+| `agent-pipeline.html` | Data room |
+
+Il en résulterait un Dossier d'environ **11 sections** dans l'ordre du récit, au lieu de 13 sections numérotées 01–09 puis 14–17.
+
+---
+
+## Où vit chaque chiffre
+
+| Chiffre | Source | Teaser | Dossier | Data room |
+|---|---|:-:|:-:|:-:|
+| 123 345 annonces actives / 187 926 collectées / 4 514 immeubles / 5 portails | Base Lowi_bkk, 2026-10-13 | 1 | ✓ | ✓ |
+| Écart de 25–42 % dans un même immeuble (filtrage) | Plateforme | ✓ | ✓ | ✓ |
+| Décotes vérifiées : Thonglor −20,2 %, Park Origin −33,2 % | Audits terrain | | ✓ | ✓ |
+| XT Ekkamai, 10 lots, −30 % sous la médiane | Base Lowi_bkk, 2026-10-13 | visuel | visuel | ✓ |
+| 24,8 % de vacance, 730 000 logements vides à Bangkok | TREVC, nov. 2025 | | ✓ | ✓ |
+| 21,1 % de vacance en entrée de gamme | AREA | | | ✓ |
+| 93–95 % du stock de luxe vendu | CBRE | | ✓ | ✓ |
+| Rendement prime près des rails 3,9–5,0 % (206 immeubles) | Base Lowi_bkk, 2026-10-14 | | ✓ | ✓ |
+| Rendement après décote 4,9–7,1 % | Calcul | ✓ | ✓ | ✓ |
+| Décote d'entrée −20/−30 % | Thèse | ✓ | ✓ | ✓ |
+| Achats chinois −23,8 % au S1 2026 | REIC | | ✓ | ✓ |
+| Loyers prime +5,1 %, 765 ฿/m²/mois | JLL, T1 2026 | | ✓ | ✓ |
+| Indice des condos +3,1 %/an (2020→2025) | Banque de Thaïlande | | | ✓ |
+| Scénarios de rendement sur 10 ans | Modèle | | | ✓ |
+| Charges de copropriété par génération d'immeuble (35 → 55 ฿/m²/mois) | Base Lowi_bkk | | | ✓ |
+| Rendements par quartier (graphique en barres) | Base Lowi_bkk, 2026-08-31 | | | ✓ |
+| Levée ฿150 M + 150 M | Structure | | ✓ | ✓ |
+| Frais (acquisition, gestion) | Structure | | ✓ | ✓ |
+
+---
+
+## À trancher avant de reconstruire
+
+1. **L'objectif de TRI affiché.** Le titre « 8–10 % » ne tient qu'avec une entrée vers −30 % et une
+   valorisation d'au moins +3 %/an (scénario principal : 7,4–9,5 % pour une entrée à −20/−30 %).
+   Options : garder 8–10 % comme « visé » en public et le détail en data room ; ou afficher
+   « 7–9 % » ; ou ne pas afficher de TRI en public.
+2. **La source du « +3 à 5 %/an » prime** (attribuée à CBRE, non vérifiée). Si tu as le rapport,
+   il devient la source principale.
+3. **Les slides Leverage et Network** : leur contenu concret (exemples de vendeurs, composition du
+   réseau, un cas d'acquisition de bout en bout).
+4. **Les risques** : leur reformulation courte, et l'endroit où ils vivent (probablement la data
+   room seulement).
