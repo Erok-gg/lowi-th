@@ -29,7 +29,7 @@
 | **USP — pistes** | Base : un système complet mis à disposition d'un réseau de professionnels, pour exécuter plus vite et plus sûrement. ① *« Notre IA voit chaque annonce. Notre réseau conclut sur les bonnes — plus vite, et plus sûrement. »* · ② *« Un système complet entre les mains d'un réseau de professionnels : repérer, vérifier, conclure. »* — EN : *« Our AI sees every listing. Our network closes on the right ones — faster, and with more certainty. »* |
 | **Preuve (Teaser)** | 1 chiffre : *123 345 annonces actives suivies par l'IA, mises à jour chaque jour* (base Lowi_bkk, 2026-10-13). |
 | **Visuel** | Le titre « Data. Discipline. Dividend. » (animation Teaser → Dossier). |
-| **Transition** | « Pourquoi mesurer ? Parce que ce marché ne publie pas ses prix. » |
+| **Transition** | « Sur ce marché, l'investisseur navigue à l'aveugle. » — EN : *« In this market, investors fly blind. »* |
 
 ### 2. Problème — un marché qui doit être mesuré
 
