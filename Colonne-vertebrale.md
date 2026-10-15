@@ -57,11 +57,17 @@
 
 | | |
 |---|---|
-| **Idée** | Chaque annonce de cinq portails, collectée chaque jour, rapportée à la médiane de son propre immeuble. |
+| **Idée** | *« Social media, platforms and professional networks are read every day to build the right image of the market. »* ⚠ Réseaux sociaux et réseaux professionnels **en construction** : ne pas publier cette phrase tant qu'ils ne sont pas collectés (aujourd'hui : 5 portails). |
 | **Preuve (Teaser)** | Le visuel suffit, sans chiffre ajouté. |
-| **Preuves (Dossier)** | *187 926 annonces collectées, 4 514 immeubles, 5 portails, cycle quotidien.* |
+| **Preuves (Dossier)** | L'inventaire, au 2026-10-15, en 4 mois de collecte (depuis le 21 juin 2026) : **189 518 annonces collectées**, dont **124 914 actives** · **5 portails** lus chaque jour · **≈ 4,9 millions de données renseignées** (jusqu'à 47 champs par annonce : prix, surface, étage, vues, charges, promoteur…) · **195 035 changements de prix** enregistrés · **130 726 remontées d'annonces** suivies · **plus de 4 500 immeubles**, **1 700 rues**, **65 districts** · **1 308 agents, 618 agences, 531 promoteurs** identifiés. *Chiffres qui montent chaque jour : à figer à la date de publication.* |
 | **Visuel** | **XT Ekkamai** : dix appartements d'une chambre d'environ 30 m², de 3,79 à 6,8 M฿, la moins chère à −30 % de la médiane. |
 | **Transition** | « Mesurer ne suffit pas : encore faut-il savoir quoi acheter, et l'obtenir. » |
+
+**Historique**
+
+- *Idée (v1, Claude)* : « Chaque annonce de cinq portails, collectée chaque jour, rapportée à la médiane de son propre immeuble. »
+- *Pistes d'idée (v2, Claude)* : ① « From Bangkok down to the building: every listing, every day, priced against its own condominium. » · ② « Every listing, every day — read at four scales: the city, the khet, the street, the building. » · ③ « Portals, agents, owner groups — read every day, from the city down to the building. »
+- *Preuves Dossier (v1, Claude)* : « 187 926 annonces collectées, 4 514 immeubles, 5 portails, cycle quotidien. »
 
 ### 4. Discipline — ce que nous achetons, et comment nous l'obtenons
 
