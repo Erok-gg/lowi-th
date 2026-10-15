@@ -102,11 +102,15 @@ C'est le temps le plus dense ; il porte les deux nouvelles slides.
 
 | | |
 |---|---|
-| **Idée** | Mêmes immeubles, mêmes loyers : acheter 20 à 30 % sous la médiane relève le rendement sur le prix payé, et l'écart se récupère à la revente. |
+| **Idée** | Un TRI construit sur un loyer actuel, une revalorisation conservatrice dans le temps et une très probable reprise du marché suite au momentum. ⚠ *Le modèle n'intègre pas de reprise : 8–10 % reposent sur le loyer mesuré, l'indice BoT (+3,1 %/an) et le prix d'entrée. La reprise est un potentiel en plus — « très probable » ne peut pas s'écrire en public.* |
 | **Preuve (Teaser)** | **« 8–10 % visés »** (décidé le 2026-10-15), avec un début d'explication : les leviers ci-dessous, en une ligne chacun. **Aucune mention des frais dans le Teaser.** |
 | **Preuves (Dossier)** | *8–10 % visés* ; *loyers prime +5,1 % sur un an* (JLL). Le calcul et les scénarios : data room. |
 | **Le véhicule** | Séquestre, holding HK propriétaire des titres, exploitation séparée (slide 06 actuelle). |
 | **Ce que ça coûte** | Les frais (slide 15 actuelle) — **Dossier seulement**, pas le Teaser. |
+
+**Historique**
+
+- *Idée (v1, Claude)* : « Mêmes immeubles, mêmes loyers : acheter 20 à 30 % sous la médiane relève le rendement sur le prix payé, et l'écart se récupère à la revente. »
 
 #### Les leviers qui expliquent l'objectif (Teaser : une ligne chacun)
 
