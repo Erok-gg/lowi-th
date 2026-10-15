@@ -2472,7 +2472,7 @@ table.fee tbody tr:last-child td{border-bottom:0}
   }
 
   function buildLegend(containerId, features, dashed){
-    var el = document.getElementById(containerId);
+    var el = typeof containerId === "string" ? document.getElementById(containerId) : containerId;
     if (!el) return;
     var seen = {};
     var order = [];
@@ -2569,9 +2569,23 @@ table.fee tbody tr:last-child td{border-bottom:0}
         map.addSource("metro", { type:"geojson", data:metroFC });
         map.addLayer({ id:"metro-" + map._container.id, type:"line", source:"metro", paint:{ "line-color":["get","color"], "line-width":2.2, "line-opacity":0.85 } });
 
+        map.addSource("future", { type:"geojson", data:futureFC });
+        map.addLayer({ id:"future-line-" + map._container.id, type:"line", source:"future", paint:{ "line-color":["get","color"], "line-width":2, "line-dasharray":[2,2], "line-opacity":0.85 } });
+
+        // Légende des lignes sous les cartes qui n'en ont pas (Teaser, pool).
+        if (map !== momentumMap) {
+          var lg = document.createElement("div");
+          lg.className = "map-legend";
+          var c = map.getContainer();
+          c.parentNode.insertBefore(lg, c.nextSibling);
+          buildLegend(lg, metroFC.features, false);
+          var lf = document.createElement("div");
+          lf.className = "map-legend";
+          lg.parentNode.insertBefore(lf, lg.nextSibling);
+          buildLegend(lf, futureFC.features, true);
+        }
+
         if (map === momentumMap) {
-          map.addSource("future", { type:"geojson", data:futureFC });
-          map.addLayer({ id:"future-line", type:"line", source:"future", paint:{ "line-color":["get","color"], "line-width":2, "line-dasharray":[2,2], "line-opacity":0.85 } });
 
           map.addSource("zones", { type:"geojson", data:zonesFC });
           map.addLayer({ id:"zones-fill", type:"fill", source:"zones", paint:{ "fill-color":["get","color"], "fill-opacity":0.12 } });
