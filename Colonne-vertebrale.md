@@ -92,7 +92,7 @@ Retenus par toi :
 4. **La donnée de comparaison** sur des biens identiques ou similaires du même immeuble.
 5. **La disponibilité du cash** : un acheteur qui peut signer vite pèse sur le prix.
 
-Proposés en plus (à valider) :
+Proposés en plus — **validés le 2026-10-15** :
 
 6. **Le déstockage des promoteurs** : des blocs de lots achevés invendus se cèdent sous le prix de
    marché (Harrison, 74 lots au Park Origin Phrom Phong, juillet 2026 ; JLL : 20–30 % historiques).
