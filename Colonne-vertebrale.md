@@ -89,7 +89,7 @@ C'est le temps le plus dense ; il porte les deux nouvelles slides.
 
 | | |
 |---|---|
-| **Idée** | Du prime uniquement, le long des rails, en quota étranger, et uniquement à nos conditions. |
+| **Idée** | *« We buy prime real estate, along the rails, in the foreign quota — and only on our terms. »* — FR : « Nous achetons de l'immobilier prime, le long des rails, en quota étranger — et uniquement à nos conditions. » (Teaser et Dossier) |
 | **Pourquoi le prime** | Liquidité, locataires solvables (expatriés, écoles internationales), demande indépendante du cycle touristique. |
 | **Le compromis assumé** | La valeur du foncier prime augmente, mais pas les salaires : une opportunité n'est suivie que si elle permet d'atteindre nos objectifs dans le contexte actuel. |
 | **Quota étranger** | Plus cher par nature, mais seul véhicule 100 % légal pour la structure HK. |
@@ -103,6 +103,7 @@ C'est le temps le plus dense ; il porte les deux nouvelles slides.
 
 **Historique**
 
+- *Idée (v2, utilisateur)* : « Du prime uniquement, le long des rails, en quota étranger, et uniquement à nos conditions. »
 - *Idée (v1, Claude)* : « Du prime uniquement, le long des rails, en quota étranger, et seulement avec une décote. » — la décote ne s'annonce pas, elle se laisse entendre.
 - *Compromis assumé (v1, Claude)* : « Le prime se loue moins cher : on n'achète qu'à −20/−30 %. »
 - *Signature (v1, Claude)* : « Ton article « Condos vides à Bangkok » (lexpat.blog), assumé comme écrit par le fondateur : il montre, avant LOWI, pourquoi la vacance se situe hors du prime. Dossier : une ligne + lien en appui de « Pourquoi le prime ». » — remplacé par le **Préambule** (avant le temps 1) : l'article est un historique, pas une preuve.
